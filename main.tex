@@ -1,0 +1,52 @@
+\documentclass[12pt,a4paper]{book}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{pdfx}			% Let's PDF/A it from the start
+\usepackage{graphicx}		% For (you guessed it) graphics
+
+%% Cover-page related
+\usepackage[vcentering,dvips,left=4.0cm,right=3.0cm,top=3.5cm,bottom=3.0cm,includeheadfoot]{geometry}
+\geometry{textwidth=390pt}
+
+%% Bibliography-related
+\bibliographystyle{unsrt}
+\usepackage{tocbibind}		% Adds bibliography (as well as figure and table lists)
+							% to table of contents.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+
+%% Cover page
+\newgeometry{centering}	% Make the page centered on paper
+\include{0-cover-page}
+\restoregeometry		% Restore the page layout as earlier
+
+\include{0b-introduction}
+
+%% Bring order to chaos
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\backmatter
+
+\bibliography{0c-bibliography}
+
+\end{document}

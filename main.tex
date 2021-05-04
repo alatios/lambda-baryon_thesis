@@ -17,6 +17,9 @@
 \usepackage{tocbibind}		% Adds bibliography (as well as figure and table lists)
 							% to table of contents.
 
+%% For better captions
+\usepackage[font=small,labelfont=bf]{caption}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -27,10 +30,10 @@
 
 %% Cover page
 \newgeometry{centering}	% Make the page centered on paper
-\include{0-cover-page}
+\include{tex_files/0-cover-page}
 \restoregeometry		% Restore the page layout as earlier
 
-\include{0b-introduction}
+\include{tex_files/0b-introduction}
 
 %% Bring order to chaos
 \tableofcontents
@@ -41,15 +44,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \mainmatter
+\include{tex_files/01-standard_model}
+\include{tex_files/02-lhcb}
+\include{tex_files/03-lambda_baryon_decay}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \appendix
+\include{tex_files/99-app-angular_distribution}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \backmatter
 
-\bibliography{0c-bibliography}
+\bibliography{tex_files/0c-bibliography}
 
 \end{document}

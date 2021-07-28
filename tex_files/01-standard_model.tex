@@ -49,10 +49,10 @@ Since every attempt to reconcile the general theory of relativity with quantum m
 [Rottura spontanea della simmetria.]
 
 \subsection{Flavour physics}
-An unfamiliar reader may find it amusing to employ the term \textit{flavour} to refer to what have been so far presented as different kinds of particles altogether.
+An reader unfamiliar with SM terminology may find it amusing to employ the word \textit{flavour} to refer to what have been so far presented as different kinds of particles altogether.
 However quirky, the lexical choice highlights a defining feature: flavour, much like the degree of sweetness in a recipe, can change.
 
-As often happens in particle physics, the rules are easier for leptons. For a given flavour, one can define a \textit{leptonic flavour number} $L_\ell$ as the sum total of the difference between the numbers of charged leptons and anti-charged leptons plus the difference between the numbers of neutrinos and antineutrinos of said flavour:
+As often happens in particle physics, the rules are somewhat easier for leptons. For a given generation $\ell = (e,\mu,\tau)$, one can define a \textit{lepton family number} $L_\ell$ as the difference between the number of particles and antiparticles of said generation, charged leptons and neutrinos alike:
 \begin{equation}
 L_\ell
 \coloneqq
@@ -60,19 +60,16 @@ n(\ell^-) - n(\ell^+)
 +
 n(\nu_\ell) - n(\bar{\nu}_\ell).
 \end{equation}
-For all three leptonic flavours, $L_\ell$ is conserved in every interaction except neutrino oscillations.
+For all three generations, $L_\ell$ is conserved in every interaction except neutrino oscillations.
 
 Quarks are not as straightforward.
-A similarly defined quark flavour number, such as the so-called \textit{topness}
+A similarly defined quark flavour number, such as the so-called \textit{topness} (or \textit{truth})
 \begin{equation}
 T
 \coloneqq
 n(t) - n(\bar{t}),
 \end{equation}
-is preserved through EM and strong interactions, but can change when the state undergoes a \textit{weak charged interaction}, i.e. a weak interaction mediated by the charged gauge bosons $W^\pm$.
-
-[Mescolamento dei sapori.]
-
+is preserved through EM and strong interactions, but can change when the state undergoes a \textit{weak charged interaction}, i.e. a weak interaction mediated by the charged gauge bosons $W^\pm$. In fact, one finds that weak interactions for quarks can be accurately described if we assume that the weak eigenstates $(d',s',b')$ of down-type quarks are related to the free mass eigenstates $(d,s,b)$ through a rotation:
 \begin{equation}
 	\begin{pmatrix}
 		d' \\
@@ -89,13 +86,16 @@ is preserved through EM and strong interactions, but can change when the state u
 		d \\
 		s \\
 		b
-	\end{pmatrix}
+	\end{pmatrix}.
 	\label{eq:CKM_matrix}
 \end{equation}
+In this notation, the probability for a quark of flavour $i$ to change into a quark of flavour $j$ as a result of a weak charged interaction is proportional to ${\left| V_{ij} \right|}^2$.
 
-[Probabilità oscillazione propto Vqq'. Riparametrizzazione con $\delta$.]
+The unitary rotation matrix is known as the Cabibbo-Kobayashi-Maskawa (CKM) matrix $V_\text{CKM}$.
 
-The phase $\delta$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, we first have to talk about discrete symmetries. 
+[Valori numerici, riparametrizzazione con tre mixing angles e $\delta$ complessa.]
+
+The complex phase $\delta$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, we first have to talk about discrete symmetries. 
 
 \section{Discrete symmetries and CP violation}
 [Simmetrie in meccanica quantistica. Tre tipologie di simmetrie: continue, di campo e discrete. Sì, insomma, questa parte sono le lezioni di Giammarchi da riscaricarsi. Ops.]
@@ -106,7 +106,7 @@ The phase $\delta$ is known as the CP-violating phase. To fully understand what 
 \subsection{Charge conjugation}
 [Descrizione, C-parità intrinseca, violazione e primo esperimento.]
 
-\subsection{Time inversion}
+\subsection{Time reversal}
 [Descrizione, violazione e primo esperimento.]
 
 \subsection{CP symmetry}
@@ -120,7 +120,7 @@ The phase $\delta$ is known as the CP-violating phase. To fully understand what 
 [Anche se ho usato la parola con leggerezza nei capitoli precedenti], the concept of \textit{spin} may very well be one of the most challenging in particle physics.
 
 \subsection{EDM and MDM}
-[Comportamento sotto CPT, evidenza che momento non nullo implica violazione CP.]
+[Comportamento sotto CPT, evidenza che EDM non nullo implica violazione CP, mentre MDM può essere usato per testare CPT perché dev'essere uguale per particella-antiparticella.]
 
 \section{Helicity formalism}
 [Il Richman.]

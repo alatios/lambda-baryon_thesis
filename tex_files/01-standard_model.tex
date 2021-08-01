@@ -1,10 +1,20 @@
-\chapter{Introduction to flavour physics}
-Ever since Democritus' philosophy of atomism, one of the driving desires behind mankind's advancements in the fields of natural science has been to reduce reality to its basic components. [...]
-
-[...], this chapter explores the theoretical framework for the rest of thesis, introducing key concepts such as \textit{spin}, \textit{helicity} and the importance of \textit{angular distributions} of decay products.
+\chapter{Flavour physics and CP symmetry violation}
+This chapter explores the theoretical framework for the rest of the thesis.
+Section \ref{sec:sm} will provide a basic introduction to the Standard Model of Particle Physics and flavour physics in particular;
+Section \ref{sec:discrete} will delve into the inner workings of discrete symmetries in quantum physics;
+Section \ref{sec:edms} will discuss the relevance of electromagnetic dipole moments of elementary particles as a test for CP violation and CPT symmetry;
+finally, Section \ref{sec:lambda} will introduce the main topic of the thesis, the study of dipole moments of the $\Lambda$ baryon.
 
 \section{The Standard Model of Particle Physics}
-[Introduzione? Da qualche parte devi definire la sigla SM.]
+\label{sec:sm}
+Ever since Democritus' philosophy of atomism, one of the driving desires behind mankind's advancements in the fields of natural science has been to reduce reality to its basic components.
+While one can convincingly argue that we may never fully understand what has come to be known as the quantum world, the Standard Model of Particle Physics (Standard Model, or SM, for short) is as close as physics has to offer to a comprehensive theory of the building blocks of matter and energy.
+
+[... Qualcosa sulle previsioni sperimentali confermate.]
+
+While the Standard Model is a self-consistent theory tested to a high degree of precision, it would be a serious mistake to call it \textit{complete}, even if only for the three fundamental forces it covers.
+Many experimental evidences, some of which will be discussed in the following pages, have already opened cracks in the model, and many more are likely to emerge in the future;
+one of the recurring topics of this chapter will thus be the need for physics Beyond the Standard Model (BSM).
 
 \subsection{Elementary particles}
 \begin{figure}[t!]
@@ -18,27 +28,27 @@ Intuitively, a particle is said to be \textit{elementary} when no substructure c
 A century of efforts in the fields of nuclear, quantum, and high energy physics has whittled down the spectrum of matter to just seventeen unique fundamental particles, colloquially known as the \textit{particle zoo} and depicted in Figure \ref{fig:particle_zoo}.
 
 Each particle is joined by an \textit{antimatter particle} (\textit{antiparticle} for short), a companion of opposite charge identified by the prefix \textit{anti-}, e.g. antimuon for the muon; the only exception to this naming convention is the electron, whose antiparticle, for historical reasons, is known as positron.
-While often omitted for the sake of brevity, antiparticles are elementary particles in every respect, distinct from their partners (bar the neutral gauge bosons, which are their own antiparticles) and related to them through the transformation of \textit{charge conjugation}.
+While often omitted for the sake of brevity, antiparticles are elementary particles in every respect, distinct from their partners (bar the neutral gauge bosons, which are their own antiparticles) and related to them through the transformation of charge conjugation (see Section \ref{sec:C-symmetry}).
 
 \subsubsection{Leptons}
 Leptons are fermions (half-integer spin particles) not sensitive to the strong nuclear interaction.
 There are currently six \textit{flavours} of leptons grouped in three generations: each generation comprises a \textit{charged} lepton (electron, muon, tauon) and a \textit{neutral} lepton (electron neutrino, muon neutrino, tauon neutrino).
 
-All charged leptons have a charge of $-q_e$, where $q_e$ is defined as the \textit{elementary positive charge}, and their mass ranges from $\approx \SI{0.5}{MeV}$ for the electron to over $\SI{1.7}{GeV}$ for the tauon.
-By contrast, as the names suggest, all neutrinos are electrically neutral and are assumed massless in the Standard Model\footnote{The observation of flavour oscillation in solar neutrinos shows that neutrinos do in fact have non-zero, albeit very small, mass. This discrepancy is considered one of the major challenges to the Standard Model.}; this implies that their only meaningful interactions happen through the weak nuclear force, which grants them their characteristic evasiveness to most particle detectors.
+All charged leptons have a charge of $-e$, where $e$ is defined as the \textit{elementary positive charge}, and their mass ranges from $\approx \SI{0.5}{MeV}$ for the electron to over $\SI{1.7}{GeV}$ for the tauon.
+By contrast, as the names suggest, all neutrinos are electrically neutral and are assumed massless in the Standard Model\footnote{The observation of flavour oscillation in solar neutrinos shows that neutrinos do in fact have non-zero, albeit very small, mass.}; this implies that their only meaningful interactions happen through the weak nuclear force, which grants them their characteristic evasiveness to most particle detectors.
 
 
 \subsubsection{Quarks}
-Much like leptons, quarks are also fermions existing in three generations. The main difference from the former category is that quarks, besides interacting through weak and electromagnetic forces, are also susceptible to the strong nuclear forces; this allows them to bind together in composite states known as \textit{hadrons}, which are classified as \textit{baryons} (states of three quarks) and \textit{mesons} (states of one quark and one antiquark).
+Much like leptons, quarks are also fermions existing in three generations. The main difference from the former category is that quarks, besides interacting through weak and electromagnetic forces, are also susceptible to the strong nuclear forces; this allows them to bind together in composite states known as \textit{hadrons}, which are classified as \textit{baryons} (states of three quarks) and \textit{mesons} (states of one quark and one antiquark)\footnote{As recently as 2003, evidence has surfaced for the existence of exotic baryons composed of four (\textit{tetraquarks}) and five quarks (\textit{pentaquarks}).}.
 
-Quarks can be classified as \textit{up-type} (up, charm and top quarks) and \textit{down-type} (down, strange and bottom quarks): up-type quarks have a fractionary charge of $+\frac{2}{3} q_e$, whereas down-type quarks have a charge of $-\frac{1}{3} q_e$. All quarks also have one of three \textit{color} charges (red, green or blue), while antiquarks similarly have one of three \textit{anti-color} charges (antired, antigreen or antiblue). A combination of all three colors/anti-colors or a combination of a color and its matching anticolor produces \textit{colorless} particles, a property of all observed quark composite states.
+Quarks can be classified as \textit{up-type} (up, charm and top quarks) and \textit{down-type} (down, strange and bottom quarks): up-type quarks have a fractionary charge of $+\frac{2}{3} e$, whereas down-type quarks have a charge of $-\frac{1}{3} e$. All quarks also have one of three \textit{color} charges (red, green or blue), while antiquarks similarly have one of three \textit{anti-color} charges (antired, antigreen or antiblue). A combination of all three colors/anti-colors or a combination of a color and its matching anticolor produces \textit{colorless} particles, a property of all observed quark composite states.
 
 Unlike leptons, quarks are impossible to observe directly: according to the phenomenon of \textit{color confinement}, the energy of the interaction field between two color charges being pulled apart increases with their distance until it becomes high enough to create a quark-antiquark pair.
 This process of \textit{fragmentation} develops many times over in such a way that the final observable state is entirely composed of colorless particles.
 For this reason, high energy physics experiments such as LHCb do not detect free quarks, instead observing cone-shaped streams of hadrons known as \textit{hadronic jets}.
 
 \subsubsection{Gauge bosons and fundamental interactions}
-The fundamental forces driving the interactions between elementary particles are introduced in the Standard Model via the so-called \textit{gauge principle}.
+The fundamental forces driving the interactions between elementary particles are introduced in the Standard Model via the so-called \textit{gauge principle}. 
 
 [Gruppo di simmetria, principio di gauge, QCD e teoria elettrodebole.]
 
@@ -98,12 +108,14 @@ The unitary rotation matrix is known as the Cabibbo-Kobayashi-Maskawa (CKM) matr
 The complex phase $\delta$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, a digression into discrete symmetries is needed.
 
 \section{Discrete symmetries and CP violation}
+\label{sec:discrete}
 [Simmetrie in meccanica quantistica. Tre tipologie di simmetrie: continue, di campo e discrete. Sì, insomma, questa parte sono le lezioni di Giammarchi da riscaricarsi. Ops.]
 
 \subsection{Parity}
 [Descrizione, parità intrinseca, violazione e primo esperimento.]
 
 \subsection{Charge conjugation}
+\label{sec:C-symmetry}
 [Descrizione, C-parità intrinseca, violazione e primo esperimento.]
 
 \subsection{Time reversal}
@@ -131,6 +143,7 @@ find $\eta_\textbf{CMB} \approx {10}^{-10}$, whereas the Standard Model predicts
 New sources of CP violation are therefore required to match the observed value, with a promising field being the search for intrinsic electromagnetic dipole moments.
 
 \section{Electromagnetic dipole moments}
+\label{sec:edms}
 
 [Anche se ho usato la parola con leggerezza nei capitoli precedenti], the concept of \textit{spin} may very well be one of the most challenging in particle physics.
 
@@ -141,6 +154,7 @@ New sources of CP violation are therefore required to match the observed value, 
 \subsection{MDMs}
 
 \section{The \texorpdfstring{$\Lambda$}{Lambda} baryon}
+\label{sec:lambda}
 
 Furthermore, unlike in the case of the prospective discovery of a neutron
 EDM\footnote{Quantum chromodynamics (QCD), the theory describing the interaction of quarks and gluons, allows for a CP-violating term proportional to the QCD vacuum angle $\theta$. Current measurements of the neutron EDM constrain $\theta \lesssim {10}^{-10}$, a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},

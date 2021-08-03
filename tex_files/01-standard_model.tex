@@ -109,15 +109,55 @@ is preserved through EM and strong interactions, but can change when the state u
 		s \\
 		b
 	\end{pmatrix}.
-	\label{eq:CKM_matrix}
+	\label{eq:CKM-matrix-mixing}
 \end{equation}
 In this notation, the probability for a quark of flavour $i$ to change into a quark of flavour $j$ as a result of a weak charged interaction is proportional to ${\left| V_{ij} \right|}^2$.
 
-The unitary rotation matrix is known as the Cabibbo-Kobayashi-Maskawa (CKM) matrix $V_\text{CKM}$.
+The unitary rotation matrix is known as the Cabibbo-Kobayashi-Maskawa (CKM) matrix $V_\text{CKM}$. The moduli of its components up to the third decimal place, according to the most recent estimates, are
+\begin{equation}
+	\begin{pmatrix}
+		\left|V_{ud}\right| & \left|V_{us}\right| & \left|V_{ub}\right| \\
+		\left|V_{cd}\right| & \left|V_{cs}\right| & \left|V_{cb}\right| \\
+		\left|V_{td}\right| & \left|V_{ts}\right| & \left|V_{tb}\right|
+	\end{pmatrix}
+	\approx 
+	\begin{pmatrix}
+		0.974 & 0.224 & 0.004 \\
+		0.221 & 0.987 & 0.041 \\
+		0.008 & 0.039 & 1.013
+	\end{pmatrix}.
+	\label{eq:CKM-matrix-numerical}
+\end{equation}
 
-[Valori numerici, riparametrizzazione con tre mixing angles e $\delta$ complessa.]
+A full definition of the CKM matrix requires four independent parameters.
+Particularly useful for the following sections is the standard parameterization with three angles $\theta_{12}$, $\theta_{23}$, $\theta_{13}$, expressing the mixing between different quark generations, and a complex phase $\delta_{13}$.
+Defining $s_{ik} \coloneqq \sin\theta_{ik}$ and $c_{ik} \coloneqq \cos\theta_{ik}$, $V_\text{CKM}$ can be written as
+\begin{equation}
+	V_\text{CKM}
+	=
+	\begin{pmatrix}
+		c_{12} c_{13}
+		&
+		s_{12} c_{13}
+		&
+		s_{13} e^{-i\delta_{13}}
+		\\
+		- s_{12} c_{23} - c_{12} s_{23} s_{13} e^{i\delta_{13}}
+		&
+		c_{12} c_{23} - s_{12} s_{23} s_{13} e^{i\delta_{13}}
+		&
+		s_{23} c_{13}
+		\\
+		s_{12} s_{23} - c_{12} c_{23} s_{13} e^{i\delta_{13}}
+		&
+		-c_{12} s_{23} - s_{12} c_{23} s_{13} e^{i\delta_{13}}
+		&
+		c_{23} c_{13}
+	\end{pmatrix}	
+	\label{eq:CKM-matrix-parameterization}
+\end{equation}
 
-The complex phase $\delta$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, a digression into discrete symmetries is needed.
+The phase $\delta_{13}$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, a digression into discrete symmetries is needed.
 
 \section{Discrete symmetries and CP violation}
 \label{sec:discrete}
@@ -127,12 +167,9 @@ In quantum mechanics, a system described by an Hamiltonian $\hat{\mathcal{H}}$ i
 \end{equation}
 Symmetries are of great relevance in physics on account of Noether's theorem, which establishes a relationship between the symmetry of a system and a corresponding conservation law.
 An example of this principle has already been presented earlier in this thesis:
-the three symmetry groups employed in SM gauge theories all imply the conservation of a specific charge, be it weak isospin, hypercharge, or color.
+the three symmetry groups employed in SM gauge theories all imply the conservation of a specific charge, be it weak isospin, hypercharge, or color. These are instances of \textit{continuous} symmetries, meaning the related transformations change the system <<in a smooth way>>, much like a rotation does; by contrast, this section will delve into \textit{discrete} symmetries, which do not share that property.
 
-
-[Simmetrie continue e discrete.]
-
-\subsection{Parity}
+\subsection{Parity inversion}
 [Descrizione, parità intrinseca, violazione e primo esperimento.]
 
 \subsection{Charge conjugation}
@@ -156,7 +193,7 @@ For one thing, while C and P symmetries are maximally violated by the weak inter
 this is readily seen with the chirally left-handed neutrino, which possesses a CP-partner (the right-handed antineutrino) despite lacking both a P-partner (the right-handed neutrino) and a C-partner (the left-handed antineutrino). The subject of CP violation is also closely tied to another long-standing dilemma in both particle physics and cosmology: the observed asymmetry between matter and antimatter in our Universe.
 A perfectly CP-symmetric system would produce a roughly equal number of particles and antiparticles, which would annihilate one another and yield an empty Universe; our very existence implies a primordial imbalance that resulted in baryogenesis and therefore some degree of CP violation.
 
-[Violazione della simmetria CP: osservazioni.]
+[Violazione della simmetria CP: osservazioni. Nota sulla $\delta$.]
 
 Despite the significant number of experimental evidences, the extent of known CP-violating processes is several orders of magnitude below what is expected from cosmological estimates.
 The observed matter-antimatter imbalance can be quantified through the \textit{baryon asymmetry parameter}, computed as the discrepancy between the densities of baryons and antibaryons normalized to the radiation density $n_\gamma$:

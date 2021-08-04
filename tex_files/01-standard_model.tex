@@ -175,7 +175,7 @@ The absence of a Noether-like theorem for this class of transformations does not
 as will be shown, the three symmetries we'll focus on have a remarkable influence on many fields of study.
 
 \subsection{Parity inversion}
-By definition, the transformation of \textit{parity inversion} $\hat{P}$, also simply known as \textit{parity}, flips the sign of the three spatial coordinates:
+By definition, the \textit{parity inversion} (or simply \textit{parity}) transformation $\hat{P}$ flips the sign of the three spatial coordinates:
 \begin{equation}
 	\hat{P} : \begin{pmatrix}
 		x \\ y \\ z
@@ -185,35 +185,41 @@ By definition, the transformation of \textit{parity inversion} $\hat{P}$, also s
 		-x \\ -y \\ -z
 	\end{pmatrix}.
 \end{equation}
-Its action on a quantum $\ket{\psi(\hat{x},t)}$ is therefore
+Its action on a quantum $\ket{\psi(\vec{x},t)}$ is therefore
 \begin{equation}
-	\hat{P} \ket{\psi(\hat{x},t)} = \ket{\psi(-\hat{x},t)}.
+	\hat{P} \ket{\psi(\vec{x},t)} = \ket{\psi(-\vec{x},t)}.
 \end{equation}
 
 More interestingly, for parity eigenstates (known as \textit{parity-defined} states) a parity quantum number can be introduced;
 such states may have a \textit{P-parity} eigenvalue $\eta_p = +1$ (parity-even states) or $\eta_p = -1$ (parity-odd states).
 Since by definition $\hat{P}^2 = \mathds{1}$, where $\mathds{1}$ is the identity operator, these are the only two allowed P-parity values.
 
-[Violazione e primo esperimento.]
+A similarly dichotomous behaviour is observed on both scalar and vector quantities commonly used in classical physics, such as momenta and electromagnetic fields.
+Parity-even scalar quantities are called \textit{true scalars} or just \textit{scalars} (e.g. energy), whereas parity-odd ones are called \textit{pseudoscalars} (e.g. helicity).
+The same distinction is present for vector quantities, which are either \textit{polar vectors} (e.g. angular momentum) or \textit{axial vectors} (e.g. linear momentum).
+
+As far as is currently known, gravity, electromagnetic and strong nuclear interactions conserve parity.
+The same cannot be said for the weak interaction, the P-violating properties of which were first proven in the 1956 Wu experiment on the $^{60}\text{Co}$ $\beta^-$ decay. 
 
 \subsection{Charge conjugation}
 \label{sec:C-symmetry}
-[Descrizione.]
-
+The transformation of \textit{charge conjugation} $\hat{C}$ changes the sign of all electric charges:
 \begin{equation}
-	\hat{C} : q \rightarrow -q
+	\hat{C} : q \rightarrow -q.
 \end{equation}
-
+It should be readily apparent that $\hat{C}$ has close ties with the concept of antimatter; in fact, the action of charge conjugation turns a quantum state into its antimatter partner, inverting the sign of all flavour quantum numbers in the process:
 \begin{equation}
-	\hat{C} \ket{\psi} = \ket{\bar{\psi}}
+	\hat{C} \ket{\psi} = \ket{\bar{\psi}}.
 \end{equation}
-For single-particle systems, the only possible $\hat{C}$ eigenstates are particles which are their own antiparticle, like the photon, for which a C-parity $\eta_c = \pm 1$ is defined by analogy with the P-parity eigenvalue.
+For single-particle systems, the only possible $\hat{C}$ eigenstates are particles that are their own antiparticle, like the photon, for which a C-parity $\eta_c = \pm 1$ is defined by analogy with the P-parity eigenvalue.
 
-[Violazione e primo esperimento.]
+Unlike in the case of parity, there isn't a single breakthrough experiment credited for showing that the weak interaction is not C-symmetric:
+it was known since before Wu's results that parity violation in a weak process, as unlikely as it was deemed at the time, would also imply a violation of charge conjugation.
+%% Boh, credo! E perché mai?
+As for the other three fundamental interactions, no evidence of C symmetry violation has surfaced so far.
 
 \subsection{Time reversal}
-[Descrizione.]
-
+Perhaps the most intuitively named of the three discrete symmetries discussed here, \textit{time reversal} $\hat{T}$ does exactly what it promises:
 \begin{equation}
 	\hat{T} : t \rightarrow -t
 \end{equation}
@@ -221,21 +227,23 @@ The action of time reversal on a quantum state is represented by an \textit{anti
 \begin{equation}
 	\hat{T} \ket{\psi(\vec{x},t)} = \ket{\psi^*(\vec{x},-t)}
 \end{equation}
-There are many arguments for the antiunitarity of $\hat{T}$, the most convincing being that it prevents final states with negative energy.
+There are a number of arguments for the antiunitarity of $\hat{T}$, the most straightforward being that it prevents final states with negative energy.
 
-Once more, strong and electromagnetic forces are T-symmetric, whereas the weak nuclear force isn't.
+Once more, gravity, strong and electromagnetic forces are T-symmetric, whereas the weak nuclear force isn't.
 However, as will be explained shortly, this knowledge isn't the result of a direct experiment, instead exploiting a side effect of the CPT theorem.
 
 \subsection{CP symmetry}
-The sequential combination of C, P and T symmetries, commonly designated as CPT symmetry, plays a key role in the foundations of quantum physics.
-As well as being the only combination of said symmetries still observed to be a symmetry of physical laws, the \textit{CPT theorem} states that any Lorentz-invariant local quantum field theory must be CPT-symmetric.
+The sequential combination of C, P and T transformations, commonly designated as CPT symmetry, plays a key role in the foundations of quantum physics.
+As well as being the only combination of said transformation still observed to be a symmetry of physical laws, the \textit{CPT theorem} states that any Lorentz-invariant local quantum field theory must be CPT-symmetric.
 Because a violation of the CPT symmetry would imply the collapse of the modern quantum physics framework, it is generally accepted that a T-violating process must also be a CP-violating process.
 This bears an important consequence on the study of discrete symmetry violations: because of the self-evident hindrances in building a time-reversed experimental setup outside of trivial cases, every test of T violation becomes by necessity a test of CP violation.
 
-Setting this notion aside, the CP symmetry is an interesting field of study in and of itself.
+Setting this notion aside, CP symmetry is an interesting field of study in and of itself.
 For one thing, while C and P symmetries are maximally violated by the weak interaction, CP isn't;
 this is readily seen with the chirally left-handed neutrino, which possesses a CP-partner (the right-handed antineutrino) despite lacking both a P-partner (the right-handed neutrino) and a C-partner (the left-handed antineutrino). The subject of CP violation is also closely tied to another long-standing dilemma in both particle physics and cosmology: the observed asymmetry between matter and antimatter in our Universe.
 A perfectly CP-symmetric system would produce a roughly equal number of particles and antiparticles, which would annihilate one another and yield an empty Universe; our very existence implies a primordial imbalance that resulted in baryogenesis and therefore some degree of CP violation.
+
+Since gravity, EM and strong interactions all individually conserve parity and charge conjugation, it stands to reason that they are also CP-symmetric, leaving the weak nuclear interaction as the only possible CP-violating fundamental force.
 
 [Violazione della simmetria CP: osservazioni. Nota sulla $\delta$.]
 

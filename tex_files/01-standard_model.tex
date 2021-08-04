@@ -165,19 +165,63 @@ In quantum mechanics, a system described by an Hamiltonian $\hat{\mathcal{H}}$ i
 \begin{equation}
 \left[ \hat{\mathcal{H}}, \hat{S} \right] = 0.
 \end{equation}
-Symmetries are of great relevance in physics on account of Noether's theorem, which establishes a relationship between the symmetry of a system and a corresponding conservation law.
+Symmetries are of great relevance in physics on account of Noether's theorem, which establishes a relationship between the \textit{continuous} symmetry of a system and a corresponding conservation law;
+the emphasis is on the requirement of continuity, meaning the related transformation changes the system <<in a smooth way>>, much like a rotation does.
 An example of this principle has already been presented earlier in this thesis:
-the three symmetry groups employed in SM gauge theories all imply the conservation of a specific charge, be it weak isospin, hypercharge, or color. These are instances of \textit{continuous} symmetries, meaning the related transformations change the system <<in a smooth way>>, much like a rotation does; by contrast, this section will delve into \textit{discrete} symmetries, which do not share that property.
+the three symmetry groups employed in SM gauge theories all imply the conservation of a specific charge, be it weak isospin, hypercharge, or color.
+
+By contrast, this section will delve into \textit{discrete} symmetries, which do not share said <<smoothness>> property.
+The absence of a Noether-like theorem for this class of transformations does not detract from their importance in physics:
+as will be shown, the three symmetries we'll focus on have a remarkable influence on many fields of study.
 
 \subsection{Parity inversion}
-[Descrizione, parità intrinseca, violazione e primo esperimento.]
+By definition, the transformation of \textit{parity inversion} $\hat{P}$, also simply known as \textit{parity}, flips the sign of the three spatial coordinates:
+\begin{equation}
+	\hat{P} : \begin{pmatrix}
+		x \\ y \\ z
+	\end{pmatrix}
+	\rightarrow
+	\begin{pmatrix}
+		-x \\ -y \\ -z
+	\end{pmatrix}.
+\end{equation}
+Its action on a quantum $\ket{\psi(\hat{x},t)}$ is therefore
+\begin{equation}
+	\hat{P} \ket{\psi(\hat{x},t)} = \ket{\psi(-\hat{x},t)}.
+\end{equation}
+
+More interestingly, for parity eigenstates (known as \textit{parity-defined} states) a parity quantum number can be introduced;
+such states may have a \textit{P-parity} eigenvalue $\eta_p = +1$ (parity-even states) or $\eta_p = -1$ (parity-odd states).
+Since by definition $\hat{P}^2 = \mathds{1}$, where $\mathds{1}$ is the identity operator, these are the only two allowed P-parity values.
+
+[Violazione e primo esperimento.]
 
 \subsection{Charge conjugation}
 \label{sec:C-symmetry}
-[Descrizione, C-parità intrinseca, violazione e primo esperimento.]
+[Descrizione.]
+
+\begin{equation}
+	\hat{C} : q \rightarrow -q
+\end{equation}
+
+\begin{equation}
+	\hat{C} \ket{\psi} = \ket{\bar{\psi}}
+\end{equation}
+For single-particle systems, the only possible $\hat{C}$ eigenstates are particles which are their own antiparticle, like the photon, for which a C-parity $\eta_c = \pm 1$ is defined by analogy with the P-parity eigenvalue.
+
+[Violazione e primo esperimento.]
 
 \subsection{Time reversal}
 [Descrizione.]
+
+\begin{equation}
+	\hat{T} : t \rightarrow -t
+\end{equation}
+The action of time reversal on a quantum state is represented by an \textit{antiunitary} (unitary and antilinear) operator, which implies a complex conjugation on top of the time reversal itself:
+\begin{equation}
+	\hat{T} \ket{\psi(\vec{x},t)} = \ket{\psi^*(\vec{x},-t)}
+\end{equation}
+There are many arguments for the antiunitarity of $\hat{T}$, the most convincing being that it prevents final states with negative energy.
 
 Once more, strong and electromagnetic forces are T-symmetric, whereas the weak nuclear force isn't.
 However, as will be explained shortly, this knowledge isn't the result of a direct experiment, instead exploiting a side effect of the CPT theorem.

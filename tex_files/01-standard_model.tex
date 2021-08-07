@@ -268,13 +268,12 @@ New sources of CP violation are therefore required to match the observed value, 
 \section{Electromagnetic dipole moments}
 \label{sec:edms}
 
-[Anche se ho usato la parola con leggerezza nei capitoli precedenti], the concept of \textit{spin} may very well be one of the most challenging in particle physics.
-
-[Lo ammetto, non so bene cosa dire qui.]
+%[Anche se ho usato la parola con leggerezza nei capitoli precedenti], the concept of \textit{spin} may very well be one of the most challenging in particle physics.
+%[Lo ammetto, non so bene cosa dire qui.]
 
 \subsection{EDMs}
 
-The electric dipole moment (EDM) of a particle of spin $\vec{S}$ is
+The electric dipole moment (EDM) of a point-like particle of spin $\vec{S}$ is
 \begin{equation}
 \vec{\delta} = d \frac{\mu_B}{\hbar} \vec{S},
 \end{equation}
@@ -283,16 +282,43 @@ where $d$ is the gyroelectric ratio,
 \mu_B = \frac{e\hbar}{2mc},
 \end{equation}
 is the particle magneton, $c$ is the speed of light in a vacuum and $m$ is the particle mass.
+When the particle crosses an external electric field $\vec{E}$, its EDM will polarize by changing the direction of the spin. This introduces an energy term in the system's Hamiltonian with the form
+\begin{equation}
+H_\text{EDM} = - \vec{\delta} \cdot \vec{E} .
+\label{eq:EDM-hamiltonian}
+\end{equation}
 
-[Comportamento sotto CPT, evidenza che EDM non nullo implica violazione CP, mentre MDM può essere usato per testare CPT perché dev'essere uguale per particella-antiparticella.]
+One can now check how the term \eqref{eq:EDM-hamiltonian} behaves when acted upon by some of the discrete transformations outlined in Section \ref{sec:discrete}.
+The behaviour of spin $\vec{S}$, and therefore of the spin-related EDM $\vec{\delta}$, can easily be understood by interpreting it as a particle's intrinsic angular momentum, which in classical mechanics is written in its most basic form as
+\begin{equation}
+\vec{L} = \vec{r} \times m \frac{d\vec{r}}{dt}.
+\label{eq:angular-momentum}
+\end{equation}
+As previously explained, parity inversion operator $\hat{P}$ flips the sign of spatial coordinates.
+From the above formula it should thus be immediately apparent that $\vec{L}$, $\vec{S}$ and $\vec{\delta}$ are all polar vectors, i.e. parity-even.
+By contrast, with a similar line of reasoning one can show that the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
+\begin{equation}
+H_\text{EDM} \xrightarrow{P} - H_\text{EDM}.
+\end{equation}
 
-It follows that, for a truly point-like particle to have a permanent EDM, CP symmetry must be violated.
+When considering time reversal $\hat{T}$, the situation is specular:
+\eqref{eq:angular-momentum} implies that the EDM $\vec{\delta}$ flips its sign, whereas the electric field $\vec{E}$ remains unchanged, implying
+\begin{equation}
+H_\text{EDM} \xrightarrow{T} - H_\text{EDM}.
+\label{eq:EDM-hamiltonian-under-T}
+\end{equation}
+The above result in particular contains a crucial piece of information:
+assuming the validity of the CPT theorem, a Hamiltonian containing the EDM's interaction term \eqref{eq:EDM-hamiltonian} can only be CP-symmetric if the average (or \textit{permanent}) EDM of the particle is zero.
+
+It follows that, for a truly point-like particle to have a permanent EDM, CP symmetry must be violated in some measure.
 As explained in Section \ref{sec:CP-symmetry-violation}, the only known source of CP violation within the Standard Model is the complex phase $\delta_{13}$ in quark mixing, which may give a small contribution to the EDMs of point-like particles like electrons ($\delta \approx {10}^{-40}\,e\,\text{cm}$) and quarks ($\delta \approx {10}^{-34} \,e\,\text{cm}$) via beyond-tree-level diagrams. Composite particles such as baryons are accorded some leeway on account of their finite size: the weak interaction between quarks inside the neutron, for instance, contributes to a possible EDM up to $\delta \approx {10}^{-31}\,e\,\text{cm}$.
 
 In all cases, the predicted SM contributions are orders of magnitudes below the sensitivity reached by current generation experiments.
 For all intents and purposes, the observation of a non-zero permanent EDM in a baryon would imply the discovery of a BSM source of CP violation.
 
 \subsection{MDMs}
+
+[mentre MDM può essere usato per testare CPT perché dev'essere uguale per particella-antiparticella.]
 
 \section{The \texorpdfstring{$\Lambda$}{Lambda} baryon}
 \label{sec:lambda}

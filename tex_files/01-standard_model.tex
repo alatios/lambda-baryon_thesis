@@ -236,7 +236,7 @@ However, as will be explained shortly, this knowledge isn't the result of a dire
 \subsection{CP symmetry and violation}
 \label{sec:CP-symmetry-violation}
 The sequential combination of C, P and T transformations, commonly designated as CPT symmetry, plays a key role in the foundations of quantum physics.
-As well as being the only combination of said transformation still observed to be a symmetry of physical laws, the \textit{CPT theorem} states that any Lorentz-invariant local quantum field theory must be CPT-symmetric.
+As well as being the only combination of said transformations still observed to be a symmetry of physical laws, the \textit{CPT theorem} states that any Lorentz-invariant local quantum field theory must be CPT-symmetric.
 Because a violation of the CPT symmetry would imply the collapse of the modern quantum physics framework, it is generally accepted that a T-violating process must also be a CP-violating process.
 This bears an important consequence on the study of discrete symmetry violations: because of the self-evident hindrances in building a time-reversed experimental setup outside of trivial cases, every test of T violation becomes by necessity a test of CP violation.
 
@@ -269,27 +269,31 @@ New sources of CP violation are therefore required to match the observed value, 
 \label{sec:emdms}
 
 \subsection{EDMs}
-The electric dipole moment (EDM) of a system measures the spatial separation of charges within said system.
-For the simplest of relevant charge configurations, a dipole of point charges $\pm q$ separated by a distance $r$, the EDM is expressed as
+The electric dipole moment (EDM) $\vec{\delta}$ is the measure of a system's \textit{polarity}, i.e. the spatial separation of positive and negative charges within the system.
+For the simplest of the relevant charge configurations, a dipole of point charges $\pm q$ separated by a distance $r$, the EDM is expressed as
 \begin{equation}
 	\vec{\delta} = q \vec{r},
 \end{equation}
 where the displacement vector $\vec{r}$ points from the negative charge to the positive one.
 
 It's hardly a feat of imagination to theorize that a composite particle like the neutron could acquire an EDM, even if the three quarks inside it cannot be thought of as a system of charges in the classical sense.
-It may be less intuitive that \textit{elementary}, point-like particles such as electrons and quarks may have one, due to quantum effects arising from the creation and destruction of virtual particles (so-called \textit{loops} in Feynman diagrams).
+It may be less intuitive that elementary, point-like particles such as electrons and quarks could gain one, due to quantum effects resulting in the creation and destruction of virtual particles (so-called \textit{loops} in higher order Feynman diagrams).
 
-%% Cambia con notazione di Neri: è solo spin-1/2, usa lo spin-polarization vector.
 For a spin-$\frac{1}{2}$ particle, its EDM is written in Gaussian units as
 \begin{equation}
-\vec{\delta} = d \frac{\mu_B}{\hbar} \vec{S},
+\vec{\delta} = d \frac{\mu_B}{2} \vec{s},
 \end{equation}
 where $d$ is the gyroelectric ratio,
 \begin{equation}
 \mu_B = \frac{e\hbar}{2mc},
 \end{equation}
-is the particle magneton, $c$ is the speed of light in a vacuum and $m$ is the particle mass.
+is the particle magneton, $c$ is the speed of light in a vacuum, $m$ is the particle mass and
+\begin{equation}
+\vec{s} = 2 \frac{\braket{\vec{S}}}{\hbar}
+\end{equation}
+is the spin polarization vector, related to the average value of the spin $\vec{S}$ divided by the reduced Planck constant $\hbar$.
 
+%% Rifai meglio: non serve dedurre qui che L cambia in un certo modo, anche perché poi con E non lo fai.
 When the particle crosses an external electric field $\vec{E}$, its EDM will polarize by changing the direction of the spin. This introduces an energy term in the system's Hamiltonian with the form
 \begin{equation}
 H_\text{EDM} = - \vec{\delta} \cdot \vec{E} .
@@ -302,8 +306,8 @@ The behaviour of spin $\vec{S}$, and therefore of the spin-related EDM $\vec{\de
 \label{eq:angular-momentum}
 \end{equation}
 As previously explained, parity inversion operator $\hat{P}$ flips the sign of spatial coordinates.
-From the above formula it should thus be immediately apparent that $\vec{L}$, $\vec{S}$ and $\vec{\delta}$ are all polar vectors, i.e. parity-even.
-By contrast, with a similar line of reasoning one can show that the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
+From the above formula it should thus be immediately apparent that $\vec{L}$, $\vec{S}$, $\vec{s}$ and $\vec{\delta}$ are all polar vectors, i.e. parity-even.
+By contrast, with a bit more work one can show that the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
 \begin{equation}
 H_\text{EDM} \xrightarrow{\hat{P}} - H_\text{EDM}.
 \end{equation}
@@ -317,18 +321,32 @@ H_\text{EDM} \xrightarrow{\hat{T}} - H_\text{EDM}.
 The above result in particular contains a crucial piece of information:
 assuming the validity of the CPT theorem, a Hamiltonian containing the EDM's interaction term \eqref{eq:EDM-hamiltonian} can only be CP-symmetric if the average (or \textit{permanent}) EDM of the particle is zero.
 
-It follows that, for a truly point-like particle to have a permanent EDM, CP symmetry must be violated in some measure.
+It follows that, for a particle to have a permanent EDM, CP symmetry must be violated in some measure\footnote{This line of reasoning only applies to systems that are parity eigenstates. Water molecules are notoriously polar, but their EDMs do not violate any fundamental symmetry because the molecule's ground state is a superposition of parity-even and parity-odd eigenstates.}.
 As explained in Section \ref{sec:CP-symmetry-violation}, the only known source of CP violation within the Standard Model is the complex phase $\delta_{13}$ in quark mixing, which may give a small contribution to the EDMs of point-like particles like electrons ($\delta \approx {10}^{-40}\,e\,\text{cm}$) and quarks ($\delta \approx {10}^{-34} \,e\,\text{cm}$) via beyond-tree-level diagrams. Composite particles such as baryons are accorded some leeway on account of their finite size: the weak interaction between quarks inside the neutron, for instance, contributes to a possible EDM up to $\delta \approx {10}^{-31}\,e\,\text{cm}$.
 
 In all cases, the predicted SM contributions are orders of magnitudes below the sensitivity reached by current generation experiments.
 For all intents and purposes, the observation of a non-zero permanent EDM in a baryon would imply the discovery of a BSM source of CP violation.
 
 \subsection{MDMs}
+The magnetic dipole moment (MDM) $\vec{\mu}$ of a system can be interpreted as the measure of how intense a torque the system experiences when crossing a magnetic field $\vec{B}$:
+\begin{equation}
+\vec{\tau} = \vec{\mu} \times \vec{B}.
+\end{equation}
+Unlike the case of EDMs, the extension of MDMs from classical to quantum physics is less extreme, as long as one acknowledges the affinity between angular momentum and a particle's intrinsic spin. [è già noto che una particella che ruota... e quindi...]
 
 [mentre MDM può essere usato per testare CPT perché dev'essere uguale per particella-antiparticella.]
 
+\subsection{Measurement of EDMs and MDMs}
+
+[Equazione.]
+
 \section{The \texorpdfstring{$\Lambda$}{Lambda} baryon}
 \label{sec:lambda}
+
+The $\Lambda$ baryon, also historically known as the $\Lambda$ hyperon\footnote{A \textit{hyperon} is a baryon with one or more strange quarks, but no heavier quarks. The nomenclature emerged in the period following the discovery of the strange quark, when no further quarks besides the first three were known; nowadays, the term is rarely used.} and labeled as $\Lambda^0$, is a spin-$\frac{1}{2}$ baryon with $(u,d,s)$ valence quarks.
+As the first identified baryon beyond the two nucleons, it played a key role in the discovery and christening of the strange quark:
+its mass of $\approx 1115\,\text{MeV}/c$, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
+this property was dubbed \textit{strangeness}, a name later inherited by the new quark that indirectly caused it.
 
 Furthermore, unlike in the case of the prospective discovery of a neutron
 EDM\footnote{Quantum chromodynamics allows for a CP-violating term proportional to the QCD vacuum angle $\theta$. Current measurements of the neutron EDM constrain $\theta \lesssim {10}^{-10}$, a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},

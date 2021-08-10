@@ -2,7 +2,7 @@
 This chapter explores the theoretical framework for the rest of the thesis.
 Section \ref{sec:sm} will provide a basic introduction to the Standard Model of Particle Physics and flavour physics in particular;
 Section \ref{sec:discrete} will delve into the inner workings of discrete symmetries in quantum physics;
-Section \ref{sec:edms} will discuss the relevance of electromagnetic dipole moments of elementary particles as a test for CP violation and CPT symmetry;
+Section \ref{sec:emdms} will discuss the relevance of electromagnetic dipole moments of elementary particles as a test for CP violation and CPT symmetry;
 finally, Section \ref{sec:lambda} will introduce the main topic of the thesis, the study of dipole moments of the $\Lambda$ baryon.
 
 \section{The Standard Model of Particle Physics}
@@ -266,14 +266,21 @@ Computing the baryon asymmetry parameter with this knowledge leads to a much low
 New sources of CP violation are therefore required to match the observed value, with a promising field being the search for intrinsic electromagnetic dipole moments.
 
 \section{Electromagnetic dipole moments}
-\label{sec:edms}
-
-%[Anche se ho usato la parola con leggerezza nei capitoli precedenti], the concept of \textit{spin} may very well be one of the most challenging in particle physics.
-%[Lo ammetto, non so bene cosa dire qui.]
+\label{sec:emdms}
 
 \subsection{EDMs}
+The electric dipole moment (EDM) of a system measures the spatial separation of charges within said system.
+For the simplest of relevant charge configurations, a dipole of point charges $\pm q$ separated by a distance $r$, the EDM is expressed as
+\begin{equation}
+	\vec{\delta} = q \vec{r},
+\end{equation}
+where the displacement vector $\vec{r}$ points from the negative charge to the positive one.
 
-The electric dipole moment (EDM) of a point-like particle of spin $\vec{S}$ is
+It's hardly a feat of imagination to theorize that a composite particle like the neutron could acquire an EDM, even if the three quarks inside it cannot be thought of as a system of charges in the classical sense.
+It may be less intuitive that \textit{elementary}, point-like particles such as electrons and quarks may have one, due to quantum effects arising from the creation and destruction of virtual particles (so-called \textit{loops} in Feynman diagrams).
+
+%% Cambia con notazione di Neri: è solo spin-1/2, usa lo spin-polarization vector.
+For a spin-$\frac{1}{2}$ particle, its EDM is written in Gaussian units as
 \begin{equation}
 \vec{\delta} = d \frac{\mu_B}{\hbar} \vec{S},
 \end{equation}
@@ -282,12 +289,12 @@ where $d$ is the gyroelectric ratio,
 \mu_B = \frac{e\hbar}{2mc},
 \end{equation}
 is the particle magneton, $c$ is the speed of light in a vacuum and $m$ is the particle mass.
+
 When the particle crosses an external electric field $\vec{E}$, its EDM will polarize by changing the direction of the spin. This introduces an energy term in the system's Hamiltonian with the form
 \begin{equation}
 H_\text{EDM} = - \vec{\delta} \cdot \vec{E} .
 \label{eq:EDM-hamiltonian}
 \end{equation}
-
 One can now check how the term \eqref{eq:EDM-hamiltonian} behaves when acted upon by some of the discrete transformations outlined in Section \ref{sec:discrete}.
 The behaviour of spin $\vec{S}$, and therefore of the spin-related EDM $\vec{\delta}$, can easily be understood by interpreting it as a particle's intrinsic angular momentum, which in classical mechanics is written in its most basic form as
 \begin{equation}
@@ -298,13 +305,13 @@ As previously explained, parity inversion operator $\hat{P}$ flips the sign of s
 From the above formula it should thus be immediately apparent that $\vec{L}$, $\vec{S}$ and $\vec{\delta}$ are all polar vectors, i.e. parity-even.
 By contrast, with a similar line of reasoning one can show that the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
 \begin{equation}
-H_\text{EDM} \xrightarrow{P} - H_\text{EDM}.
+H_\text{EDM} \xrightarrow{\hat{P}} - H_\text{EDM}.
 \end{equation}
 
 When considering time reversal $\hat{T}$, the situation is specular:
 \eqref{eq:angular-momentum} implies that the EDM $\vec{\delta}$ flips its sign, whereas the electric field $\vec{E}$ remains unchanged, implying
 \begin{equation}
-H_\text{EDM} \xrightarrow{T} - H_\text{EDM}.
+H_\text{EDM} \xrightarrow{\hat{T}} - H_\text{EDM}.
 \label{eq:EDM-hamiltonian-under-T}
 \end{equation}
 The above result in particular contains a crucial piece of information:

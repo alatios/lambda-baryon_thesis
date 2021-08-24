@@ -161,7 +161,7 @@ The phase $\delta_{13}$ is known as the CP-violating phase. To fully understand 
 
 \section{Discrete symmetries and CP violation}
 \label{sec:discrete}
-In quantum mechanics, a system described by an Hamiltonian $\hat{\mathcal{H}}$ is \textit{symmetric} under a transformation $\hat{S}$ if the two operators commute, i.e.
+In quantum mechanics, a system described by a Hamiltonian $\hat{\mathcal{H}}$ is \textit{symmetric} under a transformation $\hat{S}$ if the two operators commute, i.e.
 \begin{equation}
 \left[ \hat{\mathcal{H}}, \hat{S} \right] = 0.
 \end{equation}
@@ -283,17 +283,19 @@ where the displacement vector $\vec{r}$ points from the negative charge to the p
 It's hardly a feat of imagination to theorize that a composite particle like the neutron could acquire an EDM, even if the three quarks inside it cannot be thought of as a system of charges in the classical sense.
 It may be less intuitive that elementary, point-like particles such as electrons and quarks could also gain one, due to quantum effects resulting in the creation and destruction of virtual particles (so-called \textit{loops} in higher order Feynman diagrams).
 
-For a spin-$\frac{1}{2}$ particle, its EDM is written in Gaussian units as \cite{EMfeasibility}
+For a spin-$\frac{1}{2}$ particle, its EDM is written in Gaussian units as \cite{searchNewPhysics}
 \begin{equation}
 \vec{\delta} = d \frac{\mu_B}{2} \vec{s},
 \end{equation}
-where $d$ is the gyroelectric ratio,
+where $d$ is a dimensionless quantity referred to as \textit{gyroelectric factor},
 \begin{equation}
 \mu_B = \frac{e\hbar}{2mc},
+\label{eq:magneton}
 \end{equation}
 is the particle magneton, $c$ is the speed of light in a vacuum, $m$ is the particle mass and
 \begin{equation}
 \vec{s} = 2 \frac{\braket{\vec{S}}}{\hbar}
+\label{eq:spin-polarization-vector}
 \end{equation}
 is the spin polarization vector, related to the average value of the spin $\vec{S}$ divided by the reduced Planck constant $\hbar$.
 
@@ -315,6 +317,7 @@ that of polar vectors, i.e. parity-even.
 By contrast, the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
 \begin{equation}
 H_\text{EDM} \xrightarrow{\hat{P}} - H_\text{EDM}.
+\label{eq:EDM-hamiltonian-under-P}
 \end{equation}
 
 When considering time reversal $\hat{T}$, the situation is specular:
@@ -338,9 +341,36 @@ The magnetic dipole moment (MDM) $\vec{\mu}$ of a system can be interpreted as t
 \begin{equation}
 \vec{\tau} = \vec{\mu} \times \vec{B}.
 \end{equation}
-Unlike the case of EDMs, the extension of MDMs from classical to quantum physics is less extreme, as long as one acknowledges the affinity between angular momentum and a particle's intrinsic spin. [è già noto che una particella che ruota... e quindi...]
+Unlike the case of EDMs, the extension of MDMs from classical to quantum physics is less extreme, as long as one acknowledges the affinity between angular momentum and a particle's intrinsic spin.
+A classical rotating body with charge $q$, mass $m$ and angular momentum $\vec{L}$ gains an MDM in the form
+\begin{equation}
+	\vec{\mu} = \frac{q}{2m} \vec{L},
+\end{equation}
+assuming charge and mass are identically distributed.
+A very similar relation holds for a non-classical, point-like spin-$\frac{1}{2}$ particle \cite{searchNewPhysics}:
+\begin{equation}
+	\vec{\mu} = g \frac{\mu_B}{2} \vec{s} 
+\end{equation}
+Here $g$ is the dimensionless \textit{gyromagnetic factor} accounting for the transition from classical to quantum physics, whereas $\mu_B$ and $\vec{s}$ are the same particle magneton and spin polarization vector defined in equations \eqref{eq:magneton} and \eqref{eq:spin-polarization-vector} respectively.
 
-[mentre MDM può essere usato per testare CPT perché dev'essere uguale per particella-antiparticella.]
+Similary to EDMs, MDMs also induce a spin rotation when subjected to a magnetic field $\vec{B}$, introducing a Hamiltonian term
+\begin{equation}
+H_\text{MDM} = - \vec{\mu} \cdot \vec{B} .
+\label{eq:MDM-hamiltonian}
+\end{equation}
+Under parity and time reversal transformations, the MDM $\vec{\mu}$ behaves in the same way as the EDM $\vec{\delta}$, both being dependent on the particle's spin $\vec{S}$ (odd under $\hat{P}$, even under $\hat{T}$).
+In contrast with $\vec{E}$, however, the magnetic field $\vec{B}$ behaves in the \textit{same} way as $\vec{\mu}$, effectively cancelling out their signs when the Hamiltonian \eqref{eq:MDM-hamiltonian} is acted upon:
+\begin{equation}
+H_\text{MDM} \xrightarrow{\hat{P}} H_\text{MDM},
+\label{eq:MDM-hamiltonian-under-P}
+\end{equation}
+\begin{equation}
+H_\text{MDM} \xrightarrow{\hat{T}} H_\text{MDM}.
+\label{eq:MDM-hamiltonian-under-T}
+\end{equation}
+
+Factoring in the CPT theorem, this result entails that a non-zero intrinsic MDM for fundamental particles does not imply CP violation.
+For this reason, measurements of MDMs are instead used as \textit{precision tests} of the CPT theorem, since its value should not change between a particle and its antimatter partner.
 
 \subsection{Measurement of EDMs and MDMs}
 
@@ -351,7 +381,7 @@ Unlike the case of EDMs, the extension of MDMs from classical to quantum physics
 
 The $\Lambda$ baryon, also historically known as the $\Lambda$ hyperon\footnote{A \textit{hyperon} is a baryon with one or more strange quarks, but no heavier quarks. The nomenclature emerged in the period following the discovery of the strange quark, when no further quarks besides the first three were known; nowadays, the term is rarely used.} and labeled as $\Lambda^0$, is a spin-$\frac{1}{2}$ baryon with $(u,d,s)$ valence quarks.
 As the first identified baryon beyond the two nucleons, it played a key role in the discovery and christening of the strange quark:
-its mass of $\approx 1115\,\text{MeV}/c$, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
+its mass of $\approx 1115\,\text{MeV}/c$ \cite{PDG}, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
 this property was dubbed \textit{strangeness}, a name later inherited by the new quark that indirectly caused it.
 
 Furthermore, unlike in the case of the prospective discovery of a neutron

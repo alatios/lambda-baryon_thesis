@@ -360,21 +360,141 @@ H_\text{MDM} = - \vec{\mu} \cdot \vec{B} .
 \end{equation}
 Under parity and time reversal transformations, the MDM $\vec{\mu}$ behaves in the same way as the EDM $\vec{\delta}$, both being dependent on the particle's spin $\vec{S}$ (odd under $\hat{P}$, even under $\hat{T}$).
 In contrast with $\vec{E}$, however, the magnetic field $\vec{B}$ behaves in the \textit{same} way as $\vec{\mu}$, effectively cancelling out their signs when the Hamiltonian \eqref{eq:MDM-hamiltonian} is acted upon:
-\begin{equation}
-H_\text{MDM} \xrightarrow{\hat{P}} H_\text{MDM},
-\label{eq:MDM-hamiltonian-under-P}
-\end{equation}
-\begin{equation}
-H_\text{MDM} \xrightarrow{\hat{T}} H_\text{MDM}.
+\begin{align}
+H_\text{MDM} &\xrightarrow{\hat{P}} H_\text{MDM},
+\label{eq:MDM-hamiltonian-under-P} \\
+H_\text{MDM} &\xrightarrow{\hat{T}} H_\text{MDM}.
 \label{eq:MDM-hamiltonian-under-T}
-\end{equation}
+\end{align}
 
 Factoring in the CPT theorem, this result entails that a non-zero intrinsic MDM for fundamental particles does not imply CP violation.
 For this reason, measurements of MDMs are instead used as \textit{precision tests} of the CPT theorem, since its value should not change between a particle and its antimatter partner.
 
 \subsection{Measurement of EDMs and MDMs}
 
-[Equazione.]
+%Given a particle of charge $q$ flying in a region with an \textit{homogeneous} electromagnetic field represented by the tensor $F^{\mu\nu}$, the precession of its spin 4-pseudovector $a^\mu$ is described by the Thomas-Bargmann-Michel-Telegdi (T-BMT) equation
+%\begin{equation}
+%	\frac{da^\mu}{d\tau} = \frac{g \mu_B}{\hbar}
+%	\left[
+%	F^{\mu\nu}a_\nu + (a_\alpha F^{\alpha\beta}u_\beta) \frac{u^\mu}{c^2}
+%	\right]
+%	- (a_\alpha \frac{q}{mc} F^{\alpha \beta}u_\beta) \frac{u^\mu}{c^2}
+%\end{equation}
+%$\tau$ being the proper time, $p^\mu$ being the 4-momentum vector and $u^\mu$ being the velocity vector.
+
+For the purposes of this thesis, the measurement of EDMs and MDMs of a particle is performed by exploiting the precession of spin in an electromagnetic field \cite{EMDipoleSearch}.
+In the laboratory frame, a neutral particle flying with velocity $\vec{\beta}$ through homogeneous electromagnetic fields $\vec{E}$ and $\vec{B}$ experiences a precession of the non-relativistic spin polarization vector $\vec{s}$ described by the equation
+\begin{equation}
+\frac{d\vec{s}}{dt} = \vec{s} \times \vec{\Omega},
+\quad\quad
+\vec{\Omega} \coloneqq \vec{\Omega}_\text{EDM} + \vec{\Omega}_\text{MDM}.
+\end{equation}
+The angular velocity vector $\vec{\Omega}$ is itself the sum of two contributions due to the respective intrinsic dipole moments of the particle:
+\begin{align}
+\vec{\Omega}_\text{EDM} &= \frac{d\mu_B}{\hbar}
+\left(
+\vec{E} - \frac{\gamma}{\gamma+1} (\vec{\beta} \cdot \vec{E})\vec{\beta} + \vec{\beta} \times \vec{B})
+\right), \\
+\vec{\Omega}_\text{MDM} &= \frac{g\mu_B}{\hbar}
+\left(
+\vec{B} - \frac{\gamma}{\gamma+1} (\vec{\beta} \cdot \vec{B})\vec{\beta} - \vec{\beta} \times \vec{E})
+\right).
+\end{align}
+Assuming $\vec{E} = 0$, as will be the case in the experimental setup at LHCb, the angular velocity simplifies to
+\begin{equation}
+\vec{\Omega} = \frac{\mu_B}{\hbar}
+\left[
+	d\vec{\beta} \times \vec{B}
+	+
+	g\left(
+	\vec{B} - \frac{\gamma}{\gamma+1}(\vec{\beta} \cdot \vec{B}) \vec{\beta}
+	\right)
+\right].
+\end{equation}
+
+An analytical solution of the above system of equations is possible under the approximation that the precession of the particle spin depends only on the integrated value of the magnetic field $\vec{B}$ along the particle's flight path $l$.
+In the absence of field gradients, dictated by the homogeneity requirement, such integrated field $\vec{D}$ can be written as
+\begin{equation}
+	\vec{D} \coloneqq \int_0^l dl' \vec{B}(\vec{r}_0 +\hat{\beta} l') \approx \braket{\vec{B}} l,
+	\label{eq:integratedD}
+\end{equation}
+where $\hat{\beta}$ is the normalized vector of $\vec{\beta}$.
+Defining $\hat{\Omega}$ in the same way, the time evolution of the spin polarization vector $\vec{s}$ ($\vec{s}(0) = \vec{s}_0$) is
+\begin{equation}
+	\vec{s} \left(
+		l
+	\right) =
+	\left(
+		\vec{s}_0 \cdot \hat{\Omega}
+	\right) \hat{\Omega}
+	+
+	\left[
+		\vec{s}_0 - \left(
+			\vec{s}_0 \cdot \hat{\Omega}
+		\right) \hat{\Omega}
+	\right]
+	\cos \left(
+		\left \lvert
+			\vec{\Omega}
+		\right\rvert t
+	\right)
+	+
+	\left(
+		\vec{s}_0 \times \hat{\Omega}
+	\right)
+	\sin \left(
+		\left \lvert
+			\vec{\Omega}
+		\right\rvert t
+	\right).
+\label{eq:spin-precession-t_cap1}
+\end{equation}
+
+From an experimental point of view, measurement of time isn't trivial;
+instead, one can efficiently measure the flight length of an unstable particle $l=\beta c t$ during its lifetime.
+The equation describing the spin precession as a function of $l$ has a very similar form to \eqref{eq:spin-precession-t_cap1}:
+\begin{equation}
+	\vec{s} \left(
+		l
+	\right) =
+	\left(
+		\vec{s}_0 \cdot \hat{\Phi}
+	\right) \hat{\Phi}
+	+
+	\left[
+		\vec{s}_0 - \left(
+			\vec{s}_0 \cdot \hat{\Phi}
+		\right) \hat{\Phi}
+	\right]
+	\cos \left \lvert
+		\vec{\Phi}
+	\right\rvert
+	+
+	\left(
+		\vec{s}_0 \times \hat{\Phi}
+	\right)
+	\sin \left \lvert
+		\vec{\Phi}
+	\right \rvert,
+\label{eq:spin-precession-l_cap1}
+\end{equation}
+with
+\begin{equation}
+\vec{\Phi} = \frac{\mu_B}{|\vec{\beta}|\hbar c}
+\left[
+	d\vec{\beta} \times \vec{D}
+	+
+	g\left(
+	\vec{D} - \frac{\gamma}{\gamma+1}(\vec{\beta} \cdot \vec{D}) \vec{\beta}
+	\right)
+\right]
+\end{equation}
+and $\vec{D}$ defined as in \eqref{eq:integratedD}.
+
+Equation \eqref{eq:spin-precession-l_cap1} therefore provides a way to measure the values of EDMs and MDMs for neutral particles by studying the change in polarization after flying through a magnetic field.
+For unstable particles, the polarization at the time of decay can be inferred in a fairly straightforward way from the angular distribution of their products.
+Conversely, theoretical knowledge or measurement of the original spin polarization $\vec{s}_0$ of the particle are both far from easy tasks in a general setting.
+Thankfully, in selected cases such as the one covered in this thesis, $\vec{s}_0$ can be known by exploiting the same parity violation of weak interactions discovered in 1956 by Wu and her collaborators.
 
 \section{The \texorpdfstring{$\Lambda$}{Lambda} baryon}
 \label{sec:lambda}
@@ -384,8 +504,15 @@ As the first identified baryon beyond the two nucleons, it played a key role in 
 its mass of $\approx 1115\,\text{MeV}/c$ \cite{PDG}, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
 this property was dubbed \textit{strangeness}, a name later inherited by the new quark that indirectly caused it.
 
-Furthermore, unlike in the case of the prospective discovery of a neutron
+The $\Lambda$ baryon is a prime candidate to probe CP violation.
+Unlike in the case of the prospective discovery of a neutron
 EDM\footnote{Quantum chromodynamics allows for a CP-violating term proportional to the QCD vacuum angle $\theta$. Current measurements of the neutron EDM constrain $\theta \lesssim {10}^{-10}$, a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},
 a non-zero $\Lambda$ baryon EDM could not be explained by any phenomena within the Standard Model and would therefore imply the existence of BSM physics.
+
+[Misure precedenti.]
+
+[Soddisfa tutti i requisiti: neutra, vita media, campo magnetico, polarizzazione.]
+
+[Come si riduce l'equazione della spin polarization nel caso del barione lambda polarizzato.]
 
 It can be shown (see Appendix \ref{chap:angular-distribution}) that the expected angular distribution for protons is...

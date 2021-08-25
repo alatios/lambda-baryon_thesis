@@ -191,7 +191,7 @@ Its action on a quantum $\ket{\psi(\vec{x},t)}$ is therefore
 \end{equation}
 
 More interestingly, for parity eigenstates (known as \textit{parity-defined} states) a parity quantum number can be introduced;
-such states may have a \textit{P-parity} eigenvalue $\eta_p = +1$ (parity-even states) or $\eta_p = -1$ (parity-odd states).
+such states may have a \textit{P-parity} eigenvalue $\eta_P = +1$ (parity-even states) or $\eta_P = -1$ (parity-odd states).
 Since by definition $\hat{P}^2 = \mathds{1}$, where $\mathds{1}$ is the identity operator, these are the only two allowed P-parity values.
 
 A similarly dichotomous behaviour is observed on both scalar and vector quantities commonly used in classical physics, such as momenta and electromagnetic fields.
@@ -212,7 +212,7 @@ In fact, the action of charge conjugation turns a quantum state into its antimat
 \begin{equation}
 	\hat{C} \ket{\psi} = \ket{\bar{\psi}}.
 \end{equation}
-For single-particle systems, the only possible $\hat{C}$ eigenstates are particles that are their own antiparticle, like the photon, for which a C-parity $\eta_c = \pm 1$ is defined by analogy with the P-parity eigenvalue.
+For single-particle systems, the only possible $\hat{C}$ eigenstates are particles that are their own antiparticle, like the photon, for which a C-parity $\eta_C = \pm 1$ is defined by analogy with the P-parity eigenvalue.
 
 Unlike in the case of parity, there isn't a single breakthrough experiment credited for showing that the weak interaction is not C-symmetric:
 it was known from theory that parity violation in a weak process, when observed under certain conditions, would also imply a violation of charge conjugation, with such a violation being confirmed shortly after Wu's results \cite{cviolation}.
@@ -371,6 +371,7 @@ Factoring in the CPT theorem, this result entails that a non-zero intrinsic MDM 
 For this reason, measurements of MDMs are instead used as \textit{precision tests} of the CPT theorem, since its value should not change between a particle and its antimatter partner.
 
 \subsection{Measurement of EDMs and MDMs}
+\label{sec:emdm-measurement}
 
 %Given a particle of charge $q$ flying in a region with an \textit{homogeneous} electromagnetic field represented by the tensor $F^{\mu\nu}$, the precession of its spin 4-pseudovector $a^\mu$ is described by the Thomas-Bargmann-Michel-Telegdi (T-BMT) equation
 %\begin{equation}
@@ -400,7 +401,7 @@ The angular velocity vector $\vec{\Omega}$ is itself the sum of two contribution
 \vec{B} - \frac{\gamma}{\gamma+1} (\vec{\beta} \cdot \vec{B})\vec{\beta} - \vec{\beta} \times \vec{E})
 \right).
 \end{align}
-Assuming $\vec{E} = 0$, as will be the case in the experimental setup at LHCb, the angular velocity simplifies to
+Assuming $\vec{E} = 0$, as will be the case in the experimental setup employed in this work, the angular velocity simplifies to
 \begin{equation}
 \vec{\Omega} = \frac{\mu_B}{\hbar}
 \left[
@@ -491,27 +492,51 @@ with
 \end{equation}
 and $\vec{D}$ defined as in \eqref{eq:integratedD}.
 
-Equation \eqref{eq:spin-precession-l_cap1} therefore provides a way to measure the values of EDMs and MDMs for neutral particles by studying the change in polarization after flying through a magnetic field.
+Equation \eqref{eq:spin-precession-l_cap1} therefore provides a way to measure the values of EDMs and MDMs for neutral particles by studying the change in polarization after their flight through a magnetic field.
 For unstable particles, the polarization at the time of decay can be inferred in a fairly straightforward way from the angular distribution of their products.
 Conversely, theoretical knowledge or measurement of the original spin polarization $\vec{s}_0$ of the particle are both far from easy tasks in a general setting.
-Thankfully, in selected cases such as the one covered in this thesis, $\vec{s}_0$ can be known by exploiting the same parity violation of weak interactions discovered in 1956 by Wu and her collaborators.
+Thankfully, in certain instances such as the one covered in this thesis, $\vec{s}_0$ can be known by exploiting the same parity violation of weak interactions discovered in 1956 by Wu and her collaborators.
 
 \section{The \texorpdfstring{$\Lambda$}{Lambda} baryon}
 \label{sec:lambda}
 
 The $\Lambda$ baryon, also historically known as the $\Lambda$ hyperon\footnote{A \textit{hyperon} is a baryon with one or more strange quarks, but no heavier quarks. The nomenclature emerged in the period following the discovery of the strange quark, when no further quarks besides the first three were known; nowadays, the term is rarely used.} and labeled as $\Lambda^0$, is a spin-$\frac{1}{2}$ baryon with $(u,d,s)$ valence quarks.
 As the first identified baryon beyond the two nucleons, it played a key role in the discovery and christening of the strange quark:
-its mass of $\approx 1115\,\text{MeV}/c$ \cite{PDG}, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
+its mass of $\approx 1116\,\text{MeV}/c$ \cite{PDG}, the lighest among $s$-bearing baryons, meant its only viable decay channels were mediated by the flavour-changing weak interaction, giving the $\Lambda$ a much longer half-life than expected;
 this property was dubbed \textit{strangeness}, a name later inherited by the new quark that indirectly caused it.
+
+\subsection{Previous measurements of the \texorpdfstring{$\Lambda^0$}{Lambda} dipole moments}
 
 The $\Lambda$ baryon is a prime candidate to probe CP violation.
 Unlike in the case of the prospective discovery of a neutron
-EDM\footnote{Quantum chromodynamics allows for a CP-violating term proportional to the QCD vacuum angle $\theta$. Current measurements of the neutron EDM constrain $\theta \lesssim {10}^{-10}$, a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},
+EDM\footnote{Quantum chromodynamics allows for a CP-violating term proportional to the QCD vacuum angle $\theta$. Current measurements of the neutron EDM \cite{neutronTheta} constrain $\theta \lesssim {10}^{-10}$,
+%% In realtà a me non sembra ci sia quel valore, però oh, lo citano tutti...
+a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},
 a non-zero $\Lambda$ baryon EDM could not be explained by any phenomena within the Standard Model and would therefore imply the existence of BSM physics.
 
 [Misure precedenti.]
 
-[Soddisfa tutti i requisiti: neutra, vita media, campo magnetico, polarizzazione.]
+\subsection{Proposal of a measurement of the \texorpdfstring{$\Lambda^0$}{Lambda} dipole moments with the LHCb detector}
+
+The properties of the LHCb detector at the Large Hadron Collider (see Chapter \ref{cap:LHCb}) are a perfect fit for the measurement of the $\Lambda$ baryon electromagnetic dipole moments via the spin precession technique outlined in Section \ref{sec:emdm-measurement}.
+
+Gradient field effects for the $\vec{B}$ field within the detector acceptance are negligible, being estimated at \cite{EMDipoleSearch}
+\begin{equation}
+\frac{\hbar}{2mc} \frac{\beta\gamma}{\gamma+1} \frac{|\nabla B|}{B} \approx 7.4 \times {10}^{-16},
+\end{equation}
+with $B \coloneqq |\vec{B}|$.
+As well as being a neutral particle, thereby lacking the Thomas precession effect omitted from the discussion in Section \ref{sec:emdm-measurement}, the $\Lambda$ baryon's average mean life of $\approx 2.6 \times {10}^{-10}$ s \cite{PDG} allows a sizeable number of them to traverse the full LHCb magnetic field region before decaying.
+Finally, the problem concerning the measurement of the $\Lambda^0$ initial polarization is solved by selecting $\Lambda^0$ produced through the weak decay production of bottom baryon $\Lambda_b^0$
+\begin{equation}
+\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-),
+\label{eq:demonstrator_cap1}  
+\end{equation}
+as well as its charge-conjugate
+\begin{equation}
+\bar{\Lambda}_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\bar{\Lambda}^0 \, (\rightarrow \bar{p} \pi^+).
+\label{eq:antidemonstrator_cap1}  
+\end{equation}
+Parity violation in this decay produces $\Lambda^0$ with almost $100\%$ longitudinal polarization \cite{ATLASLambdaPolarization}, meaning that the original polarization can be inferred from the $\Lambda^0$ reconstructed momentum.
 
 [Come si riduce l'equazione della spin polarization nel caso del barione lambda polarizzato.]
 

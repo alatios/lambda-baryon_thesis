@@ -30,6 +30,30 @@
 \usepackage{braket} % Take a guess
 \usepackage{dsfont} % For identity operator
 
+%% To change the header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%% These change the display of \leftmark and \rightmark, for some reason
+%% No, I have no idea what they do atm. Truly shameful
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection~~#1}}
+
+\fancyhf{}
+
+\setlength{\headheight}{15pt} %% Changes header height to accomodate text
+
+%% E/O = even/odd pages
+%% L/C/R = left/center/right alignment
+%% H/F = header/footer
+%% \thepage is page number
+%% \leftmark is the chapter title
+%% \rightmark is the section number and title
+\fancyhead[ELH]{\thepage}
+\fancyhead[ORH]{\thepage}
+\fancyhead[ERH]{\leftmark}
+\fancyhead[OLH]{\rightmark}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -45,11 +69,13 @@
 
 \include{tex_files/0b-introduction}
 
-%% Bring order to chaos
+%% Bring order to chaos. \chaptermark fixes uppercase letters in header
 \tableofcontents
+\chaptermark{Contents}
 \listoffigures
-\listoftables
-
+\chaptermark{List of Figures}
+\listoftables 
+\chaptermark{List of Tables}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

@@ -1,8 +1,142 @@
+%% Problema: deve essere grassetto nella ToC e nel titolo del capitolo, ma non grassetto nell'header.
 \chapter{\texorpdfstring{$\Lambda_b^0 \rightarrow J/\psi (\rightarrow \mu^+ \mu^-) \Lambda^0 (\rightarrow p\pi^-)$}{Lambdab to JPsi Lambda} vertex reconstruction}
 \label{cap:vertex_reconstruction}
 
 \section{Vertex reconstruction algorithm at LHCb}
 \subsection{Vertex Fitter algorithm}
+The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the $\Lambda_b^0$ decay.
+
+The Vertex Fitter operates under a <<leaf-by-leaf>> approach: daughter particles are provided as inputs
+
+\begin{equation}
+C_k^{-1} = C_{k-1}^{-1} + A_k^T G_k^B A_k
+\end{equation}
+
+\begin{equation}
+E_k = -F_k C_k
+\end{equation}
+
+\begin{equation}
+D_k = W_k - E_k F_k^T
+\end{equation}
+
+\begin{equation}
+W_k = {\left(B_k^T G_k B_k\right)}^{-1}
+\end{equation}
+
+\begin{equation}
+G_k^B = G_k - G_k B_k W_k B_k^T G_k
+\end{equation}
+
+\begin{equation}
+F_k = W_k B_k^T G_k A_k
+\end{equation}
+
+\begin{equation}
+\vec{x}_k = C_k \left[
+	C_{k-1}^{-1} \vec{x}_{k-1}
+	+
+	A_k^T G_k^B \left(
+		\vec{p_k} - c_k^0	
+	\right)
+\right]
+\end{equation}
+
+\begin{equation}
+\vec{q}_k = W_k B_k^T G_k \left[
+	\vec{p_k} - c_k^0 - A_k \vec{x}_k
+\right]
+\end{equation}
+
+\begin{equation}
+\begin{aligned}
+\chi^2_k &= \chi^2_{k-1} \\
+&+
+\left[
+	\vec{p} - c_k^0 - A_k \vec{x}_k - B_k\vec{q}_k
+\right]^T G_k \left[
+	\vec{p} - c_k^0 - A_k \vec{x}_k - B_k\vec{q}_k
+\right] \\
+&+
+\left[
+	\vec{x}_k - \vec{x}_{k-1}
+\right] C_{k-1}^{-1} \left[
+	\vec{x}_k - \vec{x}_{k-1}
+\right]
+\end{aligned}
+\end{equation}
+
+\begin{equation}
+\vec{x}_k^n = \vec{x}_n
+\end{equation}
+
+\begin{equation}
+\vec{q}_k^n = W_k B_k^T G_k \left[
+	\vec{p}_k - A_k \vec{x}_n
+\right]
+\end{equation}
+
+\begin{equation}
+C_k^n = C_n
+\end{equation}
+
+\begin{equation}
+D_k^n = W_k - E_k^n F_k^T
+\end{equation}
+
+\begin{equation}
+E_k^n = - F_k C_n
+\end{equation}
+
+\begin{equation}
+\text{corr}\left(
+	\vec{q}_k^n, \vec{q}_l^n
+\right) = F_k C_n F_l^T
+\end{equation}
+
+\begin{equation}
+A_k = A = \begin{pmatrix}
+1 \\
+0
+\end{pmatrix},
+\quad\quad 
+B_k = B = \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+G_k = \begin{pmatrix}
+G_x 		&& G_{xp} \\
+G^T_{xp} 	&& G_p
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+W_k = G_p^{-1}
+\end{equation}
+
+\begin{equation}
+G_k^B = \begin{pmatrix}
+G_x - G_{xp}G_p^{-1}G_{xp}^T 	&& 0 \\
+0								&& 0
+\end{pmatrix}
+\end{equation}
+
+\begin{equation}
+F_k = G_p^{-1} G_{xp}^T
+\end{equation}
+
+\begin{equation}
+C_k^{-1} = C_{k-1}^{-1} + \left[
+	G_x - G_{xp}G_p^{-1}G_{xp}^T
+\right]
+\end{equation}
+
 \subsection{Decay Tree Fitter algorithm}
 
 \section{Reconstruction efficiency of the \texorpdfstring{$\Lambda_b$}{Lambdab} decay}
+
+%% Sezione a parte?
+\subsection{Characterization of failed events}

@@ -55,6 +55,11 @@
 \fancyhead[ERH]{\leftmark}
 \fancyhead[OLH]{\rightmark}
 
+%% This automatically makes math mode bold in chapter titles, I believe
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}

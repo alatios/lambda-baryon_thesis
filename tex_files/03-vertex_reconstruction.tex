@@ -1,12 +1,50 @@
 %% Problema: deve essere grassetto nella ToC e nel titolo del capitolo, ma non grassetto nell'header.
-\chapter{\texorpdfstring{$\Lambda_b^0 \rightarrow J/\psi (\rightarrow \mu^+ \mu^-) \Lambda^0 (\rightarrow p\pi^-)$}{Lambdab to JPsi Lambda} vertex reconstruction}
+\chapter{\texorpdfstring{$\Lambda_b^0$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decay vertex reconstruction}
 \label{cap:vertex_reconstruction}
 
-\section{Vertex reconstruction algorithm at LHCb}
+\section{Vertex reconstruction algorithms at LHCb}
 \subsection{Vertex Fitter algorithm}
 The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the $\Lambda_b^0$ decay.
 
-The Vertex Fitter operates under a <<leaf-by-leaf>> approach: daughter particles are provided as inputs
+Under VF formalism, each daughter particle is represented by a 7-dimensional vector
+\begin{equation}
+	\vec{p} = \begin{pmatrix}
+		\vec{x} \\ \vec{q}
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		x \\ y \\ z \\ p_x \\ p_y \\ p_z \\ E
+	\end{pmatrix},
+	\label{eq:particle_representation}
+\end{equation}
+combining the position $\vec{x}$ of the estimated origin vertex of the track (known as \textit{reference point}) with the 4-momentum $\vec{q}$ of the track constrained to originate in $\vec{x}$.
+At the end of the fitting process, $\vec{x}$ will coincide with the common vertex chosen for all daughter particles.
+Parameter vector \eqref{eq:particle_representation} has an associated covariance matrix $V$, which can be written in block structure as
+\begin{equation}
+	\begin{pmatrix}
+		V_x      & V_{xp} \\
+		V_{xp}^T & V_p
+	\end{pmatrix}.
+\end{equation}
+It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which has an analogous block form:
+\begin{equation}
+	\begin{pmatrix}
+		G_x      & G_{xp} \\
+		G_{xp}^T & G_p
+	\end{pmatrix}
+	=
+	\begin{pmatrix}
+		V_x      & V_{xp} \\
+		V_{xp}^T & V_p
+	\end{pmatrix}^{-1}
+\end{equation}
+
+The Vertex Fitter builds the decay tree from the bottom-up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi \Lambda^0$).
+This process is blind to the downstream leaves and only considers kinematic information of the immediate daughter particles, without accounting for momenta and mass constraints.
+
+\subsubsection{Step}
+
+The VF algorithm proceeds by \textit{steps}, with each step $k$ coinciding with the addition of the $k$-th daughter particle.
 
 \begin{equation}
 C_k^{-1} = C_{k-1}^{-1} + A_k^T G_k^B A_k
@@ -134,9 +172,88 @@ C_k^{-1} = C_{k-1}^{-1} + \left[
 \right]
 \end{equation}
 
+\begin{equation}
+E_k = -G_p^{-1} G_{xp}^T C_k
+\end{equation}
+
+\begin{equation}
+D_k = G_p^{-1} + G_p^{-1} G_{xp}^T C_k G_{xp} G_p^{-1}
+\end{equation}
+
+\begin{equation}
+\vec{x}_k = C_k \left[
+	C_{k-1}^{-1} \vec{x}_{k-1}
+	+ \begin{pmatrix}
+		G_x - G_{xp} G_p^{-1} G_{xp}^T && 0
+	\end{pmatrix}
+	\left(
+		\vec{p}_k - c_k^0
+	\right)
+\right]
+\end{equation}
+
+\begin{equation}
+\vec{q}_k = \begin{pmatrix}
+	G_p^{-1} G_{xp}^T && 0
+\end{pmatrix}
+\left[
+	\vec{p_k} - c_k^0 - A\vec{x}_k
+\right]
+\end{equation}
+
+\begin{equation}
+\begin{pmatrix}
+	G_x && G_{xp} \\
+	G_{xp}^T && G_p
+\end{pmatrix}
+=
+\begin{pmatrix}
+	V_x && V_{xp} \\
+	V_{xp}^T && V_p
+\end{pmatrix}^{-1}
+\end{equation}
+
+\begin{subequations}
+\begin{align}
+&G_x - G_{xp} G_p^{-1} G_{xp} 	= V_x^{-1} \\
+&G_p^{-1} 						= V_p - V_{xp}^T V_x^{-1} V_{xp} \\
+&G_p^{-1} G_{xp}^T 				= -V_{xp}^T V_x^{-1}
+\end{align}
+\end{subequations}
+
+When all particles have been added, i.e. all steps have been performed, the algorithm concludes an \textit{iteration}.
+The process is then repeated until either a convergence condition is satisfied (see later) or the fit reaches the set number of allowed iterations, 10 by default.
+
+\subsubsection{Seeding}
+
+As one can observe, the procedure described above requires, at each step, both a previous estimated vertex position $\vec{x}_{k-1}$ and an associated inverse covariance matrix $C_{k-1}^{-1}$. In particular, step $k=1$ demands the existence of $\vec{x}_0$ and $C_{0}^{-1}$.
+
+For iterations $i>1$, such roles are handily filled by the final vertex computed during the previous iteration. For the purpose of providing the first step of the first iteration with these values, at the beginning the algorithm tries to extract a \textit{vertex seed}, a first estimate of the decay vertex position, through a dedicated procedure depending on decay topology and properties of particles involved.
+
+In the case of interest of the $\Lambda^0 \rightarrow p \pi^-$ two-body decay, said procedure is a simplified step of the Kalman filter:
+\begin{subequations}
+\begin{align}
+	&C^{-1}_0 = {V_x}^{-1}_1 + {V_x}^{-1}_2 \\
+	&\vec{x}_0 = C_0 \left(
+		{V_x}^{-1}_1 \vec{x}_1 + {V_x}^{-1}_2 \vec{x}_2
+	\right)
+\end{align}
+\end{subequations}
+Here $1$ and $2$ refer to the two daughter particles in the decay (e.g. proton and pion).
+
+\subsubsection{Termination and smoothing}
+
+
 \subsection{Decay Tree Fitter algorithm}
+[[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]
+
+For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
+by contrast, VF momenta are provided either at the decay vertex (short-lived particles) or at the position of first measurement (long-lived or stable particles).
 
 \section{Reconstruction efficiency of the \texorpdfstring{$\Lambda_b$}{Lambdab} decay}
 
 %% Sezione a parte?
-\subsection{Characterization of failed events}
+\subsection{Characterization of non-converged events}
+Qui devi dire: protone momento basso in z, interpolateOnlyLongTracks, ...
+
+\section{Uncertainty-based algorithms for the recovery of non-converged events}

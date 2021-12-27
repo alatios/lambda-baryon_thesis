@@ -239,7 +239,7 @@ In the case of interest of the $\Lambda^0 \rightarrow p \pi^-$ two-body decay, s
 	\right)
 \end{align}
 \end{subequations}
-Here $1$ and $2$ refer to the two daughter particles in the decay (e.g. proton and pion).
+Subscripts $1$ and $2$ as used above refer to the two daughter particles in the decay (i.e. proton and pion).
 
 \subsubsection{Termination and smoothing}
 
@@ -247,13 +247,50 @@ Here $1$ and $2$ refer to the two daughter particles in the decay (e.g. proton a
 \subsection{Decay Tree Fitter algorithm}
 [[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]
 
-For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
-by contrast, VF momenta are provided either at the decay vertex (short-lived particles) or at the position of first measurement (long-lived or stable particles).
+%% Con KineAtVtx non è più vero.
+%For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
+%by contrast, VF momenta are provided either at the decay vertex (short-lived particles) or at the position of first measurement (long-lived or stable particles).
 
-\section{Reconstruction efficiency of the \texorpdfstring{$\Lambda_b$}{Lambdab} decay}
+\section{Reconstruction efficiency of the \texorpdfstring{$\Lambda^0_b$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decays}
 
-%% Sezione a parte?
-\subsection{Characterization of non-converged events}
+To compute the vertex reconstruction efficiency for the $\Lambda_b^0$ decay chain, it is useful to conceptualize our event selection as a five step process:
+\begin{enumerate}
+	\item reconstruction of associated tracks for all charged daughter particles;
+	\item reconstruction of the three decay vertices ($\Lambda^0$, $J/\psi$ and $\Lambda_b^0$);
+	\item preliminary selections based on kinematic variables to filter out most background (see Section \ref{sec:prefilter});
+	\item Decay Tree Fitter refit with appropriate mass constraints for the analysis at hand (usually $J/\psi$ and $\Lambda^0$);
+	\item further selections applied to events passing all previous steps. Detailed in Chapter \ref{cap:event_selection}, these include a physical background veto and signal selection via a trained non-linear classifier.
+\end{enumerate}
+
+For the purposes of this section, we are interested in the first two steps (track and vertex reconstruction).
+
+Efficiencies are computed with respect to \textit{reconstructible} particles, a flag attributed during the simulation process based on the number of \textit{hits} (charged clusters with defined positions) in specific modules of the LHCb detector.
+A track is said to be reconstructible as VELO track with hits in $\geq 3$ VELO modules, while it's reconstructible as T track with $\geq 1$ hits in both the $x$ and stereo layers of each T station.
+If these conditions are satisfied simultaneously, the track qualifies for reconstructibility as Long track \cite{Li:2752971}.
+
+At Monte Carlo level, a track is deemed to be \textit{reconstructed} if it can be successfully matched to at least one MC particle;
+for T and Long tracks, this is true if at least $70\%$ of the hits from the respective relevant detectors for reconstructibility are shared between reconstructed and true track. For $\Lambda^0_b$ events with a true $z_\text{vtx}^\Lambda \in [\SI{6.0}{\meter}, \SI{7.6}{\meter}]$, this results in a track reconstruction efficiency in the 60\% to 80\% range.
+
+\begin{figure}[t!]
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/lambda_lambdab_reco_efficiency.png}
+	\caption[A]{Reconstruction efficiency of simulated $\Lambda^0_b \rightarrow J/\psi~(\rightarrow \mu^+\mu^-)~\Lambda^0~(\rightarrow p\pi^-)$ events as function of the $z$ component of the true $\Lambda^0$ decay vertex. Assuming a $\approx 100\%$ reconstruction rate for the $J/\psi$ decay, the low efficiency is attributed to failure in reconstructing $\Lambda^0$ and $\Lambda^0_b$ decay vertices.}
+	\label{fig:lambda_lambdab_reco_efficiency}
+\end{figure}
+
+When considering how many of these reconstructed charged particles pass the vertex reconstruction (\textit{vertexing}) process, the computed efficiency is much lower.
+Figure \ref{fig:lambda_lambdab_reco_efficiency} plots the resulting $\Lambda_b^0$ vertexing efficiency through the whole true $z_\text{vtx}^\Lambda$ spectrum, showing that said efficiency never manages to get past the 50\% threshold.
+This means that over half of our candidate signal events is lost during the second step of the five step selection process.
+
+While available information does not distinguish between the three individual vertexing phases ($J/\psi$, $\Lambda^0$ and $\Lambda_b^0$), we can make some reasonable assumptions.
+Being Long tracks, muons and antimuons have well reconstructed momentum with constraints across the LHCb detector;
+for this reason their influence on the vertexing efficiency dip is considered negligible.
+Furthermore, the rare usage of T tracks for physics analysis in LHCb suggests that problems are likelier to arise in the $\Lambda^0 \rightarrow p\pi^-$ vertexing and then cascade into the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ reconstruction.
+
+For the above reasons, in the following sections I'll focus on the $\Lambda^0$ decay to search for issues and solutions, with the goal of improving our signal statistic. %% O statistics?
+
+
+\section{Characterization of non-converged events}
 Qui devi dire: protone momento basso in z, interpolateOnlyLongTracks, ...
 
 \section{Uncertainty-based algorithms for the recovery of non-converged events}

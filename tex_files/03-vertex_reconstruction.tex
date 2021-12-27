@@ -19,7 +19,35 @@ Under VF formalism, each daughter particle is represented by a 7-dimensional vec
 \end{equation}
 combining the position $\vec{x}$ of the estimated origin vertex of the track (known as \textit{reference point}) with the 4-momentum $\vec{q}$ of the track constrained to originate in $\vec{x}$.
 At the end of the fitting process, $\vec{x}$ will coincide with the common vertex chosen for all daughter particles.
-Parameter vector \eqref{eq:particle_representation} has an associated covariance matrix $V$, which can be written in block structure as
+
+In the VF framework it's sometimes useful to write vector particle vector $\vec{p}_k$ in terms of $\vec{x}_k$ and $\vec{q}_k$ via a projection matrix formalism:
+\begin{equation}
+	\vec{p}_k = c^0_k + A_k \vec{x}_k + B_k \vec{q}_k,
+\end{equation}
+with $A_k$ and $B_k$ defined as
+\begin{equation}
+A_k = \left[
+	\frac{\partial \vec{p}_k}{\partial \vec{x}_k}
+\right],
+\quad\quad 
+B_k = \left[
+	\frac{\partial \vec{p}_k}{\partial \vec{q}_k}
+\right].
+\end{equation}
+Of course, the simple representation described in \eqref{eq:particle_representation} allows for likewise simple projection matrices:
+\begin{equation}
+A_k = A = \begin{pmatrix}
+1 \\
+0
+\end{pmatrix},
+\quad\quad 
+B_k = B = \begin{pmatrix}
+0 \\
+1
+\end{pmatrix}.
+\end{equation}
+
+Parameter vector \eqref{eq:particle_representation} also has an associated covariance matrix $V$, which can be written in block structure as
 \begin{equation}
 	\begin{pmatrix}
 		V_x      & V_{xp} \\
@@ -39,37 +67,41 @@ It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which
 	\end{pmatrix}^{-1}
 \end{equation}
 
-The Vertex Fitter builds the decay tree from the bottom-up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi \Lambda^0$).
+The Vertex Fitter builds the decay tree from the bottom-up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$).
 This process is blind to the downstream leaves and only considers kinematic information of the immediate daughter particles, without accounting for momenta and mass constraints.
 
 \subsubsection{Step}
 
 The VF algorithm proceeds by \textit{steps}, with each step $k$ coinciding with the addition of the $k$-th daughter particle.
-
+Given information on the vertex position $\vec{x}_{k-1}$ obtained using the first $k-1$ particles, track $k$ is added through the following recursive procedure.
+First the inverse vertex covariance matrix is updated:
 \begin{equation}
-C_k^{-1} = C_{k-1}^{-1} + A_k^T G_k^B A_k
+C_k^{-1} = C_{k-1}^{-1} + A_k^T G_k^B A_k,
+\end{equation}
+where
+\begin{equation}
+G_k^B = G_k - G_k B_k W_k B_k^T G_k.
+\end{equation}
+The above auxiliary matrix depends from the particle parameter inverse covariance matrix $G_k$, extrapolated at the current vertex position (see the next paragraph), as well as from the matrix
+and
+\begin{equation}
+W_k = {\left(B_k^T G_k B_k\right)}^{-1}.
 \end{equation}
 
+After this, $C_k^{-1}$ is inverted and the algorithm updates the correlation matrix $E_k \coloneqq \text{corr}(\vec{x}_{k},\vec{q}_k)$ between vertex position and $k$-th particle momentum
 \begin{equation}
 E_k = -F_k C_k
 \end{equation}
-
+and the momentum covariance matrix
 \begin{equation}
-D_k = W_k - E_k F_k^T
+D_k = W_k - E_k F_k^T,
+\end{equation}
+with
+\begin{equation}
+F_k = W_k B_k^T G_k A_k.
 \end{equation}
 
-\begin{equation}
-W_k = {\left(B_k^T G_k B_k\right)}^{-1}
-\end{equation}
-
-\begin{equation}
-G_k^B = G_k - G_k B_k W_k B_k^T G_k
-\end{equation}
-
-\begin{equation}
-F_k = W_k B_k^T G_k A_k
-\end{equation}
-
+Finally the step concludes with the computation of a new estimated vertex position
 \begin{equation}
 \vec{x}_k = C_k \left[
 	C_{k-1}^{-1} \vec{x}_{k-1}
@@ -77,15 +109,15 @@ F_k = W_k B_k^T G_k A_k
 	A_k^T G_k^B \left(
 		\vec{p_k} - c_k^0	
 	\right)
-\right]
+\right],
 \end{equation}
-
+a new 4-momentum for the $k$-th track
 \begin{equation}
 \vec{q}_k = W_k B_k^T G_k \left[
 	\vec{p_k} - c_k^0 - A_k \vec{x}_k
-\right]
+\right],
 \end{equation}
-
+and an updated $\chi^2$ to evaluate the goodness of the best fit value for the decay vertex
 \begin{equation}
 \begin{aligned}
 \chi^2_k &= \chi^2_{k-1} \\
@@ -101,48 +133,10 @@ F_k = W_k B_k^T G_k A_k
 \right] C_{k-1}^{-1} \left[
 	\vec{x}_k - \vec{x}_{k-1}
 \right]
-\end{aligned}
+\end{aligned}.
 \end{equation}
 
-\begin{equation}
-\vec{x}_k^n = \vec{x}_n
-\end{equation}
-
-\begin{equation}
-\vec{q}_k^n = W_k B_k^T G_k \left[
-	\vec{p}_k - A_k \vec{x}_n
-\right]
-\end{equation}
-
-\begin{equation}
-C_k^n = C_n
-\end{equation}
-
-\begin{equation}
-D_k^n = W_k - E_k^n F_k^T
-\end{equation}
-
-\begin{equation}
-E_k^n = - F_k C_n
-\end{equation}
-
-\begin{equation}
-\text{corr}\left(
-	\vec{q}_k^n, \vec{q}_l^n
-\right) = F_k C_n F_l^T
-\end{equation}
-
-\begin{equation}
-A_k = A = \begin{pmatrix}
-1 \\
-0
-\end{pmatrix},
-\quad\quad 
-B_k = B = \begin{pmatrix}
-0 \\
-1
-\end{pmatrix}
-\end{equation}
+So far...
 
 \begin{equation}
 G_k = \begin{pmatrix}
@@ -190,6 +184,7 @@ D_k = G_p^{-1} + G_p^{-1} G_{xp}^T C_k G_{xp} G_p^{-1}
 		\vec{p}_k - c_k^0
 	\right)
 \right]
+\label{eq:VF_new_vertex_final}
 \end{equation}
 
 \begin{equation}
@@ -199,6 +194,7 @@ D_k = G_p^{-1} + G_p^{-1} G_{xp}^T C_k G_{xp} G_p^{-1}
 \left[
 	\vec{p_k} - c_k^0 - A\vec{x}_k
 \right]
+\label{eq:VF_new_momentum_final}
 \end{equation}
 
 \begin{equation}
@@ -221,8 +217,20 @@ D_k = G_p^{-1} + G_p^{-1} G_{xp}^T C_k G_{xp} G_p^{-1}
 \end{align}
 \end{subequations}
 
+\subsubsection{Iteration and proper transportation}
+
 When all particles have been added, i.e. all steps have been performed, the algorithm concludes an \textit{iteration}.
 The process is then repeated until either a convergence condition is satisfied (see later) or the fit reaches the set number of allowed iterations, 10 by default.
+
+Within an individual iteration, the vertex position is updated at each step following \eqref{eq:VF_new_vertex_final}.
+Consequently, the individual momenta of the particles must also be updated to reflect the change in reference point;
+this is performed with a degree of approximation in equation \eqref{eq:VF_new_momentum_final}.
+To supplement this, every iteration begins with a \textit{proper transportation}, a dedicated routine in which all daughter particles are extrapolated to the $z$ component of the current (tentative) position of the common production vertex.
+Such transportation is also performed at the end of the vertexing procedure to ensure an optimal computation of final particle momenta.
+
+Extrapolation using T tracks is a sensitive affair:
+unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
+For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta method \cite{Bos:1070314} \cite{Hairer1993}.
 
 \subsubsection{Seeding}
 
@@ -242,7 +250,33 @@ In the case of interest of the $\Lambda^0 \rightarrow p \pi^-$ two-body decay, s
 Subscripts $1$ and $2$ as used above refer to the two daughter particles in the decay (i.e. proton and pion).
 
 \subsubsection{Termination and smoothing}
+\begin{equation}
+\vec{x}_k^n = \vec{x}_n
+\end{equation}
 
+\begin{equation}
+\vec{q}_k^n = W_k B_k^T G_k \left[
+	\vec{p}_k - A_k \vec{x}_n
+\right]
+\end{equation}
+
+\begin{equation}
+C_k^n = C_n
+\end{equation}
+
+\begin{equation}
+D_k^n = W_k - E_k^n F_k^T
+\end{equation}
+
+\begin{equation}
+E_k^n = - F_k C_n
+\end{equation}
+
+\begin{equation}
+\text{corr}\left(
+	\vec{q}_k^n, \vec{q}_l^n
+\right) = F_k C_n F_l^T
+\end{equation}
 
 \subsection{Decay Tree Fitter algorithm}
 [[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]
@@ -259,7 +293,7 @@ To compute the vertex reconstruction efficiency for the $\Lambda_b^0$ decay chai
 	\item reconstruction of the three decay vertices ($\Lambda^0$, $J/\psi$ and $\Lambda_b^0$);
 	\item preliminary selections based on kinematic variables to filter out most background (see Section \ref{sec:prefilter});
 	\item Decay Tree Fitter refit with appropriate mass constraints for the analysis at hand (usually $J/\psi$ and $\Lambda^0$);
-	\item further selections applied to events passing all previous steps. Detailed in Chapter \ref{cap:event_selection}, these include a physical background veto and signal selection via a trained non-linear classifier.
+	\item further selections applied to events passing all previous steps. Detailed in Chapter \ref{cap:event_selection}, these include a physical background veto and signal selection via a trained multivariate classifier.
 \end{enumerate}
 
 For the purposes of this section, we are interested in the first two steps (track and vertex reconstruction).

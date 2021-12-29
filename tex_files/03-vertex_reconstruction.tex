@@ -24,6 +24,7 @@ This parameter vector has an associated covariance matrix $V$, which can be writ
 		V_r      & V_{rq} \\
 		V_{rq}^T & V_q
 	\end{pmatrix}.
+	\label{eq:par_covmatrix}
 \end{equation}
 It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which has an analogous block form:
 \begin{equation}
@@ -321,7 +322,8 @@ When convergence is reached, the algorithm applies a smoothing process: for each
 
 Finally comes the evaluation of the relevant covariance matrices. The vertex covariance matrix $C$ is obviously fixed at $C_n^i$; the algorithm also computes for each entry the correlation matrix $E_k \coloneqq \text{corr}\left(\vec{x},\vec{q}_k\right)$ between the vertex position and the particle momentum
 \begin{equation}
-E_k = - F_k C,
+	E_k = - F_k C,
+	\label{eq:Ek}
 \end{equation}
 and the particle momentum covariance matrix
 \begin{equation}
@@ -331,11 +333,13 @@ and the particle momentum covariance matrix
 	{V_{rq}}_k {V_r}_k^{-1} {V_{rq}}_k^T
 	+
 	F_k C F_k^{-1},
+	\label{eq:Dk}
 \end{equation}
 with
 \begin{equation}
 	F_k =
 	- {V_{rq}}_k {V_r}_k^{-1}
+	\label{eq:Fk}
 \end{equation}
 being an auxiliary matrix.
 
@@ -349,9 +353,32 @@ Degrees of freedom (DOFs) for $\chi^2$ reduction are computed as follows:
 	\item the sum total is reduced by 3. %% Perché?
 \end{itemize}
 
-A mother particle is subsequently created using the \eqref{eq:particle_representation} representation with reference point fixed to the new-found vertex coordinates.
+A mother particle is subsequently created using the \eqref{eq:particle_representation} representation with reference point $\vec{x}_\text{mother}$ fixed to the new-found vertex coordinates.
+Its 4-momentum is computed as a simple sum of the 4-momenta of its daughters extrapolated at the vertex:
+\begin{equation}
+	\vec{q}_\text{mother} = \sum_{k \in \text{daughters}} \vec{q}_k.
+\end{equation}
 
-Prosegui con descrizione di come viene creata.
+The parameter vector covariance matrix \eqref{eq:par_covmatrix} is determined as follows:
+\begin{equation}
+	V_{r}^\text{mother} = C,
+\end{equation}
+\begin{equation}
+	V_{q}^\text{mother} = \sum_{k \in \text{daughters}} \left[
+		D_k
+		+
+		\sum_{\substack{j\in\text{daughters} \\ j \neq k}}
+		\left(
+			F_k C F_j^T + F_j C F_k^T
+		\right)
+	\right],
+\end{equation}
+\begin{equation}
+	V_{rq}^\text{mother} = \sum_{k \in \text{daughters}} E_k,
+\end{equation}
+with $D_k$, $E_k$ and $F_k$ for each daughter resulting from \eqref{eq:Dk}, \eqref{eq:Ek} and \eqref{eq:Fk} respectively.
+
+Prosegui con descrizione di measured mass.
 
 \subsection{Decay Tree Fitter algorithm}
 [[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]

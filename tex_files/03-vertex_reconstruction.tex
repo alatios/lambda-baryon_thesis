@@ -378,9 +378,47 @@ The parameter vector covariance matrix \eqref{eq:par_covmatrix} is determined as
 \end{equation}
 with $D_k$, $E_k$ and $F_k$ for each daughter resulting from \eqref{eq:Dk}, \eqref{eq:Ek} and \eqref{eq:Fk} respectively.
 
-Prosegui con descrizione di measured mass.
+Finally, the mother particle measured mass $M_\text{mother}$ is computed as magnitude of 4-vector $\vec{q}_\text{mother}$ in the $(-,-,-,+)$ metric
+\begin{equation}
+	M_\text{mother} = \sqrt{E_\text{mother}^2
+	- {p_x}_\text{mother}^2
+	- {p_y}_\text{mother}^2
+	- {p_z}_\text{mother}^2
+	},
+\end{equation}
+Its associated uncertainty is defined as
+\begin{equation}
+	\sigma_M^\text{mother} = \sqrt{
+		\frac{1}{4 M_\text{mother}^2}
+		v^T
+		H
+		v
+	},
+\end{equation}
+with
+\begin{equation}
+	v \coloneqq \frac{dM_\text{mother}^2}{d\vec{q}}
+	= \begin{pmatrix}
+		-2 {p_x}_\text{mother} \\
+		-2 {p_y}_\text{mother} \\
+		-2 {p_z}_\text{mother} \\
+		2 E_\text{mother}
+	\end{pmatrix}
+\end{equation}
+and
+\begin{equation}
+	H \coloneqq \sum_{k \in \text{daughters}} {V_q}_k.
+\end{equation}
 
 \subsection{Decay Tree Fitter algorithm}
+While the leaf-by-leaf approach adopted by the Vertex Fitter is fast, it brings alongside it the significant drawback of forgoing upstream information when fitting the downstream branches of a decay.
+This is especially notable for decays like $K_S^0 \rightarrow \pi^0\pi^0$, where the final state has no tracks to form a vertex with.
+Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decay, however, the VF algorithm still limits our options.
+In particular, it prevents the placing of \textit{mass constraints} on mother particles, where the fit fixes the invariant mass of the $p\pi^-$ pair to the PDG value for $m(\Lambda^0)$, for instance.
+
+To combat this problem, in this analysis we also use a refit process based on the Decay Tree Fitter (DTF) algorithm \cite{Hulsbergen:2005pu} first developed in BaBar.
+This algorithm is only applied on VF-converged events and takes the \textit{entire decay chain} as input.
+
 [[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]
 
 \begin{figure}[t]

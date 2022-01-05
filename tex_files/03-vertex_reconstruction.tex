@@ -1,7 +1,14 @@
 \chapter{\texorpdfstring{$\Lambda_b^0$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decay vertex reconstruction}
 \label{cap:vertex_reconstruction}
+This chapter details my work towards the improvement of the vertex reconstruction process for decays involving T tracks.
+Section \ref{sec:reco_algorithms} delves into a deep study of the vertexing process at LHCb and the two algorithms employed in this thesis;
+Section \ref{sec:reco_efficiency} introduces the problem of low vertexing efficiency for the decay of interest $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$;
+Section \ref{sec:characterization_non_converged} presents my efforts in the characterization of the non-converged events in search for the root cause of the vertexing falure;
+finally, Section \ref{sec:recovery_general} proposes my solution to improve the signal yield through partial recovery of non-reconstructed events.
 
 \section{Vertex reconstruction algorithms at LHCb}
+\label{sec:reco_algorithms}
+
 \subsection{Vertex Fitter algorithm}
 The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the $\Lambda_b^0$ decay.
 
@@ -411,26 +418,32 @@ and
 
 \subsection{Decay Tree Fitter algorithm}
 While the leaf-by-leaf approach adopted by the Vertex Fitter is fast, it brings alongside it the significant drawback of forgoing upstream information when fitting the downstream branches of a decay.
-This is especially notable for decays like $K_S^0 \rightarrow \pi^0\pi^0$, where the final state has no tracks to form a vertex with.
+This is especially notable for decays like $K_S^0 \rightarrow \pi^0\pi^0 \rightarrow \gamma\gamma\gamma\gamma$, where the final state has no tracks to form a vertex with.
 Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decay, however, the VF algorithm still limits our options.
 In particular, it prevents the placing of \textit{mass constraints} on mother particles, where the fit fixes the invariant mass of the $p\pi^-$ pair to the PDG value for $m(\Lambda^0)$, for instance.
 
-To combat this problem, in this analysis we also use a refit process based on the Decay Tree Fitter (DTF) algorithm \cite{Hulsbergen:2005pu} first developed in BaBar.
-This algorithm is only applied on VF-converged events and takes the \textit{entire decay chain} as input.
+To combat this problem, all reconstructed events in this analysis undergo a refit process based on the Decay Tree Fitter (DTF) algorithm \cite{Hulsbergen:2005pu} first developed in BaBar.
+This algorithm takes the entire decay chain as input and allows to place mass constraints on $p\pi^-$ and $\mu^+\mu^-$ invariant masses to match $m(\Lambda^0)$ and $m(J/\psi)$ respectively.
 
-[[@todo: Qui io darei una descrizione generale + FixJPsi + Lambda + reference, non serve per la discussione. Però ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.]]
+%% @todo: Ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/04-event_selection/paper_momentum_resolutions.pdf}
 	\caption[Momentum resolution.]{Momentum resolution.}
+	\label{fig:paper_momentum_resolutions}
 \end{figure}
+
+While this step introduces another filtering process and related efficiency to account for\footnote{DTF convergence efficiency with the double mass constraint is relatively uneven across the $z_\Lambda^\textbf{vtx}$ spectrum, starting at $\approx 50\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{6}{\meter}$ and growing up to $\approx 85\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{7.5}{\meter}$.
+Comparably, vertex reconstruction is still the primary cause of event loss in this analysis.}, it proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution.
+As shown in Figure \ref{fig:paper_momentum_resolutions}, using both $J/\psi$ and $\Lambda^0$ mass constraints improves $\vec{p}$ resolution from $20 \div 30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the $\Lambda^0$ momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
 
 %% Con KineAtVtx non è più vero.
 %For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
 %by contrast, VF momenta are provided either at the decay vertex (short-lived particles) or at the position of first measurement (long-lived or stable particles).
 
 \section{Reconstruction efficiency of the \texorpdfstring{$\Lambda^0_b$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decays}
+\label{sec:reco_efficiency}
 
 To compute the vertex reconstruction efficiency for the $\Lambda_b^0$ decay chain, it is useful to conceptualize our event selection as a five step process:
 \begin{enumerate}
@@ -469,9 +482,11 @@ Furthermore, the rare usage of T tracks for physics analysis in LHCb suggests th
 For the above reasons, in the following sections I'll focus on the $\Lambda^0 \rightarrow p\pi^-$ decay to search for issues and solutions, with the goal of improving signal yield.
 
 
-\section{Characterization of converged and non-converged events}
+\section{Characterization of non-converged events}
+\label{sec:characterization_non_converged}
 
 \subsection{Behaviour through VF iterations}
+\label{sec:oscillation}
 The VF process reaches convergence if either condition \eqref{eq:cond_conv_1} or \eqref{eq:cond_conv_2} is satisfied, i.e. if the vertex position estimated at iteration $i$ and the one from iteration $i-1$ are <<close enough>> either in absolute distance or $\chi^2$ distance, up until $i_\text{max} = 10$.
 This is predicated on the principle that the algorithm refines its vertex estimate after each iteration, homing in on the candidate vertex with the lowest $\tilde{\chi}^2_\text{vtx}$.
 
@@ -563,24 +578,50 @@ For didactic purpose, the analysis in this section has focused on just one event
 All the emerged patterns are however commonplace throughout the failed events I have examined, with the oscillating vertex behaviour in particular being a constant in almost all of them.
 While every $\Lambda_b^0$ vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
 
-\subsection{Kinematic features}
-i.e. momento px del protone alla prima misura
+\subsection{True kinematics}
+To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
 
-Comparing 
+No difference among the two categories emerge when considering basic decay descriptors such as the momenta of all particles involved and the decay vertices of unstable particles.
+Moreover, there doesn't seem to be a critical decay geometry that triggers the vertexing;
+for instance, there is no evidence that $\Lambda^0 \rightarrow p\pi^-$ decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), has any disproportionate representation amongst non-converged events.
+
+\subsection{Kinematics at first measurement position}
+A major discrepancy emerges when looking at particle interaction with the detector via \textit{protoparticles}.
+A protoparticle is a data structure created during the LHCb event reconstruction process with the intent of encapsulating all relevant information available for the associated particle:
+particle identification (PID) from the RICH and muon detectors, results from calorimeter hits and track information.
+The latter contains details on momentum in relation to a certain reference point which, for stable charged particles, corresponds to the position of first measurement.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/pp_p_momentum_x.pdf}
 	\caption{A.}
+	\label{fig:pp_p_px_conv_vs_failed}
 \end{figure}
 
+In the case of simulated protons from $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decays, the distribution of the
+%true\footnote{While protoparticles result from interaction of the particle with the material, at this point I'm specifically considering the true value of the first measurement position and related momentum. Later on we'll instead delve into the \textit{reconstructed} counterparts of these quantities, which can be different as a result of poor T station measurements.}
+protoparticle $p_x$ for converged and failed events shows a marked difference outlined in Figure \ref{fig:pp_p_px_conv_vs_failed}:
+correctly reconstructed events tend to have a double peak roughly centered in $\approx \pm \SI{1}{\giga\electronvolt}$, while missing events have a more traditional single peak centered in $0$.
+
+%% todo: spezza in due? Fixa anche il testo poco dopo.
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pp_p_refPoint_y_vs_p_momentum_x.pdf}
 	\caption{B.}
+	\label{fig:pp_p_px_vs_refpy_conv_vs_failed}
 \end{figure}
 
-\subsection{Underestimation of proton and pion \texorpdfstring{$p_z$}{pz}}
+Even more interestingly, this discrepancy can be put in relation to the $y$ component of the protoparticle first measurement position, as seen in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed}.
+The ring-like structure in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed} implies that the vertexing process struggles to reconstruct proton protoparticles with low $p_x$ hitting the T stations at $y\approx 0$.
+No such discrepancy is present in the case of pions.
+
+A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation.
+Even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
+Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
+As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
+
+\subsection{Kinematics at true vertex}
+i.e. sottostima di pz
 
 \begin{figure}[t]
 	\centering
@@ -609,6 +650,7 @@ Comparing
 \end{figure}
 
 \section{Recovery of non-converged events}
+\label{sec:recovery_general}
 
 \subsection{Recovery through interpolation}
 \begin{figure}[t]

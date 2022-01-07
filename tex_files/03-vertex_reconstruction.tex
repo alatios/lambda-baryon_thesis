@@ -64,7 +64,7 @@ The algorithm then performs a \textit{proper transportation}, a dedicated routin
 
 Extrapolation using T tracks is a sensitive affair:
 unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
-For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta method \cite{Bos:1070314} \cite{Hairer1993}.
+For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Bos:1070314} \cite{Hairer1993}.
 
 %---
 %
@@ -586,6 +586,7 @@ Moreover, there doesn't seem to be a critical decay geometry that triggers the v
 for instance, there is no evidence that $\Lambda^0 \rightarrow p\pi^-$ decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), has any disproportionate representation amongst non-converged events.
 
 \subsection{Kinematics at first measurement position}
+\label{sec:3:kinematics_at_first_meas}
 A major discrepancy emerges when looking at particle interaction with the detector via \textit{protoparticles}.
 A protoparticle is a data structure created during the LHCb event reconstruction process with the intent of encapsulating all relevant information available for the associated particle:
 particle identification (PID) from the RICH and muon detectors, results from calorimeter hits and track information.
@@ -621,33 +622,68 @@ Moreover, momentum itself is computed through evaluation of the particle bending
 As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
 \subsection{Kinematics at true vertex}
-i.e. sottostima di pz
+As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the $\Lambda^0$ vertex is affected by a significant positive bias of median value $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{43}{\centi\meter}$.
+In spite of such a discrepancy, the standard modus operandi for kinematics-at-vertex analyses usually compares the true momenta (evaluated at the true vertex) with the reconstructed momenta (evaluated at the reconstructed vertex).
+
+For this section I have followed a different approach, instead opting to transport via Runge-Kutta extrapolator the reconstructed $p$ and $\pi^-$ at the true  $\Lambda^0 \rightarrow p\pi^-$ vertex position, injected from Monte Carlo information.
+Since the extrapolator takes raw protoparticles as inputs, this process bypasses any smoothing applied during the fit process and, given an observable $f$ (particle reference points and momenta, for instance), it allows for a comparison between the true value $f_\text{true}$ and the RK-extrapolated value $f_\text{RK}$ at the actual $z_\Lambda^\text{vtx}$, circumventing the effect of vertex bias.
+Any potential mismatch will be normalized in terms of \textit{residuals}
+\begin{equation}
+	\text{res}(f) \coloneqq \frac{f_\text{RK} - f_\text{true}}{\sigma_f^\text{RK}},
+\end{equation}
+with $\sigma_f^\text{RK}$ being the uncertainty computed by the RK algorithm.
+Assuming a correct estimation of such uncertainties, we expect the residuals to follow a standard normal distribution.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_residual_2Dv3D_z_rel.pdf}
 		\caption{}
+		\label{fig:p_momentum_residual_2Dv3D_z_rel}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_z_rel.pdf}
 		\caption{}
+		\label{fig:pim_momentum_residual_2Dv3D_z_rel}
 	\end{subfigure}
 	\caption[A and b.]{Left right}
+	\label{fig:p_pim_momentum_residual_2Dv3D_z_rel}
 \end{figure}
+
+Figure \ref{fig:p_pim_momentum_residual_2Dv3D_z_rel} shows $p_z$ residuals for proton and pions extrapolated at the $\Lambda^0$ true decay vertex, juxtaposing converged and non-converged event distributions.
+The first takeaway is that VF-reconstructed events have a remarkably non-gaussian distribution, with a slightly positive mean and asymmetric tails. 
+This is particularly apparent in the case of the proton, where for $p_z^\text{RK} < p_z^\text{true}$ the RK algorithm systematically underestimates the error.
+More relevant for this chapter is Figure \ref{fig:pim_momentum_residual_2Dv3D_z_rel} specifically, which highlights the fact that pion tracks from non-converged events generally sport a strong negative bias on $p_z$.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_refpoint_residual_2Dv3D_x_rel_matter.pdf}
 		\caption{}
+		\label{fig:pim_refpoint_residual_2Dv3D_x_rel_matter}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_refpoint_residual_2Dv3D_x_rel_antimatter.pdf}
 		\caption{}
+		\label{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}
 	\end{subfigure}
 	\caption[A and b.]{Left right}
+	\label{fig:pim_refpoint_residual_2Dv3D_x_rel}
 \end{figure}
+
+This behaviour can also be observed from a different perspective by considering the pion reference point $x$ residuals\footnote{The Runge-Kutta extrapolator transports a particle up to a specified $z$ coordinate. As a consequence, $x$ and $y$ reference points gauge the discrepancy between track extrapolation and the true position of the MC particle at said $z$, with $z_\text{ref}^\text{RK} \approx z_\text{ref}^\text{true}$ within extrapolator tolerance.}, plotted in Figure \ref{fig:pim_refpoint_residual_2Dv3D_x_rel}.
+For this part of the analysis, we forgo the established omission of charge-conjugate notation and separate events in matter ($\Lambda^0 \rightarrow p\pi^-$) and antimatter ($\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$) events.
+Since all events in this sample have magnet polarity $M_\text{pol} = +1$, i.e. magnetic field flowing towards the positive direction of the $y$ axis,
+%% @todo: controlla che sia vero
+matter and antimatter daughter particles will bend in opposite directions due to charge inversion.
+
+Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, pion reference points $x$ in non-converged events show opposite bias when extrapolated at the $\Lambda^0$ vertex.
+Such a behaviour is easily understood in terms of transportation: tracks are extrapolated from downstream protoparticles towards decreasing $z$;
+if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\Lambda^\text{vtx}$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
+
+Excessive bending is exactly what is expected of a track with correctly estimated $p_x$ and $p_y$, but underestimated $p_z$.
+Furthermore, a lower $p_z$ will affect the closest distance point between proton and pions in the $zx$ plane, but will have no bearing on the track crossing point in the $yz$ plane, where bending is negligible, supporting the conflicting information interpretation for vertex oscillation given in Section \ref{sec:oscillation}.
+Considering the information gathered so far, the two most plausible causes of failed convergence appear to be wrong extrapolation by the Runge-Kutta algorithm, perhaps triggered by lower protoparticle $p_x$ observed in Section \ref{sec:3:kinematics_at_first_meas}, and/or poor measurement from T stations resulting in $p_z$ underestimation of protons and pions.
 
 \section{Recovery of non-converged events}
 \label{sec:recovery_general}

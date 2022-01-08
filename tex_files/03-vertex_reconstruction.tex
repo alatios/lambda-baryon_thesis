@@ -117,6 +117,7 @@ Given information on the vertex position $\vec{x}_{k-1}$ obtained using the firs
 First the inverse vertex covariance matrix is updated:
 \begin{equation}
 C_k^{-1} = C_{k-1}^{-1} + {V_r}_k^{-1},
+\label{eq:3:VF_new_inv_covmatrix}
 \end{equation}
 where the reference point inverse covariance matrix ${V_r}_k^{-1}$ has been updated at the beginning of the iteration through the proper transportation phase.
 
@@ -513,7 +514,7 @@ It follows that, for the vast majority of missing events, failure of convergence
 This is readily apparent when studying the vertex positions throughout the iterating process for examples of converged and failed events of simulated signal.
 Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\Lambda^\text{vtx}$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $0$ to $10$ ($i=0$ being the starting seed).
 Figure \ref{fig:z_iter_conv} (converged) exhibits the expected behaviour, with the algorithm refining its vertex estimate after every iteration and finally converging as early as $i=5$.
-By contrast, \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\Lambda^\text{vtx}$, constantly flipping the probing direction after an iteration completes.
+By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\Lambda^\text{vtx}$, constantly flipping the probing direction after an iteration completes.
 While a particularly tricky instance of the first type of event may potentially benefit by an increased $i_\text{max}$, no amount of allotted computations can lead the second type to convergence.
 
 \begin{figure}[t]
@@ -677,18 +678,22 @@ Since all events in this sample have magnet polarity $M_\text{pol} = +1$, i.e. m
 %% @todo: controlla che sia vero
 matter and antimatter daughter particles will bend in opposite directions due to charge inversion.
 
-Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, pion reference points $x$ in non-converged events show opposite bias when extrapolated at the $\Lambda^0$ vertex.
+Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, $x$ components of pion reference points in non-converged events show opposite bias when extrapolated at the $\Lambda^0$ vertex.
 Such a behaviour is easily understood in terms of transportation: tracks are extrapolated from downstream protoparticles towards decreasing $z$;
 if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\Lambda^\text{vtx}$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
 
 Excessive bending is exactly what is expected of a track with correctly estimated $p_x$ and $p_y$, but underestimated $p_z$.
-Furthermore, a lower $p_z$ will affect the closest distance point between proton and pions in the $zx$ plane, but will have no bearing on the track crossing point in the $yz$ plane, where bending is negligible, supporting the conflicting information interpretation for vertex oscillation given in Section \ref{sec:oscillation}.
+Furthermore, a lower $p_z$ will affect the closest distance point between proton and pions in the $zx$ plane, but will have a much lower impact on the track crossing point in the $yz$ plane,
+%where bending is negligible,
+supporting the conflicting information interpretation for vertex oscillation given in Section \ref{sec:oscillation}.
 Considering the information gathered so far, the two most plausible causes of failed convergence appear to be wrong extrapolation by the Runge-Kutta algorithm, perhaps triggered by lower protoparticle $p_x$ observed in Section \ref{sec:3:kinematics_at_first_meas}, and/or poor measurement from T stations resulting in $p_z$ underestimation of protons and pions.
 
 \section{Recovery of non-converged events}
 \label{sec:recovery_general}
 
 \subsection{Recovery through interpolation}
+@todo
+
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/iolt_lambda_endvertex_z_bias.pdf}
@@ -697,13 +702,72 @@ Considering the information gathered so far, the two most plausible causes of fa
 
 \subsection{Recovery through refit with rescaled uncertainties}
 \label{sec:blowup_matrix}
+As outlined in Section \ref{sec:oscillation}, vertexing failures in the $\Lambda^0 \rightarrow p\pi^-$ decay can be attributed to candidate vertices in different planes providing conflicting information.
+In order to circumvent this phenomenon, my proposal for the recovery of these failed events involves performing a refit process with a slightly altered version of the standard Vertex Fitter, designed to give more importance to tracks lying on a specific plane.
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/Lambda_endvertex_z_bias_xyz_common.pdf}
-	\caption{A.}
-\end{figure}
+The obvious choice for said plane is the $yz$ plane, since extrapolation of these tracks does not need to be concerned with magnet bending and is therefore expected to be less prone to error.
+However, this would penalize events with poor $yz$ protoparticle reconstruction, for instance events with parallel or diverging tracks in said plane.
+To maximize the recovery efficiency of my solution, I have elected to perform three separate refits on non-converging events, prioritizing $yz \rightarrow xz \rightarrow xy$ planes in this order.
+In a worst-case scenario, this would quadruple the time complexity of the vertexing process; in practice, half of all events converge with the standard VF, and about $\approx 15\%$ more converge after the first refit attempt ($yz$ plane).
+%%@todo: stima dell'aumento del tempo
 
+Considering the $yz$ plane as an example, we can prioritize available information for tracks in this plane by artificially increasing the uncertainty $\sigma_x$ for the $x$ component of the candidate vertex position $\vec{x}$.
+At each step in a VF iteration, $\vec{x}$ is updated according to \eqref{eq:VF_new_vertex_final}.
+Uncertainties enter the computation through three terms:
+\begin{enumerate}
+	\item $C^{-1}_{k-1}$, inverse $\vec{x}$ covariance matrix computed at the previous step (or previous iteration);
+	\item ${V_r}_k^{-1}$, inverse covariance matrix of reference point $\vec{r}_k$, computed at the true transport of particle $k$;
+	\item $C_k$, current $\vec{x}$ covariance matrix, inverted from the matrix sum of the previous two terms as in \eqref{eq:3:VF_new_inv_covmatrix}.
+\end{enumerate}
+Ergo, the best approach to increase $\sigma_x$ while minimizing additional computation time is to act on the individual components of $C^{-1}_{k-1}$ and ${V_r}_k^{-1}$ just before the \eqref{eq:3:VF_new_inv_covmatrix} sum.
+
+Assuming gaussian uncertainties, a standard three-dimensional covariance matrix will have the form
+\begin{equation}
+C = \begin{pmatrix}
+	\sigma_x^2 & \rho_{xy} \sigma_x \sigma_y & \rho_{xz} \sigma_x \sigma_z \\
+	\rho_{xy} \sigma_x \sigma_y & \sigma_y^2 & \rho_{yz} \sigma_y \sigma_z \\
+	\rho_{xz} \sigma_x \sigma_z & \rho_{yz} \sigma_y \sigma_z & \sigma_z^2 \\
+\end{pmatrix},
+\label{eq:3:gaussian_covmatrix}
+\end{equation}
+where $\rho_{ij} \coloneqq \text{corr}(i,j)$. Its inverse matrix is written as
+\begin{equation}
+C^{-1} = \frac{1}{K} \begin{pmatrix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frac{1-\rho_{yz}^2}{\sigma_x^2} &&
+\frac{\rho_{xz}\rho_{yz} - \rho_{xy}}{\sigma_x \sigma_y} &&
+\frac{\rho_{xy}\rho_{yz} - \rho_{xz}}{\sigma_x \sigma_z} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frac{\rho_{xz}\rho_{yz} - \rho_{xy}}{\sigma_x \sigma_y} &&
+\frac{1-\rho_{xz}^2}{\sigma_y^2} &&
+\frac{\rho_{xy}\rho_{xz} - \rho_{yz}}{\sigma_y \sigma_z} \\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frac{\rho_{xy}\rho_{yz} - \rho_{xz}}{\sigma_x \sigma_z} &&
+\frac{\rho_{xy}\rho_{xz} - \rho_{yz}}{\sigma_y \sigma_z} &&
+\frac{1-\rho_{xy}^2}{\sigma_z^2}
+\end{pmatrix},
+\label{eq:3:inverse_gaussian_covmatrix}
+\end{equation}
+with
+\begin{equation}
+K \coloneqq \frac{\det C}{\sigma_x^2 \sigma_y^2 \sigma_z^2} = 1+2\rho_{xy} \rho_{xz} \rho_{yz} - \rho_{xy}^2 - \rho_{xz}^2 - \rho_{yz}^2.
+\end{equation}
+Going back to the $yz$ plane example, we increase $\sigma_x$ by introducing a multiplicative factor $s_x < 1$ for relevant covariance matrix components as follows:
+\begin{equation}
+\begin{aligned}
+&C^{-1}_{xx} = C^{-1}_{xx} \times s_x^2, \\
+&C^{-1}_{xy} = C^{-1}_{yx} = C^{-1}_{xy} \times s_x, \\
+&C^{-1}_{xz} = C^{-1}_{zx} = C^{-1}_{xz} \times s_x,
+\end{aligned}
+\label{eq:3:sigma_x_rescaled}
+\end{equation}
+with other components left as is.
+This process is also applied to ${V_r}_k^{-1}$ and replicated at each step of the refit algorithm, which I'll refer to as \textit{$\sigma_x$-rescaled}.
+Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize planes $xz$ and $xy$ respectively;
+their extension from \eqref{eq:3:sigma_x_rescaled} should be trivial.
+For the remainder of this section, I'll also refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}, unless otherwise stated.
+
+%% @todo: aggiungi xyz sequential
 \begin{table}[t]
 	\begin{center}
 	\begin{tabular}{|c||c|c|c|c|}
@@ -719,11 +783,20 @@ Considering the information gathered so far, the two most plausible causes of fa
 		\hline
 	\end{tabular}
 	\end{center}
-	\caption{Performance comparison of the three rescaled-$\sigma$ algorithms (see text for details) with a $2\%$ increase in the respective vertex position uncertainties, contrasted with the performance of the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}
+	\caption{Performance comparison of the three rescaled-$\sigma$ algorithms (see text for details) with a $\approx 2\%$ increase in the respective vertex position uncertainties, contrasted with the performance of the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}
 \end{table}
+
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/Lambda_endvertex_z_bias_xyz_common.pdf}
+	\caption{A.}
+\end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/xyz_L_ENDVERTEX_residual_2Dv3D_z_rel.pdf}
 	\caption{A.}
 \end{figure}
+
+@todo: menziona che xyz insieme non fungono.

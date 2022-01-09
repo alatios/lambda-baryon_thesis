@@ -768,15 +768,15 @@ Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize
 their extension from \eqref{eq:3:sigma_x_rescaled} should be trivial.
 For the remainder of this section, I'll also refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}, unless otherwise stated.
 
-As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach on a sample of [@todo:how many] MC-generated $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ events, observing a $+25\%$ increase in reconstructed events.
-As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this corresponds to about a quarter of all reconstructible events.
+As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on a sample of [@todo:how many] MC-generated $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ events, observing a $+25\%$ increase in reconstructed events.
+As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a quarter of all reconstructible events.
 
-%% @todo: aggiungi xyz sequential
+%% @todo: rimpiazza DTF JPsi con DTF JPsiLambda
 \begin{table}[t]
 	\begin{center}
 	\begin{tabular}{|c||c|c|c|c|}
 		\hline
-		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2\right]$ & $\mu_\frac{1}{2}\left[z_\Lambda^\text{vtx} \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
+		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2_\text{vtx}\right]$ & $\mu_\frac{1}{2}\left[z_\Lambda^\text{vtx} \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
 		\hline
 		\hline
 		None (VF)  & -- & 1.0 & 429 mm & $+1.35\%$ \\
@@ -785,24 +785,37 @@ As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this corresponds to abou
 		$\sigma_y$ & 74\% & 5.4 & 635 mm & $-0.81\%$ \\
 		$\sigma_z$ & 80\% & 7.8 & 697 mm & $-1.02\%$ \\
 		\hline
+		Sequential & 100\% & 6.5 & 646 mm & $-0.93\%$ \\
+		\hline
 	\end{tabular}
 	\end{center}
-	\caption{Performance comparison of the three rescaled-$\sigma$ algorithms (see text for details) with a $\approx 2\%$ increase in the respective vertex position uncertainties, contrasted with the performance of the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}
+	\caption{Performance comparison of the three rescaled-$\sigma$ algorithms with $s_i=0.98$ (see text for details), contrasted with the performance of their sequential application ($\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$) and the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}
 	\label{tab:3:xyz_VF_performances}
 \end{table}
 
 I have also run each algorithm individually after the standard VF to gauge their performance on the $n^\text{reco}_\text{tot}$ recovered events.
 Results of this test are compiled in Table \ref{tab:3:xyz_VF_performances}.
-Defining the \textit{recovery efficiency} of each algorithm as the fraction of recovered events converging under said algorithm, i.e.
+When considering the \textit{recovery efficiency} of each algorithm, defined as the fraction of recovered events converging under said algorithm, i.e.
 \begin{equation}
-	\varepsilon^\text{reco}_i i\in{x,y,z}
+	\varepsilon^\text{reco}_i \rvert_{i\in\{x,y,z\}} = \frac{n_i^\text{reco}}{n_\text{tot}^\text{reco}},
 \end{equation}
+the $\sigma_z$-rescaled is the better performing one, reaching convergence in $\approx 80\%$ of recoverable events.
+Despite this, all three $\sigma$-rescaled algorithms have a sizable number of <<exclusive>> events that do not reach convergence under any other variation.
+Furthermore, while the $\sigma_z$-rescaled does recover more events by itself, only $\approx 5\%$ of the total recovered events are exclusive to it, meaning its overall impact on the $\sigma$-rescaled refit process is low.
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/Lambda_endvertex_z_bias_xyz_common.pdf}
-	\caption{A.}
-\end{figure}
+The established $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order is justified in light of performance evaluation based on the goodness of these fits.
+As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparably lower vertex $\tilde{\chi}^2$, $z_\Lambda^\text{vtx}$ bias and proton $p_z$ bias using the DTF algorithm with $J/\psi$ and $\Lambda^0$ mass constraints.
+Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ of recovered events are actually affected by its poor performance.
+
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/Lambda_endvertex_z_bias_xyz_common.pdf}
+%	\caption{A.}
+%	\label{fig:3:Lambda_endvertex_z_bias_xyz_common}
+%\end{figure}
+%
+%Figure \ref{fig:3:Lambda_endvertex_z_bias_xyz_common} shows the $z_\Lambda^\text{vtx}$ bias of the individual $\sigma$-rescaled algorithms in the $\approx 36\%$ of recovered events which converge under all three variations.
+%Despite the difference in performance outlined in Table \ref{tab:3:xyz_VF_performances}
 
 \begin{figure}[t]
 	\centering
@@ -820,14 +833,28 @@ Defining the \textit{recovery efficiency} of each algorithm as the fraction of r
 	\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}
 \end{figure}
 
-The extent of $z_\Lambda^\text{vtx}$ bias is therefore to be understood in terms of what events produce a convergence from a specific algorithm, rather than as performance evaluation of the algorithm itself.
-The $\sigma_z$-rescaled algorithm does not intrinsically reconstruct events with a larger bias;
-instead, borrowing the poor measurement hypothesis from Section \ref{sec:3:true_vtx_kinematics}, its $xy$-centric approach is better suited to find convergence in events with poor protoparticle reconstruction, which tend to have a larger $z_\Lambda^\text{vtx}$ bias on their best vertex candidate.
+All $\sigma$-rescaled algorithms still appear to perform significantly worse than the standard VF on all the above fronts.
+To investigate this, I have individually run the $\sigma_x$-rescaled and standard VF algorithms on all available events and compared their results.
+Considering the total number of events reconstructed by combining the two, $\approx 74\%$ of them are reconstructed by both, $\approx 13\%$ are only reconstructed by the $\sigma_x$-rescaled (these are the $\sigma_x$-recovered events from Table \ref{tab:3:xyz_VF_performances}) and a roughly equal $\approx 13\%$ of them are only reconstructed by the Vertex Fitter.
 
-\begin{figure}
+What's more interesting is the performance comparison. Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common} shows the $z_\Lambda^\text{vtx}$ bias on events common to VF and $\sigma_x$-rescaled.
+Despite the median \SI{15}{\centi\meter} discrepancy reported in Table \ref{tab:3:xyz_VF_performances}, the two distributions are indistinguishable from the other.
+The expected difference only emerges when considering events exclusive to each algorithm, as seen in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}.
+
+The differences in $z_\Lambda^\text{vtx}$ and proton $p_z^\text{DTF}$ bias are therefore to be understood in terms of what events reach convergence with a specific algorithm, rather than as performance evaluations of the algorithm itself.
+The $\sigma_x$-rescaled algorithm does not intrinsically reconstruct events with larger bias;
+instead, its $yz$-centric approach allows it to recover events that throw off the standard VF, and these events tend to have a larger $z_\Lambda^\text{vtx}$ bias on their best vertex candidate.
+This tendency is likely the result of the systematic T track $p_z$ underestimation analyzed in Section \ref{sec:3:kinematics_at_first_meas}.
+
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/xyz_L_ENDVERTEX_residual_2Dv3D_z_rel.pdf}
 	\caption{A.}
+	\label{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel}
 \end{figure}
 
-@todo: menziona che xyz insieme non fungono.
+Overall, my $\sigma$-rescaled refit process proposal allows for the recovery of an extra $+25\%$ of signal events.
+While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\Lambda^\text{vtx}$ are higher compared to events reconstructed via Vertex Fitter (see Figure \ref{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel} and Table \ref{tab:3:xyz_VF_performances}), there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
+Their impact on the prospective $\Lambda^0$ EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
+
+%%@todo: se trovi un posto adatto, menziona che xyz insieme non fungono. Non è che sia importante.

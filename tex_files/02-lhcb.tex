@@ -20,6 +20,7 @@ Its structure, sketched in Figure \ref{fig:2:lhc_diagram}, consists of two count
 
 Four main experiments are stationed at the LHC rings intersection points:
 ATLAS and CMS are high-luminosity experiments focused on general purpose proton-proton collisions; ALICE is optimized for lead-on-lead collisions with lower center-of-mass energy and luminosity compared to the former two; finally, LHCb is dedicated on the study of $b$ hadrons and will be the focus of the rest of this Chapter.
+Beyond the above four, a number of small-scale, more specialized experiments also work with LHC, such as TOTEM, MilliQan and MoEDAL.
 
 
 \section{The LHCb experiment and detector}
@@ -43,7 +44,7 @@ Elenca i successi.
 
 \subsection{Tracking}
 \label{sec:2:tracking}
-In order to measure the momenta of charged particles through their bending curve, LHCb employs a dipole magnet consisting of two trapezoidal coils bent at $45^\circ$ on the two transverse sides, seen in Figure \ref{fig:2:lhcb_diagram} around $z\approx \SI{5}{\meter}$ (the magnet is placed so that the line connecting the centers of the pole faces crosses $z=\SI{5.3}{\meter}$).
+In order to measure the momenta of charged particles through their bending curve, LHCb employs a dipole magnet \cite{Amato:424338} consisting of two trapezoidal coils bent at $45^\circ$ on the two transverse sides, seen in Figure \ref{fig:2:lhcb_diagram} around $z\approx \SI{5}{\meter}$ (the magnet is placed so that the line connecting the centers of the pole faces crosses $z=\SI{5.3}{\meter}$).
 
 \begin{figure}[t]
 	\centering
@@ -52,35 +53,56 @@ In order to measure the momenta of charged particles through their bending curve
 	\label{fig:2:b_field_map_z}
 \end{figure}
 
-This magnet provides an integrated field of $\int B dl \approx \pm \SI{4}{\tesla\meter}$ for \SI{10}{\meter} tracks\footnote{The $\pm$ sign is due to the fact that the magnet operates alternatively in up and down polarities, inverting the sign of the magnetic field.} \cite{Amato:424338}.
+This magnet provides an integrated field of $\int B dl \approx \pm \SI{4}{\tesla\meter}$ for \SI{10}{\meter} tracks\footnote{The $\pm$ sign is due to the fact that the magnet operates alternatively in up and down polarities, inverting the sign of the magnetic field.}.
 Most of this field is contained in the $z\in[2.5,7.95]$ \si{\meter} region, with 
 a small fraction ($\int B dl \approx \SI{0.12}{\tesla\meter}$) upstream of $z=\SI{2.5}{\meter}$. The field map along $z$, measured with a precision of $4 \times {10}^{-4}$, is shown in Figure \ref{fig:2:b_field_map_z} for $x=y=0$.
-Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$ within the LHCb detector acceptance. 
+Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$ within the LHCb detector acceptance.
 
 \subsubsection{VELO}
 As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504321} is designed to provide precision measurements of charged tracks near the beam interaction point, in order to correctly reconstruct detached secondary vertices typical of $b$- and $c$-hadron decays.
 
-The VELO detector comprises a series of silicon modules along the beam direction, measuring the radial and azimuthal track coordinates.
-These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction.
-Two pile-up stations, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help vetoing multiple-interaction events.
-Figure [...] shows the $xz$ plane cross section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, as seen in the closed configuration in Figure [...].
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xy.png}
+	\caption[Front view diagram of the VELO detector.]{Front view diagram of the VELO detector in fully closed (\textit{left}) and fully open (\textit{right}) configurations \cite{Barbosa-Marinho:504321}.}
+	\label{fig:2:VELO_xy}
+\end{figure}
 
+The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of sensors measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
+Due to high risk of radiation damage during beam injection from the Super Proton Synchrotron (SPS) into LHC, these modules can be retracted by \SI{3}{\centi\meter} in so-called \textit{fully open} configuration, whereas during collision phase the VELO operates in \textit{fully closed} configuration (see Figure \ref{fig:2:VELO_xy}).
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xz.png}
+	\caption[Cross section diagram of the VELO detector in the $xz$ plane.]{Cross section diagram of the fully closed VELO detector in the $xz$ plane at $y=0$ (top view). Radial sensors are depicted as \textit{solid} segments, azimuthal sensors as \textit{dashed} segments \cite{Barbosa-Marinho:504321}.}
+	\label{fig:2:VELO_xz}
+\end{figure}
+
+Figure \ref{fig:2:VELO_xz} shows the $xz$ plane cross section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, resulting in the partial overlap seen in fully closed configuration.
+Four radial-only \textit{pile-up sensors}, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help veto multiple-interaction events.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/02-lhcb/TT_layout.png}
+	\caption[Front view of the third TT layer.]{Front view of the third TT layer (different readout sectors are labeled with different shadings) \cite{Alves:1129809}.}
+\end{figure}
 
 \subsubsection{Tracker Turicensis}
-The Tracker Turicensis (TT), formerly known as Trigger Tracker,
+The Tracker Turicensis (TT), formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
 
 \subsubsection{T stations}
+The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes.
 
 \subsubsection{Track classification}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.8\textwidth]{graphics/02-lhcb/Track_Definitions.png}
-	\caption{A.}
+	\caption[Side view diagram of LHCb tracking system and track categories.]{Side view diagram of the LHCb tracking systems for LHC Runs 1 and 2 with sketched examples of the main track classification categories.}
 	\label{fig:2:track_classification}
 \end{figure}
 
-Qui tutta la storia delle T track
+Qui \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, in pratica.
 
 \subsection{Particle identification}
 \label{sec:2:pid}

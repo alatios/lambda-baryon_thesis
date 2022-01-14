@@ -27,7 +27,7 @@ ATLAS and CMS are high-luminosity experiments focused on general purpose proton-
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_diagram.png}
-	\caption[LHCb detector side view.]{Side view of the LHCb detector used for LHC Runs 1 and 2 \cite{Antunes-Nobrega:630827}.}
+	\caption[LHCb detector side view.]{Side view (bending plane) of the LHCb detector used for LHC Runs 1 and 2 \cite{Antunes-Nobrega:630827}.}
 	\label{fig:2:lhcb_diagram}
 \end{figure}
 
@@ -48,19 +48,26 @@ In order to measure the momenta of charged particles through their bending curve
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/02-lhcb/b_field_map_z.png}
-	\caption{A. \cite{Amato:424338}}
+	\caption[LHCb magnetic field along the $z$ axis.]{LHCb magnetic field along the $z$ axis \cite{Amato:424338}.}
 	\label{fig:2:b_field_map_z}
 \end{figure}
 
 This magnet provides an integrated field of $\int B dl \approx \pm \SI{4}{\tesla\meter}$ for \SI{10}{\meter} tracks\footnote{The $\pm$ sign is due to the fact that the magnet operates alternatively in up and down polarities, inverting the sign of the magnetic field.} \cite{Amato:424338}.
 Most of this field is contained in the $z\in[2.5,7.95]$ \si{\meter} region, with 
 a small fraction ($\int B dl \approx \SI{0.12}{\tesla\meter}$) upstream of $z=\SI{2.5}{\meter}$. The field map along $z$, measured with a precision of $4 \times {10}^{-4}$, is shown in Figure \ref{fig:2:b_field_map_z} for $x=y=0$.
-Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\pm 1\%$ within the LHCb detector acceptance \cite{Alves:1129809}. 
+Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$ within the LHCb detector acceptance. 
 
 \subsubsection{VELO}
+As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504321} is designed to provide precision measurements of charged tracks near the beam interaction point, in order to correctly reconstruct detached secondary vertices typical of $b$- and $c$-hadron decays.
+
+The VELO detector comprises a series of silicon modules along the beam direction, measuring the radial and azimuthal track coordinates.
+These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction.
+Two pile-up stations, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help vetoing multiple-interaction events.
+Figure [...] shows the $xz$ plane cross section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, as seen in the closed configuration in Figure [...].
+
 
 \subsubsection{Tracker Turicensis}
-The Tracker Turicensis (TT), also known as Trigger Tracker,
+The Tracker Turicensis (TT), formerly known as Trigger Tracker,
 
 \subsubsection{T stations}
 
@@ -85,6 +92,7 @@ Qui tutta la storia delle T track
 \subsubsection{Muon system}
 
 \section{The LHCb data flow}
+\label{sec:2:data_flow}
 Qui trigger, track reconstruction e tutto il resto.
 
 \section{LHCb detector upgrade for Run 3}
@@ -92,7 +100,7 @@ Qui trigger, track reconstruction e tutto il resto.
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_diagram_run3.png}
-	\caption[LHCb detector side view.]{Side view of the upgraded LHCb detector for future usage in LHC Run 3 \cite{Piucci_2017}.}
+	\caption[LHCb detector side view.]{Side view (bending plane) of the upgraded LHCb detector for future usage in LHC Run 3 \cite{Piucci_2017}.}
 	\label{fig:2:lhcb_diagram_run3}
 \end{figure}
 

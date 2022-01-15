@@ -61,17 +61,17 @@ Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$
 \subsubsection{VELO}
 As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504321} is designed to provide precision measurements of charged tracks near the beam interaction point, in order to correctly reconstruct detached secondary vertices typical of $b$- and $c$-hadron decays.
 
-\begin{figure}
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xy.png}
 	\caption[Front view diagram of the VELO detector.]{Front view diagram of the VELO detector in fully closed (\textit{left}) and fully open (\textit{right}) configurations \cite{Barbosa-Marinho:504321}.}
 	\label{fig:2:VELO_xy}
 \end{figure}
 
-The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of sensors measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
+The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of half discs measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
 Due to high risk of radiation damage during beam injection from the Super Proton Synchrotron (SPS) into LHC, these modules can be retracted by \SI{3}{\centi\meter} in so-called \textit{fully open} configuration, whereas during collision phase the VELO operates in \textit{fully closed} configuration (see Figure \ref{fig:2:VELO_xy}).
 
-\begin{figure}
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xz.png}
 	\caption[Cross section diagram of the VELO detector in the $xz$ plane.]{Cross section diagram of the fully closed VELO detector in the $xz$ plane at $y=0$ (top view). Radial sensors are depicted as \textit{solid} segments, azimuthal sensors as \textit{dashed} segments \cite{Barbosa-Marinho:504321}.}
@@ -81,17 +81,39 @@ Due to high risk of radiation damage during beam injection from the Super Proton
 Figure \ref{fig:2:VELO_xz} shows the $xz$ plane cross section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, resulting in the partial overlap seen in fully closed configuration.
 Four radial-only \textit{pile-up sensors}, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help veto multiple-interaction events.
 
-\begin{figure}
+
+
+\subsubsection{Tracker Turicensis}
+The Tracker Turicensis (TT) \cite{Barbosa-Marinho:582793}, formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
+Its placement serves the main purpose of tracking low-momentum particles, which would otherwise be bent out of the detector by the magnet without reaching the T stations.
+
+The TT consists of four readout layers of silicon microstrip sensors arranged in a $x$-$u$-$v$-$x$ configuration (vertical in the first and last layers, rotated by a stereo angle of $\mp 5^\circ$ in the second and third layer respectively) for a total active area of $\approx \SI{8.4}{\meter}$.
+A \SI{200}{\micro\meter} strip pitch ensures a single-hit resolution $\lesssim \SI{50}{\micro\meter}$.
+
+\begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/02-lhcb/TT_layout.png}
 	\caption[Front view of the third TT layer.]{Front view of the third TT layer (different readout sectors are labeled with different shadings) \cite{Alves:1129809}.}
+	\label{fig:2:TT}
 \end{figure}
 
-\subsubsection{Tracker Turicensis}
-The Tracker Turicensis (TT), formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
+The third TT layer is depicted in front view in Figure \ref{fig:2:TT}.
+The basic unit of a layer is the \textit{half module}, covering half the LHCb height acceptance.
+Each half module consists of a row of seven sensors bonded together to form either three or two \textit{readout sectors}.
+Modules near the beam pipe are of the former category, with four sensors bonded in the L sector, two in the intermediate M sector and a single sensor for the K sector closest to the beam ($4$--$2$--$1$ modules);
+other modules forgo the K sector and bond the spare sensor in the M sector ($4$--$3$ modules).
+Front-end readout hybrids, one for each sector, are placed at the L-end of the half modules, outside of the detector acceptance, connected directly to the L sector and indirectly to the M and K sectors via Kapton flex cables.
 
 \subsubsection{T stations}
 The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes.
+
+Come figura dell'IT 5.24. Da qualche parte ho letto il momento minimo per arrivare alle T (espresso in GeV/c), menzionalo per dire la soglia minima di misura delle T station. History of LHCb spiega che IT è vicino alla beam pipe, OT no (però sono anche spazialmente spostati, quindi vai a capì. Usa anche i TDR qui, che è utile.
+
+IT \cite{Barbosa-Marinho:582793}
+
+OT \cite{Barbosa-Marinho:519146}
+
+IT e TT sono ST
 
 \subsubsection{Track classification}
 

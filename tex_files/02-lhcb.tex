@@ -34,7 +34,7 @@ Beyond the above four, a number of small-scale, more specialized experiments als
 
 LHCb (the \textit{b} stands for \textit{beauty}\footnote{Before settling on the names \textit{top} and \textit{bottom} for the third generation of quarks, the names \textit{truth} and \textit{beauty} were among those proposed. While they never gained enough momentum in the scientific community, echoes of the failed nomenclature are still present in heavy quark vocabulary, for instance in the alternative name \textit{truth} for the \textit{topness} flavour number mentioned in Section \ref{sec:flavour-physics}, as well as in the official name for the LHCb experiment.}) is a single-arm detector designed to study heavy-flavour physics at the LHC, with the main objective of providing precision measurements of CP violation and rare decays of $b$ and $c$ hadrons \cite{Alves:1129809}.
 
-Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of $10\div300$ \si{\mrad} in the bending plane and $10\div250$ \si{\mrad} in the non-bending plane.
+Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of $10\div300$ \si{\mrad} in the bending plane and $10\div250$ \si{\mrad} in the non-bending plane\footnote{For the sake of brevity, I'll refer to it as the 300/250 \si{\mrad} acceptance.}.
 Such a layout, more reminiscent of fixed target experiments than beam colliders, is motivated by the fact that $b\bar{b}$ pairs produced at high energies are usually collimated in the same forward/backward cone.
 A more in-depth look at the tracking and particle identification systems will be taken in Sections \ref{sec:2:tracking} and \ref{sec:2:pid} respectively.
 \label{info:LHCb_system}
@@ -140,7 +140,10 @@ Each module contains two layers of straw tubes with \SI{4.9}{\milli\meter} inner
 Within a single T station, said modules are arranged in four layers in $x$-$u$-$v$-$x$ configuration (see Figure \ref{fig:2:t_station_top}) with $\pm 5^\circ$ vertical tilt for $u$ and $v$ layers respectively.
 The OT covers the entire 300/250 \si{\milli\rad} LHCb detector acceptance.
 
-\subsubsection{Track classification}
+\subsubsection{Track classification and the problems with T tracks}
+Overall, the LHCb tracking system has very high efficiency, besting $96\%$ in the momentum range $|\vec{p}| \in \left[5, 200\right]$ \si{\gev\per c} for tracks crossing all three detector stations (VELO, TT and T1--3). \cite{HistoryLHCb}
+However, not all particles enjoy this luxury:
+low momentum particles ($|\vec{p}| \lesssim \SI{1.5}{\gev\per c}$) are unable to reach the T stations due to the sharp magnet bending curve, while daughters of longer-lived particles with $c\tau \gtrsim \SI{30}{\centi\meter}$ will miss the VELO and possibly even the TT detector.
 
 \begin{figure}[t]
 	\centering
@@ -149,21 +152,69 @@ The OT covers the entire 300/250 \si{\milli\rad} LHCb detector acceptance.
 	\label{fig:2:track_classification}
 \end{figure}
 
-Qui \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, in pratica.
+Thus, in spite of the great efficiency, it's useful to define track categories in the LHCb working environment depending on what hits were recorded in which detectors:
+\begin{itemize}
+	\item \textit{Long} tracks
+	\item \textit{Upstream} tracks
+	\item \textit{Downstream} tracks
+	\item \textit{T} tracks
+\end{itemize}
+Sketches of tracks satisfying the above requirements are depicted in Figure \ref{fig:2:track_classification}.
+
+@todo: \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, in pratica.
 
 \subsection{Particle identification}
 \label{sec:2:pid}
+While tracking outgoing particles is obviously of paramount importance for physics analysis, knowledge of \textit{what} particles are being tracked is also crucial.
+The ability to distinguish protons, pions and kaons is of particular interest at LHCb due to its research objectives in CP violation and $b$ physics, requiring precise flavour tagging and physical background rejection.
+For the above reasons, a complex ecosystem of detectors dedicated to particle identification (PID) is in place.
 
 \subsubsection{RICH}
+Roughly $90\%$ of pions, protons and kaons from $B$ meson decays have momentum in the $[2,150]$ \si{\gev\per c} range \cite{HistoryLHCb}.
+Since the momentum spectrum changes at different polar angles, LHCb employs two Ring Imaging CHerenkov (RICH) detectors \cite{Amato:494263} to cover the full momentum range for these particles.
 
-90\% di pioni kaoni e protoni sono nel range 2-150 GeV/c, RICH1 copre fino a 60
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.3\textheight]{graphics/02-lhcb/rich1_top.png}
+		\caption{}
+		\label{fig:2:rich_1_top}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.3\textheight]{graphics/02-lhcb/rich2_top.png}
+		\caption{}
+		\label{fig:2:rich_2_top}
+	\end{subfigure}
+	\caption[Top view of the two RICH detectors.]{Top view of the RICH 1 (\textit{left}) and RICH 2 (\textit{right}) detectors \cite{Alves:1129809}.}
+	\label{fig:2:rich_top}
+\end{figure}
+
+The RICH 1 detector, sketched in Figure \ref{fig:2:rich_1_top}, is located upstream of the dipole magnet, wedged between the VELO and TT tracking detectors.
+The detector exploits the different spectra of Cherenkov angles as a function of momentum for different kinds of particles.
+At the beginning of Run 1, RICH 1 used two radiator materials: an aerogel layer ($n=1.03$) and a C$_4$F$_{10}$ gas layer ($n=1.0014$).
+This allowed RICH 1 to perform $\pi/K$ identification in the $1\div 60$ \si{\gev\per c} range.
+Due to occupancy problems, the silica aerogel radiator providing identification in the low momentum range $|\vec{p}| \lesssim \SI{10}{\gev\per c}$ was removed for Run 2;
+since the kaon Cherenkov threshold in C$_4$F$_{10}$ is $\approx \SI{9.7}{\gev\per c}$, they can still be identified by operating RICH in so-called \textit{kaon veto mode}, i.e. 
+by the lack of Cherenkov light \cite{HistoryLHCb} \cite{RichPerformance}.
+RICH 1 covers from $\SI{25}{\mrad}$ (lower limit imposed by the beryllium beam pipe section) up to the full 300/250 \si{\mrad} LHCb acceptance.
+
+Acting as complement to its partner, RICH 2 (Figure \ref{fig:2:rich_2_top}) operates downstream of the T tracking stations and is optimized for a high momentum range, providing PID from $\approx \SI{15}{\gev\per c}$ up to and beyond $\SI{100}{\gev\per c}$.
+Its lower limit of acceptance is $\approx \SI{15}{\mrad}$, dictated by the required clearance of \SI{45}{\milli\meter} around the beam pipe.
 
 \subsubsection{Calorimeter}
+The LHCb calorimeter system \cite{Amato:494264} serves the dual purpose of identifying hadrons, electrons and photons and measuring their energies.
 
 \subsubsection{Muon system}
 
 \section{The LHCb data flow}
 \label{sec:2:data_flow}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_run_2_data_flow.png}
+	\caption{Diagram of the LHCb Run 2 data flow.}
+	\label{fig:2:lhcb_data_flow}
+\end{figure}
+
 Qui trigger, track reconstruction e tutto il resto.
 
 \section{LHCb detector upgrade for Run 3}

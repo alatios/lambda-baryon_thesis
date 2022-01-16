@@ -54,10 +54,13 @@
 %% \thepage is page number
 %% \leftmark is the chapter title
 %% \rightmark is the section number and title
+%% \nouppercase because otherwise bibliography comes up as BIBLIOGRAPHY in the header
 \fancyhead[ELH]{\thepage}
 \fancyhead[ORH]{\thepage}
-\fancyhead[ERH]{\leftmark}
-\fancyhead[OLH]{\rightmark}
+%\fancyhead[ERH]{\leftmark}
+\fancyhead[ERH]{\nouppercase{\leftmark}}
+%\fancyhead[OLH]{\rightmark}
+\fancyhead[OLH]{\nouppercase{\rightmark}}
 
 %% This automatically makes math mode bold in chapter titles, I believe
 \makeatletter

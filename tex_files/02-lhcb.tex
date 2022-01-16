@@ -84,10 +84,10 @@ Four radial-only \textit{pile-up sensors}, part of the Level-0 hardware trigger 
 
 
 \subsubsection{Tracker Turicensis}
-The Tracker Turicensis (TT) \cite{Barbosa-Marinho:582793}, formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
-Its placement serves the main purpose of tracking low-momentum particles, which would otherwise be bent out of the detector by the magnet without reaching the T stations.
+The Tracker Turicensis (TT) \cite{Gassner:728548}, formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
+Its placement serves the main purpose of tracking low-momentum particles ($|\vec{p}| \lesssim \SI{1.5}{\gev\per c}$) that would otherwise be bent out of the detector by the magnet without reaching the T stations.
 
-The TT consists of four readout layers of silicon microstrip sensors arranged in a $x$-$u$-$v$-$x$ configuration (vertical in the first and last layers, rotated by a stereo angle of $\mp 5^\circ$ in the second and third layer respectively) for a total active area of $\approx \SI{8.4}{\meter}$.
+The TT consists of four readout layers of silicon microstrip sensors arranged in a $x$-$u$-$v$-$x$ configuration (vertical in the first and last layers, rotated by a stereo angle of $\mp 5^\circ$ in the second and third layer respectively) for a total active area of $\approx \SI{8.4}{\meter\squared}$.
 A \SI{200}{\micro\meter} strip pitch ensures a single-hit resolution $\lesssim \SI{50}{\micro\meter}$.
 
 \begin{figure}[t]
@@ -105,15 +105,40 @@ other modules forgo the K sector and bond the spare sensor in the M sector ($4$-
 Front-end readout hybrids, one for each sector, are placed at the L-end of the half modules, outside of the detector acceptance, connected directly to the L sector and indirectly to the M and K sectors via Kapton flex cables.
 
 \subsubsection{T stations}
-The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes.
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/02-lhcb/t_station_top_view.png}
+		\caption{}
+		\label{fig:2:t_station_top}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/02-lhcb/t_station_front_view.png}
+		\caption{}
+		\label{fig:2:t_station_front}
+	\end{subfigure}
+	\caption[Top and front views of a T tracking station.]{Top (\textit{left}) and front (\textit{right}) views of a T tracking station \cite{Barbosa-Marinho:582793}. IT and OT are labeled with lighter and darker shades of grey respectively. Dimensions are given in \si{\centi\meter}; for the top view, lateral dimensions are not to scale.}
+	\label{fig:2:t_station}
+\end{figure}
 
-Come figura dell'IT 5.24. Da qualche parte ho letto il momento minimo per arrivare alle T (espresso in GeV/c), menzionalo per dire la soglia minima di misura delle T station. History of LHCb spiega che IT è vicino alla beam pipe, OT no (però sono anche spazialmente spostati, quindi vai a capì. Usa anche i TDR qui, che è utile.
+The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes, covering the $z \approx 7.7 \div 9.4\,\si{\meter}$ region downstream of the dipole magnet \cite{Barbosa-Marinho:582793}.
+Each T station is composed of an Inner Tracker for the region near the beam pipe and an Outer Tracker for the outer regions, as sketched in Figure \ref{fig:2:t_station}.
 
-IT \cite{Barbosa-Marinho:582793}
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/02-lhcb/it_layout.png}
+	\caption[Front view of an Inner Tracker $x$ layer.]{Front view of an $x$ detector layer in the T2 Inner Tracker \cite{Alves:1129809}.}
+	\label{fig:2:IT}
+\end{figure}
 
-OT \cite{Barbosa-Marinho:519146}
+The Inner Tracker (IT) \cite{Barbosa-Marinho:582793} shares many similarities with the TT design, being developed in conjuction with it under the common Silicon Tracker (ST) project.
+Sporting the same four layers of silicon microstrips in $x$-$u$-$v$-$x$ configuration, it covers a comparably smaller $\SI{120}{\centi\meter} \times \SI{40}{\centi\meter}$ cross-shaped surface (see Figure \ref{fig:2:IT}) for a total active area of $\approx \SI{4}{\meter\squared}$, less than half the TT.
+As a consequence, individual modules only include one or two sensors  connected to the readout hybrids via a pitch adapter.
 
-IT e TT sono ST
+By contrast, the much larger Outer Tracker (OT) \cite{Barbosa-Marinho:519146} is a drift detector consisting in an array of Ar/CO$_2$ straw-tube modules.
+Each module contains two layers of straw tubes with \SI{4.9}{\milli\meter} inner diameter, ensuring a \SI{50}{\nano\second} drift time and \SI{200}{\micro\meter} spatial resolution.
+Within a single T station, said modules are arranged in four layers in $x$-$u$-$v$-$x$ configuration (see Figure \ref{fig:2:t_station_top}) with $\pm 5^\circ$ vertical tilt for $u$ and $v$ layers respectively.
+The OT covers the entire 300/250 \si{\milli\rad} LHCb detector acceptance.
 
 \subsubsection{Track classification}
 
@@ -130,6 +155,8 @@ Qui \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, 
 \label{sec:2:pid}
 
 \subsubsection{RICH}
+
+90\% di pioni kaoni e protoni sono nel range 2-150 GeV/c, RICH1 copre fino a 60
 
 \subsubsection{Calorimeter}
 

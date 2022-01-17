@@ -196,7 +196,7 @@ Since the momentum spectrum changes at different polar angles, LHCb employs two 
 
 The RICH 1 detector, sketched in Figure \ref{fig:2:rich_1_top}, is located upstream of the dipole magnet, wedged between the VELO and TT tracking detectors.
 The detector exploits the different spectra of Cherenkov angles as a function of momentum for different kinds of particles.
-At the beginning of Run 1, RICH 1 used two radiator materials: an aerogel layer ($n=1.03$) and a C$_4$F$_{10}$ gas layer ($n=1.0014$).
+During Run 1, RICH 1 used two radiator materials: an aerogel layer ($n=1.03$) and a C$_4$F$_{10}$ gas layer ($n=1.0014$).
 This allowed RICH 1 to perform $\pi/K$ identification in the $1\div 60$ \si{\gev\per c} range.
 Due to occupancy problems, the silica aerogel radiator providing identification in the low momentum range $|\vec{p}| \lesssim \SI{10}{\gev\per c}$ was removed for Run 2;
 since the kaon Cherenkov threshold in C$_4$F$_{10}$ is $\approx \SI{9.7}{\gev\per c}$, they can still be identified by operating RICH in so-called \textit{kaon veto mode}, i.e. 
@@ -207,7 +207,41 @@ Acting as complement to its partner, RICH 2 (Figure \ref{fig:2:rich_2_top}) oper
 Its lower limit of acceptance is $\approx \SI{15}{\mrad}$, dictated by the required clearance of \SI{45}{\milli\meter} around the beam pipe.
 
 \subsubsection{Calorimeter}
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/02-lhcb/ecal_segm.png}
+		\caption{}
+		\label{fig:2:ecal_segm}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/02-lhcb/hcal_segm.png}
+		\caption{}
+		\label{fig:2:hcal_segm}
+	\end{subfigure}
+	\caption[Front view of the lateral segmentation of SPD/PS, ECAL and HCAL calorimeters.]{Front view of the lateral segmentation of SPD/PS and ECAL (\textit{left}) and HCAL (\textit{right}) calorimeters \cite{Alves:1129809}. Only a quarter of the detector is depicted. Dimensions are given for the ECAL in the left figure.}
+	\label{fig:2:ecal_hcal_segm}
+\end{figure}
+
 The LHCb calorimeter system \cite{Amato:494264} serves the dual purpose of identifying hadrons, electrons and photons and measuring their energies.
+Its design follows the standard high energy physics approach of an electromagnetic calorimeter (ECAL) for the detection of electrons and photons, followed by a hadronic calorimeter (HCAL) for the detection of charged and neutral hadrons.
+
+Placed at \SI{12.5}{\meter} from the beam interaction point, the ECAL employs a shashlik layout\footnote{The nomenclature references the \textit{shashlik}, or \textit{šašlyk}, a traditional meat dish consisting of skewers threaded with alternating pieces of meat, fat and vegetables. The dish is popular throughout the Caucasus and Central Asia regions, including the former Soviet Union, where the shashlik calorimeter technology was first developed.}, alternating layers of absorber (\SI{2}{\milli\meter} thick lead) and sampler (\SI{4}{\milli\meter} thick polystyrene scintillator tiles) perpendicular to the beam axis.
+Due to the steep dependence of hit density from the distance from the beam pipe, the calorimeter adopts a variable cell size and is segmented in thee distinct sections outlined in Figure \ref{fig:2:ecal_segm}.
+The ECAL is roughly $25X_0$ long, with $X_0$ being the radiation length; this allows for the full containment of electromagnetic showers from high energy photons, which is of paramount importance for energy resolution.
+
+Electron detection is particularly tricky due to the significant pion background, both of the charged and neutral variety.
+To combat this, two ancillary detectors are located upstream of the ECAL proper: the scintillator pad detector (SPD) selects charged particles to veto $\pi^0$, while the preshower detector (PS) rejects $\pi^\pm$.
+Collectively, the SPD/PS detectors consist in two scintillator pads enclosing a \SI{15}{\milli\meter} thick lead plate with a $\SI{7.6}{\meter} \times \SI{6.7}{\meter}$ sensitive area.
+Transverse segmentation is designed to projectively match the ECAL segmentation down to the individual cell size.
+
+The HCAL is a sampling calorimeter as well, employing iron as absorber and scintillating tiles as active material.
+In contrast to the ECAL and SPD/PS detectors, however, the scintillating tiles run parallel to the beam axis, interspersed with \SI{1}{\centi\meter} thick layers of iron;
+meanwhile, the longitudinal structure alternates scintillating tiles with iron spacers, both of length $\lambda_I \approx \SI{20}{\centi\meter}$, $\lambda_I$ being the hadron interactiorn length in steel.
+The transvese segmentation of the detector, sketched in Figure \ref{fig:2:hcal_segm}, envisages one less section and a comparably larger cell size than ECAL, owing to the differing sizes of electromagnetic and hadronic showers.
+Since hadron energy resolution does not require full containment of the shower, the HCAL only extends for $\approx 5.6$ interaction lengths.
+
+In all four subdetectors, scintillating light is conveyed through wavelength-shifting fibres to photomultiplier tubes for conversion and magnification; due to the lower light yield of HCAL modules, their phototubes operate at a higher gain.
 
 \subsubsection{Muon system}
 

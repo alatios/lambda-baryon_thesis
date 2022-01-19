@@ -25,7 +25,9 @@ Beyond the above four, a number of small-scale, more specialized experiments als
 Broadly speaking, the LHC schedule alternates data taking periods (\textit{Runs}) with maintenance work periods (\textit{Long Shutdowns}, LS for short);
 while the shutdowns are designed for consolidation and improvement of the collider itself, mainstay experiments usually take advantage of the hiatus to upgrade their detectors both in hardware and software.
 
-@todo: discussione delle Run.
+@todo: discussione delle Run. Quello che segue va cambiato, quindi lo metto tradotto in italiano e tu ritraduci:
+
+La Run 1 dell'LHC si è svolta dal 2010 alla fine del 2012. La Run 2 è iniziata a metà del 2015 e si è conclusa alla fine del 2018. Durante la Run 1 l'LHC ha fornito collisioni protone-protone con un'energia del centro di massa di 7 e 8 TeV, e in Run 2 l'energia è stata aumentata a 13 TeV.
 
 
 \section{The LHCb experiment and detector}
@@ -33,7 +35,7 @@ while the shutdowns are designed for consolidation and improvement of the collid
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_diagram.png}
-	\caption[LHCb detector side view.]{Side view (bending plane) of the LHCb detector used for LHC Runs 1 and 2 \cite{Antunes-Nobrega:630827}.}
+	\caption[LHCb detector side view (Runs 1 and 2).]{Side view of the LHCb detector used for LHC Runs 1 and 2 \cite{Antunes-Nobrega:630827}.}
 	\label{fig:2:lhcb_diagram}
 \end{figure}
 
@@ -45,7 +47,7 @@ A more in-depth look at the tracking and particle identification systems will be
 \label{info:LHCb_system}
 The standard LHCb coordinate system, used as reference for the rest of this thesis, is a right-handed system centered on the beam interaction point, with the $z$ axis along the the beam pipe and $y$ axis directed vertically upwards.
 
-Elenca i successi.
+@todo: Elenca i successi.
 
 \subsection{Tracking}
 \label{sec:2:tracking}
@@ -245,25 +247,67 @@ In all four subdetectors, scintillating light is conveyed through wavelength-shi
 
 \subsubsection{Muon system}
 
-\section{The LHCb data flow}
-\label{sec:2:data_flow}
+The final components of the PID system are the five muon stations M1--5 \cite{Barbosa-Marinho:504326}, providing trigger and limited tracking for muons in LHCb.
+Stations M2--5 are placed downstream of the calorimeter system, separated between each other by \SI{80}{\centi\meter} of iron;
+these absorber layers select muons on the basis of penetration, with a \SI{6}{\gev\per c} momentum threshold required to cross the fifth station.
+The lone M1 station precedes the calorimeter system with the goal of improving transverse momentum measurement.
+The muon system provides acceptance in the $20 \div 306$ \si{\mrad} region in the bending plane and $16 \div 258$ \si{\mrad} region in the non-bending plane, in line with the global LHCb acceptance.
+
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_run_2_data_flow.png}
-	\caption{Diagram of the LHCb Run 2 data flow.}
+	\includegraphics[width=.5\textwidth]{graphics/02-lhcb/muon_side_view.png}
+	\caption[Side view diagram of the muon system.]{Side view diagram of the muon system \cite{Alves:1129809}.}
+	\label{fig:2:muon_side_view}
+\end{figure}
+
+
+A side view diagram of the muon system is depicted in Figure \ref{fig:2:muon_side_view}: each station is divided in four R1--4 regions with increasing distance from the beam pipe.
+While transverse spatial resolution progressively worsens in outer regions, the growing influence of large angle multiple scattering means it would be limited anyway.
+
+The most sensitive area is the R1 region of the M1 station, since the large particle flux imposes strict limits on radiation hardness to prevent ageing effects during the LHC projected lifetime.
+For this reason the M1-R1 region alone employs gas electron multiplier foils, while the remainder of the muon system consists of multi-wire proportional chambers with a Ar/CO$_2$/CF$_4$ gas mixture.
+
+Overall, the five stations combined cover a total area of \SI{435}{\meter\squared}. Stations M1--3, by virtue of their high spatial resolution along the $x$ coordinate, are used to determine the direction of the candidate muon track and compute the transverse momentum with $\approx 20\%$ resolution;
+stations M4--5 have lower performance on this front and their contribution mainly consists in the identification of highly penetrating particles.
+
+\section{The LHCb data flow}
+\label{sec:2:data_flow}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_run_1_data_flow.png}
+	\caption{Diagram of the LHCb Run 1 data flow.}
 	\label{fig:2:lhcb_data_flow}
 \end{figure}
 
-Qui trigger, track reconstruction e tutto il resto.
+
+@todo: introduzione
+
+\subsection{Trigger}
+The trigger system \cite{Antunes-Nobrega:630828} provides the first triage of all data recorded by the LHCb detector.
+LHC collides proton-proton bunches at a nominal \SI{40}{\mega\hertz} rate, with $\approx 1\%$ resulting in $b\bar{b}$ events of interest for LHCb.
+Furthermore, only $\approx 15\%$ of these events will produce a reconstructible $b$ hadron (i.e. with all decay products within the detector acceptance) \cite{HistoryLHCb}, and studies on topics such as CP violation are likely to require decays with small ($\lesssim {10}^{-3}$) branching ratios.
+Peak writing speeds for data storage are in the order of a few \si{\kilo\hertz}, making it impossible to save all information even forgoing the high costs this would entail in terms of storage space.
+The LHCb trigger system therefore has to skim out the vast majority of uninteresting events with high efficiency, and it needs to be fast about it.
+
+The trigger system employed during LHC Runs 1 and 2 can be broken down into three distinct phases, or \textit{levels}.
+First comes Level-0 (L0), which is implemented directly on hardware via custom-made electronics.
+Working synchronously with the \SI{40}{\mega\hertz} bunch-crossing rate, the L0 trigger is only able to read parts of the LHCb detector independently: 
+
+\subsection{From reconstruction to analysis}
+
+\subsection{Monte Carlo simulations}
+
+
 
 \section{LHCb detector upgrade for Run 3}
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_diagram_run3.png}
-	\caption[LHCb detector side view.]{Side view (bending plane) of the upgraded LHCb detector for future usage in LHC Run 3 \cite{Piucci_2017}.}
+	\caption[LHCb detector side view (Run 3).]{Side view of the upgraded LHCb detector for future usage in LHC Run 3 \cite{Piucci_2017}.}
 	\label{fig:2:lhcb_diagram_run3}
 \end{figure}
 
-\section{Data}
+\section{Data used for this thesis}
 Non so se vada qui ma da qualche parte deve andare.

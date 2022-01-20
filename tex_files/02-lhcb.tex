@@ -31,6 +31,7 @@ La Run 1 dell'LHC si è svolta dal 2010 alla fine del 2012. La Run 2 è iniziata
 
 
 \section{The LHCb experiment and detector}
+\label{sec:2:lhcb_detector}
 
 \begin{figure}[t]
 	\centering
@@ -280,8 +281,9 @@ stations M4--5 have lower performance on this front and their contribution mainl
 	\label{fig:2:lhcb_data_flow}
 \end{figure}
 
-
-@todo: introduzione
+Considering the complexity of the LHCb detector environment, as seen in Section \ref{sec:2:lhcb_detector}, it should come to no surprise that the data elaboration process is equally multifaceted.
+Figure \ref{fig:2:lhcb_data_flow} sketches the data flow approach during LHC Run 1;
+while a full discussion of the mechanics is beyond the scope of this thesis, the present section aims to provide a basic understanding of the different steps in order to grasp key concepts relevant to the following work.
 
 \subsection{Trigger}
 The trigger system \cite{Antunes-Nobrega:630828} provides the first triage of all data recorded by the LHCb detector.
@@ -292,13 +294,52 @@ The LHCb trigger system therefore has to skim out the vast majority of uninteres
 
 The trigger system employed during LHC Runs 1 and 2 can be broken down into three distinct phases, or \textit{levels}.
 First comes Level-0 (L0), which is implemented directly on hardware via custom-made electronics.
-Working synchronously with the \SI{40}{\mega\hertz} bunch-crossing rate, the L0 trigger is only able to read parts of the LHCb detector independently: 
+Working synchronously with the \SI{40}{\mega\hertz} bunch-crossing rate, the L0 trigger is only able to read three parts of the LHCb detector independently: the VELO pile-up radial modules, used to reject events with multiple primary proton-proton interactions; the calorimeter trigger (L0-Calorimeter), which selects hadron, photon and electron candidates; and the muon trigger (L0-Muon), which obviously selects muons.
+
+The L0-Calorimeter trigger is based on information from all four subdetectors of the calorimeter system (SPD, PS, ECAL and HCAL) and uses it to compute the transverse energy $E_T$ deposited by incoming particles.
+Events with a large number of charged tracks are vetoed based on the number of hits in the SPD to manage the limited computation time allotted for the subsequent trigger levels.
+Based on the $E_T$ measurement, the trigger builds hadron, electron and photon candidates.
+
+Each of the four L0-Muon trigger processors selects the two highest $p_T$ tracks from its assigned quadrant among candidates crossing all five muon stations.
+The single muon trigger sets a threshold on the highest transverse momentum $p_T$ of the pair, while the dimuon trigger does so on the product of $p_T$ of both candidates.
+
+After combining all information, the L0 trigger outputs at a maximum rate of \SI{1}{\mega\hertz} fixed by front-end electronics, the majority being used for muon and hadron triggers (electrons and photons only take up $\approx 15\%$ of the L0 output rate).
+These data are then sent to the event filter farm (EFF), where the software-based high level trigger (HLT) algorithms, implemented in the Moore application, process them to further reduce the rate for storage:
+the first stage (HLT1) gets the rate down to \SI{100}{\kilo\hertz}, while the second (HLT2) outputs at roughly \SI{12.5}{\kilo\hertz}.
+Both HLTs are divided in independently operating \textit{trigger lines}, each line consisting of specific selection instructions for a determined class of events.
+
+HLT1 reconstructs Long charged particles with $p_T > \SI{500}{\mev}$. First it combines VELO hits to form straight line tracks, then it looks for $\geq 3$ TT hits in a region around the straight line extrapolation of the VELO tracks. The small upstream portion of magnetic field allows for momentum determination with a $20\%$ resolution used to reject low-$p_T$ tracks.
+After that, the tracks are extrapolated at the T stations, looking for hits in IT and OT on one side of the straight line VELO-TT extrapolation (depending on the charge estimate).
+Finally, all tracks are fit with a Kalman filter with a simplified detector geometry.
+At this stage, particle identification is only possible for muons on account of the tight timing constraints.
+
+Owing to the rate reduction performed by HLT1, HLT2 is able to reconstruct the entire event:
+reconstruction of charged tracks with $p_T > \SI{80}{\mev}$ is performed using all tracking sub-detectors (see Section \ref{sec:2:tracking}), along with reconstruction of neutral clusters and implementation of the full particle identification system (Section \ref{sec:2:pid}).
 
 \subsection{From reconstruction to analysis}
+@todo: chiedi a Neri la differenza tra Brunel e HLT2. Quello che ho capito per ora dallo starter kit: HLT2 fa ricostruzione, ma è online. Brunel fa ricostruzione (ri-ricostruzione), ma è offline. DaVinci ricostruisce anche lui, quindi vai a capire.
+
+After event reconstruction by Brunel, data are saved in Data Summary Tape (DST) format, with a single event occupying $\approx \SI{150}{kB}$ of space.
+These DST files undergo the \textit{stripping} process, carried out by the DaVinci application: this applies dedicated pre-selection algorithms (\textit{stripping lines}) and groups events in \textit{streams} (the dimuon stream for $\mu^+\mu^-$ events, for instance) to ease access for data analysis.
+
+The resulting DST files, also referred to as \textit{full} DSTs to distinguish from \textit{reduced} DSTs output by Brunel, can then be processed by the end user through DaVinci to apply their own filter algorithms and extract ROOT nTuples\footnote{ROOT \cite{ANTCHEVA20092499} is an C++ open-source data analysis toolkit developed developed at CERN and popular within the high-energy physics community. A key feature of ROOT is the \texttt{TTree} class (\textit{tree} for simplicity), a C++ object container organized in independent \textit{branches}, or \textit{columns}, and optimized for large data sets. The \texttt{TNtuple} class is a \texttt{TTree} with float variables only.} suitable for physics studies.
+
+For LHC Run 2, this approach was altered with the introduction of the parallel \textit{Turbo} stream \cite{Benson_2015}, i.e. the storage of HLT2 output for direct usage by analysts through DaVinci.
+While in Run 1 the Brunel reconstruction used to be more accurate than the online HLT2 reconstruction, the EFF upgrade conducted during the LS1 has increased the HLT2 allotted computation time enough to match the two performances.
+The key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
+
+This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b-$ and $c-$ production cross sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
+The Turbo stream allows more saved data to be ready for analysis, while the slower-paced Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
 
 \subsection{Monte Carlo simulations}
+A key aspect of physics analysis is the comparison between results from experimental data and what is expected from theory.
+In the case of high-energy physics experiments, the latter relies on the correct simulation of events from collision to detector interaction.
 
+In LHCb, the production of Monte Carlo (MC) data is controlled by the Gauss application, which is in charge of coordinating the several cogs of the simulation machine:
+proton-proton collisions are simulated via MC generator software such as PYTHIA \cite{Pythia2015} and POWHEG \cite{Alioli:2010xd}; the decay of generated particles is described by EvtGen \cite{Ryd:2005zz}, while the GEANT4 toolkit \cite{AGOSTINELLI2003250} simulates the propagation and interaction with the material using a detailed modelization of the LHCb detector.
 
+As final step, the simulated hits from the virtual detector in GEANT4 are digitized using the Boole application, which aims to mimic the real output from the LHCb detector.
+This allows simulated data to be processed with the same software as the real one, as described in the earlier paragraphs of this section.
 
 \section{LHCb detector upgrade for Run 3}
 

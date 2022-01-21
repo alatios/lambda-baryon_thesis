@@ -317,7 +317,7 @@ Owing to the rate reduction performed by HLT1, HLT2 is able to reconstruct the e
 reconstruction of charged tracks with $p_T > \SI{80}{\mev}$ is performed using all tracking sub-detectors (see Section \ref{sec:2:tracking}), along with reconstruction of neutral clusters and implementation of the full particle identification system (Section \ref{sec:2:pid}).
 
 \subsection{From reconstruction to analysis}
-@todo: chiedi a Neri la differenza tra Brunel e HLT2. Quello che ho capito per ora dallo starter kit: HLT2 fa ricostruzione, ma è online. Brunel fa ricostruzione (ri-ricostruzione), ma è offline. DaVinci ricostruisce anche lui, quindi vai a capire.
+@todo: chiedi a Neri la differenza tra Brunel e HLT2. Quello che ho capito per ora dallo starter kit: HLT2 fa ricostruzione, ma è online. Brunel fa ricostruzione (ri-ricostruzione), ma è offline. In Run 1 Brunel > HLT2.
 
 After event reconstruction by Brunel, data are saved in Data Summary Tape (DST) format, with a single event occupying $\approx \SI{150}{kB}$ of space.
 These DST files undergo the \textit{stripping} process, carried out by the DaVinci application: this applies dedicated pre-selection algorithms (\textit{stripping lines}) and groups events in \textit{streams} (the dimuon stream for $\mu^+\mu^-$ events, for instance) to ease access for data analysis.
@@ -328,7 +328,7 @@ For LHC Run 2, this approach was altered with the introduction of the parallel \
 While in Run 1 the Brunel reconstruction used to be more accurate than the online HLT2 reconstruction, the EFF upgrade conducted during the LS1 has increased the HLT2 allotted computation time enough to match the two performances.
 The key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
 
-This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b-$ and $c-$ production cross sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
+This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b$- and $c$-production cross sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
 The Turbo stream allows more saved data to be ready for analysis, while the slower-paced Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
 
 \subsection{Monte Carlo simulations}
@@ -342,6 +342,13 @@ As final step, the simulated hits from the virtual detector in GEANT4 are digiti
 This allows simulated data to be processed with the same software as the real one, as described in the earlier paragraphs of this section.
 
 \section{LHCb detector upgrade for Run 3}
+During LHC Runs 1 and 2, the LHCb experiment has collected $\approx \SI{8}{\per\femto\barn}$ of data.
+As much as this has allowed the LHCb Collaboration to achieve impressive results in the heavy-flavour sector and beyond, as touched upon in Section \ref{sec:2:lhcb_detector}, many ongoing analyses are still limited by low statistics.
+For this reason, during the LS2 work has been carried out to upgrade the detector in software and hardware with the goal of reaching a \SI{50}{\per\femto\barn} integrated luminosity by the end of Run 3 \cite{Piucci_2017}.
+
+The main feature of this upgrade will be the removal of the L0 hardware trigger in favour of a fully software trigger \cite{CERN-LHCC-2014-016}.
+After the performance match between HLT2 and Brunel achieved for Run 2, the high level trigger will see an even more central stage in Run 3, being tasked with full reconstruction of all events of interest in the context of a five-fold increase in operational luminosity (up to \SI{2e33}{\per\centi\meter\squared\per\second}).
+To prevent trigger yield saturation with such an increase in luminosity, the LHCb readout rate will be augmented from the current \SI{1}{\mega\hertz} to the LHC bunch crossing rate of \SI{40}{\mega\hertz}.
 
 \begin{figure}[t]
 	\centering
@@ -349,6 +356,10 @@ This allows simulated data to be processed with the same software as the real on
 	\caption[LHCb detector side view (Run 3).]{Side view of the upgraded LHCb detector for future usage in LHC Run 3 \cite{Piucci_2017}.}
 	\label{fig:2:lhcb_diagram_run3}
 \end{figure}
+
+Many parts of the LHCb detector will concurrently be updated, as seen in Figure \ref{fig:2:lhcb_diagram_run3}.
+The most significant changes concern the tracking system.
+
 
 \section{Data used for this thesis}
 Non so se vada qui ma da qualche parte deve andare.

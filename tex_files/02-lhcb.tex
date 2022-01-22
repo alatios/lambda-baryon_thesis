@@ -11,9 +11,9 @@
 \end{figure}
 
 At the moment of writing, the Large Hadron Collider (LHC for short) is the largest and most powerful particle collider in the world.
-When the LHC was first approved by the European Organization for Nuclear Research (CERN) in 1994, it was originally going to be built with an initial center-of-mass collision energy of \SI{10}{\tev}, with the plan to upgrade it to \SI{14}{\tev} at a later stage;
+When the LHC was first approved by the European Organization for Nuclear Research (CERN) in 1994, it was originally going to be built with an initial center-of-mass collision energy $\sqrt{s} = \SI{10}{\tev}$, with the plan to upgrade it to \SI{14}{\tev} at a later stage;
 however, after negotiations with nonmember states, in 1996 the CERN council approved the construction at \SI{14}{\tev} energy in one stage \cite{doi:10.1146/annurev-nucl-102010-130438}.
-First collisions were obtained in 2010 at center-of-mass energy of \SI{7}{\tev}, with the current world record of \SI{13}{\tev} being achieved in 2015 after the first Long Shutdown.
+%First collisions were obtained in 2010 at center-of-mass energy of \SI{7}{\tev}, with the current world record of \SI{13}{\tev} being achieved in 2015 after the first Long Shutdown.
 
 LHC is located at the CERN laboratory near Geneva, Switzerland, housed in the underground tunnel previously occupied by the LEP experiment.
 Its structure, sketched in Figure \ref{fig:2:lhc_diagram}, consists of two counterrotating rings hosting beams for particle-particle collisions (mainly protons, but LHC is also used for ion collisions).
@@ -24,10 +24,10 @@ Beyond the above four, a number of small-scale, more specialized experiments als
 
 Broadly speaking, the LHC schedule alternates data taking periods (\textit{Runs}) with maintenance work periods (\textit{Long Shutdowns}, LS for short);
 while the shutdowns are designed for consolidation and improvement of the collider itself, mainstay experiments usually take advantage of the hiatus to upgrade their detectors both in hardware and software.
-
-@todo: discussione delle Run. Quello che segue va cambiato, quindi lo metto tradotto in italiano e tu ritraduci:
-
-La Run 1 dell'LHC si è svolta dal 2010 alla fine del 2012. La Run 2 è iniziata a metà del 2015 e si è conclusa alla fine del 2018. Durante la Run 1 l'LHC ha fornito collisioni protone-protone con un'energia del centro di massa di 7 e 8 TeV, e in Run 2 l'energia è stata aumentata a 13 TeV.
+Run 1 began in 2010 and continued until early 2013, during which period the LHC provided a center-of-mass energy of $\sqrt{s} = 7\div8$ \si{\tev}.
+After the 2-year-long interruption for LS1, operations resumed in 2015 for Run 2 with an upgraded $sqrt{s} = \SI{13}{\tev}$.
+The collider was once again shut down at the end of 2018 (LS2) and work began towards the High Luminosity (HiLumi) upgrade of the LHC.
+After suffering delays due to the COVID-19 pandemic, Run 3 is currently scheduled to start in the second quarter of 2022 with $\sqrt{s} = \SI{14}{\tev}$, finally reaching its maximum collision energy by design.
 
 
 \section{The LHCb experiment and detector}
@@ -42,13 +42,19 @@ La Run 1 dell'LHC si è svolta dal 2010 alla fine del 2012. La Run 2 è iniziata
 
 LHCb (the \textit{b} stands for \textit{beauty}\footnote{Before settling on the names \textit{top} and \textit{bottom} for the third generation of quarks, the names \textit{truth} and \textit{beauty} were among those proposed. While they never gained enough momentum in the scientific community, echoes of the failed nomenclature are still present in heavy quark vocabulary, for instance in the alternative name \textit{truth} for the \textit{topness} flavour number mentioned in Section \ref{sec:flavour-physics}, as well as in the official name for the LHCb experiment.}) is a single-arm detector designed to study heavy-flavour physics at the LHC, with the main objective of providing precision measurements of CP violation and rare decays of $b$ and $c$ hadrons \cite{Alves:1129809}.
 
-Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of $10\div300$ \si{\mrad} in the bending plane and $10\div250$ \si{\mrad} in the non-bending plane\footnote{For the sake of brevity, I'll refer to it as the 300/250 \si{\mrad} acceptance.}.
+Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of $10\div300$ \si{\mrad} in the bending plane and $10\div250$ \si{\mrad} in the non-bending plane.
+%\footnote{For the sake of brevity, I'll refer to it as the 300/250 \si{\mrad} acceptance or the.}
 Such a layout, more reminiscent of fixed target experiments than beam colliders, is motivated by the fact that $b\bar{b}$ pairs produced at high energies are usually collimated in the same forward/backward cone.
 A more in-depth look at the tracking and particle identification systems will be taken in Sections \ref{sec:2:tracking} and \ref{sec:2:pid} respectively.
 \label{info:LHCb_system}
 The standard LHCb coordinate system, used as reference for the rest of this thesis, is a right-handed system centered on the beam interaction point, with the $z$ axis along the the beam pipe and $y$ axis directed vertically upwards.
 
-@todo: Elenca i successi.
+By all accounts, LHCb has been an incredibly successful experiment, reaching its 600th publication by the end of 2021 and leading to state-of-the-art results both within and outside of its intended research framework.
+Among the main results achieved by the LHCb Collaboration in the field of CP symmetry violation are world-class precision measurements of heavy quark mixing \cite{B0MeasurementPrecise2016} \cite{B0MeasurementPrecise2013}, the first observation of CP violation in the charm sector \cite{PhysRevLett.122.211803} and competitive measurements of the CKM unitarity triangle parameters \cite{LHCb-CONF-2020-003}.
+LHCb has also been active in the study of rare $b$-hadron decays \cite{PhysRevLett.118.191801}, as well as in conventional and exotic hadron spectroscopy \cite{DMesonSpectroscopy}, particularly concerning evidences of new pentaquark states \cite{LHCbPentaquark}.
+Finally, LHCb has the distinction of being the only current LHC experiment with the ability to use a fixed-target setup by exploiting the SMOG internal gas target \cite{maurice2017fixedtarget}, originally developed for precise luminosity measurements;
+ever since 2015, the adoption of noble gas targets has allowed the Collaboration to obtain $b$-physics results involving nuclear collisions \cite{PhysRevLett.122.132002}.
+
 
 \subsection{Tracking}
 \label{sec:2:tracking}
@@ -169,9 +175,15 @@ Thus, in spite of the great efficiency, it's useful to define track categories i
 \end{itemize}
 Sketches of tracks satisfying the above requirements are depicted in Figure \ref{fig:2:track_classification}.
 
+Among the four, T tracks have definitely seen the least use over LHC Runs 1 and 2.
+The main reason is related to their key property of only having measured constraints after the magnet:
+in order to reconstruct their origin vertex, T tracks have to be extrapolated through several meters of intense magnetic field, an operation that has ripercussions both in terms of accuracy and in timing.
+On top of that, the further a charged particle is produced after the dipole magnet, the less the residual magnetic field will be able to imprint a significant bending radius, tanking the momentum resolution at T station level.
+Over the ten years of detector operation there has been little physics incentive to fix or mitigate these issues, since most LLPs relevant to LHCb can already be studied using Downstream tracks.
 
+Regardless of the above, T tracks are essential for the $\Lambda^0$ EDM/MDM measurement proposal outlined in Section \ref{sec:lambda}, hinging on the spin precession of the baryon traversing the magnetic field before decaying in the $p\pi^-$ pair.
+Over the course of the following chapters, I'll delve into more detail on the approaches I have adopted to overcome the problems associated with T tracks in order to extract competitive measurements of the electromagnetic dipole moments.
 
-@todo: \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, in pratica.
 
 \subsection{Particle identification}
 \label{sec:2:pid}
@@ -206,7 +218,7 @@ This allowed RICH 1 to perform $\pi/K$ identification in the $1\div 60$ \si{\gev
 Due to occupancy problems, the silica aerogel radiator providing identification in the low momentum range $|\vec{p}| \lesssim \SI{10}{\gev\per c}$ was removed for Run 2;
 since the kaon Cherenkov threshold in C$_4$F$_{10}$ is $\approx \SI{9.7}{\gev\per c}$, they can still be identified by operating RICH in so-called \textit{kaon veto mode}, i.e. 
 by the lack of Cherenkov light \cite{HistoryLHCb} \cite{RichPerformance}.
-RICH 1 covers from $\SI{25}{\mrad}$ (lower limit imposed by the beryllium beam pipe section) up to the full 300/250 \si{\mrad} LHCb acceptance.
+RICH 1 covers from $\SI{25}{\mrad}$ (lower limit imposed by the beryllium beam pipe section) up to the full LHCb acceptance.
 
 Acting as complement to its partner, RICH 2 (Figure \ref{fig:2:rich_2_top}) operates downstream of the T tracking stations and is optimized for a high momentum range, providing PID from $\approx \SI{15}{\gev\per c}$ up to and beyond $\SI{100}{\gev\per c}$.
 Its lower limit of acceptance is $\approx \SI{15}{\mrad}$, dictated by the required clearance of \SI{45}{\milli\meter} around the beam pipe.
@@ -278,13 +290,13 @@ stations M4--5 have lower performance on this front and their contribution mainl
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_run_1_data_flow.png}
-	\caption{Diagram of the LHCb Run 1 data flow.}
+	\includegraphics[width=\textwidth]{graphics/02-lhcb/lhcb_run_2_data_flow.png}
+	\caption{Diagram of the LHCb Run 2 data flow.}
 	\label{fig:2:lhcb_data_flow}
 \end{figure}
 
 Considering the complexity of the LHCb detector environment, as seen in Section \ref{sec:2:lhcb_detector}, it should come to no surprise that the data elaboration process is equally multifaceted.
-Figure \ref{fig:2:lhcb_data_flow} sketches the data flow approach during LHC Run 1;
+Figure \ref{fig:2:lhcb_data_flow} sketches the data flow approach during LHC Run 2;
 while a full discussion of the mechanics is beyond the scope of this thesis, the present section aims to provide a basic understanding of the different steps in order to grasp key concepts relevant to the following work.
 
 \subsection{Trigger}
@@ -319,19 +331,22 @@ Owing to the rate reduction performed by HLT1, HLT2 is able to reconstruct the e
 reconstruction of charged tracks with $p_T > \SI{80}{\mev}$ is performed using all tracking sub-detectors (see Section \ref{sec:2:tracking}), along with reconstruction of neutral clusters and implementation of the full particle identification system (Section \ref{sec:2:pid}).
 
 \subsection{From reconstruction to analysis}
-@todo: chiedi a Neri la differenza tra Brunel e HLT2. Quello che ho capito per ora dallo starter kit: HLT2 fa ricostruzione, ma è online. Brunel fa ricostruzione (ri-ricostruzione), ma è offline. In Run 1 Brunel > HLT2.
+The data flow reaches a fork after HLT2.
+While the trigger output can be used for data analysis, the hectic timing requirements for said phase mean that only information on the decay of interest for the related HLT2 trigger line is reconstructed, leaving the rest as raw data.
 
-After event reconstruction by Brunel, data are saved in Data Summary Tape (DST) format, with a single event occupying $\approx \SI{150}{kB}$ of space.
+The \textit{full stream} branch rectifies this by performing a slower-paced, offline re-reconstruction of the full decay tree controlled by the Brunel application.
+Resulting data are saved in Data Summary Tape (DST) format, with a single event occupying $\approx \SI{150}{kB}$ of space.
 These DST files undergo the \textit{stripping} process, carried out by the DaVinci application: this applies dedicated pre-selection algorithms (\textit{stripping lines}) and groups events in \textit{streams} (the dimuon stream for $\mu^+\mu^-$ events, for instance) to ease access for data analysis.
 
 The resulting DST files, also referred to as \textit{full} DSTs to distinguish from \textit{reduced} DSTs output by Brunel, can then be processed by the end user through DaVinci to apply their own filter algorithms and extract ROOT nTuples\footnote{ROOT \cite{ANTCHEVA20092499} is an C++ open-source data analysis toolkit developed developed at CERN and popular within the high-energy physics community. A key feature of ROOT is the \texttt{TTree} class (\textit{tree} for simplicity), a C++ object container organized in independent \textit{branches}, or \textit{columns}, and optimized for large data sets. The \texttt{TNtuple} class is a \texttt{TTree} with float variables only.} suitable for physics studies.
 
-For LHC Run 2, this approach was altered with the introduction of the parallel \textit{Turbo} stream \cite{Benson_2015}, i.e. the storage of HLT2 output for direct usage by analysts through DaVinci.
-While in Run 1 the Brunel reconstruction used to be more accurate than the online HLT2 reconstruction, the EFF upgrade conducted during the LS1 has increased the HLT2 allotted computation time enough to match the two performances.
-The key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
+During Run 1, the full stream path was the only one available, because HLT2 performed a significantly worse reconstruction than Brunel even on the implemented decays.
+This changed in Run 2 with the introduction of the parallel \textit{Turbo stream} \cite{Benson_2015}, i.e. the storage of HLT2 output for direct usage by analysts through DaVinci.
+The EFF upgrade conducted during the LS1 increased the HLT2 allotted computation time enough to match the two performances;
+the key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
 
 This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b$- and $c$-production cross sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
-The Turbo stream allows more saved data to be ready for analysis, while the slower-paced Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
+The Turbo stream allows more saved data to be ready for analysis, while the slower Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
 
 \subsection{Monte Carlo simulations}
 A key aspect of physics analysis is the comparison between results from experimental data and what is expected from theory.
@@ -370,4 +385,4 @@ the optical layout of RICH1 will also be updated to spread gas rings over the en
 Whereas the calorimeter system will largely stay the same, muon station M1 will be removed and additional shielding will surround the beam pipe in the M2 region to improve radiation hardness.
 
 \section{Data used for this thesis}
-Non so se vada qui ma da qualche parte deve andare.
+@todo: Non so se vada qui ma da qualche parte deve andare.

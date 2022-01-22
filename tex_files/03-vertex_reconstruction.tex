@@ -62,7 +62,7 @@ At the beginning of each iteration, the final vertex covariance matrix $C^{i-1}_
 The algorithm then performs a \textit{proper transportation}, a dedicated routine in which all daughter particles are extrapolated to the $z$ component of the current (tentative) position of the common production vertex $\vec{x}_n^{i-1}$.
 %Such transportation is also performed at the end of the vertexing procedure to ensure an optimal computation of final particle momenta.
 
-Extrapolation using T tracks is a sensitive affair:
+As mentioned in Section \ref{sec:2:tracking}, extrapolation using T tracks is a sensitive affair:
 unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
 For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Bos:1070314} \cite{Hairer1993}.
 

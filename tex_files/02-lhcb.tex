@@ -162,12 +162,14 @@ low momentum particles ($|\vec{p}| \lesssim \SI{1.5}{\gev\per c}$) are unable to
 
 Thus, in spite of the great efficiency, it's useful to define track categories in the LHCb working environment depending on what hits were recorded in which detectors:
 \begin{itemize}
-	\item \textit{Long} tracks
-	\item \textit{Upstream} tracks
-	\item \textit{Downstream} tracks
-	\item \textit{T} tracks
+	\item \textit{Long} tracks are reconstructed from hits in the VELO and T stations, with TT hits being optional. They are the most commonly used tracks for physics analysis in LHCb, exploiting the full performance of the detector tracking system; the long distance between VELO and T detectors, however, means that only stable or quasi-stable charged particles can aim for this classification.
+	\item \textit{Upstream} tracks are reconstructed from hits in the VELO and TT detectors. As previously discussed, low-momentum particles usually fall in this category due to inability to reach the T stations.
+	\item \textit{Downstream} tracks are reconstructed from hits in the TT and T1--3 detectors. This is the go-to category to study long-lived particles (LLP) decaying after the VELO, such as $\Lambda^0$ baryons and $K_S^0$ mesons.
+	\item \textit{T} tracks are only reconstructed from hits in the three T stations. Since missing both VELO and TT is a rare occurrence, most of these tracks come from LLPs with $c\tau \gtrsim \SI{5}{\meter}$ decaying after the dipole magnet.
 \end{itemize}
 Sketches of tracks satisfying the above requirements are depicted in Figure \ref{fig:2:track_classification}.
+
+
 
 @todo: \textbf{tutta} la storia delle T track. Le prime slide delle presentazioni, in pratica.
 
@@ -362,7 +364,10 @@ The upgraded VELO, also known as VELO Pixel, will replace the silicon microstrip
 Upstream of the magnet, the Upstream Tracker (UT) will take over from the TT, featuring four high granularity silicon microstrip layers with improved coverage of the LHCb angular acceptance. Finally, both inner and outer trackers of the T1--3 stations will be replaced by the Scintillating Fiber Tracker (SFT or SciFi), based on \SI{2.4}{\meter} plastic scintillating fibers read out by silicon photo-multipliers \cite{Collaboration:1647400}.
 This global upgrade is projected to reduce reconstructed fake tracks by as much as $70\%$, drastically shortening trigger timing \cite{Piucci_2017}.
 
-The PID system will also undergo modifications, albeit less substantial ones.
+The PID system will also undergo modifications, albeit less substantial ones \cite{Collaboration:1624074}.
+Current hybrid photon detectors used in the RICH system cannot be disentangled from the embedded readout electronics operating at \SI{1}{\mega\hertz} and will thus be replaced by commercial multianode photomultipliers;
+the optical layout of RICH1 will also be updated to spread gas rings over the entire detector plane, reducing particle occupancy problems\footnote{This is an issue specific to RICH1, being much closer to the interaction point than its downstream counterpart.}.
+Whereas the calorimeter system will largely stay the same, muon station M1 will be removed and additional shielding will surround the beam pipe in the M2 region to improve radiation hardness.
 
 \section{Data used for this thesis}
 Non so se vada qui ma da qualche parte deve andare.

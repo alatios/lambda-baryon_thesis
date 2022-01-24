@@ -146,7 +146,7 @@ Each T station is composed of an Inner Tracker for the region near the beam pipe
 \end{figure}
 
 The Inner Tracker (IT) \cite{Barbosa-Marinho:582793} shares many similarities with the TT design, being developed in conjuction with it under the common Silicon Tracker (ST) project.
-Sporting the same four layers of silicon microstrips in $x$-$u$-$v$-$x$ configuration, it covers a comparably smaller $\SI{120}{\centi\meter} \times \SI{40}{\centi\meter}$ cross-shaped surface (see Figure \ref{fig:2:IT}) for a total active area of $\approx \SI{4}{\meter\squared}$, less than half the TT.
+Sporting the same four layers of silicon microstrips in $x$-$u$-$v$-$x$ configuration, it covers a comparatively smaller $\SI{120}{\centi\meter} \times \SI{40}{\centi\meter}$ cross-shaped surface (see Figure \ref{fig:2:IT}) for a total active area of $\approx \SI{4}{\meter\squared}$, less than half the TT.
 As a consequence, individual modules only include one or two sensors  connected to the readout hybrids via a pitch adapter.
 
 By contrast, the much larger Outer Tracker (OT) \cite{Barbosa-Marinho:519146} is a drift detector consisting in an array of Ar/CO$_2$ straw-tube modules.
@@ -170,6 +170,7 @@ Thus, in spite of the great efficiency, it's useful to define track categories i
 \begin{itemize}
 	\item \textit{Long} tracks are reconstructed from hits in the VELO and T stations, with TT hits being optional. They are the most commonly used tracks for physics analysis in LHCb, exploiting the full performance of the detector tracking system; the long distance between VELO and T detectors, however, means that only stable or quasi-stable charged particles can aim for this classification.
 	\item \textit{Upstream} tracks are reconstructed from hits in the VELO and TT detectors. As previously discussed, low-momentum particles usually fall in this category due to inability to reach the T stations.
+	\item \textit{VELO} tracks are reconstructed from hits in the VELO detector alone. These are often large-angle or backward tracks, valuable to correctly identify the event primary vertex.
 	\item \textit{Downstream} tracks are reconstructed from hits in the TT and T1--3 detectors. This is the go-to category to study long-lived particles (LLP) decaying after the VELO, such as $\Lambda^0$ baryons and $K_S^0$ mesons.
 	\item \textit{T} tracks are only reconstructed from hits in the three T stations. Since missing both VELO and TT is a rare occurrence, most of these tracks come from LLPs with $c\tau \gtrsim \SI{5}{\meter}$ decaying after the dipole magnet.
 \end{itemize}
@@ -255,7 +256,7 @@ Transverse segmentation is designed to projectively match the ECAL segmentation 
 The HCAL is a sampling calorimeter as well, employing iron as absorber and scintillating tiles as active material.
 In contrast to the ECAL and SPD/PS detectors, however, the scintillating tiles run parallel to the beam axis, interspersed with \SI{1}{\centi\meter} thick layers of iron;
 meanwhile, the longitudinal structure alternates scintillating tiles with iron spacers, both of length $\lambda_I \approx \SI{20}{\centi\meter}$, $\lambda_I$ being the hadron interactiorn length in steel.
-The transvese segmentation of the detector, sketched in Figure \ref{fig:2:hcal_segm}, envisages one less section and a comparably larger cell size than ECAL, owing to the differing sizes of electromagnetic and hadronic showers.
+The transvese segmentation of the detector, sketched in Figure \ref{fig:2:hcal_segm}, envisages one less section and a comparatively larger cell size than ECAL, owing to the differing sizes of electromagnetic and hadronic showers.
 Since hadron energy resolution does not require full containment of the shower, the HCAL only extends for $\approx 5.6$ interaction lengths.
 
 In all four subdetectors, scintillating light is conveyed through wavelength-shifting fibres to photomultiplier tubes for conversion and magnification; due to the lower light yield of HCAL modules, their phototubes operate at a higher gain.
@@ -349,11 +350,12 @@ This change was motivated by the increase in center-of-mass collision energy fro
 The Turbo stream allows more saved data to be ready for analysis, while the slower Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
 
 \subsection{Monte Carlo simulations}
+\label{sec:2:monte_carlo}
 A key aspect of physics analysis is the comparison between results from experimental data and what is expected from theory.
 In the case of high-energy physics experiments, the latter relies on the correct simulation of events from collision to detector interaction.
 
 In LHCb, the production of Monte Carlo (MC) data is controlled by the Gauss application, which is in charge of coordinating the several cogs of the simulation machine:
-proton-proton collisions are simulated via MC generator software such as PYTHIA \cite{Pythia2015} and POWHEG \cite{Alioli:2010xd}; the decay of generated particles is described by EvtGen \cite{Ryd:2005zz}, while the GEANT4 toolkit \cite{AGOSTINELLI2003250} simulates the propagation and interaction with the material using a detailed modelization of the LHCb detector.
+proton-proton collisions are simulated via MC generator software such as \textsc{Pythia} \cite{Pythia2015} and \textsc{POWHEG} \cite{Alioli:2010xd}; the decay of generated particles is described by \textsc{EvtGen} \cite{Ryd:2005zz}, while the \textsc{Geant4} toolkit \cite{AGOSTINELLI2003250} simulates the propagation and interaction with the material using a detailed modelization of the LHCb detector.
 
 As final step, the simulated hits from the virtual detector in GEANT4 are digitized using the Boole application, which aims to mimic the real output from the LHCb detector.
 This allows simulated data to be processed with the same software as the real one, as described in the earlier paragraphs of this section.
@@ -385,4 +387,17 @@ the optical layout of RICH1 will also be updated to spread gas rings over the en
 Whereas the calorimeter system will largely stay the same, muon station M1 will be removed and additional shielding will surround the beam pipe in the M2 region to improve radiation hardness.
 
 \section{Data used for this thesis}
-@todo: Non so se vada qui ma da qualche parte deve andare.
+In the following chapters of this thesis, I will employ data collected during LHCb Run 2, corresponding to an integrated luminosity of \SI{6}{\per\femto\barn}, to conduct studies related to the measurement of the $\Lambda^0$ baryon electromagnetic dipole moments pursuing the approach described in Section \ref{sec:lambda}.
+The exclusive decay chosen for the analysis is the $\Lambda_b^0$ channel
+\begin{equation*}
+	\Lambda_b^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~\Lambda^0~(\rightarrow p \pi^-), \tag{\ref{eq:demonstrator_cap1} revisited}
+\end{equation*}
+exploiting the $\approx 100\%$ longitudinal polarization of the $\Lambda^0$.
+This comparatively rare channel ($\text{BR} \approx {10}^{-5}$) is selected at HLT level via the inclusive $J/\psi \rightarrow \mu^+\mu^-$ detached\footnote{The \textit{detached} requirement adds a selection criterium on the muon impact parameters, enforcing their incompatibility with the lowest-$\chi^2$ primary vertex.} trigger line.
+The need to measure spin precession in the $B$ field restricts the available $\Lambda^0$ to those decaying after the LHCb dipole magnet, implicitly requiring its decay products $p\pi^-$ to be T tracks.
+
+The $\tau \approx \SI{1.5e-12}{\second}$ mean life of the $\Lambda_b^0$ \cite{PDG} places its decay vertex well inside the VELO detector; in conjunction with the high efficiency reconstruction of muons in LHCb, this justifies a Long track requirement in their case.
+The $\Lambda_b^0$ vertex accuracy afforded by the $J/\psi$ half of the decay chain enables us to impose kinematic constraints on the $\Lambda^0$ half, partially offsetting some of the problems with T tracks I have pointed out in Section \ref{sec:2:tracking}.
+
+Along with Run 2 data, simultated samples of \eqref{eq:demonstrator_cap1} events are used to study the effect of the different steps of signal selection requirements.
+These have been generated using \textsc{Pythia} \cite{Pythia2015} using the LHCb-specific configuration implemented in Gauss \cite{Belyaev_2011}, and have been digitized following the procedure detailed in Section \ref{sec:2:monte_carlo}.

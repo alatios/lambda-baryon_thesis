@@ -515,9 +515,57 @@ EDM\footnote{Quantum chromodynamics allows for a CP-violating term proportional 
 a fine-tuning suppression known as the \textit{strong CP problem}; nevertheless, experimental discovery of a non-zero neutron EDM could be traced back to this term and would not necessarily require the introduction of new physics.},
 a non-zero $\Lambda^0$ baryon EDM could not be explained by any phenomena within the Standard Model and would therefore imply the existence of BSM physics.
 
-\subsection{Previous measurements of the \texorpdfstring{$\Lambda^0$}{Lambda} dipole moments}
+\subsection{Highlights from previous measurements of the \texorpdfstring{$\Lambda^0$}{Lambda} dipole moments}
 
-[Misure precedenti.]
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.7\textwidth]{graphics/01-standard_model/1971_cern_emdm_setup.png}
+	\caption[Experimental layout used for the 1971 $\Lambda^0$ EDM/MDM measurements.]{Experimental layout used for the 1971 $\Lambda^0$ EDM/MDM measurements \cite{1971_lambda_MDM}.}
+	\label{fig:1:1971_cern_emdm_setup}
+\end{figure}
+
+Among the first meaningful measurements of the $\Lambda^0$ electromagnetic dipole moments were conducted in the early seventies at CERN near Geneva, Switzerland, by means of nuclear emulsion experiments \cite{1971_lambda_MDM} \cite{1971_lambda_EDM}.
+The experimental layout is sketched in Figure \ref{fig:1:1971_cern_emdm_setup}: $\Lambda^0$ baryons are produced via the reaction
+\begin{equation}
+	\pi^- + p \rightarrow \Lambda^0 + K^0,
+\end{equation}
+running a \SI{1.05}{\gev\per c} $\pi^-$ beam from the CERN Proton Synchrotron accelerator into a fixed polyethylene target.
+The production cross section peaks at \SI{0.8}{\milli\barn} and produced $\Lambda^0$ have $\approx 100\%$ normal polarization over a large angular region in the reaction reference frame.
+The $\Lambda^0$ angular acceptance was restricted to $18^\circ \div 22^\circ$, near the maximum production angle of $21^\circ$, to amplify the signal-to-background ratio;
+this corresponds to $\Lambda^0$ with $|\vec{p}| \in \left[ \SI{500}{\mev\per c},\SI{800}{\mev\per c} \right]$.
+Traversing a \SI{20}{\tesla} transverse pulsed magnetic field, $\Lambda^0$ baryons become spin-polarized as described in Section \ref{sec:emdm-measurement} before decaying into a $p\pi^-$ pair.
+The final polarization direction is probed through the angular distribution of the above decay products, detected by \SI{1.2}{\milli\meter} thick Ilford K5 nuclear emulsion stacks.
+The measured $\Lambda^0$ magnetic dipole moment, improving an order of magnitude over the previous world average value, was
+\begin{equation}
+\mu_\Lambda = \left( -0.66 \pm 0.07 \right) \mu_N,
+\end{equation}
+with $\mu_N$ being the nuclear magneton \cite{1971_lambda_MDM}, while the $\Lambda^0$ EDM was measured at
+\begin{equation}
+\delta_\Lambda = \left( -5.9 \pm 2.9 \right)\times {10}^{-15}~e~\si{\centi\meter},
+\end{equation}
+the 95\% confidence level upper limit being found at $\delta_\Lambda \lesssim {10}^{-14}~e~\si{\centi\meter}$ \cite{1971_lambda_EDM}.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.7\textwidth]{graphics/01-standard_model/fermilab_edm_setup.png}
+	\caption[Side view of the experimental apparatus and perspective illustration of the coordinate system of the Fermilab setup for the $\Lambda^0$ EDM/MDM measurements.]{Side view of the experimental apparatus (\textit{top}) and perspective illustration of the coordinate system (\textit{bottom}) of the Fermilab setup for the $\Lambda^0$ EDM/MDM measurements \cite{PhysRevLett.41.1348}.}
+	\label{fig:1:fermilab_edm_setup}
+\end{figure}
+
+These results were improved during the late seventies and early eighties with the neutral hyperon spectrometer at Fermilab in Batavia, Illinois \cite{PhysRevLett.41.1348} \cite{PhysRevD.23.814}.
+Figure \ref{fig:1:fermilab_edm_setup} depicts the experimental setup: the incident \SI{300}{\gev} proton beam impacts on a beryllium target with an angle determined by the M1 upstream magnet;
+outgoing particles are focused by a brass collimator and cross the M2 magnetic field, serving the dual purpose of purging the beam of charged particles and triggering the $\Lambda^0$ spin precession in the horizontal plane;
+finally, the $\Lambda^0 \rightarrow p\pi^-$ decay products within a defined volumetric acceptance are detected by the C1--6 multi-wire proportional chambers.
+With a much lower $\Lambda^0$ initial polarization ($\approx 8\%$ on average) with respect to the CERN emulsion experiments, the Fermilab team was nonetheless able to best their results owing to a tenfold increase in $\Lambda^0$ statistics and precise measurement of the integrated magnetic field. The extracted value for the MDM \cite{PhysRevLett.41.1348} was
+\begin{equation}
+\mu_\Lambda = \left( -0.6138 \pm 0.0047 \right) \mu_N,
+\end{equation}
+while the EDM measurement \cite{PhysRevD.23.814} was
+\begin{equation}
+\delta_\Lambda = \left( -3.0 \pm 7.4 \right)\times {10}^{-17}~e~\si{\centi\meter},
+\end{equation}
+setting the upper limit to $\delta_\Lambda < 1.5\times{10}^{-16}~e~\si{\centi\meter}$ \cite{PDG}.
+At the time of writing, this is the current best limit on the $\Lambda^0$ electric dipole moment.
 
 \subsection{Proposal overview}
 My work in this thesis aims to exploit the spin precession technique outlined in Section \ref{sec:emdm-measurement} to perform a measurement of the $\Lambda^0$ baryon electromagnetic dipole moments with the LHCb detector at the Large Hadron Collider (see Chapter \ref{cap:LHCb}).
@@ -537,7 +585,7 @@ with $B \coloneqq |\vec{B}|$. The $\Lambda^0$ baryon's average mean life of $\ap
 
 The problem concerning the measurement of the $\Lambda^0$ initial polarization is circumvented by selecting $\Lambda^0$ produced through the weak decay of the bottom baryon $\Lambda_b^0$
 \begin{equation}
-\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-),
+\Lambda_b^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~\Lambda^0~(\rightarrow p \pi^-),
 \label{eq:demonstrator_cap1}  
 \end{equation}
 as well as its charge-conjugate\footnote{For the sake of brevity, charge-conjugate notation will be omitted in the rest of this thesis except where relevant to the topic at hand.}
@@ -629,7 +677,7 @@ This phenomenon introduces a dilution effect to the precession measurement: a $\
 \end{equation}
 and $\theta$ is the $\Lambda^0$ helicity angle, i.e. the angle formed by the $\Lambda^0$ momentum in $\text{S}_H$ with respect to the frame $z_H$ axis.
 
-[Rotazione di Wick]
+[@todo: Rotazione di Wick]
 
 \subsection{Closing remarks}
 

@@ -420,11 +420,11 @@ In the absence of field gradients, dictated by the homogeneity requirement, such
 	\vec{D} \coloneqq \int_0^l dl' \vec{B}(\vec{r}_0 +\hat{\beta} l') \approx \braket{\vec{B}} l,
 	\label{eq:integratedD}
 \end{equation}
-where $\hat{\beta}$ is the normalized vector of $\vec{\beta}$.
-Defining $\hat{\Omega}$ in the same way, the time evolution of the spin polarization vector $\vec{s}$ ($\vec{s}(0) = \vec{s}_0$) is
+where $\hat{v}$ labels the normalized vector of $\vec{v}$.
+The time evolution of the spin polarization vector $\vec{s}$ ($\vec{s}(0) = \vec{s}_0$) is
 \begin{equation}
 	\vec{s} \left(
-		l
+		t
 	\right) =
 	\left(
 		\vec{s}_0 \cdot \hat{\Omega}
@@ -568,16 +568,14 @@ setting the upper limit to $\delta_\Lambda < 1.5\times{10}^{-16}~e~\si{\centi\me
 At the time of writing, this is the current best limit on the $\Lambda^0$ electric dipole moment.
 
 \subsection{Proposal overview}
-My work in this thesis aims to exploit the spin precession technique outlined in Section \ref{sec:emdm-measurement} to perform a measurement of the $\Lambda^0$ baryon electromagnetic dipole moments with the LHCb detector at the Large Hadron Collider (see Chapter \ref{cap:LHCb}).
+My work in this thesis aims to exploit the spin precession technique outlined in Section \ref{sec:emdm-measurement} to perform a measurement of the $\Lambda^0$ baryon electromagnetic dipole moments with the LHCb experiment at the Large Hadron Collider (see Chapter \ref{cap:LHCb}).
 Specifically, the unique features of the LHCb experimental setup and a careful selection of the $\Lambda^0$ production channel will allow for significant simplifications of the general equation \eqref{eq:spin-precession-l_cap1} for neutral unstable particles.
 
-%% FONDAMENTALMENTE RIVEDI TUTTO!!!! che palle, però così è molto più leggibile.
-
-The LHCb detector is equipped with a suitable [quanti tesla] magnetic field directed along the laboratory frame $y$ axis. Gradient field effects for the $\vec{B}$ field within the detector acceptance are negligible, being estimated at \cite{EMDipoleSearch}
+The LHCb detector is equipped with a magnetic field directed along the laboratory frame $y$ axis\footnote{This chapter assumes the standard right-handed LHCb coordinate system, see Section \ref{info:LHCb_system}.} used for tracking purposes. Gradient field effects for the $\vec{B}$ field within the detector acceptance are negligible, being estimated at \cite{EMDipoleSearch}
 \begin{equation}
 \frac{\hbar}{2mc} \frac{\beta\gamma}{\gamma+1} \frac{|\nabla B|}{B} \approx 7.4 \times {10}^{-16},
 \end{equation}
-with $B \coloneqq |\vec{B}|$. The $\Lambda^0$ baryon's average mean life of $\approx 2.6 \times {10}^{-10}\, \si{\second}$ \cite{PDG} allows a sizeable number of them to traverse the full LHCb magnetic field region [regione in z] before decaying, making it possible to measure both the initial and final polarizations to infer spin precession.
+with $B \coloneqq |\vec{B}|$. The $\Lambda^0$ baryon's average mean life of $\approx 2.6 \times {10}^{-10}\, \si{\second}$ \cite{PDG} allows a sizeable number of them to traverse the full LHCb magnetic field region (conventionally ending at $z=\SI{7.95}{\meter}$) before decaying, making it possible to measure both the initial and final polarizations to infer spin precession.
 
 %As well as being a neutral particle, thereby lacking the Thomas precession effect omitted from the discussion in Section \ref{sec:emdm-measurement}, the 
 
@@ -643,44 +641,70 @@ where $\Omega' \coloneqq (\theta',\phi')$ is the solid angle in the $\Lambda^0$ 
 and $\alpha \approx 0.732$ \cite{PDG} is the decay asymmetry parameter.
 The combined measurements of the initial polarization (from the momenta of $\Lambda^0$ produced via decays \eqref{eq:demonstrator_cap1} and \eqref{eq:antidemonstrator_cap1}) and the final polarization (from angular distribution \eqref{eq:angular_distribution_cap1}) allow for a study of both $\Lambda^0$ dipole moments based on the single components of the precession \eqref{eq:final_polarization_cap1}.
 
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[scale=1]{graphics/01-standard_model/frames_of_reference.pdf}
+%	\caption[Frames of reference for the $\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-)$ decay.]{Frames of reference for the $\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-)$ decay: on the \textit{left} the $\Lambda^0$ helicity frame $\text{S}_{\Lambda\text{L}}$, on the \textit{right} the laboratory frame $\text{S}_{\text{L}}$.
+%	$\vec{p}_H$ is the $\Lambda_b^0$ momentum, $\vec{p}_p$ is the proton momentum (corresponding to a solid angle $(\theta',\phi')$ in the $\text{S}_{\Lambda\text{L}}$ frame), $\vec{p}_\text{beam}$ is the proton beam momentum, while $\vec{n}_\Lambda$ and $\vec{n}_H$ are the normals to the $\Lambda^0$ and $\Lambda^0_b$ production planes respectively.}
+%	%\label{fig:frames_of_reference}
+%\end{figure}
+
 \begin{figure}[t]
 	\centering
-	\includegraphics[scale=1]{graphics/01-standard_model/frames_of_reference.pdf}
-	\caption[Frames of reference for the $\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-)$ decay.]{Frames of reference for the $\Lambda_b^0 \rightarrow J/\psi \, (\rightarrow \mu^+ \mu^-) \,\Lambda^0 \,(\rightarrow p \pi^-)$ decay: on the \textit{left} the $\Lambda^0$ helicity frame $\text{S}_{\Lambda\text{L}}$, on the \textit{right} the laboratory frame $\text{S}_{\text{L}}$.
-	$\vec{p}_H$ is the $\Lambda_b^0$ momentum, $\vec{p}_p$ is the proton momentum (corresponding to a solid angle $(\theta',\phi')$ in the $\text{S}_{\Lambda\text{L}}$ frame), $\vec{p}_\text{beam}$ is the proton beam momentum, while $\vec{n}_\Lambda$ and $\vec{n}_H$ are the normals to the $\Lambda^0$ and $\Lambda^0_b$ production planes respectively.}
+	\begin{subfigure}{.32\textwidth}
+		\includegraphics[width=\textwidth]{graphics/01-standard_model/helicity_frames_a.png}
+		\caption{}
+		\label{fig:1:frames_of_reference_lambda}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\includegraphics[width=\textwidth]{graphics/01-standard_model/helicity_frames_b.png}
+		\caption{}
+		\label{fig:1:frames_of_reference_heavy}
+	\end{subfigure}
+	\begin{subfigure}{.32\textwidth}
+		\includegraphics[width=\textwidth]{graphics/01-standard_model/helicity_frames_c.png}
+		\caption{}
+		\label{fig:1:frames_of_reference_lab}
+	\end{subfigure}
+	\caption[Frames of reference for the \demonstratorfull decay.]{Frames of reference for the \demonstratorfull decay \cite{EMDipoleSearch}: \textit{(a)} the \lz helicity frame $\text{S}_{\Lambda\text{L}}$; \textit{(b)} the \lbz (heavy baryon) rest frame $\text{S}_{\text{H}}$; \textit{(c)} laboratory frame $\text{S}_{\text{L}}$.
+	$\vec{p}_H$ is the \lbz momentum,
+	$\vec{p}_\Lambda$ is the \lz momentum (corresponding to solid angle $(\theta,\phi)$ in the $\text{S}_{\text{H}}$ frame)
+	$\vec{p}_p$ is the proton momentum (corresponding to solid angle $(\theta',\phi')$ in the $\text{S}_{\Lambda\text{L}}$ frame),
+	$\vec{p}_\text{beam}$ is the proton beam momentum,
+	while $\vec{n}_\Lambda$ and $\vec{n}_H$ are the normals to the \lz and \lbz production planes respectively.}
 	\label{fig:frames_of_reference}
 \end{figure}
 
 Deviations from this simplified treatment ought to be considered when taking into account the different relevant frames of reference, three of which are sketched in Figure \ref{fig:frames_of_reference}:
 \begin{itemize}
-	\item the laboratory frame $\text{S}_\text{L}$, with the $z$ axis along the proton beam and the $y$ axis along the vertical coordinate;
-	\item the heavy baryon $\Lambda_b^0$ helicity frame $\text{S}_H$, with the $z$ axis given by the $\Lambda_b^0$ momentum in $\text{S}_\text{L}$ and the $x$ axis parallel to the normal to its production plane;
-	\item the two $\Lambda^0$ helicity frames $\text{S}_\Lambda$ and $\text{S}_{\Lambda \text{L}}$. These are functionally the same frame of reference, the key difference being that the $z$ axis is defined in the direction of the $\Lambda^0$ momentum in $\text{S}_H$ and $\text{S}_\text{L}$ respectively.
+	\item the laboratory frame $\text{S}_\text{L}$ (Figure \ref{fig:1:frames_of_reference_lab}), with the $z$ axis along the proton beam and the $y$ axis along the vertical coordinate;
+	\item the heavy baryon $\Lambda_b^0$ helicity frame $\text{S}_H$ (Figure \ref{fig:1:frames_of_reference_heavy}), with the $z$ axis given by the $\Lambda_b^0$ momentum in $\text{S}_\text{L}$ and the $x$ axis parallel to the normal to its production plane;
+	\item the two $\Lambda^0$ helicity frames $\text{S}_\Lambda$ and $\text{S}_{\Lambda \text{L}}$ (Figure \ref{fig:1:frames_of_reference_lambda}). These are functionally the same frame of reference, the key difference being that the $z$ axis is defined in the direction of the \lz momentum in $\text{S}_H$ and $\text{S}_\text{L}$ respectively.
 \end{itemize}
 
-The polarization given by the equation of motion derived in Section \ref{sec:emdm-measurement} refers to the comoving rest frame of the $\Lambda^0$ (also known as the \textit{canonical frame)}, related to the $\text{S}_\text{L}$ frame by a Lorentz boost.
+The polarization given by the equation of motion derived in Section \ref{sec:emdm-measurement} refers to the comoving rest frame of the \lz (also known as the \textit{canonical frame)}, related to the $\text{S}_\text{L}$ frame by a Lorentz boost.
 By contrast, Equation \eqref{eq:angular_distribution_cap1} for the angular distribution is computed with the solid angle $\Omega'$ in the particle helicity frame $\text{S}_{\Lambda\text{L}}$.
 Canonical and helicity frames are related by a rotation angle, meaning that $\vec{s_0}$ is not fixed to be perpendicular to $\vec{B}$, as assumed in the resolution of the system   \eqref{eq:system_spin_precession}.
-This effect arises in the case of $\Lambda^0$ not directed along the $\text{S}_\text{L}$ $z$ axis and is expected to be negligible for the purposes of this thesis.
+This effect arises in the case of \lz not directed along the $\text{S}_\text{L}$ $z$ axis and is expected to be negligible for the purposes of this thesis.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[scale=0.7]{graphics/01-standard_model/heavy-baryon-production.pdf}
-	\caption[Diagram of $\Lambda^0_b$ and $\Lambda^0$ production at LHCb.]{Ioboh.}
+	\caption[Diagram of $\Lambda^0_b$ and \lz production at LHCb.]{Ioboh.}
 	\label{fig:heavy-baryon-production}
 \end{figure}
 
-More significant is the Wick rotation, owing to the orientation discrepancy between $\text{S}_\Lambda$ frame (where the $\Lambda^0$ has the maximal longitudinal polarization)  and $\text{S}_{\Lambda \text{L}}$ (where the angular distribution of $\Lambda^0$ decay products is measured).
-This phenomenon introduces a dilution effect to the precession measurement: a $\Lambda^0$ with polarization $\vec{s_0} = s_0 \hat{z}_\Lambda$ in the $\text{S}_\Lambda$ frame gains in the $\text{S}_{\Lambda\text{L}}$ frame a transverse component of magnitude $s_0 \sin\alpha$, where \cite{spinInParticlePhysics}
+More significant is the Wick rotation, owing to the orientation discrepancy between $\text{S}_\Lambda$ frame (where the \lz has the maximal longitudinal polarization)  and $\text{S}_{\Lambda \text{L}}$ (where the angular distribution of \lz decay products is measured).
+This phenomenon introduces a dilution effect to the precession measurement: a \lz with polarization $\vec{s_0} = s_0 \hat{z}_\Lambda$ in the $\text{S}_\Lambda$ frame gains in the $\text{S}_{\Lambda\text{L}}$ frame a transverse component of magnitude $s_0 \sin\alpha$, where \cite{spinInParticlePhysics}
 \begin{equation}
 \sin\alpha = \frac{m_\Lambda}{m_H} \frac{\left\lvert \vec{p}_H^{(\text{L})} \right\lvert}{\left\lvert \vec{p}_\Lambda^{(\text{L})} \right\lvert}
 \end{equation}
-and $\theta$ is the $\Lambda^0$ helicity angle, i.e. the angle formed by the $\Lambda^0$ momentum in $\text{S}_H$ with respect to the frame $z_H$ axis.
+and $\theta$ is the \lz helicity angle, i.e. the angle formed by the \lz momentum in $\text{S}_H$ with respect to the frame $z_H$ axis.
 
 [@todo: Rotazione di Wick]
 
 \subsection{Closing remarks}
 
-The LHCb tracking dipole magnet provides an integrated field $D_y \approx \pm 4 \,\si{\tesla\meter}$ \cite{LHCbDetectorPerformance}, allowing for a maximum precession angle of $\Phi_\text{max} \approx \pm \frac{\pi}{4}$ for $\Lambda^0$ baryons traversing the entire region and reaching about 70\% of the maximum $s_y$ component in equation \eqref{eq:final_polarization_cap1}. With the $8~\si{\per\femto\barn}$...
+The LHCb tracking dipole magnet provides an integrated field $D_y \approx \pm 4 \,\si{\tesla\meter}$ \cite{LHCbDetectorPerformance}, allowing for a maximum precession angle of $\Phi_\text{max} \approx \pm \frac{\pi}{4}$ for \lz baryons traversing the entire region and reaching about 70\% of the maximum $s_y$ component in equation \eqref{eq:final_polarization_cap1}. With the $8~\si{\per\femto\barn}$...
 
 %% Non so se aggiungere sensitivity studies. Non mi pare sia il nostro caso! Al massimo si possono mettere prima.

@@ -1,4 +1,4 @@
-\chapter{\texorpdfstring{$\Lambda_b^0$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decay vertex reconstruction}
+\chapter{\texorpdfstring{\lbz}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decay vertex reconstruction}
 \label{cap:vertex_reconstruction}
 This chapter details my work towards the improvement of the vertex reconstruction process for decays involving T tracks.
 Section \ref{sec:reco_algorithms} delves into a deep study of the vertexing process at LHCb and the two algorithms employed in this thesis;
@@ -437,21 +437,21 @@ This algorithm takes the entire decay chain as input and allows to place mass co
 
 While this step introduces another filtering process and related efficiency to account for\footnote{DTF convergence efficiency with the double mass constraint is relatively uneven across the $z_\Lambda^\textbf{vtx}$ spectrum, starting at $\approx 50\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{6}{\meter}$ and growing up to $\approx 85\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{7.5}{\meter}$.
 Comparatively, vertex reconstruction is still the primary cause of event loss in this analysis.}, it proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution.
-As shown in Figure \ref{fig:paper_momentum_resolutions}, using both $J/\psi$ and $\Lambda^0$ mass constraints improves $\vec{p}$ resolution from $20 \div 30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the $\Lambda^0$ momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
+As shown in Figure \ref{fig:paper_momentum_resolutions}, using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20 \div 30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the \lz momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
 
 %% Con KineAtVtx non è più vero.
 %For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
 %by contrast, VF momenta are provided either at the decay vertex (short-lived particles) or at the position of first measurement (long-lived or stable particles).
 
-\section{Reconstruction efficiency of the \texorpdfstring{$\Lambda^0_b$}{Lambdab} and \texorpdfstring{$\Lambda^0$}{Lambda} decays}
+\section{Reconstruction efficiency of the \texorpdfstring{$\Lambda^0_b$}{Lambdab} and \texorpdfstring{\lz}{Lambda} decays}
 \label{sec:reco_efficiency}
 
-To compute the vertex reconstruction efficiency for the $\Lambda_b^0$ decay chain, it is useful to conceptualize our event selection as a five step process:
+To compute the vertex reconstruction efficiency for the \lbz decay chain, it is useful to conceptualize our event selection as a five step process:
 \begin{enumerate}
 	\item reconstruction of associated tracks for all charged daughter particles;
-	\item reconstruction of the three decay vertices ($\Lambda^0$, $J/\psi$ and $\Lambda_b^0$);
+	\item reconstruction of the three decay vertices (\lz, \jpsi and \lbz);
 	\item preliminary selections based on kinematic variables to filter out most background (see Section \ref{sec:prefilter});
-	\item Decay Tree Fitter refit with appropriate mass constraints for the analysis at hand (usually $J/\psi$ and $\Lambda^0$);
+	\item Decay Tree Fitter refit with appropriate mass constraints for the analysis at hand (usually \jpsi and \lz);
 	\item further selections applied to events passing all previous steps. Detailed in Chapter \ref{cap:event_selection}, these include a physical background veto and signal selection via a trained multivariate classifier.
 \end{enumerate}
 
@@ -467,15 +467,15 @@ for T and Long tracks, this is true if at least $70\%$ of the hits from the resp
 \begin{figure}[t!]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/lambda_lambdab_reco_efficiency.png}
-	\caption[A]{Reconstruction efficiency of simulated $\Lambda^0_b \rightarrow J/\psi~(\rightarrow \mu^+\mu^-)~\Lambda^0~(\rightarrow p\pi^-)$ events as function of the $z$ component of the true $\Lambda^0$ decay vertex. Assuming a $\approx 100\%$ reconstruction rate for the $J/\psi$ decay, the low efficiency is attributed to failure in reconstructing $\Lambda^0$ and $\Lambda^0_b$ decay vertices.}
+	\caption[A]{Reconstruction efficiency of simulated $\Lambda^0_b \rightarrow J/\psi~(\rightarrow \mu^+\mu^-)~\Lambda^0~(\rightarrow p\pi^-)$ events as function of the $z$ component of the true \lz decay vertex. Assuming a $\approx 100\%$ reconstruction rate for the \jpsi decay, the low efficiency is attributed to failure in reconstructing \lz and $\Lambda^0_b$ decay vertices.}
 	\label{fig:lambda_lambdab_reco_efficiency}
 \end{figure}
 
 When considering how many of these reconstructed charged particles pass the vertex reconstruction (\textit{vertexing}) process, the computed efficiency is much lower.
-Figure \ref{fig:lambda_lambdab_reco_efficiency} plots the resulting $\Lambda_b^0$ vertexing efficiency through the whole true $z_\text{vtx}^\Lambda$ spectrum, showing that said efficiency never manages to get past the 50\% threshold.
+Figure \ref{fig:lambda_lambdab_reco_efficiency} plots the resulting \lbz vertexing efficiency through the whole true $z_\text{vtx}^\Lambda$ spectrum, showing that said efficiency never manages to get past the 50\% threshold.
 This means that over half of our candidate signal events is lost during the second step of the five step selection process.
 
-While available information does not distinguish between the three individual vertexing phases ($J/\psi$, $\Lambda^0$ and $\Lambda_b^0$), we can make some reasonable assumptions.
+While available information does not distinguish between the three individual vertexing phases (\jpsi, \lz and \lbz), we can make some reasonable assumptions.
 Being Long tracks, muons and antimuons have well reconstructed momentum with constraints across the LHCb detector;
 for this reason their influence on the vertexing efficiency dip is considered negligible.
 Furthermore, the rare usage of T tracks for physics analysis in LHCb suggests that problems are likelier to arise in the $\Lambda^0 \rightarrow p\pi^-$ vertexing and then cascade into the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ reconstruction.
@@ -533,7 +533,6 @@ While a particularly tricky instance of the first type of event may potentially 
 	\label{fig:zx_iter_conv_vs_failed}
 \end{figure}
 
-
 Some more insight into the nature of this oscillation can be achieved by taking a more <<geometrical>> look, plotting inter-iteration vertex coordinates in the $zx$ plane where the LHCb magnet bends tracks according to their charge.
 Figure \ref{fig:zx_iter_conv_vs_failed} compares the same events from Figure \ref{fig:z_iter_conv_vs_failed}.
 Again, the converged event in Figure \ref{fig:zx_iter_conv} behaves as intended, selecting as vertex roughly the point of closest distance between the tracks (some leeway is accorded since the fit also incorporates information from $xy$ and $yz$ planes).
@@ -577,7 +576,7 @@ the best vertex candidate has different $z_\text{vtx}$ in the $xz$ (with magneti
 
 For didactic purpose, the analysis in this section has focused on just one event.
 All the emerged patterns are however commonplace throughout the failed events I have examined, with the oscillating vertex behaviour in particular being a constant in almost all of them.
-While every $\Lambda_b^0$ vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
+While every \lbz vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
 
 \subsection{True kinematics}
 To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
@@ -624,7 +623,7 @@ As such, it stands to reason that poor measurement of the low proton $p_x$ can h
 
 \subsection{Kinematics at true vertex}
 \label{sec:3:true_vtx_kinematics}
-As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the $\Lambda^0$ vertex is affected by a significant positive bias of median value $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{43}{\centi\meter}$.
+As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the \lz vertex is affected by a significant positive bias of median value $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{43}{\centi\meter}$.
 In spite of such a discrepancy, the standard modus operandi for kinematics-at-vertex analyses usually compares the true momenta (evaluated at the true vertex) with the reconstructed momenta (evaluated at the reconstructed vertex).
 
 For this section I have followed a different approach, instead opting to transport via Runge-Kutta extrapolator the reconstructed $p$ and $\pi^-$ at the true  $\Lambda^0 \rightarrow p\pi^-$ vertex position, injected from Monte Carlo information.
@@ -652,7 +651,7 @@ Assuming a correct estimation of such uncertainties, we expect the residuals to 
 	\label{fig:p_pim_momentum_residual_2Dv3D_z_rel}
 \end{figure}
 
-Figure \ref{fig:p_pim_momentum_residual_2Dv3D_z_rel} shows $p_z$ residuals for proton and pions extrapolated at the $\Lambda^0$ true decay vertex, juxtaposing converged and non-converged event distributions.
+Figure \ref{fig:p_pim_momentum_residual_2Dv3D_z_rel} shows $p_z$ residuals for proton and pions extrapolated at the \lz true decay vertex, juxtaposing converged and non-converged event distributions.
 The first takeaway is that VF-reconstructed events have a remarkably non-gaussian distribution, with a slightly positive mean and asymmetric tails. 
 This is particularly apparent in the case of the proton, where for $p_z^\text{RK} < p_z^\text{true}$ the RK algorithm systematically underestimates the error.
 More relevant for this chapter is Figure \ref{fig:pim_momentum_residual_2Dv3D_z_rel} specifically, which highlights the fact that pion tracks from non-converged events generally sport a strong negative bias on $p_z$.
@@ -679,7 +678,7 @@ Since all events in this sample have magnet polarity $M_\text{pol} = +1$, i.e. m
 %% @todo: controlla che sia vero
 matter and antimatter daughter particles will bend in opposite directions due to charge inversion.
 
-Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, $x$ components of pion reference points in non-converged events show opposite bias when extrapolated at the $\Lambda^0$ vertex.
+Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, $x$ components of pion reference points in non-converged events show opposite bias when extrapolated at the \lz vertex.
 Such a behaviour is easily understood in terms of transportation: tracks are extrapolated from downstream protoparticles towards decreasing $z$;
 if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\Lambda^\text{vtx}$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
 
@@ -804,7 +803,7 @@ Despite this, all three $\sigma$-rescaled algorithms have a sizable number of <<
 Furthermore, while the $\sigma_z$-rescaled does recover more events by itself, only $\approx 5\%$ of the total recovered events are exclusive to it, meaning its overall impact on the $\sigma$-rescaled refit process is low.
 
 The established $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order is justified in light of performance evaluation based on the goodness of these fits.
-As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparatively lower vertex $\tilde{\chi}^2$, $z_\Lambda^\text{vtx}$ bias and proton $p_z$ bias using the DTF algorithm with $J/\psi$ and $\Lambda^0$ mass constraints.
+As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparatively lower vertex $\tilde{\chi}^2$, $z_\Lambda^\text{vtx}$ bias and proton $p_z$ bias using the DTF algorithm with \jpsi and \lz mass constraints.
 Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ of recovered events are actually affected by its poor performance.
 
 %\begin{figure}[t]
@@ -855,6 +854,6 @@ This tendency is likely the result of the systematic T track $p_z$ underestimati
 
 Overall, my $\sigma$-rescaled refit process proposal allows for the recovery of an extra $+25\%$ of signal events.
 While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\Lambda^\text{vtx}$ are higher compared to events reconstructed via Vertex Fitter (see Figure \ref{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel} and Table \ref{tab:3:xyz_VF_performances}), there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
-Their impact on the prospective $\Lambda^0$ EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
+Their impact on the prospective \lz EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
 
 %%@todo: se trovi un posto adatto, menziona che xyz insieme non fungono. Non è che sia importante.

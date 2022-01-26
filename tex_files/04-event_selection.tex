@@ -78,6 +78,34 @@ Confronto con Figure \ref{fig:2:t_station_top}.
 
 Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. Devi dire che c'è il problema con grafico.
 
+\section{Physical background veto}
+\label{sec:B0_veto}
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_lambda_comparison.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_lambdab_comparison.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption[Comparison of simulated $m(p\pi^-)$ \textit{(a)} and $m(J/\psi~\Lambda^0)$ distributions for simulated \demonstratorshort signal and \physbkgshort physical background with proton mass hypothesis.]{Comparison of simulated $m(p\pi^-)$ \textit{(a)} and $m(J/\psi~\Lambda^0)$ \textit{(b)} distributions: \demonstratorshort signal is labeled by horizontal hatching, \physbkgshort physical background with $\pi^+ \rightarrow p$ mass hypothesis by diagonal hatching.}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_efficiencies.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_sig_efficiencies_per_bin.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi~\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi~\Lambda^0)$ bins for \demonstratorshort signal events).}
+\end{figure}
+
 \section{HBDT classifier}
 \label{sec:HBDT}
 
@@ -93,9 +121,6 @@ Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. 
 \subsection{Hyperparameter optimization and performance test}
 
 \subsection{Threshold optimization}
-
-\section{Physical background veto}
-\label{sec:B0_veto}
 
 \section{Performance on data}
 Gli invariant mass fits, essenzialmente.

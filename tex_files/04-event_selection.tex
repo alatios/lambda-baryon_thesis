@@ -47,7 +47,7 @@ I grafici necessari probabilmente ha senso metterli qui. Magari puoi cambiare il
 
 Confronto con Figure \ref{fig:2:t_station_top}.
 
-\subsection{Bias in \texorpdfstring{\lz}{Lambda} decay vertex}
+\subsection{Reconstruction of \texorpdfstring{\lz}{Lambda} decay vertex}
 \label{sec:lambda_endvertex_bias}
 \begin{figure}[t]
 	\centering
@@ -113,14 +113,64 @@ Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. 
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/hbdt_signal_sidebands.png}
-	\caption{A.}
+	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/sig_bkg_distribution_balance.pdf}
+	\caption{Signal (horizontal hatching) and background (diagonal hatching) data samples used for training the HBDT classifier. Test samples are taken from the same pool in 1:9 ratio.}
 	\label{fig:4:HBDT_training_data}
 \end{figure}
 
 \subsection{Hyperparameter optimization and performance test}
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/confmatrix_train.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/confmatrix_test.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption{Confusion matrices visualizing the performance of the HBDT classifier on training \textit{(a)} and testing \textit{(b)} data samples. Percentages and chromatic scale are normalized to the true event classification: for instance, the top left and top right quadrants of a matrix represent the fraction of true background events reconstructed as background or signal, respectively. Binary classification uses an illustrative response threshold $s_\text{thres} = 0.5$.}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/sig_train_vs_test.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/bkg_train_vs_test.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption{Response distribution of the HBDT classifier on signal \textit{(a)} and background \textit{(b)} events. The training sample is represented by horizontal hatching, the test sample by diagonal hatching.}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/roc.pdf}
+	\caption{Receiving operating characteristic (ROC) curve for the HBDT classifier on training (solid) and test (dashed) samples. The legend includes the area-under-curve (AUC) score.}
+\end{figure}
 
 \subsection{Threshold optimization}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/HBDT_signal_significance.pdf}
+	\caption{Projected \demonstratorshort signal significance over background as a function of the HBDT response threshold used for selection.}
+\end{figure}
+
 \section{Performance on data}
 Gli invariant mass fits, essenzialmente.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/MC_lambdab_hard_fit.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/data_lambdab_hard_fit.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption{Fitted $m(J/\psi~\Lambda^0)$ invariant mass distributions for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Signal fit function is dashed, background fit function in \textit{(b)} is dot-dashed. The current best measurement for $\Lambda_b^0$ mass is marked by the dotted vertical line. Fit pulls (data-fit discrepancy divided by uncertainty) are shown below the main plots.}
+\end{figure}

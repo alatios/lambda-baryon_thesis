@@ -688,20 +688,21 @@ Furthermore, a lower $p_z$ will affect the closest distance point between proton
 supporting the conflicting information interpretation for vertex oscillation given in Section \ref{sec:oscillation}.
 Considering the information gathered so far, the two most plausible causes of failed convergence appear to be wrong extrapolation by the Runge-Kutta algorithm, perhaps triggered by lower protoparticle $p_x$ observed in Section \ref{sec:3:kinematics_at_first_meas}, and/or poor measurement from T stations resulting in $p_z$ underestimation of protons and pions.
 
-\section{Recovery of non-converged events}
+%\section{Recovery of non-converged events}
+%\subsection{Recovery through refit with rescaled uncertainties}
+\section[Recovery of non-converged events]{Recovery of non-converged events through refit with rescaled uncertainties}
 \label{sec:recovery_general}
-
-\subsection{Recovery through interpolation}
-@todo
-
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/iolt_lambda_endvertex_z_bias.pdf}
-	\caption{A.}
-\end{figure}
-
-\subsection{Recovery through refit with rescaled uncertainties}
 \label{sec:blowup_matrix}
+
+%\subsection{Recovery through interpolation}
+%@todo
+
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/iolt_lambda_endvertex_z_bias.pdf}
+%	\caption{A.}
+%\end{figure}
+
 As outlined in Section \ref{sec:oscillation}, vertexing failures in the $\Lambda^0 \rightarrow p\pi^-$ decay can be attributed to candidate vertices in different planes providing conflicting information.
 In order to circumvent this phenomenon, my proposal for the recovery of these failed events involves performing a refit process with a slightly altered version of the standard Vertex Fitter, designed to give more importance to tracks lying on a specific plane.
 

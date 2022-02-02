@@ -512,9 +512,9 @@ It follows that, for the vast majority of missing events, failure of convergence
 \end{figure}
 
 This is readily apparent when studying the vertex positions throughout the iterating process for examples of converged and failed events of simulated signal.
-Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\Lambda^\text{vtx}$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $0$ to $10$ ($i=0$ being the starting seed).
+Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\text{vtx}^\Lambda$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $0$ to $10$ ($i=0$ being the starting seed).
 Figure \ref{fig:z_iter_conv} (converged) exhibits the expected behaviour, with the algorithm refining its vertex estimate after every iteration and finally converging as early as $i=5$.
-By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\Lambda^\text{vtx}$, constantly flipping the probing direction after an iteration completes.
+By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\text{vtx}^\Lambda$, constantly flipping the probing direction after an iteration completes.
 While a particularly tricky instance of the first type of event may potentially benefit by an increased $i_\text{max}$, no amount of allotted computations can lead the second type to convergence.
 
 \begin{figure}[t]
@@ -627,7 +627,7 @@ As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lamb
 In spite of such a discrepancy, the standard modus operandi for kinematics-at-vertex analyses usually compares the true momenta (evaluated at the true vertex) with the reconstructed momenta (evaluated at the reconstructed vertex).
 
 For this section I have followed a different approach, instead opting to transport via Runge-Kutta extrapolator the reconstructed $p$ and $\pi^-$ at the true  $\Lambda^0 \rightarrow p\pi^-$ vertex position, injected from Monte Carlo information.
-Since the extrapolator takes raw protoparticles as inputs, this process bypasses any smoothing applied during the fit process and, given an observable $f$ (particle reference points and momenta, for instance), it allows for a comparison between the true value $f_\text{true}$ and the RK-extrapolated value $f_\text{RK}$ at the actual $z_\Lambda^\text{vtx}$, circumventing the effect of vertex bias.
+Since the extrapolator takes raw protoparticles as inputs, this process bypasses any smoothing applied during the fit process and, given an observable $f$ (particle reference points and momenta, for instance), it allows for a comparison between the true value $f_\text{true}$ and the RK-extrapolated value $f_\text{RK}$ at the actual $z_\text{vtx}^\Lambda$, circumventing the effect of vertex bias.
 Any potential mismatch will be normalized in terms of \textit{residuals}
 \begin{equation}
 	\text{res}(f) \coloneqq \frac{f_\text{RK} - f_\text{true}}{\sigma_f^\text{RK}},
@@ -680,7 +680,7 @@ matter and antimatter daughter particles will bend in opposite directions due to
 
 Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, $x$ components of pion reference points in non-converged events show opposite bias when extrapolated at the \lz vertex.
 Such a behaviour is easily understood in terms of transportation: tracks are extrapolated from downstream protoparticles towards decreasing $z$;
-if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\Lambda^\text{vtx}$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
+if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\text{vtx}^\Lambda$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
 
 Excessive bending is exactly what is expected of a track with correctly estimated $p_x$ and $p_y$, but underestimated $p_z$.
 Furthermore, a lower $p_z$ will affect the closest distance point between proton and pions in the $zx$ plane, but will have a much lower impact on the track crossing point in the $yz$ plane,
@@ -776,7 +776,7 @@ As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a 
 	\begin{center}
 	\begin{tabular}{|c||c|c|c|c|}
 		\hline
-		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2_\text{vtx}\right]$ & $\mu_\frac{1}{2}\left[z_\Lambda^\text{vtx} \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
+		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2_\text{vtx}\right]$ & $\mu_\frac{1}{2}\left[z_\text{vtx}^\Lambda \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
 		\hline
 		\hline
 		None (VF)  & -- & 1.0 & 429 mm & $+1.35\%$ \\
@@ -804,7 +804,7 @@ Despite this, all three $\sigma$-rescaled algorithms have a sizable number of <<
 Furthermore, while the $\sigma_z$-rescaled does recover more events by itself, only $\approx 5\%$ of the total recovered events are exclusive to it, meaning its overall impact on the $\sigma$-rescaled refit process is low.
 
 The established $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order is justified in light of performance evaluation based on the goodness of these fits.
-As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparatively lower vertex $\tilde{\chi}^2$, $z_\Lambda^\text{vtx}$ bias and proton $p_z$ bias using the DTF algorithm with \jpsi and \lz mass constraints.
+As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparatively lower vertex $\tilde{\chi}^2$, $z_\text{vtx}^\Lambda$ bias and proton $p_z$ bias using the DTF algorithm with \jpsi and \lz mass constraints.
 Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ of recovered events are actually affected by its poor performance.
 
 %\begin{figure}[t]
@@ -814,7 +814,7 @@ Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ 
 %	\label{fig:3:Lambda_endvertex_z_bias_xyz_common}
 %\end{figure}
 %
-%Figure \ref{fig:3:Lambda_endvertex_z_bias_xyz_common} shows the $z_\Lambda^\text{vtx}$ bias of the individual $\sigma$-rescaled algorithms in the $\approx 36\%$ of recovered events which converge under all three variations.
+%Figure \ref{fig:3:Lambda_endvertex_z_bias_xyz_common} shows the $z_\text{vtx}^\Lambda$ bias of the individual $\sigma$-rescaled algorithms in the $\approx 36\%$ of recovered events which converge under all three variations.
 %Despite the difference in performance outlined in Table \ref{tab:3:xyz_VF_performances}
 
 \begin{figure}[t]
@@ -837,13 +837,13 @@ All $\sigma$-rescaled algorithms still appear to perform significantly worse tha
 To investigate this, I have individually run the $\sigma_x$-rescaled and standard VF algorithms on all available events and compared their results.
 Considering the total number of events reconstructed by combining the two, $\approx 74\%$ of them are reconstructed by both, $\approx 13\%$ are only reconstructed by the $\sigma_x$-rescaled (these are the $\sigma_x$-recovered events from Table \ref{tab:3:xyz_VF_performances}) and a roughly equal $\approx 13\%$ of them are only reconstructed by the Vertex Fitter.
 
-What's more interesting is the performance comparison. Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common} shows the $z_\Lambda^\text{vtx}$ bias on events common to VF and $\sigma_x$-rescaled.
+What's more interesting is the performance comparison. Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common} shows the $z_\text{vtx}^\Lambda$ bias on events common to VF and $\sigma_x$-rescaled.
 Despite the median \SI{15}{\centi\meter} discrepancy reported in Table \ref{tab:3:xyz_VF_performances}, the two distributions are indistinguishable from the other.
 The expected difference only emerges when considering events exclusive to each algorithm, as seen in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}.
 
-The differences in $z_\Lambda^\text{vtx}$ and proton $p_z^\text{DTF}$ bias are therefore to be understood in terms of what events reach convergence with a specific algorithm, rather than as performance evaluations of the algorithm itself.
+The differences in $z_\text{vtx}^\Lambda$ and proton $p_z^\text{DTF}$ bias are therefore to be understood in terms of what events reach convergence with a specific algorithm, rather than as performance evaluations of the algorithm itself.
 The $\sigma_x$-rescaled algorithm does not intrinsically reconstruct events with larger bias;
-instead, its $yz$-centric approach allows it to recover events that throw off the standard VF, and these events tend to have a larger $z_\Lambda^\text{vtx}$ bias on their best vertex candidate.
+instead, its $yz$-centric approach allows it to recover events that throw off the standard VF, and these events tend to have a larger $z_\text{vtx}^\Lambda$ bias on their best vertex candidate.
 This tendency is likely the result of the systematic T track $p_z$ underestimation analyzed in Section \ref{sec:3:kinematics_at_first_meas}.
 
 \begin{figure}[t]
@@ -854,7 +854,7 @@ This tendency is likely the result of the systematic T track $p_z$ underestimati
 \end{figure}
 
 Overall, my $\sigma$-rescaled refit process proposal allows for the recovery of an extra $+25\%$ of signal events.
-While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\Lambda^\text{vtx}$ are higher compared to events reconstructed via Vertex Fitter (see Figure \ref{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel} and Table \ref{tab:3:xyz_VF_performances}), there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
+While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\text{vtx}^\Lambda$ are higher compared to events reconstructed via Vertex Fitter (see Figure \ref{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel} and Table \ref{tab:3:xyz_VF_performances}), there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
 Their impact on the prospective \lz EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
 
 %%@todo: se trovi un posto adatto, menziona che xyz insieme non fungono. Non è che sia importante.

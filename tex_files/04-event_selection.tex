@@ -4,9 +4,49 @@
 
 \section{Prefiltering}
 \label{sec:prefilter}
-\textit{Prefilters}, also refered to as \textit{preliminary selections} or simply \textit{pre-selections}, are the cornerstone of the signal selection process.
+\textit{Prefilters}, also refered to as \textit{preliminary selections} or simply \textit{pre-selections}, are the foundation of the signal selection process.
+The main objective of this step is to improve the signal-to-background ratio and reduce the computational workload to analyze data with cuts on kinematic variables.
 
-I grafici necessari probabilmente ha senso metterli qui. Magari puoi cambiare il nome in "prefiltering and data characteristics".
+\begin{table}[t]
+	\begin{center}
+	\begin{tabular}{|l|c||c|c|}
+		\hline
+		Variable & Unit & Minimum & Maximum \\
+		\hline
+		\hline
+		$p(p)$ 						& MeV/$c$ 	& 2\,000	& 500\,000 \\
+		$p_T(p)$ 					& MeV/$c$ 	& 400		& -- \\
+		$p(\pi^-)$ 					& MeV/$c$ 	& 10\,000	& 500\,000 \\
+		$z_\Lambda^\text{vtx}$		& mm		& 5\,500	& 8\,500 \\
+		$p_T(\Lambda^0)$ 			& MeV/$c$ 	& 450		& -- \\
+		$m(p\pi^-)$	(Vertex Fitter)	& MeV/$c^2$	& 600		& 1\,500 \\
+		$m(p\pi^-)$	(combined)		& MeV/$c^2$	& --		& 2\,000 \\
+		$m(p\pi^-)$	(measured)		& MeV/$c^2$	& --		& 1\,500 \\
+		$\cos\xi_p (\Lambda^0)$		& --		& 0.9999	& -- \\
+		$\Delta \chi^2_\text{PV} (\Lambda^0)$
+									& -- 		& --		& 200 \\
+		$\chi^2_\text{dist} (\Lambda^0)$
+									& --		& --		& $2\times{10}^{7}$ \\
+		$\chi^2_\text{vtx} (\Lambda^0)$
+									& --		& --		& 750 \\
+		$\lvert m(\mu^+ \mu^-) - m_\text{PDG} (J/\psi) \rvert$
+									& MeV/$c^2$ & --		& 90 \\
+		$m(J/\psi~\Lambda^0)$ (combined)
+									& MeV/$c^2$	& 4\,700		& -- \\
+		$m(J/\psi~\Lambda^0)$ (Vertex Fitter)
+									& MeV/$c^2$	& --		& 8\,500 \\
+		$\lvert \cos\xi_p (\Lambda^0_b) \rvert$
+									& --		& 0.99		& -- \\
+		$\Delta \chi^2_\text{PV} (\Lambda^0_b)$
+									& -- 		& --		& 1\,750 \\
+		$\chi^2_\text{vtx} (\Lambda^0_b)$
+									& --		& --		& 150 \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\caption{Prefilter selection criteria applied to simulated \demonstratorshort signal and Run 2 data. The Vertex Fitter invariant mass is computed by the homonymous algorithm; the \textit{combined} invariant mass is computed from the 4-momenta of the daughter particles at the first measurement position, without track extrapolation; the \textit{measured} invariant mass is computed in the same way as the combined mass, but after extrapolation at the reconstructed decay vertex of the mother particle. Angle $\xi_p$ for a particle is computed between the line connecting its origin and decay vertices and the direction of its momentum. $\Delta \chi^2_\text{PV} (\Lambda^0)$ is the increase of the primary vertex $\chi^2$ when the particle is included in the fit. $\chi^2_\text{dist}$ is the geometrical distance between the primary vertex and the particle decay vertex in $\chi^2$ units.}
+	\label{tab:4:prefilters}
+\end{table}
 
 \begin{figure}[t]
 	\centering
@@ -18,8 +58,17 @@ I grafici necessari probabilmente ha senso metterli qui. Magari puoi cambiare il
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/LEVz_right.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Efficiency of the $z_\Lambda^\text{vtx} \geq z_\text{cut}^\text{left}$ \textit{(a)} and $z_\Lambda^\text{vtx} \leq z_\text{cut}^\text{right}$ \textit{(b)} prefilter selection criteria on \demonstratorshort simulated signal, as function of the respective thresholds. The \textit{dotted vertical lines} mark the chosen thresholds.}
+	\caption{Efficiency of the $z_\text{vtx}^\Lambda \geq z_\text{cut}^\text{left}$ \textit{(a)} and $z_\text{vtx}^\Lambda \leq z_\text{cut}^\text{right}$ \textit{(b)} prefilter selection criteria on \demonstratorshort simulated signal, as function of the respective thresholds. The \textit{dotted vertical lines} mark the chosen thresholds.}
+	\label{fig:4:z_lambda_cuts}
 \end{figure}
+
+The applied prefilter criteria are listed in Table \ref{tab:4:prefilters}.
+The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
+the efficiencies for the left and right cuts as a function of the threshold, estimated on simulated signal, are shown in Figure \ref{fig:4:z_lambda_cuts}.
+Since we require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the [@todo] of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
+Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of [@todo].
+
+In addition to the kinematic selections, [DTF FixJPsiLambda parte del prefilter]
 
 \begin{figure}[t]
 	\centering
@@ -31,7 +80,7 @@ I grafici necessari probabilmente ha senso metterli qui. Magari puoi cambiare il
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Distribution of true \textit{(a)} and reconstructed \textit{(b)} $z_\Lambda^\text{vtx}$ in simulated \demonstratorshort signal events, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
+	\caption{Distribution of true \textit{(a)} and reconstructed \textit{(b)} $z_\text{vtx}^\Lambda$ in simulated \demonstratorshort signal events, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
 \end{figure}
 
 \begin{figure}[t]
@@ -44,10 +93,8 @@ I grafici necessari probabilmente ha senso metterli qui. Magari puoi cambiare il
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z_vs_y.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $y_\Lambda^\text{vtx}$ and $z_\Lambda^\text{vtx}$. This corresponds to a side view of true and reconstructed \lz decay vertices.}
+	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $y_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a side view of true and reconstructed \lz decay vertices.}
 \end{figure}
-
-Confronto con Figure \ref{fig:2:t_station_top}.
 
 \subsection{Reconstruction of \texorpdfstring{\lz}{Lambda} decay vertex}
 \label{sec:lambda_endvertex_bias}
@@ -61,8 +108,10 @@ Confronto con Figure \ref{fig:2:t_station_top}.
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_bias_z_log.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Distribution of $z_\Lambda^\text{vtx}$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
+	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
 \end{figure}
+
+Confronto con Figure \ref{fig:2:t_station_top}.
 
 \begin{figure}[t]
 	\centering
@@ -74,7 +123,7 @@ Confronto con Figure \ref{fig:2:t_station_top}.
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\Lambda^\text{vtx}$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
 \end{figure}
 
 
@@ -88,7 +137,7 @@ Confronto con Figure \ref{fig:2:t_station_top}.
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/lambda_endvertex_z_bias_vs_horizontality_bias.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events (prefilters applied), comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\Lambda^\text{vtx}$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
+	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events (prefilters applied), comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
 \end{figure}
 
 Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. Devi dire che c'è il problema con grafico.

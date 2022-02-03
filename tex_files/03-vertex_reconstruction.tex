@@ -418,6 +418,7 @@ and
 \end{equation}
 
 \subsection{Decay Tree Fitter algorithm}
+\label{sec:3:dtf}
 While the leaf-by-leaf approach adopted by the Vertex Fitter is fast, it brings alongside it the significant drawback of forgoing upstream information when fitting the downstream branches of a decay.
 This is especially notable for decays like $K_S^0 \rightarrow \pi^0\pi^0 \rightarrow \gamma\gamma\gamma\gamma$, where the final state has no tracks to form a vertex with.
 Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decay, however, the VF algorithm still limits our options.
@@ -772,21 +773,19 @@ As proof of concept, I have analyzed the performance of the $\sigma$-rescaled re
 As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a quarter of all reconstructible events.
 
 %% @todo: rimpiazza DTF JPsi con DTF JPsiLambda
+%% @todo: sostituisci con multicolumn? Median bias: zvtx, pdtf?
 \begin{table}[t]
 	\begin{center}
-	\begin{tabular}{|c||c|c|c|c|}
-		\hline
+	\begin{tabular}{@{}lllll@{}}
+		\toprule
 		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2_\text{vtx}\right]$ & $\mu_\frac{1}{2}\left[z_\text{vtx}^\Lambda \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
-		\hline
-		\hline
+		\midrule
 		None (VF)  & -- & 1.0 & 429 mm & $+1.35\%$ \\
-		\hline
 		$\sigma_x$ & 62\% & 4.9 & 584 mm & $-0.84\%$ \\
 		$\sigma_y$ & 74\% & 5.4 & 635 mm & $-0.81\%$ \\
 		$\sigma_z$ & 80\% & 7.8 & 697 mm & $-1.02\%$ \\
-		\hline
 		Sequential & 100\% & 6.5 & 646 mm & $-0.93\%$ \\
-		\hline
+		\bottomrule
 	\end{tabular}
 	\end{center}
 	\caption[Performance comparison of the three rescaled-$\sigma$ algorithms.]{Performance comparison of the three rescaled-$\sigma$ algorithms with $s_i=0.98$ (see text for details), contrasted with the performance of their sequential application ($\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$) and the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}

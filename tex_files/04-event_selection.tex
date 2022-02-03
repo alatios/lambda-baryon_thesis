@@ -9,11 +9,10 @@ The main objective of this step is to improve the signal-to-background ratio and
 
 \begin{table}[t]
 	\begin{center}
-	\begin{tabular}{|l|c||c|c|}
-		\hline
+	\begin{tabular}{@{}llll@{}}
+		\toprule
 		Variable & Unit & Minimum & Maximum \\
-		\hline
-		\hline
+		\midrule
 		$p(p)$ 						& MeV/$c$ 	& 2\,000	& 500\,000 \\
 		$p_T(p)$ 					& MeV/$c$ 	& 400		& -- \\
 		$p(\pi^-)$ 					& MeV/$c$ 	& 10\,000	& 500\,000 \\
@@ -41,7 +40,7 @@ The main objective of this step is to improve the signal-to-background ratio and
 									& -- 		& --		& 1\,750 \\
 		$\chi^2_\text{vtx} (\Lambda^0_b)$
 									& --		& --		& 150 \\
-		\hline
+		\bottomrule
 	\end{tabular}
 	\end{center}
 	\caption{Prefilter selection criteria applied to simulated \demonstratorshort signal and Run 2 data. The Vertex Fitter invariant mass is computed by the homonymous algorithm; the \textit{combined} invariant mass is computed from the 4-momenta of the daughter particles at the first measurement position, without track extrapolation; the \textit{measured} invariant mass is computed in the same way as the combined mass, but after extrapolation at the reconstructed decay vertex of the mother particle. Angle $\xi_p$ for a particle is computed between the line connecting its origin and decay vertices and the direction of its momentum. $\Delta \chi^2_\text{PV} (\Lambda^0)$ is the increase of the primary vertex $\chi^2$ when the particle is included in the fit. $\chi^2_\text{dist}$ is the geometrical distance between the primary vertex and the particle decay vertex in $\chi^2$ units.}
@@ -63,41 +62,69 @@ The main objective of this step is to improve the signal-to-background ratio and
 \end{figure}
 
 The applied prefilter criteria are listed in Table \ref{tab:4:prefilters}.
+Efficiencies on signal have been estimated with studies on simulated \demonstratorshort events.
 The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
-the efficiencies for the left and right cuts as a function of the threshold, estimated on simulated signal, are shown in Figure \ref{fig:4:z_lambda_cuts}.
-Since we require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the [@todo] of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
+the efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts}.
+Since I require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the [@todo] efficiency of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
 Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of [@todo].
 
-In addition to the kinematic selections, [DTF FixJPsiLambda parte del prefilter]
+As detailed in Section \ref{sec:2:tracking}, a key aspect of my analysis is the employment of T tracks for the reconstruction of the \lz.
+The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20\% \div 30\%$.
+Resolution can be improved up to $\approx 10\%$ by placing kinematic constraints on $p\pi^-$ and $\mu^+ \mu^-$ invariant masses, fixing them to the PDG values of $m(\Lambda^0)$ and $m(J/\psi)$ respectively (these will be henceforth referred to as \textit{mass constraints}).
+This approach cannot be implemented in the leaf-by-leaf framework of the default Vertex Fitter algorithm for vertex reconstruction;
+instead each event is refitted with the Decay Tree Fitter (DTF) algorithm in two configurations (single $J/\psi$ and double $J/\psi~\Lambda^0$ mass constraints (see also Section \ref{sec:3:dtf}).
+
+A convergence requirement of the DTF algorithm with the $J/\psi~\Lambda^0$ mass constraints is therefore added to the prefilter selections.
+The main drawback of this selection, a much steeper [@todo] efficiency on simulated signal events, is outweighed by the benefits of the improved momentum resolution in the determination of the angular distribution of \lambdadecay decay products.
+
+
+\subsection{Reconstruction of \texorpdfstring{\lz}{Lambda} decay vertex in prefiltered events}
+\label{sec:lambda_endvertex_bias}
+
+The quality of the \lambdadecay vertex reconstruction affects many aspects of the $\Lambda^0$ electromagnetic dipole moments measurement:
+on top of being fundamental to evaluate how much magnetic field the particle traversed (and thus the extent of spin precession), even the best momentum resolution for protons and pions is worthless if the particles are extrapolated at the wrong point of production.
+Both $x_\text{vtx}^\Lambda$ and $y_\text{vtx}^\Lambda$ are fairly well reconstructed in prefiltered events, with resolution $\lesssim \SI{1}{\centi\meter}$ and no discernible bias.
+This section will therefore focus on the reconstruction of $z_\text{vtx}^\Lambda$.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z_true.pdf}
 		\caption{}
+		\label{fig:4:lz_vertex_true}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z.pdf}
 		\caption{}
+		\label{fig:4:lz_vertex_reco}
 	\end{subfigure}
 	\caption{Distribution of true \textit{(a)} and reconstructed \textit{(b)} $z_\text{vtx}^\Lambda$ in simulated \demonstratorshort signal events, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
+	\label{fig:4:lz_vertex_distributions}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z_vs_y_true.pdf}
+		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x_true.pdf}
 		\caption{}
+		\label{fig:4:lz_vertex_peaks_true}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_z_vs_y.pdf}
+		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x.pdf}
 		\caption{}
+		\label{fig:4:lz_vertex_peaks_reco}
 	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $y_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a side view of true and reconstructed \lz decay vertices.}
+	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+	\label{fig:4:lz_vertex_peaks}
 \end{figure}
 
-\subsection{Reconstruction of \texorpdfstring{\lz}{Lambda} decay vertex}
-\label{sec:lambda_endvertex_bias}
+Figures \ref{fig:4:lz_vertex_true} and \ref{fig:4:lz_vertex_reco} show the distributions of true and reconstructed $z_\text{vtx}^\Lambda$ respectively for simulated signal events.
+The most prominent difference between the two is the presence of three peaks in the $[\SI{7.5}{\meter},\SI{8.0}{\meter}]$ region of the reconstructed distribution, being found both with and without prefilter selections. 
+The significance of these structures can be inferred by plotting the events as function of  $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$, corresponding to a bending plane perspective of the detector.
+This is shown in Figure \ref{fig:4:lz_vertex_peaks_reco}, highlighting the fact that the peaks in $\Lambda^0$ decay vertices have a very precise geometrical location, absent when comparing the true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$ values for the same events (Figure \ref{fig:4:lz_vertex_peaks_true}).
+The spatial distribution of the vertices bears a striking resemblance to the layout of a T tracking station (see Figure \ref{fig:2:t_station_top}) and $z$ coordinates are consistent with the nominal placement of IT and first OT plane of the T1 station \cite{Barbosa-Marinho:582793}.
+While dedicated studies are required to gain more insight into the source of these structures, they are assumed to be of minor impact for the purposes of this thesis.
+
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -111,21 +138,7 @@ In addition to the kinematic selections, [DTF FixJPsiLambda parte del prefilter]
 	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
 \end{figure}
 
-Confronto con Figure \ref{fig:2:t_station_top}.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_Lambda_true_endvertex_z_vs_x.pdf}
-		\caption{}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
-		\caption{}
-	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
-\end{figure}
-
+The differing shapes of true and reconstructed $z_\text{vtx}^\Lambda$ distributions from Figure \ref{fig:4:lz_vertex_distributions} are also evidence of bias effects in the \lambdadecay vertex reconstruction.
 
 \begin{figure}[t]
 	\centering
@@ -140,7 +153,20 @@ Confronto con Figure \ref{fig:2:t_station_top}.
 	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events (prefilters applied), comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
 \end{figure}
 
-Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. Devi dire che c'è il problema con grafico.
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_Lambda_true_endvertex_z_vs_x.pdf}
+		\caption{}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
+		\caption{}
+	\end{subfigure}
+	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+\end{figure}
+
+Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. Devi dire che c'è il problema con grafico. Aggiungi il diagramma che spiega cos'è, quello con h=+-1, 0.
 
 \section{Physical background veto}
 \label{sec:B0_veto}

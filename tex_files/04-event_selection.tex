@@ -130,28 +130,68 @@ While dedicated studies are required to gain more insight into the source of the
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_bias_z.pdf}
 		\caption{}
+		\label{fig:4:lz_endvertex_bias_linear}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_bias_z_log.pdf}
 		\caption{}
+		\label{fig:4:lz_endvertex_bias_log}
 	\end{subfigure}
 	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
+	\label{fig:4:lz_endvertex_bias}
 \end{figure}
 
 The differing shapes of true and reconstructed $z_\text{vtx}^\Lambda$ distributions from Figure \ref{fig:4:lz_vertex_distributions} are also evidence of bias effects in the \lambdadecay vertex reconstruction.
+This is confirmed in Figure \ref{fig:4:lz_endvertex_bias_linear}, showing the distribution of $z_\text{vtx}^\Lambda$ bias for simulated signal events:
+the shape is distinctly non-gaussian, with a long tail towards the positive end of the axis counterbalancing the expected $\approx 0$ peak.
+The resulting median bias is $\approx \SI{44}{\centi\meter}$.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.7\textwidth]{graphics/04-event_selection/horizontality_illustration_bw.png}
+	\caption{Deptiction of three \lambdadecay configurations and the associated horizontality values. The horizontal planes in the top and bottom diagrams are aligned to the LHCb $xz$ plane, the vertical plane in the middle diagram to the $yz$ plane.}
+	\label{fig:4:horizontality_explanation}
+\end{figure}
+
+The positive bias tail can be interpreted as a mistake the vertexing algorithm commits when confronted with a specific decay geometry.
+When the \lambdadecay decay plane closely aligns with the $xz$ bending plane, the bending induced by the magnet can produce either \textit{opening} or \textit{closing} tracks (depicted in top and bottom diagrams respectively in Figure \ref{fig:4:horizontality_explanation}.
+In the latter case the tracks will cross again at $z>z_\text{vtx}^\Lambda$;
+if $y$ displacement is sufficiently small, the algorithms converges on this <<ghost>> vertex instead of the real one.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_horizontality_bias.pdf}
 		\caption{}
+		\label{fig:4:horizontality_bias}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/lambda_endvertex_z_bias_vs_horizontality_bias.pdf}
 		\caption{}
+		\label{fig:4:lz_endvertex_bias_vs_horizontality_bias}
 	\end{subfigure}
 	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events (prefilters applied), comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
 \end{figure}
+
+To test out this hypothesis we define the \textit{horizontality} of a \lambdadecay event as follows:
+\begin{equation}
+h = \sign{\left(\Lambda^0_\text{PID}\right)} \sign{\left(B_y\right)}~\frac{a_y}{\lvert \vec{a} \rvert},
+\label{eq:4:horizontality}
+\end{equation}
+where
+\begin{equation}
+\vec{a} \coloneqq \vec{p}_p \times \vec{p}_\pi 
+\end{equation}
+is the cross product of proton and pion momenta at production vertex, $\sign{\left(B_y\right)}$ is the dipole magnet polarity\footnote{The LHCb dipole magnet polarity is reversed roughly twice per month to allow for studies on decay asymmetries \cite{Vesterinen:1642153}. The $B_y > 0$ configuration is conventionally known as \textit{magnet up} polarity, $B_y < 0$ as \textit{magnet down}.}
+and $\sign{\left(\Lambda^0_\text{PID}\right)}$ is the sign of the PDG Monte Carlo particle numbering scheme of the mother particle ($+1$ for $\Lambda^0$, $-1$ for $\bar{\Lambda}^0$) \cite{PDG}.
+
+Decays with $h=\pm1$ lie exactly on the $xz$ bending plane, $h=-1$ events having closing $p\pi^-$/$\bar{p}\pi^+$ tracks and $h=+1$ events having opening tracks, while $h=0$ events lie on the $yz$ plane (see Figure \ref{fig:4:horizontality_explanation}).
+A horizontality bias $\Delta h \coloneqq h_\text{reco} - h_\text{true} > 1$ thus becomes the signature of a <<ghost>> vertex \lambdadecay event.
+As per Figure \ref{fig:4:horizontality_bias}, this issue affects $\approx 25\%$ of reconstructed \demonstratorshort events, most of those being $\Delta h \approx 2$ events (from $h=-1$ to $h=+1$), with almost no event with $\Delta h < -1$.
+
+Isolating $\Delta h \geq 1$ events and studying their $z_\text{vtx}^\Lambda$ bias distributions (Figure \ref{fig:4:lz_endvertex_bias_vs_horizontality_bias}), it becomes clear that they are largely responsible for the high bias observed in Figure \ref{fig:4:lz_endvertex_bias_linear}.
+Significant asymmetry effects are still visible in the $\Delta h < 1$ distribution, which is still skewed towards positive bias.
+While not ideal, this is somewhat expected given that the Vertex Fitter algorithm scans for candidate vertices starting from the first measurement position (i.e. the T1--T3 stations) and moving upstream.
 
 \begin{figure}[t]
 	\centering
@@ -166,7 +206,8 @@ The differing shapes of true and reconstructed $z_\text{vtx}^\Lambda$ distributi
 	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
 \end{figure}
 
-Qui devi menzionare l'orizzontalità, perché vi faccio riferimento nel Cap. 3. Devi dire che c'è il problema con grafico. Aggiungi il diagramma che spiega cos'è, quello con h=+-1, 0.
+Most \demonstratorshort events, even those with ghost vertex reconstruction, still maintain a limited $\lesssim \SI{1.0}{\meter}$ bias on $z_\text{vtx}^\Lambda$.
+
 
 \section{Physical background veto}
 \label{sec:B0_veto}

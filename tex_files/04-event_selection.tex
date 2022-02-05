@@ -1,6 +1,7 @@
 %% Problema: deve essere grassetto nella ToC e nel titolo del capitolo, ma non grassetto nell'header.
 \chapter{Signal event selection}
 \label{cap:event_selection}
+@todo: introduction
 
 \section{Prefiltering}
 \label{sec:prefilter}
@@ -233,7 +234,7 @@ The main source of physical background for the \demonstratorfull decay is the si
 \end{equation}
 The final states of the two decays only differ for a $p \leftrightarrow \pi^+$ change.
 The $K_S^0$ meson also has a similar mean lifetime to the $\Lambda^0$, thus we expect a sizeable number of $K_S^0$ decaying after the dipole magnet.
-To top it off, the masses of $K_S^0$ ([@todo]) and $B^0$ ([@todo]) are very close to those of $\Lambda^0$ ([@todo]) and $\Lambda_b^0$ ([@todo]) \cite{PDG}, muddying the waters in invariant mass fits.
+To top it off, the $B^0$ mass ([@todo]) is very close to that of $\Lambda_b^0$ ([@todo]) \cite{PDG}, muddying the waters in invariant mass fits.
 
 As discussed in Section \ref{sec:2:pid}, the LHCb detector employs the two RICH systems to identify and distinguish between protons, pions and kaons;
 in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions is impossible, but information from RICH2 would still be available for the vast majority of the decays at hand.
@@ -244,33 +245,83 @@ due to technical issues in the implementation, RICH2 information for particle id
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_lambda_comparison.pdf}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_ks_comparison.pdf}
 		\caption{}
+		\label{fig:4:phys_bkg_ks}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_lambdab_comparison.pdf}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/phys_bkg_b0_comparison.pdf}
 		\caption{}
+		\label{fig:4:phys_bkg_b0}
 	\end{subfigure}
-	\caption{Comparison of simulated $m(p\pi^-)$ \textit{(a)} and $m(J/\psi~\Lambda^0)$ \textit{(b)} distributions: \demonstratorshort signal is labeled by \textit{horizontal hatching}, \physbkgshort physical background with $\pi^+ \rightarrow p$ mass hypothesis by \textit{diagonal hatching}.}
+	\caption{Comparison of simulated $m(\pi^+\pi^-)$ \textit{(a)} and $m(J/\psi~K^0_S)$ \textit{(b)} distributions: \demonstratorshort events with $p\rightarrow \pi^+$ mass hypothesis are labeled by \textit{horizontal hatching}, \physbkgshort events by \textit{diagonal hatching}.}
+	\label{fig:4:phys_bkg_distributions}
 \end{figure}
+
+To address this issue, events must pass a physical background selection based on the results of a Decay Tree Fitter refit with $p\rightarrow \pi^+$ mass hypothesis and kinematic constraints on the $J/\psi$ and $K_S^0$ invariant masses.
+The veto rejects an event if the DTF refit converges and $m(J/\psi~K_S^0)$ is too close in value to the $B^0$ PDG mass, i.e.
+\begin{equation}
+	\lvert
+	m(J/\psi~K_S^0) - m_\text{PDG}(B^0)
+	\rvert < m_\text{thres},
+\end{equation}
+with tunable threshold $m_\text{thres}$.
+
+This approach was tested on simulated \demonstratorshort and \physbkgshort samples.
+The variable $m(J/\psi~K_S^0)$ was chosen as opposed to $m(\pi^+\pi^-)$ due to the significant overlap between $m(\pi^+\pi^-)$ invariant mass distributions of actual $K_S^0 \rightarrow \pi^+ \pi^-$ events and \lambdadecay events with $p\rightarrow \pi^+$ mass hypothesis (Figure \ref{fig:4:phys_bkg_ks});
+the $m(J/\psi~K_S^0)$ distributions are comparatively more separate (Figure \ref{fig:4:phys_bkg_b0}), allowing for a better selection on the variable.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_efficiencies.pdf}
 		\caption{}
+		\label{fig:4:phys_bkg_veto_eff_thres}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_sig_efficiencies_per_bin.pdf}
 		\caption{}
+		\label{fig:4:phys_bkg_veto_eff_mass}
 	\end{subfigure}
-	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi~\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi~\Lambda^0)$ bins for \demonstratorshort signal events).}
+	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi~\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi~\Lambda^0)$ bins for \demonstratorshort signal events.}
+	\label{fig:4:phys_bkg_veto_eff}
 \end{figure}
+
+Figure \ref{fig:4:phys_bkg_veto_eff_thres} shows the veto efficiency on \demonstratorshort signal and \physbkgshort physical background as function of the threshold $m_\text{thres}$.
+The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains [@todo] of signal while rejecting [@todo] of background;
+signal efficiency as function of the $m(J/\psi~\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
+
 
 \section{HBDT classifier}
 \label{sec:HBDT}
 
+
+[@todo: combinatorial predominante, quindi serve un classificatore per discriminare il segnale dal fondo basandosi su variabili cinematiche]
+
+After taking into consideration a wide range of classifiers, a histogram-based gradient boosting classification tree (also referred to as \textit{histogram-based boosted decision tree}, HBDT for short) was chosen by virtue of its superior performance in studies on sample data \cite{Pessina:BSc:2020}.
+Training, optimization and performance testing of the classifier were made with the Scikit-learn 0.24.2 package \cite{scikit-learn} for Python 3.6.8 \cite{10.5555/1593511}.
+
+\begin{figure}
+	\centering
+	\includegraphics[height=.3\textheight]{graphics/04-event_selection/decision_tree.pdf}
+	\caption{Diagram representation of a decision tree classifier.}
+	\label{fig:4:decision_tree}
+\end{figure}
+
+The basic layout of a binary decision tree classifier is sketched in Figure \ref{fig:4:decision_tree}:
+a sequence of decision nodes applies binary conditions according to available information on the individual event and eventually reaches a leaf node associated to the \textit{event score}, in this case the probability that the event is a \demonstratorshort decay.
+Performance of the decision tree can be enhanced with \textit{boosting} \cite{Yann:2013}
+
+(gradient tree boosting with logistic loss function for binary classification)
+
+The usage of a histogram-based BDT, arranging input samples into integer-valued bins, allows for much faster estimators when working with large data samples ($n \gtrsim {10}^4$).
+
+
 \subsection{Training data}
+
+Qui di' che hai considerato balance vs. unbalanced, optando per la prima perché tanto le performance erano le stesse.
+
+Di' che variabili hai usato.
 
 \begin{figure}[t]
 	\centering

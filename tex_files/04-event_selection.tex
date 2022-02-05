@@ -198,18 +198,48 @@ While not ideal, this is somewhat expected given that the Vertex Fitter algorith
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_Lambda_true_endvertex_z_vs_x.pdf}
 		\caption{}
+		\label{fig:4:bump_true}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
 		\caption{}
+		\label{fig:4:bump_reco}
 	\end{subfigure}
 	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+	\label{fig:4:bump}
 \end{figure}
 
 Most \demonstratorshort events, even those with ghost vertex reconstruction, still maintain a limited $\lesssim \SI{1.0}{\meter}$ bias on $z_\text{vtx}^\Lambda$.
+A smaller substructure with $\geq \SI{2.0}{\meter}$ bias emerges when plotting the distribution in logarithmic scale, as in Figure \ref{fig:4:lz_endvertex_bias_log}.
+Figure \ref{fig:4:bump_true} provides a top view of the $\Lambda^0$ decay vertices of these evemts, showing the distribution of true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$.
+Most $\Lambda^0$ in high bias events decay in the earlier sections of the detector ($z<\SI{3.0}{\meter}$);
+the high spatial concentration in specific regions of the $xz$ plane, such as the <<wings>> around $z\approx \SI{1.0}{\meter}$, as well as the consistency between the placement of these structures and the location of the different LHCb subdetectors (cf. Figure \ref{fig:2:lhcb_diagram}), suggest that they may be the result of interaction with the material.
 
+No selection on reconstructed variables is possible to filter this class of events:
+Figure \ref{fig:4:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
+Their impact on the overall performance on signal is nevertheless neglectable, since this events amount to roughly [@todo] of the total simulated sample.
 
 \section{Physical background veto}
+\label{sec:4:phys_bkg}
+%Most physics analyses conducted with hadron colliders are up against two different sources of background with the same (or similar) final state as the searched signal:
+%\begin{enumerate}
+%	\item \textit{combinatorial} background denotes events where the particles are produced 
+%	\item \textit{physical} background denotes events where 
+%\end{enumerate}
+
+The main source of physical background for the \demonstratorfull decay is the similar
+\begin{equation}
+	B^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~K_S^0~(\rightarrow \pi^+ \pi^-).
+\end{equation}
+The final states of the two decays only differ for a $p \leftrightarrow \pi^+$ change.
+The $K_S^0$ meson also has a similar mean lifetime to the $\Lambda^0$, thus we expect a sizeable number of $K_S^0$ decaying after the dipole magnet.
+To top it off, the masses of $K_S^0$ ([@todo]) and $B^0$ ([@todo]) are very close to those of $\Lambda^0$ ([@todo]) and $\Lambda_b^0$ ([@todo]) \cite{PDG}, muddying the waters in invariant mass fits.
+
+As discussed in Section \ref{sec:2:pid}, the LHCb detector employs the two RICH systems to identify and distinguish between protons, pions and kaons;
+in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions is impossible, but information from RICH2 would still be available for the vast majority of the decays at hand.
+However, this is where the experimental nature of physics analyses with T tracks becomes relevant once again:
+due to technical issues in the implementation, RICH2 information for particle identification is unavailable for T tracks recorded during LHC Runs 1 and 2\footnote{A large effort by the Milan and Valencia LHCb research groups is underway at the time of writing to implement RICH2 information in T track trigger lines for Run 3.}, making \physbkgshort discrimination much more difficult.
+
 \label{sec:B0_veto}
 \begin{figure}[t]
 	\centering

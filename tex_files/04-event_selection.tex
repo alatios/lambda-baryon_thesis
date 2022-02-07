@@ -44,7 +44,7 @@ The main objective of this step is to improve the signal-to-background ratio and
 		\bottomrule
 	\end{tabular}
 	\end{center}
-	\caption{Prefilter selection criteria applied to simulated \demonstratorshort signal and Run 2 data. The Vertex Fitter invariant mass is computed by the homonymous algorithm; the \textit{combined} invariant mass is computed from the 4-momenta of the daughter particles at the first measurement position, without track extrapolation; the \textit{measured} invariant mass is computed in the same way as the combined mass, but after extrapolation at the reconstructed decay vertex of the mother particle. Angle $\xi_p$ for a particle is computed between the line connecting its origin and decay vertices and the direction of its momentum. $\Delta \chi^2_\text{PV} (\Lambda^0)$ is the increase of the primary vertex $\chi^2$ when the particle is included in the fit. $\chi^2_\text{dist}$ is the geometrical distance between the primary vertex and the particle decay vertex in $\chi^2$ units.}
+	\caption{Prefilter selection criteria applied to simulated \demonstratorshort signal and Run 2 data. The Vertex Fitter invariant mass is computed by the homonymous algorithm; the \textit{combined} invariant mass is computed from the 4-momenta of the daughter particles at the first measurement position, without track extrapolation; the \textit{measured} invariant mass is computed in the same way as the combined mass, but after extrapolation at the reconstructed decay vertex of the mother particle. Angle $\xi_p$ for a particle is computed between the line connecting its origin and decay vertices and the direction of its momentum. $\Delta \chi^2_\text{PV}$ is the increase of the primary vertex $\chi^2$ when the particle is included in the fit. $\chi^2_\text{dist}$ is the geometrical distance between the primary vertex and the particle decay vertex in $\chi^2$ units.}
 	\label{tab:4:prefilters}
 \end{table}
 
@@ -294,10 +294,8 @@ signal efficiency as function of the $m(J/\psi~\Lambda^0)$ invariant mass is dep
 
 \section{HBDT classifier}
 \label{sec:HBDT}
-
-
-[@todo: combinatorial predominante, quindi serve un classificatore per discriminare il segnale dal fondo basandosi su variabili cinematiche]
-
+Even after prefilter selections, combinatorial background exceeds the signal by a factor [@todo: dalle efficienze].
+This section details my work in training and testing a multivariate classifier to discriminate \demonstratorshort events, in order to lower the signal-to-background ratio to acceptable levels for physics analysis.
 After taking into consideration a wide range of classifiers, a histogram-based gradient boosting classification tree (also referred to as \textit{histogram-based boosted decision tree}, HBDT for short) was chosen by virtue of its superior performance in studies on sample data \cite{Pessina:BSc:2020}.
 Training, optimization and performance testing of the classifier were made with the Scikit-learn 0.24.2 package \cite{scikit-learn} for Python 3.6.8 \cite{10.5555/1593511}.
 
@@ -310,25 +308,46 @@ Training, optimization and performance testing of the classifier were made with 
 
 The basic layout of a binary decision tree classifier is sketched in Figure \ref{fig:4:decision_tree}:
 a sequence of decision nodes applies binary conditions according to available information on the individual event and eventually reaches a leaf node associated to the \textit{event score}, in this case the probability that the event is a \demonstratorshort decay.
-Performance of the decision tree can be enhanced with \textit{boosting} \cite{Yann:2013}
-
-(gradient tree boosting with logistic loss function for binary classification)
-
+Performance of the decision tree can be enhanced with \textit{boosting} \cite{Yann:2013}, whereby the ultimate classifier is built as a weighted average of a large number of weaker trees;
+the result is known as a boosted decision tree (BDT).
+In the adaptive boosting (AdaBoost) implementation used in this thesis, each tree $T_k$ is trained on a reweighted data sample that prioritizes events misclassified by the $T_{k-1}$ tree.
 The usage of a histogram-based BDT, arranging input samples into integer-valued bins, allows for much faster estimators when working with large data samples ($n \gtrsim {10}^4$).
 
+%(gradient tree boosting with logistic loss function for binary classification)
 
 \subsection{Training data}
-
-Qui di' che hai considerato balance vs. unbalanced, optando per la prima perché tanto le performance erano le stesse.
-
-Di' che variabili hai usato.
 
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/sig_bkg_distribution_balance.pdf}
-	\caption{Signal (\textit{horizontal hatching}) and background (\textit{diagonal hatching}) data samples used for training the HBDT classifier. Test samples are taken from the same pool in 1:9 ratio.}
+	\caption{Signal (\textit{horizontal hatching}) and background (\textit{diagonal hatching}) data samples used for training the HBDT classifier.
+	%Test samples are taken from the same pool in 1:9 ratio.
+	}
 	\label{fig:4:HBDT_training_data}
 \end{figure}
+
+Supervised training of a classifier requires signal and background datasets as input to learn to distinguish between the two classes.
+For signal I used simulated \demonstratorshort events, while for the background I sampled side bands on the left ($\left[\SI{4870.2}{\mev \per c^2}, \SI{5020.2}{\mev \per c^2}\right]$) and right ($\left[\SI{6220.2}{\mev \per c^2}, \SI{6520.2}{\mev \per c^2}\right]$) of the expected $\Lambda_b^0$ peak  in the Run 2 data $m(J/\psi~\Lambda)$ distribution (see Figure \ref{fig:4:HBDT_training_data}).
+
+I considered two options for the signal-to-background ratio:
+\begin{itemize}
+	\item \textit{balanced} training dataset: $\approx 145\,000$ events, evenly split between signal and background;
+	\item \textit{unbalanced} training dataset: $\approx 73\,000$ signal events, $\approx 3.6$ million background events.
+\end{itemize}
+The standard approach to machine learning calls for a roughly balanced dataset to train the classifier on signal and background alike.
+Given the disproportionate signal-to-background ratio in the case at hand, however, I also explored the unbalanced approach, aiming for improved background rejection at the price of (reasonably) subpar signal identification.
+Classifiers trained with balanced or unbalanced datasets showed very similar performances after score threshold optimization (see Section \ref{sec:4:threshold_optimization}), the main difference being that balanced HBDTs require harsher score selection criteria;
+since no reason surfaced to favour either approach, I opted to follow the more conventional path and empolyed a balanced training dataset.
+The testing sample for performance evaluation included $\approx 8\,000$ signal events and $\approx 4$ million background events.
+
+The following kinematic variables (also known as \textit{features}) were used for signal discrimination:
+transverse and longitudinal momenta of $p$, $\pi^-$ and $J/\psi$;
+coordinates of the \lambdadecay vertex position;
+$\Lambda_b^0$ and $\Lambda^0$  pointing angles $\xi_p$, i.e. the angle between the particle line of flight and its momentum;
+$\tilde{\chi}^2_\text{vtx}$ of the \demonstratorshort and \lambdadecay vertices;
+the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a particle is included in the fit, for $\Lambda_b^0$ and $\Lambda^0$;
+the distances $\chi^2_\text{dist}$ between $\Lambda_b^0$ and $\Lambda^0$ decay vertices and the primary vertex in $\chi^2$ units.
+
 
 \subsection{Hyperparameter optimization and performance test}
 \begin{figure}[t]
@@ -364,6 +383,7 @@ Di' che variabili hai usato.
 \end{figure}
 
 \subsection{Threshold optimization}
+\label{sec:4:threshold_optimization}
 
 \begin{figure}
 	\centering

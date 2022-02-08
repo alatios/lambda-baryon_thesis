@@ -25,7 +25,7 @@ Beyond the above four, a number of small-scale, more specialized experiments als
 
 Broadly speaking, the LHC schedule alternates data taking periods (\textit{Runs}) with maintenance work periods (\textit{Long Shutdowns}, LS for short);
 while the shutdowns are designed for consolidation and improvement of the collider itself, mainstay experiments usually take advantage of the hiatus to upgrade their detectors both in hardware and software.
-Run 1 began in 2010 and continued until early 2013, during which period the LHC provided a center-of-mass energy of $\sqrt{s} = 7\div8$ \si{\tev}.
+Run 1 began in 2010 and continued until early 2013, during which period the LHC provided a center-of-mass energy of $\sqrt{s} = 7$--$8$ \si{\tev}.
 After the 2-year-long interruption for LS1, operations resumed in 2015 for Run 2 with an upgraded $sqrt{s} = \SI{13}{\tev}$.
 The collider was once again shut down at the end of 2018 (LS2) and work began towards the High Luminosity (HiLumi) upgrade of the LHC.
 After suffering delays due to the COVID-19 pandemic, Run 3 is currently scheduled to start in the second quarter of 2022 with $\sqrt{s} = \SI{14}{\tev}$, finally reaching its maximum collision energy by design.
@@ -43,7 +43,7 @@ After suffering delays due to the COVID-19 pandemic, Run 3 is currently schedule
 
 LHCb (the \textit{b} stands for \textit{beauty}\footnote{Before settling on the names \textit{top} and \textit{bottom} for the third generation of quarks, the names \textit{truth} and \textit{beauty} were among those proposed. While they never gained enough momentum in the scientific community, echoes of the failed nomenclature are still present in heavy quark vocabulary, for instance in the alternative name \textit{truth} for the \textit{topness} flavour number mentioned in Section \ref{sec:flavour-physics}, as well as in the official name for the LHCb experiment.}) is a single-arm detector designed to study heavy-flavour physics at the LHC, with the main objective of providing precision measurements of CP violation and rare decays of $b$ and $c$ hadrons \cite{Alves:1129809}.
 
-Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of $10\div300$ \si{\mrad} in the bending plane and $10\div250$ \si{\mrad} in the non-bending plane.
+Unlike the other three main experiments at LHC, LHCb has a forward-optimized geometry shown in Figure \ref{fig:2:lhcb_diagram}, with an angular acceptance of 10--300 \si{\mrad} in the bending plane and 10--250 \si{\mrad} in the non-bending plane.
 %\footnote{For the sake of brevity, I'll refer to it as the 300/250 \si{\mrad} acceptance or the.}
 Such a layout, more reminiscent of fixed target experiments than beam colliders, is motivated by the fact that $b\bar{b}$ pairs produced at high energies are usually collimated in the same forward/backward cone.
 A more in-depth look at the tracking and particle identification systems will be taken in Sections \ref{sec:2:tracking} and \ref{sec:2:pid} respectively.
@@ -89,11 +89,11 @@ Due to high risk of radiation damage during beam injection from the Super Proton
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xz.png}
-	\caption[Cross section diagram of the VELO detector in the $xz$ plane.]{Cross section diagram of the fully closed VELO detector in the $xz$ plane at $y=0$ (top view). Radial sensors are depicted as \textit{solid} segments, azimuthal sensors as \textit{dashed} segments \cite{Barbosa-Marinho:504321}.}
+	\caption{Cross-section diagram of the fully closed VELO detector in the $xz$ plane at $y=0$ (top view). Radial sensors are depicted as \textit{solid} segments, azimuthal sensors as \textit{dashed} segments \cite{Barbosa-Marinho:504321}.}
 	\label{fig:2:VELO_xz}
 \end{figure}
 
-Figure \ref{fig:2:VELO_xz} shows the $xz$ plane cross section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, resulting in the partial overlap seen in fully closed configuration.
+Figure \ref{fig:2:VELO_xz} shows the $xz$ plane cross-section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, resulting in the partial overlap seen in fully closed configuration.
 Four radial-only \textit{pile-up sensors}, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help veto multiple-interaction events.
 
 
@@ -136,7 +136,7 @@ Front-end readout hybrids, one for each sector, are placed at the L-end of the h
 	\label{fig:2:t_station}
 \end{figure}
 
-The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes, covering the $z \approx 7.7 \div 9.4\,\si{\meter}$ region downstream of the dipole magnet \cite{Barbosa-Marinho:582793}.
+The three T stations, labeled as T1--3, are the last line of defense for LHCb tracking purposes, covering the $z \approx 7.7$--$9.4\,\si{\meter}$ region downstream of the dipole magnet \cite{Barbosa-Marinho:582793}.
 Each T station is composed of an Inner Tracker for the region near the beam pipe and an Outer Tracker for the outer regions, as sketched in Figure \ref{fig:2:t_station}.
 
 \begin{figure}[t]
@@ -216,7 +216,7 @@ Since the momentum spectrum changes at different polar angles, LHCb employs two 
 The RICH 1 detector, sketched in Figure \ref{fig:2:rich_1_top}, is located upstream of the dipole magnet, wedged between the VELO and TT tracking detectors.
 The detector exploits the different spectra of Cherenkov angles as a function of momentum for different kinds of particles.
 During Run 1, RICH 1 used two radiator materials: an aerogel layer ($n=1.03$) and a C$_4$F$_{10}$ gas layer ($n=1.0014$).
-This allowed RICH 1 to perform $\pi/K$ identification in the $1\div 60$ \si{\gev\per c} range.
+This allowed RICH 1 to perform $\pi/K$ identification in the $1$--$60$ \si{\gev\per c} range.
 Due to occupancy problems, the silica aerogel radiator providing identification in the low momentum range $|\vec{p}| \lesssim \SI{10}{\gev\per c}$ was removed for Run 2;
 since the kaon Cherenkov threshold in C$_4$F$_{10}$ is $\approx \SI{9.7}{\gev\per c}$, they can still be identified by operating RICH in so-called \textit{kaon veto mode}, i.e. 
 by the lack of Cherenkov light \cite{HistoryLHCb} \cite{RichPerformance}.
@@ -264,11 +264,11 @@ In all four subdetectors, scintillating light is conveyed through wavelength-shi
 
 \subsubsection{Muon system}
 
-The final components of the PID system are the five muon stations M1--5 \cite{Barbosa-Marinho:504326}, providing trigger and limited tracking for muons in LHCb.
-Stations M2--5 are placed downstream of the calorimeter system, separated between each other by \SI{80}{\centi\meter} of iron;
+The final components of the PID system are the five muon stations M1--M5 \cite{Barbosa-Marinho:504326}, providing trigger and limited tracking for muons in LHCb.
+Stations M2--M5 are placed downstream of the calorimeter system, separated between each other by \SI{80}{\centi\meter} of iron;
 these absorber layers select muons on the basis of penetration, with a \SI{6}{\gev\per c} momentum threshold required to cross the fifth station.
 The lone M1 station precedes the calorimeter system with the goal of improving transverse momentum measurement.
-The muon system provides acceptance in the $20 \div 306$ \si{\mrad} region in the bending plane and $16 \div 258$ \si{\mrad} region in the non-bending plane, in line with the global LHCb acceptance.
+The muon system provides acceptance in the $20$--$306$ \si{\mrad} region in the bending plane and $16$--$258$ \si{\mrad} region in the non-bending plane, in line with the global LHCb acceptance.
 
 \begin{figure}[t]
 	\centering
@@ -278,14 +278,14 @@ The muon system provides acceptance in the $20 \div 306$ \si{\mrad} region in th
 \end{figure}
 
 
-A side view diagram of the muon system is depicted in Figure \ref{fig:2:muon_side_view}: each station is divided in four R1--4 regions with increasing distance from the beam pipe.
+A side view diagram of the muon system is depicted in Figure \ref{fig:2:muon_side_view}: each station is divided in four R1--R4 regions with increasing distance from the beam pipe.
 While transverse spatial resolution progressively worsens in outer regions, the growing influence of large angle multiple scattering means it would be limited anyway.
 
 The most sensitive area is the R1 region of the M1 station, since the large particle flux imposes strict limits on radiation hardness to prevent ageing effects during the LHC projected lifetime.
 For this reason the M1-R1 region alone employs gas electron multiplier foils, while the remainder of the muon system consists of multi-wire proportional chambers with a Ar/CO$_2$/CF$_4$ gas mixture.
 
-Overall, the five stations combined cover a total area of \SI{435}{\meter\squared}. Stations M1--3, by virtue of their high spatial resolution along the $x$ coordinate, are used to determine the direction of the candidate muon track and compute the transverse momentum with $\approx 20\%$ resolution;
-stations M4--5 have lower performance on this front and their contribution mainly consists in the identification of highly penetrating particles.
+Overall, the five stations combined cover a total area of \SI{435}{\meter\squared}. Stations M1--M3, by virtue of their high spatial resolution along the $x$ coordinate, are used to determine the direction of the candidate muon track and compute the transverse momentum with $\approx 20\%$ resolution;
+stations M4--M5 have lower performance on this front and their contribution mainly consists in the identification of highly penetrating particles.
 
 \section{The LHCb data flow}
 \label{sec:2:data_flow}
@@ -347,7 +347,7 @@ This changed in Run 2 with the introduction of the parallel \textit{Turbo stream
 The EFF upgrade conducted during the LS1 increased the HLT2 allotted computation time enough to match the two performances;
 the key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
 
-This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b$- and $c$-production cross sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
+This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b$- and $c$-production cross-sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
 The Turbo stream allows more saved data to be ready for analysis, while the slower Brunel offline process fulfills the need for reconstruction of decays outside of those implemented in HLT2 trigger lines.
 
 \subsection{Monte Carlo simulations}

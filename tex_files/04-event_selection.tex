@@ -70,7 +70,7 @@ Since I require $\Lambda^0$ to decay after the dipole magnet in order to observe
 Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of [@todo].
 
 As detailed in Section \ref{sec:2:tracking}, a key aspect of my analysis is the employment of T tracks for the reconstruction of the \lz.
-The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20\% \div 30\%$.
+The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20$--$30\%$.
 Resolution can be improved up to $\approx 10\%$ by placing kinematic constraints on $p\pi^-$ and $\mu^+ \mu^-$ invariant masses, fixing them to the PDG values of $m(\Lambda^0)$ and $m(J/\psi)$ respectively (these will be henceforth referred to as \textit{mass constraints}).
 This approach cannot be implemented in the leaf-by-leaf framework of the default Vertex Fitter algorithm for vertex reconstruction;
 instead each event is refitted with the Decay Tree Fitter (DTF) algorithm in two configurations (single $J/\psi$ and double $J/\psi~\Lambda^0$ mass constraints (see also Section \ref{sec:3:dtf}).
@@ -339,10 +339,10 @@ The standard approach to machine learning calls for a roughly balanced dataset t
 Given the disproportionate signal-to-background ratio in the case at hand, however, I also explored the unbalanced approach, aiming for improved background rejection at the price of (reasonably) subpar signal identification.
 Classifiers trained with balanced or unbalanced datasets showed very similar performances after score threshold optimization (see Section \ref{sec:4:threshold_optimization}), the main difference being that balanced HBDTs require harsher score selection criteria;
 since no reason surfaced to favour either approach, I opted to follow the more conventional path and empolyed a balanced training dataset.
-The testing sample for performance evaluation included $\approx 8\,000$ signal events and $\approx 4$ million background events.
+Testing data for performance evaluation was sampled from the same pool as training data in a 1:9 ratio.
 
 The following kinematic variables (also known as \textit{features}) were used for signal discrimination:
-transverse and longitudinal momenta of $p$, $\pi^-$ and $J/\psi$;
+transverse and longitudinal momenta of $p$, $\pi^-$ ($J/\psi$ and $\Lambda^0$ mass constraints) and $J/\psi$ (no mass constraints);
 coordinates of the \lambdadecay vertex position;
 $\Lambda_b^0$ and $\Lambda^0$  pointing angles $\xi_p$, i.e. the angle between the particle line of flight and its momentum;
 $\tilde{\chi}^2_\text{vtx}$ of the \demonstratorshort and \lambdadecay vertices;
@@ -351,6 +351,8 @@ the distances $\chi^2_\text{dist}$ between $\Lambda_b^0$ and $\Lambda^0$ decay v
 
 
 \subsection{Hyperparameter optimization}
+\label{sec:4:hyperoptimization}
+
 The supervised training process for a classifiers tunes a set of parameters to minimize a given loss function; in the HBDT case, for instance, decision node and tree weights are trained according to the output of a logistic loss function.
 In contrast, \textit{hyperparameters} are parameters governing the learning process itself and thus require separate optimization.
 
@@ -367,10 +369,12 @@ Each classifier was evaluated on training data using a stratified k-folds cross 
 For a given score threshold $i$, we define \textit{precision} $P_i$ and \textit{recall} $R_i$ in terms of the true/false positive/negative rates: precision 
 \begin{equation}
 	P_i = \frac{n_\text{TP}}{n_\text{TP} + n_\text{FP}}
+	\label{eq:4:precision}
 \end{equation}
 scores how often the classifier mistakes background for signal, while recall
 \begin{equation}
 	R_i = \frac{n_\text{TP}}{n_\text{TP} + n_\text{FN}}
+	\label{eq:4:recall}
 \end{equation}
 scores how well the classifier is able to recognize the signal.
 Performance of cross-validated classifiers on training and testing sub-samples\footnote{Still working within a cross-validation mindset, here \textit{testing data} is used to refer to the $k$-th fold in the cross-validation. No actual testing data as defined in Section \ref{sec:4:train_test_data} was used for the hyperoptimization step.} was evaluated using the \textit{average precision} figure of merit
@@ -396,26 +400,67 @@ The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\t
 		\caption{}
 	\end{subfigure}
 	\caption{Confusion matrices visualizing the performance of the HBDT classifier on training \textit{(a)} and testing \textit{(b)} data samples. Percentages and chromatic scale are normalized to the true event classification: for instance, the top left and top right quadrants of a matrix represent the fraction of true background events reconstructed as background or signal, respectively. Binary classification uses an illustrative response threshold $s_\text{thres} = 0.5$.}
+	\label{fig:4:confusion_matrix}
 \end{figure}
+
+Performance of the trained HBDT optimized as per Section \ref{sec:4:hyperoptimization} was evaluated on the smaller test sample described in Section \ref{sec:4:train_test_data}.
+Figure \ref{fig:4:confusion_matrix} shows the confusion matrices for training and test data with a score threshold of $s_\text{thres}=0.5$, meaning events with $s>s_\text{thres}$ are classified as signal.
+The matrices summarize the true/false positive/negative rates for the classifier, highlighting the expected slight dip in accuracy when moving from training to test sample.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/sig_train_vs_test.pdf}
 		\caption{}
+		\label{fig:4:sig_train_vs_test}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/bkg_train_vs_test.pdf}
 		\caption{}
+		\label{fig:4:bkg_train_vs_test}
 	\end{subfigure}
-	\caption{Response distribution of the HBDT classifier on signal \textit{(a)} and background \textit{(b)} events. The training sample is represented by horizontal hatching, the test sample by diagonal hatching.}
+	\caption{Response distribution of the HBDT classifier on signal \textit{(a)} and background \textit{(b)} events. The training sample is represented by \textit{horizontal hatching}, the test sample by \textit{diagonal hatching}.}
+	\label{fig:4:train_vs_test}
 \end{figure}
+
+Comparing the signal and background score distributions (Figures \ref{fig:4:sig_train_vs_test} and \ref{fig:4:bkg_train_vs_test} respectively) for training and test data samples, we observe a light discrepancy at the end tails.
+Such a split in favour of performance on training data is usually an early indicator of ovetraining.
+I investigated this possibility by conducting a two-sample Kolmogorov-Smirnov (K-S) test \cite{10.2307/2280095}, which computes the probability $p$ that two samples are drawn from the same probability distribution.
+Conventionally, the K-S is considered passed if $p>0.05$;
+this was true for both signal ($p_\text{sig} \approx 0.30$) and background ($p_\text{bkg} \approx 0.07$), confirming that the classifier is not significantly ovetrained.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/roc.pdf}
-	\caption{Receiving operating characteristic (ROC) curve for the HBDT classifier on training (\textit{solid}) and test (\textit{dashed}) samples. The legend includes the area-under-curve (AUC) score.}
+		\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/roc.pdf}
+		\caption{}
+		\label{fig:4:hbdt_roc_curve}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/04-event_selection/prec_recall.pdf}
+		\caption{}
+		\label{fig:4:hbdt_precall_curve}
+	\end{subfigure}
+	\caption{Receiving operating characteristic (ROC) curve \textit{(a)} and precision-recall curve \textit{(b)} for the HBDT classifier on training (\textit{solid}) and test (\textit{dashed}) samples. The legend in the ROC plot includes the area-under-curve (AUC) score.}
+	\label{fig:4:hbdt_performance_curves}
 \end{figure}
+
+I assessed the classifier performance at different thresholds using the receiving operating characteristic (ROC) and precision-recall curves.
+The ROC curve, depicted in Figure \ref{fig:4:hbdt_roc_curve}, plots the true positive versus false positive rates for a set of thresholds left as hidden variables:
+a random classifier would bisect the plot plane, while a perfect classifier would adhere to the axes and cross the $(0,1)$ point.
+The integral below the curve is itself a figure of merit, the area-under-curve (AUC), with better classifiers scoring values closer to unity.
+The precision-recall curve follows a similar principle to the ROC curve, plotting precision \eqref{eq:4:precision} and recall \eqref{eq:4:recall} for different thresholds;
+in this case, a perfect classifier would cross the $(1,1)$ point.
+In both instances, the classifier shows great performance and high consistency between training and test samples.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{graphics/04-event_selection/importances.pdf}
+	\caption{A.}
+	\label{fig:4:hbdt_importances}
+\end{figure}
+
+Importanze.
 
 \subsection{Threshold optimization}
 \label{sec:4:threshold_optimization}

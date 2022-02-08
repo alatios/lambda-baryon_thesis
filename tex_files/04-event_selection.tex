@@ -315,7 +315,8 @@ The usage of a histogram-based BDT, arranging input samples into integer-valued 
 
 %(gradient tree boosting with logistic loss function for binary classification)
 
-\subsection{Training data}
+\subsection{Training and testing data}
+\label{sec:4:train_test_data}
 
 \begin{figure}[t]
 	\centering
@@ -349,7 +350,41 @@ the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a par
 the distances $\chi^2_\text{dist}$ between $\Lambda_b^0$ and $\Lambda^0$ decay vertices and the primary vertex in $\chi^2$ units.
 
 
-\subsection{Hyperparameter optimization and performance test}
+\subsection{Hyperparameter optimization}
+The supervised training process for a classifiers tunes a set of parameters to minimize a given loss function; in the HBDT case, for instance, decision node and tree weights are trained according to the output of a logistic loss function.
+In contrast, \textit{hyperparameters} are parameters governing the learning process itself and thus require separate optimization.
+
+I selected three hyperparamters for optimization:
+\begin{itemize}
+	\item learning rate $L \in [0.003, 0.006, 0.010, 0.015]$, the shrinkage factor for the contribution of each tree in the boosting process.
+	\item maximum number of boosting iterations $n_\text{max}^\text{iter} \in [1\,500, 2\,500, 5\,000]$;
+	\item maximum number of leaves for each tree $n_\text{max}^\text{leaves} \in [100, 200, 400, 800]$.
+\end{itemize}
+Other hyperparameters, such as the maximum number of bins and the minimum number of samples per leaf, were left with the default values of the Scikit-learn implementation.
+
+I performed an exhaustive grid scan of the aforementioned hyperparameter values.
+Each classifier was evaluated on training data using a stratified k-folds cross validation technique: the training sample is split in $k=5$ subsamples, the classifier is trained in rotation on $k-1$ samples and tested with the $k$-th, and the $k$ results are averaged together.
+For a given score threshold $i$, we define \textit{precision} $P_i$ and \textit{recall} $R_i$ in terms of the true/false positive/negative rates: precision 
+\begin{equation}
+	P_i = \frac{n_\text{TP}}{n_\text{TP} + n_\text{FP}}
+\end{equation}
+scores how often the classifier mistakes background for signal, while recall
+\begin{equation}
+	R_i = \frac{n_\text{TP}}{n_\text{TP} + n_\text{FN}}
+\end{equation}
+scores how well the classifier is able to recognize the signal.
+Performance of cross-validated classifiers on training and testing sub-samples\footnote{Still working within a cross-validation mindset, here \textit{testing data} is used to refer to the $k$-th fold in the cross-validation. No actual testing data as defined in Section \ref{sec:4:train_test_data} was used for the hyperoptimization step.} was evaluated using the \textit{average precision} figure of merit
+\begin{equation}
+	\text{AP} = \sum_{i=2}^{n} (R_i - R_{i-1})P_i
+	\label{eq:4:average_prec}
+\end{equation}
+for a set of $n$ thresholds.
+
+When considering the choice of the best classifier, I aimed to strike a balance between the AP score on testing data, acting as a raw performance grading of the classifier, and the difference in AP score between training and testing samples, which was necessary to prevent overtraining.
+The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\text{max}^\text{iter}=2500$, and $n_\text{max}^\text{leaves}=100$, is the result of this selection process.
+
+\subsection{Performance test}
+
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}

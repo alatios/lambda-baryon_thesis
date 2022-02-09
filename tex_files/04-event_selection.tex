@@ -456,14 +456,90 @@ In both instances, the classifier shows great performance and high consistency b
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{graphics/04-event_selection/importances.pdf}
-	\caption{A.}
+	\caption{Decrease in the HBDT AP score when permutating the values of individual features in training (\textit{vertical hatching}) and testing (\textit{diagonal hatching}) data samples. See the legend of Table \ref{tab:4:prefilters} for details on the feature labels.}
 	\label{fig:4:hbdt_importances}
 \end{figure}
 
-Importanze.
+Finally, I evaluated the importance of selected features in signal discrimination.
+This was achieved by permutating the values of each feature at a time and evaluating the average decrease in the baseline AP score of the classifier over ten of such permutations.
+Results are shown in Figure \ref{fig:4:hbdt_importances} for training and testing samples:
+in both cases the most discriminating features, causing the largest drops in AP, are the transverse momentum of the proton, the pointing angle of the $\Lambda_b^0$ and the increase in the primary vertex $\chi^2$ when including the $\Lambda_b^0$ in the fit.
 
 \subsection{Threshold optimization}
 \label{sec:4:threshold_optimization}
+
+The final step in the classifier tuning process was the optimization of the threshold to maximize signal significance
+\begin{equation}
+\frac{s}{\sqrt{s+b}},
+\label{eq:4:signal_significance}
+\end{equation}
+with $s$ and $b$ being the signal and background event counts after the HBDT filter.
+
+[Devi dire che usi DTF con doppio m.c.]
+
+First, the simulated signal $m(J/\psi~\Lambda^0)$ distribution was fit with a double-tailed asymmetric Crystal Ball function.
+A standard, single-tailed Crystal Ball probability density function is parameterized as
+\begin{equation}
+	f_\text{CB}(m; \mu, \sigma, \alpha, n) =
+	\begin{cases}
+		\exp\left[ -\frac{1}{2} {\left(\frac{m-\mu}{\sigma}\right)}^2 \right],
+		& \text{if } \frac{m-\mu}{\sigma} \geq -\alpha \\
+		A \cdot {\left(B - \frac{m-\mu}{\sigma}\right)}^{-n},
+		& \text{if } \frac{m-\mu}{\sigma} < -\alpha
+	\end{cases},
+	\label{eq:4:crystal_ball}
+\end{equation}
+with
+\begin{equation}
+	A = {\left(\frac{n}{|\alpha|}\right)}^n~e^{-\frac{\alpha^2}{2}}
+\end{equation}
+and
+\begin{equation}
+	B = \frac{n}{|\alpha|} - |\alpha|.
+\end{equation}
+Its shape is thus a Gaussian core with a power-law tail on the lower end when $m$ outdistances $\mu$ by $\alpha\sigma$.
+The double-tailed Crystal Ball expands on this concepts by having a Gaussian core with two asymmetric long tails, governed by different power laws:
+\begin{equation}
+	f_\text{sig}
+	\left(m; S, \mu, \sigma, \alpha_1, n_1, \alpha_2, n_2 \right) =
+	N
+	\begin{cases}
+	f_\text{CB}(m; \mu, \sigma, \alpha_1, n_1)
+	& \text{if } m \leq \mu \\
+	f_\text{CB}(2\mu -m; \mu, \sigma, \alpha_2, n_2)
+	& \text{if } m > \mu \\
+	\end{cases},
+\end{equation}
+with normalization
+\begin{equation}
+	N = \frac{S}{\sigma(C_1 + C_2 + D)}
+\end{equation}
+itself depending on
+\begin{equation}
+	C_1 = \frac{n_1}{\alpha_1 (n_1-1)} e^{-\frac{\alpha^2_1}{2}},
+\end{equation}
+\begin{equation}
+	C_2 = \frac{n_2}{\alpha_2 (n_2-1)} e^{-\frac{\alpha^2_2}{2}},
+\end{equation}
+and
+\begin{equation}
+	D = \sqrt{2\pi} \left(G_\text{cum} (\alpha_2) - G_\text{cum} (- \alpha_1)\right),
+\end{equation}
+where
+\begin{equation}
+G_\text{cum}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt e^{-\frac{t^2}{2}}
+\end{equation}
+is the Gaussian cumulative distribution function evaluated at $x$.
+
+When fitting $m(J/\psi~\Lambda^0$ in Run 2 data, the function is the sum of two contributions:
+signal is modeled by the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ fixed to their Monte Carlo fit best values;
+the combinatorial background is fit with a turn-on exponential
+\begin{equation}
+	f_\text{bkg} (m;C,m_0,a) = C \sqrt{m-m_0}~e^{-a(m-m_0)},
+	\label{eq:4:turn_on_exp}
+\end{equation}
+with $m_0$ being the turn-on point.
+As will be shown in Section \ref{sec:4:performance_data}, the outlined combination of $f_\text{sig}$ and $f_\text{bkg}$ is a great fit for Run 2 data, as long as sufficient filtering was applied for the $\Lambda_b^0$ resonance peak to emerge.
 
 \begin{figure}
 	\centering
@@ -472,6 +548,7 @@ Importanze.
 \end{figure}
 
 \section{Performance on data}
+\label{sec:4:performance_data}
 Gli invariant mass fits, essenzialmente.
 
 \begin{figure}[t]

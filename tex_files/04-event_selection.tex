@@ -307,7 +307,7 @@ Training, optimization and performance testing of the classifier were made with 
 \end{figure}
 
 The basic layout of a binary decision tree classifier is sketched in Figure \ref{fig:4:decision_tree}:
-a sequence of decision nodes applies binary conditions according to available information on the individual event and eventually reaches a leaf node associated to the \textit{event score}, in this case the probability that the event is a \demonstratorshort decay.
+a sequence of decision nodes applies binary conditions according to available information on the individual event and eventually reaches a leaf node associated to the \textit{event score} $t$, in this case the probability that the event is a \demonstratorshort decay.
 Performance of the decision tree can be enhanced with \textit{boosting} \cite{Yann:2013}, whereby the ultimate classifier is built as a weighted average of a large number of weaker trees;
 the result is known as a boosted decision tree (BDT).
 In the adaptive boosting (AdaBoost) implementation used in this thesis, each tree $T_k$ is trained on a reweighted data sample that prioritizes events misclassified by the $T_{k-1}$ tree.
@@ -399,12 +399,12 @@ The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\t
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/confmatrix_test.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Confusion matrices visualizing the performance of the HBDT classifier on training \textit{(a)} and testing \textit{(b)} data samples. Percentages and chromatic scale are normalized to the true event classification: for instance, the top left and top right quadrants of a matrix represent the fraction of true background events reconstructed as background or signal, respectively. Binary classification uses an illustrative response threshold $s_\text{thres} = 0.5$.}
+	\caption{Confusion matrices visualizing the performance of the HBDT classifier on training \textit{(a)} and testing \textit{(b)} data samples. Percentages and chromatic scale are normalized to the true event classification: for instance, the top left and top right quadrants of a matrix represent the fraction of true background events reconstructed as background or signal, respectively. Binary classification uses an illustrative response threshold $t_\text{thres} = 0.5$.}
 	\label{fig:4:confusion_matrix}
 \end{figure}
 
 Performance of the trained HBDT optimized as per Section \ref{sec:4:hyperoptimization} was evaluated on the smaller test sample described in Section \ref{sec:4:train_test_data}.
-Figure \ref{fig:4:confusion_matrix} shows the confusion matrices for training and test data with a score threshold of $s_\text{thres}=0.5$, meaning events with $s>s_\text{thres}$ are classified as signal.
+Figure \ref{fig:4:confusion_matrix} shows the confusion matrices for training and test data with a score threshold of $t_\text{thres}=0.5$, meaning events with $t>t_\text{thres}$ are classified as signal.
 The matrices summarize the true/false positive/negative rates for the classifier, highlighting the expected slight dip in accuracy when moving from training to test sample.
 
 \begin{figure}[t]
@@ -474,11 +474,14 @@ The final step in the classifier tuning process was the optimization of the thre
 \label{eq:4:signal_significance}
 \end{equation}
 with $s$ and $b$ being the signal and background event counts after the HBDT filter.
+A simple way to do it would be to fit the $J/\psi~\Lambda^0$ invariant mass distribution of filtered data with signal and background functions and extract the corresponding rates via integration;
+however, this has the undesired side effect of heightening the risk of biasing the selection towards our specific data sample.
+%A different, more general approach was devised instead.
 
-[Devi dire che usi DTF con doppio m.c.]
-
-First, the simulated signal $m(J/\psi~\Lambda^0)$ distribution was fit with a double-tailed asymmetric Crystal Ball function.
-A standard, single-tailed Crystal Ball probability density function is parameterized as
+A different, more general approach was devised to prevent this.
+I first identified a <<soft>> score threshold $t_\text{thres} = 0.7$, just high enough for the filtered Run 2 data $m(J/\psi~\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) to show the $\Lambda_b^0$ resonance peak.
+I fit the simulated signal $m(J/\psi~\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) with a double-tailed asymmetric Crystal Ball function.
+The standard, single-tailed Crystal Ball probability density function is parameterized as
 \begin{equation}
 	f_\text{CB}(m; \mu, \sigma, \alpha, n) =
 	\begin{cases}
@@ -532,20 +535,36 @@ G_\text{cum}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt e^{-\frac{t^
 is the Gaussian cumulative distribution function evaluated at $x$.
 
 When fitting $m(J/\psi~\Lambda^0$ in Run 2 data, the function is the sum of two contributions:
-signal is modeled by the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ fixed to their Monte Carlo fit best values;
+signal is modeled with the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ fixed to their Monte Carlo fit best values;
 the combinatorial background is fit with a turn-on exponential
 \begin{equation}
 	f_\text{bkg} (m;C,m_0,a) = C \sqrt{m-m_0}~e^{-a(m-m_0)},
 	\label{eq:4:turn_on_exp}
 \end{equation}
 with $m_0$ being the turn-on point.
-As will be shown in Section \ref{sec:4:performance_data}, the outlined combination of $f_\text{sig}$ and $f_\text{bkg}$ is a great fit for Run 2 data, as long as sufficient filtering was applied for the $\Lambda_b^0$ resonance peak to emerge.
+As will be shown in Section \ref{sec:4:performance_data}, the outlined combination of $f_\text{sig}$ and $f_\text{bkg}$ provides an excellent description of Run 2 data, as long as sufficient filtering is applied for the $\Lambda_b^0$ peak to emerge.
+
+This data fit provides preliminary $s_0$ and $b_0$ values, obtained by integrating signal and background fit functions in the $\pm 3\sigma$ region around $\mu$.
+I used these values to estimate the signal (background) rate $s_i$ ($b_i$) for events passing a score threshold $t_i$ with associated efficiency $\varepsilon_i^s$ ($\varepsilon_i^b$):
+\begin{subequations}
+\begin{align}
+	s_i &= s_0 \frac{\varepsilon_i^s}{\varepsilon_0^s}, \\
+	b_i &= b_0 \frac{\varepsilon_i^b}{\varepsilon_0^b}.
+\end{align}
+\end{subequations}
+Here $\varepsilon_0^s$ and $\varepsilon_0^b$ are the signal and background efficiencies associated to the soft threshold with $s_0$ and $b_0$ rates.
+Efficiencies were computed on the test sample and correspond to true/false positive rates evaluated for the ROC curve (Figure \ref{fig:4:hbdt_roc_curve}).
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/HBDT_signal_significance.pdf}
 	\caption{Projected \demonstratorshort signal significance over background as a function of the HBDT response threshold used for selection.}
+	\label{fig:4:signal_significance}
 \end{figure}
+
+Using the estimated $s_i$ and $b_i$, I calculated the predicted signal significance \eqref{eq:4:signal_significance} for each threshold $t_i$.
+Figure \ref{fig:4:signal_significance} shows the results as a function of the score threshold.
+The best performing threshold was found to be $t_\text{thres} = 0.985$, with signal significance $\approx 45$ and a signal-to-background ratio $\approx 1.5$.
 
 \section{Performance on data}
 \label{sec:4:performance_data}
@@ -561,5 +580,5 @@ Gli invariant mass fits, essenzialmente.
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/data_lambdab_hard_fit.pdf}
 		\caption{}
 	\end{subfigure}
-	\caption{Fitted $m(J/\psi~\Lambda^0)$ invariant mass distributions for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Signal fit function is \textit{dashed}, background fit function in \textit{(b)} is \textit{dash-dotted}. The current best measurement for $\Lambda_b^0$ mass is marked by the \textit{dotted vertical line}. Fit pulls (data-fit discrepancy divided by uncertainty) are shown below the main plots.}
+	\caption{Fitted $m(J/\psi~\Lambda^0)$ invariant mass distributions for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Signal fit function is \textit{dashed}, background fit function in \textit{(b)} is \textit{dash-dotted}. The PDG value for the $\Lambda_b^0$ mass is marked by the \textit{dotted vertical line} \cite{PDG}. Fit pulls (data-fit discrepancy divided by uncertainty) are shown below the main plots.}
 \end{figure}

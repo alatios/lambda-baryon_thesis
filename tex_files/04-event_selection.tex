@@ -342,13 +342,16 @@ since no reason surfaced to favour either approach, I opted to follow the more c
 Testing data for performance evaluation was sampled from the same pool as training data in a 1:9 ratio.
 
 The following kinematic variables (also known as \textit{features}) were used for signal discrimination:
-transverse and longitudinal momenta of $p$, $\pi^-$ ($J/\psi$ and $\Lambda^0$ mass constraints) and $J/\psi$ (no mass constraints);
+transverse and longitudinal momenta of $p$, $\pi^-$ and $J/\psi$;
 coordinates of the \lambdadecay vertex position;
 $\Lambda_b^0$ and $\Lambda^0$  pointing angles $\xi_p$, i.e. the angle between the particle line of flight and its momentum;
 $\tilde{\chi}^2_\text{vtx}$ of the \demonstratorshort and \lambdadecay vertices;
 the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a particle is included in the fit, for $\Lambda_b^0$ and $\Lambda^0$;
 the distances $\chi^2_\text{dist}$ between $\Lambda_b^0$ and $\Lambda^0$ decay vertices and the primary vertex in $\chi^2$ units.
 
+The momenta for proton and pion are computed with $J/\psi$ mass constraints.
+While the usage of $p,\pi^-$ momenta from the Decay Tree Fitter with the additional $\Lambda^0$ mass constraint was considered, preliminary tests on classifiers showed a slight degradation of their performance when the double mass constraint was adopted.
+The standard Vertex Fitter momenta were used for the $J/\psi$ on account of the already great resolution provided by using Long muons.
 
 \subsection{Hyperparameter optimization}
 \label{sec:4:hyperoptimization}

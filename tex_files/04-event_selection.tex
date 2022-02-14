@@ -1,7 +1,11 @@
 %% Problema: deve essere grassetto nella ToC e nel titolo del capitolo, ma non grassetto nell'header.
 \chapter{Signal event selection}
 \label{cap:event_selection}
-@todo: introduction
+This chapter outlines the three major steps in the selection of \demonstratorshort events for the study of long-lived $\Lambda^0$ baryons in LHCb.
+Section \ref{sec:prefilter} discusses the preliminary kinematic variable selections and includes an in-depth study of evidences of bias in the \lambdadecay vertex reconstruction, particularly its $z$ component;
+Section \ref{sec:4:phys_bkg} provides an overview of the veto approach used to account for the main source of physical background, the \demonstratorshort decay;
+Section \ref{sec:HBDT} details my work towards the training, optimization and evaluation of a supervised learning multivariate classifier to perform signal-background discrimination;
+finally, Section \ref{sec:4:performance_data} brings together all three selection techniques to give proof of \demonstratorshort reconstructibility, fitting the filtered $J/\psi\,\Lambda^0$ invariant mass distributions from simulated signal and Run 2 data.
 
 \section{Prefiltering}
 \label{sec:prefilter}
@@ -31,9 +35,9 @@ The main objective of this step is to improve the signal-to-background ratio and
 									& --		& --		& 750 \\
 		$\lvert m(\mu^+ \mu^-) - m_\text{PDG} (J/\psi) \rvert$
 									& MeV/$c^2$ & --		& 90 \\
-		$m(J/\psi~\Lambda^0)$ (combined)
+		$m(J/\psi\,\Lambda^0)$ (combined)
 									& MeV/$c^2$	& 4\,700		& -- \\
-		$m(J/\psi~\Lambda^0)$ (Vertex Fitter)
+		$m(J/\psi\,\Lambda^0)$ (Vertex Fitter)
 									& MeV/$c^2$	& --		& 8\,500 \\
 		$\lvert \cos\xi_p (\Lambda^0_b) \rvert$
 									& --		& 0.99		& -- \\
@@ -66,17 +70,17 @@ The applied prefilter criteria are listed in Table \ref{tab:4:prefilters}.
 Efficiencies on signal have been estimated with studies on simulated \demonstratorshort events.
 The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
 the efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts}.
-Since I require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the [@todo] efficiency of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
-Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of [@todo].
+Since I require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the $\approx 32\%$ efficiency of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
+Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of $\approx 26\%$.
 
 As detailed in Section \ref{sec:2:tracking}, a key aspect of my analysis is the employment of T tracks for the reconstruction of the \lz.
 The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20$--$30\%$.
 Resolution can be improved up to $\approx 10\%$ by placing kinematic constraints on $p\pi^-$ and $\mu^+ \mu^-$ invariant masses, fixing them to the PDG values of $m(\Lambda^0)$ and $m(J/\psi)$ respectively (these will be henceforth referred to as \textit{mass constraints}).
 This approach cannot be implemented in the leaf-by-leaf framework of the default Vertex Fitter algorithm for vertex reconstruction;
-instead each event is refitted with the Decay Tree Fitter (DTF) algorithm in two configurations (single $J/\psi$ and double $J/\psi~\Lambda^0$ mass constraints (see also Section \ref{sec:3:dtf}).
+instead each event is refitted with the Decay Tree Fitter (DTF) algorithm in two configurations, single $J/\psi$ and double $J/\psi\,\Lambda^0$ mass constraints (see also Section \ref{sec:3:dtf}).
 
-A convergence requirement of the DTF algorithm with the $J/\psi~\Lambda^0$ mass constraints is therefore added to the prefilter selections.
-The main drawback of this selection, a much steeper [@todo] efficiency on simulated signal events, is outweighed by the benefits of the improved momentum resolution in the determination of the angular distribution of \lambdadecay decay products.
+A convergence requirement of the DTF algorithm with the $J/\psi\,\Lambda^0$ mass constraints is therefore added to the prefilter selections.
+The main drawback of this selection, a steep 45\% efficiency on simulated signal events (although raised to 65\% when only considering events passing the non-DTF prefilters), is outweighed by the benefits of the improved momentum resolution in the determination of the angular distribution of \lambdadecay decay products.
 
 
 \subsection{Reconstruction of \texorpdfstring{\lz}{Lambda} decay vertex in prefiltered events}
@@ -218,7 +222,7 @@ the high spatial concentration in specific regions of the $xz$ plane, such as th
 
 No selection on reconstructed variables is possible to filter this class of events:
 Figure \ref{fig:4:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
-Their impact on the overall performance on signal is nevertheless neglectable, since this events amount to roughly [@todo] of the total simulated sample.
+Their impact on the overall performance on signal is nevertheless neglectable, since this events amount to roughly 1.7\% of the prefiltered simulated sample.
 
 \section{Physical background veto}
 \label{sec:4:phys_bkg}
@@ -234,7 +238,7 @@ The main source of physical background for the \demonstratorfull decay is the si
 \end{equation}
 The final states of the two decays only differ for a $p \leftrightarrow \pi^+$ change.
 The $K_S^0$ meson also has a similar mean lifetime to the $\Lambda^0$, thus we expect a sizeable number of $K_S^0$ decaying after the dipole magnet.
-To top it off, the $B^0$ mass ([@todo]) is very close to that of $\Lambda_b^0$ ([@todo]) \cite{PDG}, muddying the waters in invariant mass fits.
+To top it off, the $B^0$ mass (\SI{5279.65}{\mev\per c\squared}) is fairly close to that of $\Lambda_b^0$ (\SI{5619.60}{\mev\per c\squared}) \cite{PDG}, muddying the waters in invariant mass fits.
 
 As discussed in Section \ref{sec:2:pid}, the LHCb detector employs the two RICH systems to identify and distinguish between protons, pions and kaons;
 in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions is impossible, but information from RICH2 would still be available for the vast majority of the decays at hand.
@@ -283,18 +287,18 @@ the $m(J/\psi~K_S^0)$ distributions are comparatively more separate (Figure \ref
 		\caption{}
 		\label{fig:4:phys_bkg_veto_eff_mass}
 	\end{subfigure}
-	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi~\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi~\Lambda^0)$ bins for \demonstratorshort signal events.}
+	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi\,\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi\,\Lambda^0)$ bins for \demonstratorshort signal events.}
 	\label{fig:4:phys_bkg_veto_eff}
 \end{figure}
 
 Figure \ref{fig:4:phys_bkg_veto_eff_thres} shows the veto efficiency on \demonstratorshort signal and \physbkgshort physical background as function of the threshold $m_\text{thres}$.
-The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains [@todo] of signal while rejecting [@todo] of background;
-signal efficiency as function of the $m(J/\psi~\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
+The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal while rejecting 64\% of background;
+signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
 
 
 \section{HBDT classifier}
 \label{sec:HBDT}
-Even after prefilter selections, combinatorial background exceeds the signal by a factor [@todo: dalle efficienze].
+Even after prefilter selections, combinatorial background exceeds the signal by a ${10}^3$ factor.
 This section details my work in training and testing a multivariate classifier to discriminate \demonstratorshort events, in order to lower the signal-to-background ratio to acceptable levels for physics analysis.
 After taking into consideration a wide range of classifiers, a histogram-based gradient boosting classification tree (also referred to as \textit{histogram-based boosted decision tree}, HBDT for short) was chosen by virtue of its superior performance in studies on sample data \cite{Pessina:BSc:2020}.
 Training, optimization and performance testing of the classifier were made with the Scikit-learn 0.24.2 package \cite{scikit-learn} for Python 3.6.8 \cite{10.5555/1593511}.
@@ -362,7 +366,7 @@ In contrast, \textit{hyperparameters} are parameters governing the learning proc
 I selected three hyperparamters for optimization:
 \begin{itemize}
 	\item learning rate $L \in [0.003, 0.006, 0.010, 0.015]$, the shrinkage factor for the contribution of each tree in the boosting process.
-	\item maximum number of boosting iterations $n_\text{max}^\text{iter} \in [1\,500, 2\,500, 5\,000]$;
+	\item maximum number of boosting iterations $n_\text{max}^\text{iter} \in [1500, 2500, 5000]$;
 	\item maximum number of leaves for each tree $n_\text{max}^\text{leaves} \in [100, 200, 400, 800]$.
 \end{itemize}
 Other hyperparameters, such as the maximum number of bins and the minimum number of samples per leaf, were left with the default values of the Scikit-learn implementation.
@@ -477,13 +481,13 @@ The final step in the classifier tuning process was the optimization of the thre
 \label{eq:4:signal_significance}
 \end{equation}
 with $s$ and $b$ being the signal and background event counts after the HBDT filter.
-A simple way to do it would be to fit the $J/\psi~\Lambda^0$ invariant mass distribution of filtered data with signal and background functions and extract the corresponding rates via integration;
+A simple way to do it would be to fit the $J/\psi\,\Lambda^0$ invariant mass distribution of filtered data with signal and background functions and extract the corresponding rates via integration;
 however, this has the undesired side effect of heightening the risk of biasing the selection towards our specific data sample.
 %A different, more general approach was devised instead.
 
 A different, more general approach was devised to prevent this.
-I first identified a <<soft>> score threshold $t_\text{thres} = 0.7$, just high enough for the filtered Run 2 data $m(J/\psi~\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) to show the $\Lambda_b^0$ resonance peak.
-I fit the simulated signal $m(J/\psi~\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) with a double-tailed asymmetric Crystal Ball function.
+I first identified a <<soft>> score threshold $t_\text{thres} = 0.7$, just high enough for the filtered Run 2 data $m(J/\psi\,\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) to show the $\Lambda_b^0$ resonance peak.
+I fit the simulated signal $m(J/\psi\,\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) with a double-tailed asymmetric Crystal Ball function.
 The standard, single-tailed Crystal Ball probability density function is parameterized as
 \begin{equation}
 	f_\text{CB}(m; \mu, \sigma, \alpha, n) =
@@ -537,14 +541,13 @@ G_\text{cum}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt e^{-\frac{t^
 \end{equation}
 is the Gaussian cumulative distribution function evaluated at $x$.
 
-When fitting $m(J/\psi~\Lambda^0$ in Run 2 data, the function is the sum of two contributions:
-signal is modeled with the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ fixed to their Monte Carlo fit best values;
-the combinatorial background is fit with a turn-on exponential
+When fitting $m(J/\psi\,\Lambda^0)$ in Run 2 data, the function is the sum of two contributions:
+signal is modeled with the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ and $\sigma$ fixed to their Monte Carlo fit best values;
+the combinatorial background is fit with a conventional exponential function
 \begin{equation}
-	f_\text{bkg} (m;C,m_0,a) = C \sqrt{m-m_0}~e^{-a(m-m_0)},
-	\label{eq:4:turn_on_exp}
+	f_\text{bkg} (m;C,a) = C e^{-a m}.
+	\label{eq:4:exponential}
 \end{equation}
-with $m_0$ being the turn-on point.
 As will be shown in Section \ref{sec:4:performance_data}, the outlined combination of $f_\text{sig}$ and $f_\text{bkg}$ provides an excellent description of Run 2 data, as long as sufficient filtering is applied for the $\Lambda_b^0$ peak to emerge.
 
 This data fit provides preliminary $s_0$ and $b_0$ values, obtained by integrating signal and background fit functions in the $\pm 3\sigma$ region around $\mu$.
@@ -567,21 +570,64 @@ Efficiencies were computed on the test sample and correspond to true/false posit
 
 Using the estimated $s_i$ and $b_i$, I calculated the predicted signal significance \eqref{eq:4:signal_significance} for each threshold $t_i$.
 Figure \ref{fig:4:signal_significance} shows the results as a function of the score threshold.
-The best performing threshold was found to be $t_\text{thres} = 0.985$, with signal significance $\approx 45$ and a signal-to-background ratio $\approx 1.5$.
+The best performing threshold was found to be $t_\text{thres} = 0.985$, with signal significance $\approx 46$ and signal purity
+\begin{equation}
+	\frac{s}{s+b} \approx 0.6.
+\end{equation}
 
 \section{Performance on data}
 \label{sec:4:performance_data}
-Gli invariant mass fits, essenzialmente.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/MC_lambdab_hard_fit.pdf}
 		\caption{}
+		\label{fig:4:mc_fit}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[width=\textwidth]{graphics/04-event_selection/data_lambdab_hard_fit.pdf}
 		\caption{}
+		\label{fig:4:data_fit}
 	\end{subfigure}
-	\caption{Fitted $m(J/\psi~\Lambda^0)$ invariant mass distributions for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Signal fit function is \textit{dashed}, background fit function in \textit{(b)} is \textit{dash-dotted}. The PDG value for the $\Lambda_b^0$ mass is marked by the \textit{dotted vertical line} \cite{PDG}. Fit pulls (data-fit discrepancy divided by uncertainty) are shown below the main plots.}
+	\caption{Fitted $m(J/\psi\,\Lambda^0)$ invariant mass distributions for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Signal fit function is \textit{dashed}, background fit function in \textit{(b)} is \textit{dash-dotted}. The PDG value for the $\Lambda_b^0$ mass \cite{PDG} is marked by the \textit{dotted vertical line}. Fit pulls (data-fit discrepancy divided by uncertainty) are shown below the main plots.}
 \end{figure}
+
+\begin{table}
+	\begin{center}
+	\begin{tabular}{@{}llllllll@{}}
+		\toprule
+		Parameter
+		& Unit
+		& \multicolumn{2}{c}{Simulation}	& \phantom{a}
+		& \multicolumn{2}{c}{Data} \\
+		\cmidrule{3-4} \cmidrule{6-7}
+		&& Best value	& Error				&& Best value	& Error \\
+		\midrule
+		$S$			& --		& 359\,200	& 2\,800&& 64\,300	& 1\,900	\\
+		$\mu$		& MeV/$c^2$	& 5\,620.1 	& 0.5	&& 5\,620.1	& -- 		\\
+		$\sigma$	& MeV/$c^2$	& 36.8		& 1.0	&& 41.2		& 1.6		\\
+		$\alpha_1$	& --		& 0.985		& 0.035	&& 0.985	& --		\\
+		$n_1$		& --		& 2.43		& 0.11	&& 2.43		& --		\\
+		$\alpha_2$	& --		& 0.995		& 0.035	&& 0.995	& --		\\
+		$n_2$		& --		& 2.71		& 0.14	&& 2.71		& --		\\
+		$C$			& --		& --		& --	&& 240\,000	& 40\,000	\\
+		$a$			& $\times {10}^{-3}~\text{MeV}^{-1}c^2$
+								& --		& --	&& 1.332	& 0.029		\\
+		\bottomrule
+	\end{tabular}
+	\end{center}
+	\caption{Parameter best values and associated uncertainties from $m(J/\psi\,\Lambda^0)$ fits on simulated signal and Run 2 data, after all selection steps. Parameters with no reported error are fixed.}
+	\label{tab:4:fit_results}
+\end{table}
+
+Figures \ref{fig:4:mc_fit} and \ref{fig:4:data_fit} show the $m(J/\psi\,\Lambda^0)$ invariant mass distributions of Monte Carlo simulated signal and Run 2 data after applying prefilters, \physbkgshort veto and the optimized $t > 0.985$ selection on the HBDT classifier score.
+To fit the distributions I adopted the same approach outlined in Section \ref{sec:4:threshold_optimization}:
+the simulated signal is described with the double-tailed asymmetric Crystal Ball \eqref{eq:4:crystal_ball};
+the best fit parameter values, except for $S$ and $\sigma$, are fixed for the signal function in the Run 2 data fit, while the exponential \eqref{eq:4:exponential} was used to model the combinatorial background.
+
+Binned fit results are listed in Table \ref{tab:4:fit_results}.
+The employed functions provide a great description for both the Monte Carlo simulation and the real data from Run 2, as seen from the fit-data discrepancies consistently below $3\sigma$ for each data bin.
+The resolution of the resonance peak is $\approx 12\%$ worse in real data compared to the simulation, an expected consequence of the underlying combinatorial background.
+Integrating the functions in the $\mu \pm 3\sigma$ interval, we estimate a $\approx 3600$ signal event yield and $\approx 2400$ background event yield.
+These are going to be the baseline yields for analyses on the $\Lambda^0$ electromagnetic dipole moments.

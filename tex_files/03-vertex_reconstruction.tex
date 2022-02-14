@@ -47,7 +47,7 @@ It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which
 
 Taking the daughter particles as inputs, the Vertex Fitter will output the best fit value $\vec{x}$ for the common origin vertex, along with its covariance matrix $C$ and the $\chi^2$ to evaluate the goodness of fit.
 
-The algorithm builds the decay tree from the bottom-up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$).
+The algorithm builds the decay tree from the bottom-up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$).
 This process is blind to the downstream leaves and only considers kinematic information of the immediate daughter particles, without accounting for momenta and mass constraints.
 
 \subsubsection{Iterating paradigm}
@@ -421,7 +421,7 @@ and
 \label{sec:3:dtf}
 While the leaf-by-leaf approach adopted by the Vertex Fitter is fast, it brings alongside it the significant drawback of forgoing upstream information when fitting the downstream branches of a decay.
 This is especially notable for decays like $K_S^0 \rightarrow \pi^0\pi^0 \rightarrow \gamma\gamma\gamma\gamma$, where the final state has no tracks to form a vertex with.
-Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decay, however, the VF algorithm still limits our options.
+Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$ decay, however, the VF algorithm still limits our options.
 In particular, it prevents the placing of \textit{mass constraints} on mother particles, where the fit fixes the invariant mass of the $p\pi^-$ pair to the PDG value for $m(\Lambda^0)$, for instance.
 
 To combat this problem, all reconstructed events in this analysis undergo a refit process based on the Decay Tree Fitter (DTF) algorithm \cite{Hulsbergen:2005pu} first developed in BaBar.
@@ -467,8 +467,8 @@ for T and Long tracks, this is true if at least $70\%$ of the hits from the resp
 
 \begin{figure}[t!]
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/lambda_lambdab_reco_efficiency.png}
-	\caption[A]{Reconstruction efficiency of simulated $\Lambda^0_b \rightarrow J/\psi~(\rightarrow \mu^+\mu^-)~\Lambda^0~(\rightarrow p\pi^-)$ events as function of the $z$ component of the true \lz decay vertex. Assuming a $\approx 100\%$ reconstruction rate for the \jpsi decay, the low efficiency is attributed to failure in reconstructing \lz and $\Lambda^0_b$ decay vertices.}
+	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/lambda_lambdab_reco_efficiency.pdf}
+	\caption[A]{Reconstruction efficiency of simulated $\Lambda^0_b \rightarrow J/\psi~(\rightarrow \mu^+\mu^-)~\Lambda^0~(\rightarrow p\pi^-)$ events as function of the $z$ component of the true \lz decay vertex. Given that $J/\psi \rightarrow \mu^+ \mu^-$ events are reconstructed as part of the trigger step, the low efficiency is attributed to failure in reconstructing \lz and \lbz decay vertices.}
 	\label{fig:lambda_lambdab_reco_efficiency}
 \end{figure}
 
@@ -479,7 +479,7 @@ This means that over half of our candidate signal events is lost during the seco
 While available information does not distinguish between the three individual vertexing phases (\jpsi, \lz and \lbz), we can make some reasonable assumptions.
 Being Long tracks, muons and antimuons have well reconstructed momentum with constraints across the LHCb detector;
 for this reason their influence on the vertexing efficiency dip is considered negligible.
-Furthermore, the rare usage of T tracks for physics analysis in LHCb suggests that problems are likelier to arise in the $\Lambda^0 \rightarrow p\pi^-$ vertexing and then cascade into the $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ reconstruction.
+Furthermore, the rare usage of T tracks for physics analysis in LHCb suggests that problems are likelier to arise in the $\Lambda^0 \rightarrow p\pi^-$ vertexing and then cascade into the $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$ reconstruction.
 
 For the above reasons, in the following sections I'll focus on the $\Lambda^0 \rightarrow p\pi^-$ decay to search for issues and solutions, with the goal of improving signal yield.
 
@@ -600,7 +600,7 @@ The latter contains details on momentum in relation to a certain reference point
 	\label{fig:pp_p_px_conv_vs_failed}
 \end{figure}
 
-In the case of simulated protons from $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ decays, the distribution of the
+In the case of simulated protons from $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$ decays, the distribution of the
 %true\footnote{While protoparticles result from interaction of the particle with the material, at this point I'm specifically considering the true value of the first measurement position and related momentum. Later on we'll instead delve into the \textit{reconstructed} counterparts of these quantities, which can be different as a result of poor T station measurements.}
 protoparticle $p_x$ for converged and failed events shows a marked difference outlined in Figure \ref{fig:pp_p_px_conv_vs_failed}:
 correctly reconstructed events tend to have a double peak roughly centered in $\approx \pm \SI{1}{\gev}$, while missing events have a more traditional single peak centered in $0$.
@@ -769,7 +769,7 @@ Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize
 their extension from \eqref{eq:3:sigma_x_rescaled} should be trivial.
 For the remainder of this section, I'll also refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}, unless otherwise stated.
 
-As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on a sample of [@todo:how many] MC-generated $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$ events, observing a $+25\%$ increase in reconstructed events.
+As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on a sample of [@todo:how many] MC-generated \demonstratorshort events, observing a $+25\%$ increase in reconstructed events.
 As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a quarter of all reconstructible events.
 
 %% @todo: rimpiazza DTF JPsi con DTF JPsiLambda

@@ -487,6 +487,12 @@ For the above reasons, in the following sections I'll focus on the $\Lambda^0 \r
 \section{Characterization of non-converged events}
 \label{sec:characterization_non_converged}
 
+[@todo]
+
+The full simulated \demonstratorshort dataset constructed for studies on the measurement of the \lz electromagnetic dipole moments omits a lot of technical information on the decays, the retention of which would make storage and quick access impractical.
+Furthermore, a lot of the work in this and the next sections required direct changes to the vertexing algorithm for debugging and event recovery, which in turn required data to be reprocessed.
+For these reasons, the studies in the following sections were conducted on a smaller sample of [@todo:how\_many] \lbz decays.
+
 \subsection{Behaviour through VF iterations}
 \label{sec:oscillation}
 The VF process reaches convergence if either condition \eqref{eq:cond_conv_1} or \eqref{eq:cond_conv_2} is satisfied, i.e. if the vertex position estimated at iteration $i$ and the one from iteration $i-1$ are <<close enough>> either in absolute distance or $\chi^2$ distance, up until $i_\text{max} = 10$.
@@ -579,50 +585,113 @@ For didactic purpose, the analysis in this section has focused on just one event
 All the emerged patterns are however commonplace throughout the failed events I have examined, with the oscillating vertex behaviour in particular being a constant in almost all of them.
 While every \lbz vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
 
-\subsection{True kinematics}
-To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
+%\subsection{True kinematics}
+%To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
+%
+%No difference among the two categories emerge when considering basic decay descriptors such as the momenta of all particles involved and the decay vertices of unstable particles.
+%Moreover, there doesn't seem to be a critical decay geometry that triggers the vertexing;
+%for instance, there is no evidence that $\Lambda^0 \rightarrow p\pi^-$ decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), has any disproportionate representation amongst non-converged events.
+%
+%\subsection{Kinematics at first measurement position}
+%\label{sec:3:kinematics_at_first_meas}
+%A major discrepancy emerges when looking at particle interaction with the detector via \textit{protoparticles}.
+%A protoparticle is a data structure created during the LHCb event reconstruction process with the intent of encapsulating all relevant information available for the associated particle:
+%particle identification (PID) from the RICH and muon detectors, results from calorimeter hits and track information.
+%The latter contains details on momentum in relation to a certain reference point which, for stable charged particles, corresponds to the position of first measurement.
+%
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/pp_p_momentum_x.pdf}
+%	\caption{A.}
+%	\label{fig:pp_p_px_conv_vs_failed}
+%\end{figure}
+%
+%In the case of simulated protons from $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$ decays, the distribution of the
+%%true\footnote{While protoparticles result from interaction of the particle with the material, at this point I'm specifically considering the true value of the first measurement position and related momentum. Later on we'll instead delve into the \textit{reconstructed} counterparts of these quantities, which can be different as a result of poor T station measurements.}
+%protoparticle $p_x$ for converged and failed events shows a marked difference outlined in Figure \ref{fig:pp_p_px_conv_vs_failed}:
+%correctly reconstructed events tend to have a double peak roughly centered in $\approx \pm \SI{1}{\gev}$, while missing events have a more traditional single peak centered in $0$.
+%
+%%% todo: spezza in due? Fixa anche il testo poco dopo.
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pp_p_refPoint_y_vs_p_momentum_x.pdf}
+%	\caption{B.}
+%	\label{fig:pp_p_px_vs_refpy_conv_vs_failed}
+%\end{figure}
+%
+%Even more interestingly, this discrepancy can be put in relation to the $y$ component of the protoparticle first measurement position, as seen in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed}.
+%The ring-like structure in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed} implies that the vertexing process struggles to reconstruct proton protoparticles with low $p_x$ hitting the T stations at $y\approx 0$.
+%No such discrepancy is present in the case of pions.
+%
+%A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation.
+%Even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
+%Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
+%As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
-No difference among the two categories emerge when considering basic decay descriptors such as the momenta of all particles involved and the decay vertices of unstable particles.
-Moreover, there doesn't seem to be a critical decay geometry that triggers the vertexing;
-for instance, there is no evidence that $\Lambda^0 \rightarrow p\pi^-$ decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), has any disproportionate representation amongst non-converged events.
 
-\subsection{Kinematics at first measurement position}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Study of decay kinematics before and after interaction with the detector}
 \label{sec:3:kinematics_at_first_meas}
-A major discrepancy emerges when looking at particle interaction with the detector via \textit{protoparticles}.
-A protoparticle is a data structure created during the LHCb event reconstruction process with the intent of encapsulating all relevant information available for the associated particle:
-particle identification (PID) from the RICH and muon detectors, results from calorimeter hits and track information.
-The latter contains details on momentum in relation to a certain reference point which, for stable charged particles, corresponds to the position of first measurement.
+To gather information on the possible sources of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I investigated the collective properties of a sample of \demonstratorshort decays in search of significant discrepancies between converged and failed events.
+
+No difference between the two categories emerged at Monte Carlo level when considering the true values of basic kinematic variables such as daughter particle momenta or decay vertices locations of the three unstable particles \lbz, \lz and \jpsi.
+Moreover, there doesn't seem to be a critical decay geometry that triggers the vertexing issues;
+for instance, there is no evidence that \lambdadecay decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), have any disproportionate representation amongst non-converged events.
+This rules out the hypothesis that the failure of vertex fit convergence be caused by particle characteristics at production, such as protons and pions with unusually low transverse momentum \pt.
+
+I also considered the possibility that kinematic asymmetries between converged and failed events may arise after interaction with the LHCb detector;
+one example of this would be the case where failed events correlate with hits in a specific sections of the IT or OT trackers.
+To this end I studied the event \textit{protoparticles}, data structures created during the LHCb event reconstruction process with the intent of encapsulating all relevant information available for the associated particle:
+particle identification from the RICH and muon detectors, results from calorimeter hits and track information.
+Tracks themselves contain details on momentum in relation to a certain reference point which, for stable charged particles, corresponds to the position of first measurement.
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/pp_p_momentum_x.pdf}
-	\caption{A.}
-	\label{fig:pp_p_px_conv_vs_failed}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_x.pdf}
+		\caption{}
+		\label{fig:3:p_momentum_x}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_y.pdf}
+		\caption{}
+		\label{fig:3:p_momentum_y}
+	\end{subfigure}
+	\caption{Normalized distributions of proton protoparticles $p_x$ \textit{(a)} and $p_y$ \textit{(b)} components. Distributions of events with converging vertex are depicted with \textit{horizontal hatching}, non-converging with \textit{diagonal hatching}.}
+	\label{fig:3:p_protioparticle_momenta}
 \end{figure}
 
-In the case of simulated protons from $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$ decays, the distribution of the
-%true\footnote{While protoparticles result from interaction of the particle with the material, at this point I'm specifically considering the true value of the first measurement position and related momentum. Later on we'll instead delve into the \textit{reconstructed} counterparts of these quantities, which can be different as a result of poor T station measurements.}
-protoparticle $p_x$ for converged and failed events shows a marked difference outlined in Figure \ref{fig:pp_p_px_conv_vs_failed}:
-correctly reconstructed events tend to have a double peak roughly centered in $\approx \pm \SI{1}{\gev}$, while missing events have a more traditional single peak centered in $0$.
+Figure \ref{fig:3:p_momentum_x} depicts the only major discrepancy between converged and failed events I found in this process:
+non-converged \lbz decays have a proton protoparticle $p_x$ distribution concentrated in $p_x \approx 0$, while converged decays show even dispersion of the central peak in the $[-\SI{1}{\gev},\SI{1}{\gev}]$ region.
+This is to be contrasted with $p_y$, the other component of the protoparticle transverse momentum, whose two distributions are almost overlapping (Figure \ref{fig:3:p_momentum_y}).
+While statistics in the reduced samples are too low to say for sure, pions do not appear to show similar discrepancies in their protoparticles.
 
-%% todo: spezza in due? Fixa anche il testo poco dopo.
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pp_p_refPoint_y_vs_p_momentum_x.pdf}
-	\caption{B.}
-	\label{fig:pp_p_px_vs_refpy_conv_vs_failed}
-\end{figure}
+Assuming $p_x$ measurement at detector level is not biased, this result suggests that protons from failed events have generally lower $p_x$ when they reach the T stations;
+this would not be apparent from \pt distributions at the point of production, since the final $p_x$ value depends on the bending radius imprinted by the magnet (which in turn depends on momentum and distance traveled).
+Such low values of $p_x$ are potentially more susceptible to poor measurement by the T stations, which in turn affects the overall momentum resolution based on the particle bending radius in the $xz$ plane.
 
-Even more interestingly, this discrepancy can be put in relation to the $y$ component of the protoparticle first measurement position, as seen in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed}.
-The ring-like structure in Figure \ref{fig:pp_p_px_vs_refpy_conv_vs_failed} implies that the vertexing process struggles to reconstruct proton protoparticles with low $p_x$ hitting the T stations at $y\approx 0$.
-No such discrepancy is present in the case of pions.
+%Low values of $p_x$ imply roughly perpendicular incidence in the $xz$ bending plane used for momentum measurement by the T stations, which would affect the already poor momentum resolution 
+%
+%The correlation between low proton protoparticle $p_x$ and vertexing failure contains a valuable hint:
+%converged and failed events may not differ in \pt of protons and pions at the point of productions, but it's possible that they do at the point of first measurement, after the particles are bent by the magnet.
+%
+%Poor measurement of $p_x$
+%
+%A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation:
+%even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
+%Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
+%As such, \lambdadecay events with low $p_x (p)$ when the proton reaches the T stations would be more suscetible to poor momentum measurement and 
+%
+%The link between 
+%
+%
+%As such, one possible interpretation of the correlation between proton protoparticle $p_x$ and failure in vertexing is that 
+%One possible interpretation is thus that
+%
+%As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
-A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation.
-Even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
-Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
-As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
-
-\subsection{Kinematics at true vertex}
+\subsection{Study of decay kinematics after extrapolation}
 \label{sec:3:true_vtx_kinematics}
 As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the \lz vertex is affected by a significant positive bias of median value $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{43}{\centi\meter}$.
 In spite of such a discrepancy, the standard modus operandi for kinematics-at-vertex analyses usually compares the true momenta (evaluated at the true vertex) with the reconstructed momenta (evaluated at the reconstructed vertex).

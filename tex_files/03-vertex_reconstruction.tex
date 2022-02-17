@@ -519,7 +519,7 @@ It follows that, for the vast majority of missing events, failure of convergence
 \end{figure}
 
 This is readily apparent when studying the vertex positions throughout the iterating process for examples of converged and failed events of simulated signal.
-Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\text{vtx}^\Lambda$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $i=0$ to $10$ ($i=0$ being the starting seed).
+Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex, as reconstructed by the VF in iterations $i=0$ to $10$ ($i=0$ being the starting seed).
 Figure \ref{fig:z_iter_conv} (converged) exhibits the expected behaviour, with the algorithm refining its vertex estimate after every iteration and finally converging as early as $i=5$.
 By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\text{vtx}^\Lambda$, swinging by as much as \SI{1}{\meter} in the opposite direction after an iteration completes.
 While a particularly tricky instance of the first type of event may potentially benefit by an increased $i_\text{max}$, no amount of allotted computations can lead the second type to convergence.
@@ -566,12 +566,8 @@ While the points of closest distance between the tracks in the two planes are no
 \end{figure}
 
 The behaviour for the non-converged event from Figure \ref{fig:z_iter_failed}, shown in Figure \ref{fig:3:failed_event_topology}, is drastically different.
-The dotted line following the best vertex estimate through iterations in the bending plane (Figure \ref{fig:3:failed_zx}) shows that the algorithm gravitates \textit{around} the point of closest distance between proton and pion tracks ($z \approx \SI{6.25}{\meter}$), never outright never outright choosing it as candidate.
+The dotted line following the best vertex estimate through iterations in the bending plane (Figure \ref{fig:3:failed_zx}) shows that the algorithm gravitates \textit{around} the point of closest distance between proton and pion tracks ($z \approx \SI{6.25}{\meter}$), never outright choosing it as candidate.
 On the other hand, in the $yz$ plane (Figure \ref{fig:3:failed_zx}) the two tracks cross at a much more downstream point ($z \approx \SI{7.5}{\meter}$), which the Vertex Fitter also largely ignores during the iteration process.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-a
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %Some more insight into the nature of this oscillation can be achieved by taking a more <<geometrical>> look, plotting inter-iteration vertex coordinates in the $zx$ plane where the LHCb magnet bends tracks according to their charge.
 %Figure \ref{fig:zx_iter_conv_vs_failed} compares the same events from Figure \ref{fig:z_iter_conv_vs_failed}.
@@ -597,9 +593,19 @@ a
 	\label{fig:3:converged_detached_event_topology}
 \end{figure}
 
-While it may be tempting to attribute the failed convergence to the comparatively larger gap between proton and pion tracks at their point of closest distance, some observations are in order:
-first, the deceivingly different $x$ scales in Figures \ref{fig:zx_iter_conv} and \ref{fig:zx_iter_failed} mean that in the latter tracks are closer than they may seem;
-more to the point, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation in converged events, as demonstrated in Figure \ref{fig:zx_iter_conv_backstep}.
+It may be tempting to attribute the failed convergence in this event to the comparatively larger gap between proton and pion tracks at their point of closest distance in the bending plane.
+However, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation: the converged event shown in Figure \ref{fig:3:converged_detached_event_topology} has a closest track distance of some \SI{40}{\centi\meter}, an order of magnitude greater than the track distance seen in Figure \ref{fig:3:failed_event_topology}.
+Despite the large gap, the VF is able to recognize $z \approx \SI{3}{\meter}$ as the best candidate for the vertex, even if said point is far removed from the actual \lambdadecay decay vertex.
+
+%While it may be tempting to attribute the failed convergence to the comparatively larger gap between proton and pion tracks at their point of closest distance, some observations are in order:
+%first, the deceivingly different $x$ scales in Figures \ref{fig:zx_iter_conv} and \ref{fig:zx_iter_failed} mean that in the latter tracks are closer than they may seem;
+%more to the point, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation in converged events, as demonstrated in Figure \ref{fig:zx_iter_conv_backstep}.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+a
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 We can make a more convincing remark by analyzing performance in the $yz$ plane, where tracks \textit{don't} bend.
 Figure \ref{fig:zy_iter_conv} shows that, in the converged case, the $yz$ track crossing is $z$-aligned with the closest $xz$ distance point.

@@ -505,75 +505,101 @@ It follows that, for the vast majority of missing events, failure of convergence
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_converged_z_iter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt0_vertex_z.pdf}
 		\caption{}
 		\label{fig:z_iter_conv}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_failed_z_iter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt83_vertex_z.pdf}
 		\caption{}
 		\label{fig:z_iter_failed}
 	\end{subfigure}
-	\caption[A and b.]{Left right}
+	\caption{Best values of tentative \lambdadecay vertex $z$ component at the end of each Vertex Fitter iteration for examples of converged \textit{(a)} and failed \textit{(b)} events.}
 	\label{fig:z_iter_conv_vs_failed}
 \end{figure}
 
 This is readily apparent when studying the vertex positions throughout the iterating process for examples of converged and failed events of simulated signal.
-Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\text{vtx}^\Lambda$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $0$ to $10$ ($i=0$ being the starting seed).
+Figure \ref{fig:z_iter_conv_vs_failed} compares the values of $z_\text{vtx}^\Lambda$, the $z$ component of the $\Lambda^0 \rightarrow p\pi^-$ decay vertex, as reconstructed by the VF in iterations $i=0$ to $10$ ($i=0$ being the starting seed).
 Figure \ref{fig:z_iter_conv} (converged) exhibits the expected behaviour, with the algorithm refining its vertex estimate after every iteration and finally converging as early as $i=5$.
-By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\text{vtx}^\Lambda$, constantly flipping the probing direction after an iteration completes.
+By contrast, Figure \ref{fig:z_iter_failed} (failed) presents an \textit{oscillating behaviour} of $z_\text{vtx}^\Lambda$, swinging by as much as \SI{1}{\meter} in the opposite direction after an iteration completes.
 While a particularly tricky instance of the first type of event may potentially benefit by an increased $i_\text{max}$, no amount of allotted computations can lead the second type to convergence.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_converged_zx_iter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_0_zx.pdf}
 		\caption{}
-		\label{fig:zx_iter_conv}
+		\label{fig:3:converged_zx}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_failed_zx_iter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_0_zy.pdf}
 		\caption{}
-		\label{fig:zx_iter_failed}
+		\label{fig:3:converged_zy}
 	\end{subfigure}
-	\caption[A and b.]{Dovrebbero essere gli stessi eventi della figura precedente, altrimenti non è elegante.}
-	\label{fig:zx_iter_conv_vs_failed}
+	\caption{\lambdadecay decay topology for an instance of converged event, projected in the $xz$ \textit{(a)} and $yz$ \textit{(b)} planes.
+	The temporary best vertex locations chosen by the Vertex Fitter at the end of each iterations are marked with \textit{diagonal crosses} and linked by the \textit{dotted line} in iteration order (the second iteration best vertex is connected to the first, the third to the second and so on).
+	The reconstructed vertex, while not explicitly represented, can be identified by the cluster of vertex point markers.
+	At the beginning of each iteration, daughter particles are extrapolated at the $z$ of the best vertex of the previous iteration: proton (\textit{solid line}) and pion (\textit{dashed line}) tracks are drawn joining the respective reference points after transportation in order of decreasing $z$ (i.e. not in iteration order).
+	The true vertex is marked by the \textit{large Greek cross}.}
+	\label{fig:3:converged_event_topology}
 \end{figure}
 
-Some more insight into the nature of this oscillation can be achieved by taking a more <<geometrical>> look, plotting inter-iteration vertex coordinates in the $zx$ plane where the LHCb magnet bends tracks according to their charge.
-Figure \ref{fig:zx_iter_conv_vs_failed} compares the same events from Figure \ref{fig:z_iter_conv_vs_failed}.
-Again, the converged event in Figure \ref{fig:zx_iter_conv} behaves as intended, selecting as vertex roughly the point of closest distance between the tracks (some leeway is accorded since the fit also incorporates information from $xy$ and $yz$ planes).
-%% @todo: con la figura finale accertati di non stare descrivendo cazzate.
-The progress in Figure \ref{fig:zx_iter_failed} is more interesting: in the failed case the estimated vertex, identified at each iteration by <<x>> markers along the dashed line, appears to gravitate \textit{around} the point of closest distance, never outright choosing it as candidate.
-Significantly, the \textit{true} $\Lambda^0$ vertex (marked by the green cross) lags some \SI{50}{\centi\meter} behind it.
+We can gain more insight into the nature of this oscillation by approaching the problem from a more <<geometrical>> point of view.
+Figure \ref{fig:3:converged_event_topology} shows the topology of the converged event from Figure \ref{fig:z_iter_conv} in the bending $xz$ and non-bending $yz$ planes.
+While the points of closest distance between the tracks in the two planes are not exactly matched, the algorithm manages to converge on a vertex position that is reasonably close to the true position from the generated decay.
 
-%% @todo: Qui metti uno di quelli brutti, però. Attualmente la distanza è troppo poca.
-\begin{figure}
+\begin{figure}[t]
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/evt_conv_backstep_zx_iter.pdf}
-	\caption{A.}
-	\label{fig:zx_iter_conv_backstep}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_83_zx.pdf}
+		\caption{}
+		\label{fig:3:failed_zx}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_83_zy.pdf}
+		\caption{}
+		\label{fig:3:failed_zy}
+	\end{subfigure}
+	\caption{\lambdadecay decay topology for an instance of non-converged event, projected in the $xz$ \textit{(a)} and $yz$ \textit{(b)} planes.
+	Notation follows the one in Figure \ref{fig:3:converged_event_topology}.}
+	\label{fig:3:failed_event_topology}
+\end{figure}
+
+The behaviour for the non-converged event from Figure \ref{fig:z_iter_failed}, shown in Figure \ref{fig:3:failed_event_topology}, is drastically different.
+The dotted line following the best vertex estimate through iterations in the bending plane (Figure \ref{fig:3:failed_zx}) shows that the algorithm gravitates \textit{around} the point of closest distance between proton and pion tracks ($z \approx \SI{6.25}{\meter}$), never outright never outright choosing it as candidate.
+On the other hand, in the $yz$ plane (Figure \ref{fig:3:failed_zx}) the two tracks cross at a much more downstream point ($z \approx \SI{7.5}{\meter}$), which the Vertex Fitter also largely ignores during the iteration process.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+a
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Some more insight into the nature of this oscillation can be achieved by taking a more <<geometrical>> look, plotting inter-iteration vertex coordinates in the $zx$ plane where the LHCb magnet bends tracks according to their charge.
+%Figure \ref{fig:zx_iter_conv_vs_failed} compares the same events from Figure \ref{fig:z_iter_conv_vs_failed}.
+%Again, the converged event in Figure \ref{fig:zx_iter_conv} behaves as intended, selecting as vertex roughly the point of closest distance between the tracks (some leeway is accorded since the fit also incorporates information from $xy$ and $yz$ planes).
+%The progress in Figure \ref{fig:zx_iter_failed} is more interesting: in the failed case the estimated vertex, identified at each iteration by <<x>> markers along the dashed line, appears to gravitate \textit{around} the point of closest distance, never outright choosing it as candidate.
+%Significantly, the \textit{true} $\Lambda^0$ vertex (marked by the green cross) lags some \SI{50}{\centi\meter} behind it.
+
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_6_zx.pdf}
+		\caption{}
+		\label{fig:3:converged_detached_zx}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_6_zy.pdf}
+		\caption{}
+		\label{fig:3:converged_detached_zy}
+	\end{subfigure}
+	\caption{\lambdadecay decay topology for an instance of converged event with large track gap in the $xz$ plane, projected in the $xz$ \textit{(a)} and $yz$ \textit{(b)} planes.
+	Notation follows the one in Figure \ref{fig:3:converged_event_topology}.}
+	\label{fig:3:converged_detached_event_topology}
 \end{figure}
 
 While it may be tempting to attribute the failed convergence to the comparatively larger gap between proton and pion tracks at their point of closest distance, some observations are in order:
 first, the deceivingly different $x$ scales in Figures \ref{fig:zx_iter_conv} and \ref{fig:zx_iter_failed} mean that in the latter tracks are closer than they may seem;
 more to the point, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation in converged events, as demonstrated in Figure \ref{fig:zx_iter_conv_backstep}.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_converged_zy_iter.pdf}
-		\caption{}
-		\label{fig:zy_iter_conv}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/evt_failed_zy_iter.pdf}
-		\caption{}
-		\label{fig:zy_iter_failed}
-	\end{subfigure}
-	\caption[A and b.]{Devono essere gli stessi eventi della figura precedente, altrimenti non ha senso lol.}
-	\label{fig:zy_iter_conv_vs_failed}
-\end{figure}
 
 We can make a more convincing remark by analyzing performance in the $yz$ plane, where tracks \textit{don't} bend.
 Figure \ref{fig:zy_iter_conv} shows that, in the converged case, the $yz$ track crossing is $z$-aligned with the closest $xz$ distance point.

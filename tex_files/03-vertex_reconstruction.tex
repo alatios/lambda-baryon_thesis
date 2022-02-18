@@ -429,16 +429,18 @@ This algorithm takes the entire decay chain as input and allows to place mass co
 
 %% @todo: Ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.
 
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=\textwidth]{graphics/04-event_selection/paper_momentum_resolutions.pdf}
-	\caption[Momentum resolution.]{Momentum resolution.}
-	\label{fig:paper_momentum_resolutions}
-\end{figure}
+%\begin{figure}[t]
+%	\centering
+%	\includegraphics[width=\textwidth]{graphics/04-event_selection/paper_momentum_resolutions.pdf}
+%	\caption[Momentum resolution.]{Momentum resolution.}
+%	\label{fig:paper_momentum_resolutions}
+%\end{figure}
 
 While this step introduces another filtering process and related efficiency to account for\footnote{DTF convergence efficiency with the double mass constraint is relatively uneven across the $z_\Lambda^\textbf{vtx}$ spectrum, starting at $\approx 50\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{6}{\meter}$ and growing up to $\approx 85\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{7.5}{\meter}$.
-Comparatively, vertex reconstruction is still the primary cause of event loss in this analysis.}, it proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution.
-As shown in Figure \ref{fig:paper_momentum_resolutions}, using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20$--$30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the \lz momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
+Comparatively, vertex reconstruction is still the primary cause of event loss in this analysis.}, it proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution:
+using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20$--$30\%$ to $\approx 10\%$ for protons and pions alike.
+%As shown in Figure \ref{fig:paper_momentum_resolutions},
+%Using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20$--$30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the \lz momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
 
 %% Con KineAtVtx non è più vero.
 %For the purposes of the helicity angle analysis outlined in Section \ref{sec:lambda}, particle momenta computed with the DTF algorithm are particularly valuable because, in addition to their greater accuracy, they are provided directly at the production vertex;
@@ -774,6 +776,29 @@ More relevant for this chapter is Figure \ref{fig:pim_momentum_residual_2Dv3D_z_
 	\label{fig:pim_refpoint_residual_2Dv3D_x_rel}
 \end{figure}
 
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_x_rel_matter.pdf}
+		\caption{}
+		\label{fig:pim_momentum_residual_2Dv3D_x_rel_matter}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_x_rel_antimatter.pdf}
+		\caption{}
+		\label{fig:pim_momentum_residual_2Dv3D_x_rel_antimatter}
+	\end{subfigure}
+	\caption[A and b.]{Left right}
+	\label{fig:3:pim_momentum_residual_2Dv3D_x_rel}
+\end{figure}
+
+\begin{figure}[t]
+	\centering	
+	\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pion_biases_diagram.png}
+	\caption{A.}
+	\label{fig:3:pion_biases_diagram}
+\end{figure}
+
 This behaviour can also be observed from a different perspective by considering the pion reference point $x$ residuals\footnote{The Runge-Kutta extrapolator transports a particle up to a specified $z$ coordinate. As a consequence, $x$ and $y$ reference points gauge the discrepancy between track extrapolation and the true position of the MC particle at said $z$, with $z_\text{ref}^\text{RK} \approx z_\text{ref}^\text{true}$ within extrapolator tolerance.}, plotted in Figure \ref{fig:pim_refpoint_residual_2Dv3D_x_rel}.
 For this part of the analysis, we forgo the established omission of charge-conjugate notation and separate events in matter ($\Lambda^0 \rightarrow p\pi^-$) and antimatter ($\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$) events.
 Since all events in this sample have magnet polarity $M_\text{pol} = +1$, i.e. magnetic field flowing towards the positive direction of the $y$ axis,
@@ -949,7 +974,7 @@ This tendency is likely the result of the systematic T track $p_z$ underestimati
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/Lambda_endvertex_z_bias_pulls_2D_vs_3D.pdf}
-	\caption{A.}
+	\caption{Normalized distribution of $z_\text{vtx}^\Lambda$ pulls in simulated \demonstratorshort events: decays reconstructed with the Vertex Fitter are labeled with \textit{horizontal hatching}, decays recovered via the sequential application of $\sigma$-rescaled algorithms with \textit{diagonal hatching}.}
 	\label{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel}
 \end{figure}
 

@@ -154,7 +154,7 @@ The resulting median bias is $\approx \SI{44}{\centi\meter}$.
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=.7\textwidth]{graphics/04-event_selection/horizontality_illustration_bw.png}
-	\caption{Deptiction of three \lambdadecay configurations and the associated horizontality values. The horizontal planes in the top and bottom diagrams are aligned to the LHCb $xz$ plane, the vertical plane in the middle diagram to the $yz$ plane.}
+	\caption{Depiction of three \lambdadecay configurations and the associated horizontality values. The horizontal planes in the top and bottom diagrams are aligned to the LHCb $xz$ plane, the vertical plane in the middle diagram to the $yz$ plane.}
 	\label{fig:4:horizontality_explanation}
 \end{figure}
 
@@ -224,7 +224,7 @@ No selection on reconstructed variables is possible to filter this class of even
 Figure \ref{fig:4:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
 Their impact on the overall performance on signal is nevertheless neglectable, since this events amount to roughly 1.7\% of the prefiltered simulated sample.
 
-\section{Physical background veto}
+\section{Physical background rejection}
 \label{sec:4:phys_bkg}
 %Most physics analyses conducted with hadron colliders are up against two different sources of background with the same (or similar) final state as the searched signal:
 %\begin{enumerate}
@@ -245,6 +245,8 @@ in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions 
 However, this is where the experimental nature of physics analyses with T tracks becomes relevant once again:
 due to technical issues in the implementation, RICH2 information for particle identification is unavailable for T tracks recorded during LHC Runs 1 and 2\footnote{A large effort by the Milan and Valencia LHCb research groups is underway at the time of writing to implement RICH2 information in T track trigger lines for Run 3.}, making \physbkgshort discrimination much more difficult.
 
+\subsection{Veto on invariant mass with pion mass hypothesis}
+
 \label{sec:B0_veto}
 \begin{figure}[t]
 	\centering
@@ -261,6 +263,8 @@ due to technical issues in the implementation, RICH2 information for particle id
 	\caption{Comparison of simulated $m(\pi^+\pi^-)$ \textit{(a)} and $m(J/\psi~K^0_S)$ \textit{(b)} distributions: \demonstratorshort events with $p\rightarrow \pi^+$ mass hypothesis are labeled by \textit{horizontal hatching}, \physbkgshort events by \textit{diagonal hatching}.}
 	\label{fig:4:phys_bkg_distributions}
 \end{figure}
+
+[@todo: da rendere più chiaro e riordinare in ottica di AP]
 
 To address this issue, events must pass a physical background selection based on the results of a Decay Tree Fitter refit with $p\rightarrow \pi^+$ mass hypothesis and kinematic constraints on the $J/\psi$ and $K_S^0$ invariant masses.
 The veto rejects an event if the DTF refit converges and $m(J/\psi~K_S^0)$ is too close in value to the $B^0$ PDG mass, i.e.
@@ -295,6 +299,8 @@ Figure \ref{fig:4:phys_bkg_veto_eff_thres} shows the veto efficiency on \demonst
 The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal while rejecting 64\% of background;
 signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
 
+\subsection{Armenteros-Podolanski technique}
+@todo
 
 \section{HBDT classifier}
 \label{sec:HBDT}

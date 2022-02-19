@@ -595,29 +595,23 @@ On the other hand, in the $yz$ plane (Figure \ref{fig:3:failed_zx}) the two trac
 	\label{fig:3:converged_detached_event_topology}
 \end{figure}
 
-It may be tempting to attribute the failed convergence in this event to the comparatively larger gap between proton and pion tracks at their point of closest distance in the bending plane.
-However, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation: the converged event shown in Figure \ref{fig:3:converged_detached_event_topology} has a closest track distance of some \SI{40}{\centi\meter}, an order of magnitude greater than the track distance seen in Figure \ref{fig:3:failed_event_topology}.
+Failed convergence in this event cannot be attributed to the comparatively larger gap between proton and pion tracks at their point of closest distance in the bending plane.
+The VF algorithm has shown to be capable of bridging an imperfect track extrapolation: the converged event shown in Figure \ref{fig:3:converged_detached_event_topology} has a closest track distance of some \SI{40}{\centi\meter}, an order of magnitude greater than the track distance seen in Figure \ref{fig:3:failed_event_topology}.
 Despite the large gap, the VF is able to recognize $z \approx \SI{3}{\meter}$ as the best candidate for the vertex, even if said point is far removed from the actual \lambdadecay decay vertex.
 
 %While it may be tempting to attribute the failed convergence to the comparatively larger gap between proton and pion tracks at their point of closest distance, some observations are in order:
 %first, the deceivingly different $x$ scales in Figures \ref{fig:zx_iter_conv} and \ref{fig:zx_iter_failed} mean that in the latter tracks are closer than they may seem;
 %more to the point, the VF algorithm has shown to be capable of bridging an imperfect track extrapolation in converged events, as demonstrated in Figure \ref{fig:zx_iter_conv_backstep}.
 
+The more convincing explanation for the vertex oscillation is therefore that the candidate vertices in the $xz$ and $yz$ planes are too far apart for the VF to reconcile the two; the algorithm is not equipped to favour one over the other, leading to meter-wide swings when it strays too far off from either of them.
+Convergence failure in Figure \ref{fig:3:failed_event_topology} can thus be interpreted through the lens of \textit{conflicting information}.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-a
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-We can make a more convincing remark by analyzing performance in the $yz$ plane, where tracks \textit{don't} bend.
-Figure \ref{fig:zy_iter_conv} shows that, in the converged case, the $yz$ track crossing is $z$-aligned with the closest $xz$ distance point.
-This doesn't happen for the failed event: while Figure \ref{fig:zy_iter_failed} shows that $yz$ tracks cross almost coinciding with the true vertex position, we have already pointed out that this is \SI{50}{cm} short of the $xz$ closest distance point.
-Convergence failure for the event in Figures \ref{fig:zx_iter_failed} and \ref{fig:zy_iter_failed} can thus be interpreted through the lens of \textit{conflicting information}:
-the best vertex candidate has different $z_\text{vtx}$ in the $xz$ (with magnetic field) and $yz$ (without magnetic field) planes, and the VF algorithm flip-flops between the two.
-
-For didactic purpose, the analysis in this section has focused on just one event.
-All the emerged patterns are however commonplace throughout the failed events I have examined, with the oscillating vertex behaviour in particular being a constant in almost all of them.
+In this section I have focused the analysis on one particular event for didactic purposes.
+%For didactic purposes, the analysis in this section has focused on just one event.
+All the outlined patterns are nonetheless commonplace throughout failed events I have examined, with the oscillating vertex behaviour in particular being a constant in all of them.
 While every \lbz vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\subsection{True kinematics}
 %To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
@@ -692,8 +686,8 @@ Tracks themselves contain details on momentum in relation to a certain reference
 		\caption{}
 		\label{fig:3:p_momentum_y}
 	\end{subfigure}
-	\caption{Normalized distributions of proton protoparticles $p_x$ \textit{(a)} and $p_y$ \textit{(b)} components. Distributions of events with converging vertex are depicted with \textit{horizontal hatching}, non-converging with \textit{diagonal hatching}.}
-	\label{fig:3:p_protioparticle_momenta}
+	\caption{Normalized distributions of proton protoparticles $p_x$ \textit{(a)} and $p_y$ \textit{(b)} components in simulated \lambdadecay events. Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
+	\label{fig:3:p_protoparticle_momenta}
 \end{figure}
 
 Figure \ref{fig:3:p_momentum_x} depicts the only major discrepancy between converged and failed events I found in this process:
@@ -732,26 +726,26 @@ In spite of such a discrepancy, the standard modus operandi for kinematics-at-ve
 
 For this section I have followed a different approach, instead opting to transport via Runge-Kutta extrapolator the reconstructed $p$ and $\pi^-$ at the true  $\Lambda^0 \rightarrow p\pi^-$ vertex position, injected from Monte Carlo information.
 Since the extrapolator takes raw protoparticles as inputs, this process bypasses any smoothing applied during the fit process and, given an observable $f$ (particle reference points and momenta, for instance), it allows for a comparison between the true value $f_\text{true}$ and the RK-extrapolated value $f_\text{RK}$ at the actual $z_\text{vtx}^\Lambda$, circumventing the effect of vertex bias.
-Any potential mismatch will be normalized in terms of \textit{residuals}
+Any potential mismatch will be normalized in terms of \textit{pulls}
 \begin{equation}
-	\text{res}(f) \coloneqq \frac{f_\text{RK} - f_\text{true}}{\sigma_f^\text{RK}},
+	\frac{f_\text{RK} - f_\text{true}}{\sigma_f^\text{RK}},
 \end{equation}
-with $\sigma_f^\text{RK}$ being the uncertainty computed by the RK algorithm.
-Assuming a correct estimation of such uncertainties, we expect the residuals to follow a standard normal distribution.
+with $\sigma_f^\text{RK}$ being the uncertainty computed by the RK extrapolator.
+Assuming correct estimation of such uncertainties, we expect the pulls to follow a standard normal distribution.
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_residual_2Dv3D_z_rel.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_p_momentum_residual_2Dv3D_z_rel.pdf}
 		\caption{}
 		\label{fig:p_momentum_residual_2Dv3D_z_rel}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_z_rel.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_pim_momentum_residual_2Dv3D_z_rel.pdf}
 		\caption{}
 		\label{fig:pim_momentum_residual_2Dv3D_z_rel}
 	\end{subfigure}
-	\caption[A and b.]{Left right}
+	\caption{Normalized distributions of proton \textit{(a)} and pion \textit{(b)} $p_z$ pulls after track extrapolation at the true simulated \lambdadecay vertex. Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
 	\label{fig:p_pim_momentum_residual_2Dv3D_z_rel}
 \end{figure}
 
@@ -763,39 +757,44 @@ More relevant for this chapter is Figure \ref{fig:pim_momentum_residual_2Dv3D_z_
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_refpoint_residual_2Dv3D_x_rel_matter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_pim_refpoint_residual_2Dv3D_x_rel_matter.pdf}
 		\caption{}
 		\label{fig:pim_refpoint_residual_2Dv3D_x_rel_matter}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_refpoint_residual_2Dv3D_x_rel_antimatter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_pim_refpoint_residual_2Dv3D_x_rel_antimatter.pdf}
 		\caption{}
 		\label{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}
 	\end{subfigure}
-	\caption[A and b.]{Left right}
+	\caption{Normalized distributions of the $x$ component pulls of the pion reference point in simulated $\Lambda^0 \rightarrow p\pi^-$ \textit{(a)} and $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ \textit{(b)} events after track extrapolation at the true $\Lambda^0$/$\bar{\Lambda}^0$ decay vertex.
+	Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
 	\label{fig:pim_refpoint_residual_2Dv3D_x_rel}
 \end{figure}
 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_x_rel_matter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_pim_momentum_residual_2Dv3D_x_rel_matter.pdf}
 		\caption{}
 		\label{fig:pim_momentum_residual_2Dv3D_x_rel_matter}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pim_momentum_residual_2Dv3D_x_rel_antimatter.pdf}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/NONCONVERGED_pim_momentum_residual_2Dv3D_x_rel_antimatter.pdf}
 		\caption{}
 		\label{fig:pim_momentum_residual_2Dv3D_x_rel_antimatter}
 	\end{subfigure}
-	\caption[A and b.]{Left right}
+	\caption{Normalized distributions of pion $p_x$ pulls in simulated $\Lambda^0 \rightarrow p\pi^-$ \textit{(a)} and $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ \textit{(b)} events after track extrapolation at the true $\Lambda^0$/$\bar{\Lambda}^0$ decay vertex.
+	Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
 	\label{fig:3:pim_momentum_residual_2Dv3D_x_rel}
 \end{figure}
 
 \begin{figure}[t]
 	\centering	
-	\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/pion_biases_diagram.png}
-	\caption{A.}
+	\includegraphics[width=.8\textwidth]{graphics/03-vertex_reconstruction/pim_bias_diagram.pdf}
+	\caption{Simplified \lambdadecay diagram demonstrating the relation between $p_z$ underestimation and bias on $\pi^-$ $x$ components of reference point and momentum after track extrapolation at the true vertex, denoted by the \textit{thick arrow on the left} and whose $z$ coordinate is traced with the \textit{vertical dotted line}.
+	The true (extrapolated) proton track is drawn as a \textit{solid} (\textit{dash-dotted}) arrow, the proton as a \textit{dashed} (\textit{short-dashed}) arrow.
+	The first measurement position, doubling as starting point for the backwards extrapolation, is marked by the \textit{thick vertical line on the right}.
+	The decay is shown in the $xz$ bending plane assuming the LHCb magnet in down polarity.}
 	\label{fig:3:pion_biases_diagram}
 \end{figure}
 
@@ -807,7 +806,7 @@ matter and antimatter daughter particles will bend in opposite directions due to
 
 Comparing Figures \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter} and \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}, $x$ components of pion reference points in non-converged events show opposite bias when extrapolated at the \lz vertex.
 Such a behaviour is easily understood in terms of transportation: tracks are extrapolated from downstream protoparticles towards decreasing $z$;
-if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\text{vtx}^\Lambda$ will have an offset with respect to the actual origin vertex of the particle with polarity-depdendent sign (cf. Figure \ref{fig:zx_iter_failed}).
+if the magnetic bending effect in the $zx$ plane is overstated (if tracks <<bend too much>>), the resulting $x$ reference point at true $z_\text{vtx}^\Lambda$ will have an offset with respect to the actual origin vertex of the particle with polarity-dependdent sign (cf. Figure \ref{fig:zx_iter_failed}).
 
 Excessive bending is exactly what is expected of a track with correctly estimated $p_x$ and $p_y$, but underestimated $p_z$.
 Furthermore, a lower $p_z$ will affect the closest distance point between proton and pions in the $zx$ plane, but will have a much lower impact on the track crossing point in the $yz$ plane,
@@ -898,23 +897,28 @@ For the remainder of this section, I'll also refer to their sequential applicati
 As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on a sample of [@todo:how many] MC-generated \demonstratorshort events, observing a $+25\%$ increase in reconstructed events.
 As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a quarter of all reconstructible events.
 
-%% @todo: rimpiazza DTF JPsi con DTF JPsiLambda
-%% @todo: sostituisci con multicolumn? Median bias: zvtx, pdtf?
+%% Usato FixJPsi perché altrimenti devi incorporare il vincolo DTF e che palle.
+%% @todo: devi rirunnare individualmente gli eventi e confrontarli! I sigma-singoli, in pratica, VF e Sequential li ho aggiornati.
 \begin{table}[t]
 	\begin{center}
 	\begin{tabular}{@{}lllll@{}}
 		\toprule
-		Increased $\sigma$ & Recovery eff. & $\mu_\frac{1}{2}\left[\tilde{\chi}^2_\text{vtx}\right]$ & $\mu_\frac{1}{2}\left[z_\text{vtx}^\Lambda \text{ bias}\right]$ & $\mu_\frac{1}{2}\left[p_z^\text{DTF} (p) \text{ bias}\right]$ \\
+		Increased $\sigma$ & Recovery efficiency & Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$ & \multicolumn{2}{c}{Median bias} \\
+		\cmidrule{4-5}
+		&&& $z_\text{vtx}^\Lambda$ [mm] & $p_z^\text{DTF} (p)$ \\
 		\midrule
-		None (VF)  & -- & 1.0 & 429 mm & $+1.35\%$ \\
-		$\sigma_x$ & 62\% & 4.9 & 584 mm & $-0.84\%$ \\
-		$\sigma_y$ & 74\% & 5.4 & 635 mm & $-0.81\%$ \\
-		$\sigma_z$ & 80\% & 7.8 & 697 mm & $-1.02\%$ \\
-		Sequential & 100\% & 6.5 & 646 mm & $-0.93\%$ \\
+		None (VF)  & -- & 1.0 & 399 & $+0.02\%$ \\
+		$\sigma_x$ &  &  &  &  \\
+		$\sigma_y$ &  &  &  &  \\
+		$\sigma_z$ &  &  &  &  \\
+		Sequential & 100\% (definition) & 7.1 & 604 & $-0.81\%$ \\
 		\bottomrule
 	\end{tabular}
 	\end{center}
-	\caption[Performance comparison of the three rescaled-$\sigma$ algorithms.]{Performance comparison of the three rescaled-$\sigma$ algorithms with $s_i=0.98$ (see text for details), contrasted with the performance of their sequential application ($\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$) and the standard Vertex Fitter algorithm. Recovery efficiency is defined as the ratio of events reconstructed by a certain flavour over the total number of events recoverable by combining the three algorithms. $\mu_\frac{1}{2}$ identifies the median value. Performances for $xyz$ algorithms are computed using all events recovered by the individual flavour, including events recovered by more than one, while values for VF are computed on standard reconstructed events.}
+	\caption{Performance comparison of the three $\sigma$-rescaled algorithms with $s_i=0.98$, their sequential application ($\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$) and the standard Vertex Fitter algorithm (see text for details).
+	%Recovery efficiency for each $\sigma$-rescaled algorithm is computed over the total number of events recovered by their sequential application.
+	%Median performances for $\sigma_i$-rescaled algorithms are computed on all events recovered with the algorithm, including events also reaching convergence with other $\sigma$-rescaled algorithms, while values for the Vertex Fitter are computed on standard reconstructed events.
+	Proton $p_z$ is computed using the Decay Tree Fitter algortihm with \jpsi and \lz mass constraints.}
 	\label{tab:3:xyz_VF_performances}
 \end{table}
 
@@ -945,16 +949,16 @@ Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ 
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/3D_vs_2D_lambda_endvertex_bias_common.png}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_common.pdf}
 		\caption{}
 		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/3D_vs_2D_lambda_endvertex_bias_exclusive.png}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_exclusive.pdf}
 		\caption{}
 		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}
 	\end{subfigure}
-	\caption[A and b.]{Left right}
+	\caption{Normalized distributions of bias on the \lambdadecay vertex $z$ component reconstructed by the standard Vertex Fitter (\textit{horizontal hatching}) and $\sigma_x$-rescaled (\textit{diagonal hatching}) algorithms. The algorithms were individually run on the same simulated \demonstratorshort sample: \textit{(a)} shows distributions for events reconstructed by both algorithms, \textit{(b)} shows distributions for events only reconstructed by one or the other.}
 	\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}
 \end{figure}
 

@@ -897,27 +897,27 @@ For the remainder of this section, I'll also refer to their sequential applicati
 As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on a sample of [@todo:how many] MC-generated \demonstratorshort events, observing a $+25\%$ increase in reconstructed events.
 As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to about a quarter of all reconstructible events.
 
-%% Usato FixJPsi perché altrimenti devi incorporare il vincolo DTF e che palle.
-%% @todo: devi rirunnare individualmente gli eventi e confrontarli! I sigma-singoli, in pratica, VF e Sequential li ho aggiornati.
 \begin{table}[t]
 	\begin{center}
 	\begin{tabular}{@{}lllll@{}}
 		\toprule
-		Increased $\sigma$ & Recovery efficiency & Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$ & \multicolumn{2}{c}{Median bias} \\
+		Algorithm & Statistics increase & Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$ & \multicolumn{2}{c}{Median bias} \\
 		\cmidrule{4-5}
 		&&& $z_\text{vtx}^\Lambda$ [mm] & $p_z^\text{DTF} (p)$ \\
 		\midrule
-		None (VF)  & -- & 1.0 & 399 & $+0.02\%$ \\
-		$\sigma_x$ &  &  &  &  \\
-		$\sigma_y$ &  &  &  &  \\
-		$\sigma_z$ &  &  &  &  \\
-		Sequential & 100\% (definition) & 7.1 & 604 & $-0.81\%$ \\
+		VF  	 	& -- 		& 1.0 	& 399 & $+0.02\%$	\\
+		\midrule
+		$\sigma_x$ 	& $+15.0\%$	& 6.1 	& 541 & $-0.48\%$ 	\\
+		$\sigma_y$ 	& $+18.9\%$	& 5.8	& 573 & $-1.12\%$ 	\\
+		$\sigma_z$ 	& $+20.7\%$	& 9.2 	& 729 & $-0.71\%$  	\\
+		Sequential 	& $+26.4\%$	& 7.1 	& 604 & $-0.81\%$ 	\\
 		\bottomrule
 	\end{tabular}
 	\end{center}
 	\caption{Performance comparison of the three $\sigma$-rescaled algorithms with $s_i=0.98$, their sequential application ($\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$) and the standard Vertex Fitter algorithm (see text for details).
 	%Recovery efficiency for each $\sigma$-rescaled algorithm is computed over the total number of events recovered by their sequential application.
 	%Median performances for $\sigma_i$-rescaled algorithms are computed on all events recovered with the algorithm, including events also reaching convergence with other $\sigma$-rescaled algorithms, while values for the Vertex Fitter are computed on standard reconstructed events.
+	Median values for shown variables are computed on recovered events for $\sigma$-rescaled algorithm, standard reconstructed events for the Vertex Fitter.
 	Proton $p_z$ is computed using the Decay Tree Fitter algortihm with \jpsi and \lz mass constraints.}
 	\label{tab:3:xyz_VF_performances}
 \end{table}
@@ -945,6 +945,30 @@ Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ 
 %
 %Figure \ref{fig:3:Lambda_endvertex_z_bias_xyz_common} shows the $z_\text{vtx}^\Lambda$ bias of the individual $\sigma$-rescaled algorithms in the $\approx 36\%$ of recovered events which converge under all three variations.
 %Despite the difference in performance outlined in Table \ref{tab:3:xyz_VF_performances}
+
+%% Nota: non c'è colonna per i valori su tutti gli eventi ricostruiti con il tale algoritmo perché perlopiù sono inseriti nella tabella precedente.
+%% Nota: i valori nell'altra tabella sono molto più alti perché escludono i VF!!
+\begin{table}[t]
+	\begin{center}
+	\begin{tabular}{@{}lllllll@{}}
+		\toprule
+		Algorithm & \multicolumn{6}{c}{Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$} \\
+		\cmidrule{2-7}
+		& Common events & Exclusive events & \multicolumn{4}{c}{Pair-shared events}  \\
+		\cmidrule{4-7}
+		&&& VF & $\sigma_x$ & $\sigma_y$ & $\sigma_z$ \\
+		\midrule
+		VF 			& 1.35 & 0.32	& --	& 1.06	& 1.28	& 1.36	 \\
+		$\sigma_x$ 	& 1.36 & 3.18	& 1.09	& --	& 1.61	& 1.84	 \\
+		$\sigma_y$	& 1.38 & 3.13	& 1.32	& 1.63	& -- 	& 1.96	 \\
+		$\sigma_z$ 	& 1.41 & 51.52	& 1.45	& 1.88	& 2.01	& --	 \\
+		\bottomrule
+	\end{tabular}
+	\end{center}
+	\caption{Comparison of median $\tilde{\chi}^2_\text{vtx}$ of the \lambdadecay vertex fit performed by the Vertex Fitter and the three $\sigma$-rescaled algorithms (see text for details). Performances are reported on common events reconstructed by all four algorithms, on exclusive events reconstructed only by a specific algorithm, and on events reconstructed pairwise by at least two algorithms.}
+	\label{tab:3:xyz_chi2_performances}
+\end{table}
+
 
 \begin{figure}[t]
 	\centering

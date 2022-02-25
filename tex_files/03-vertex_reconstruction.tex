@@ -606,8 +606,6 @@ In this section I have focused the analysis on one particular event for didactic
 All the outlined patterns are nonetheless commonplace throughout failed events I have examined, with the oscillating vertex behaviour in particular being a constant in all of them.
 While every \lbz vertexing failure being the fault of $xz$ and $yz$ track mismatch would be a reckless conclusion, I have been able to use these findings, along with other from the following paragraphs, to devise a partial solution in Section \ref{sec:blowup_matrix}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %\subsection{True kinematics}
 %To further investigate the possible source of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I have conducted a systematic comparison of kinematic features at Monte Carlo level between converged and failed events.
 %
@@ -651,8 +649,6 @@ While every \lbz vertexing failure being the fault of $xz$ and $yz$ track mismat
 %Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
 %As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Decay kinematics before and after interaction with the detector}
 \label{sec:3:kinematics_at_first_meas}
@@ -911,7 +907,61 @@ Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize
 For the remainder of this section, I'll refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}.
 
 As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on the sample of [@todo:how many] MC-generated \demonstratorshort events previously used in this chapter, and observed a $+26.4\%$ increase in reconstructed events.
-As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to over a quarter of all reconstructible events.
+Given a vertexing efficiency $\lesssim 50\%$, as reported in Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to roughly a quarter of all missing reconstructible decays.
+Within these recovered events, 57.1\% converge under the $\sigma_x$ algorithm, 38.1\% under the $\sigma_y$ algorithm and the remaining 4.8\% under the $\sigma_z$ algorithm.
+
+%% Nota: non c'è colonna per i valori su tutti gli eventi ricostruiti con il tale algoritmo perché perlopiù sono inseriti nella tabella precedente.
+%% Nota: i valori nell'altra tabella sono molto più alti perché escludono i VF!!
+\begin{table}[t]
+	\begin{center}
+	\begin{tabular}{@{}lllllll@{}}
+		\toprule
+		Algorithm & \multicolumn{6}{c}{Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$} \\
+		\cmidrule{2-7}
+		& Common events & Exclusive events & \multicolumn{4}{c}{Pair-shared events}  \\
+		\cmidrule{4-7}
+		&&& VF & $\sigma_x$ & $\sigma_y$ & $\sigma_z$ \\
+		\midrule
+		VF 			& 1.35 & 0.32	& --	& 1.06	& 1.28	& 1.36	 \\
+		$\sigma_x$ 	& 1.36 & 3.18	& 1.09	& --	& 1.61	& 1.84	 \\
+		$\sigma_y$	& 1.38 & 3.13	& 1.32	& 1.63	& -- 	& 1.96	 \\
+		$\sigma_z$ 	& 1.41 & 51.52	& 1.45	& 1.88	& 2.01	& --	 \\
+		\bottomrule
+	\end{tabular}
+	\end{center}
+	\caption{Comparison of median $\tilde{\chi}^2_\text{vtx}$ of the \lambdadecay vertex fit performed by the Vertex Fitter and the three $\sigma$-rescaled algorithms (see text for details). Performances are reported on common events reconstructed by all four algorithms, on exclusive events reconstructed only by a specific algorithm, and on events reconstructed pairwise by at least two algorithms.}
+	\label{tab:3:xyz_chi2_performances}
+\end{table}
+
+I have also run each individual $\sigma$-rescaled algorithm in isolation (without the Vertex Fitter) on the simulated signal to evaluate their performances on all events, including standard-converging ones.
+Before proceeding, however, a digression is in order to better understand the meaning of \textit{performance} when comparing the algorithms.
+Table \ref{tab:3:xyz_chi2_performances} shows the median $\chi^2_\text{vtx}$ of the reconstructed vertices on specific subsamples of events.
+First I considered \textit{common} events, i.e. events converging under Vertex Fitter and all three $\sigma$-rescaled algorithms;
+for this subsample algorithm performances show very little variation, with marginal performance hierarchy of $\text{VF} > \sigma_x > \sigma_y > \sigma_z$.
+Said hierarchy also holds when doing a pairwise comparison between two algorithms on events converging under both:
+for instance, VF-$\sigma_x$ events have VF vertices with median $\tilde{\chi}^2_\text{vtx}$ of 1.06, slightly lower than the 1.09 of $\sigma_x$ vertices.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_common.pdf}
+		\caption{}
+		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_exclusive.pdf}
+		\caption{}
+		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}
+	\end{subfigure}
+	\caption{Normalized distributions of bias on the \lambdadecay vertex $z$ component reconstructed by the standard Vertex Fitter (\textit{horizontal hatching}) and $\sigma_x$-rescaled (\textit{diagonal hatching}) algorithms. The algorithms were individually run on the same simulated \demonstratorshort sample: \textit{(a)} shows distributions for events reconstructed by both algorithms, \textit{(b)} shows distributions for events only reconstructed by one or the other.}
+	\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}
+\end{figure}
+
+Where algorithm performances truly diverge is in \textit{esclusive} events, i.e. events only reconstructed by one particular algorithm.
+Events exclusive to the VF have a median $\tilde{\chi}^2_\text{vtx}$ of 0.32, while both $\sigma_x$ and $\sigma_y$ hover around a subpar $\approx 3$ and the $\sigma_z$ algorithm reaches an off scale value of 51.
+This discrepancy is also seen from a different perspective in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}: the $z_\text{vtx}^\Lambda$ residual distributions for VF and $\sigma_x$-rescaled algorithms on shared events are indistinguishable (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common}), while $\sigma_x$-exclusive events have a significant positive bias compared to the unbiased VF-exclusive ones (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}).
+This means that, while a minor hierarchy in fit quality does exist in the $\sigma$-rescaled algorithms, justifying the selected $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order, large discrepancies in performances are due to the specific events reaching convergence under a specific algorithm.
+The reason for the high median $\tilde{\chi}^2_\text{vtx}$ in $\sigma_z$-exclusive \lambdadecay decays is to be searched in poor track information in $xz$ and $yz$ planes, preventing convergence with $\sigma_x$/$\sigma_y$ algorithms and resulting in mediocre fits, rather than in a fault of the $\sigma_z$-rescaled implementation.
 
 \begin{table}[t]
 	\begin{center}
@@ -938,19 +988,28 @@ As per Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to over a q
 	\label{tab:3:xyz_VF_performances}
 \end{table}
 
+With this in mind, Table \ref{tab:3:xyz_VF_performances} reports the performance of the three $\sigma$-rescaled algorithms and the full $\sigma$-rescaled refit process on recovered events, compared to the VF performances on standard reconstructed events.
+
+%%%%%%%%%%%%%%% Qui.
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Questa parte è da riscrivere, my boy. Devi mettere in chiaro che non è "poor performance", è che fanno schifo gli eventi.
+%In terms of recovery power, the $\sigma_z$-rescaled algorithm favouring $xy$ plane information is the best one, providing a $+20.7\%$ increase in statistics when run in isolation.
+%Unfortunately, said algorithm also contributes 
 
-I have also run each algorithm individually after the standard VF to gauge their performance on the $n^\text{reco}_\text{tot}$ recovered events.
-Results of this test are compiled in Table \ref{tab:3:xyz_VF_performances}.
-When considering the \textit{recovery efficiency} of each algorithm, defined as the fraction of recovered events converging under said algorithm, i.e.
-\begin{equation}
-	\varepsilon^\text{reco}_i \rvert_{i\in\{x,y,z\}} = \frac{n_i^\text{reco}}{n_\text{tot}^\text{reco}},
-\end{equation}
-the $\sigma_z$-rescaled is the better performing one, reaching convergence in $\approx 80\%$ of recoverable events.
-Despite this, all three $\sigma$-rescaled algorithms have a sizable number of <<exclusive>> events that do not reach convergence under any other variation.
-Furthermore, while the $\sigma_z$-rescaled does recover more events by itself, only $\approx 5\%$ of the total recovered events are exclusive to it, meaning its overall impact on the $\sigma$-rescaled refit process is low.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The established $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order is justified in light of performance evaluation based on the goodness of these fits.
+%I have also run each algorithm individually after the standard VF to gauge their performance on the $n^\text{reco}_\text{tot}$ recovered events.
+%Results of this test are compiled in Table \ref{tab:3:xyz_VF_performances}.
+%When considering the \textit{recovery efficiency} of each algorithm, defined as the fraction of recovered events converging under said algorithm, i.e.
+%\begin{equation}
+%	\varepsilon^\text{reco}_i \rvert_{i\in\{x,y,z\}} = \frac{n_i^\text{reco}}{n_\text{tot}^\text{reco}},
+%\end{equation}
+%the $\sigma_z$-rescaled is the better performing one, reaching convergence in $\approx 80\%$ of recoverable events.
+%Despite this, all three $\sigma$-rescaled algorithms have a sizable number of <<exclusive>> events that do not reach convergence under any other variation.
+%Furthermore, while the $\sigma_z$-rescaled does recover more events by itself, only $\approx 5\%$ of the total recovered events are exclusive to it, meaning its overall impact on the $\sigma$-rescaled refit process is low.
+
+%The established $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order is justified in light of performance evaluation based on the goodness of these fits.
 As seen again in Table \ref{tab:3:xyz_VF_performances}, the $\sigma_x$-rescaled algorithm has comparatively lower vertex $\tilde{\chi}^2$, $z_\text{vtx}^\Lambda$ bias and proton $p_z$ bias using the DTF algorithm with \jpsi and \lz mass constraints.
 Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ of recovered events are actually affected by its poor performance.
 
@@ -963,46 +1022,6 @@ Using the $\sigma_z$-rescaled algorithm as last resort means only $\approx 5\%$ 
 %
 %Figure \ref{fig:3:Lambda_endvertex_z_bias_xyz_common} shows the $z_\text{vtx}^\Lambda$ bias of the individual $\sigma$-rescaled algorithms in the $\approx 36\%$ of recovered events which converge under all three variations.
 %Despite the difference in performance outlined in Table \ref{tab:3:xyz_VF_performances}
-
-%% Nota: non c'è colonna per i valori su tutti gli eventi ricostruiti con il tale algoritmo perché perlopiù sono inseriti nella tabella precedente.
-%% Nota: i valori nell'altra tabella sono molto più alti perché escludono i VF!!
-\begin{table}[t]
-	\begin{center}
-	\begin{tabular}{@{}lllllll@{}}
-		\toprule
-		Algorithm & \multicolumn{6}{c}{Median $\tilde{\chi}^2_\text{vtx}(\Lambda^0)$} \\
-		\cmidrule{2-7}
-		& Common events & Exclusive events & \multicolumn{4}{c}{Pair-shared events}  \\
-		\cmidrule{4-7}
-		&&& VF & $\sigma_x$ & $\sigma_y$ & $\sigma_z$ \\
-		\midrule
-		VF 			& 1.35 & 0.32	& --	& 1.06	& 1.28	& 1.36	 \\
-		$\sigma_x$ 	& 1.36 & 3.18	& 1.09	& --	& 1.61	& 1.84	 \\
-		$\sigma_y$	& 1.38 & 3.13	& 1.32	& 1.63	& -- 	& 1.96	 \\
-		$\sigma_z$ 	& 1.41 & 51.52	& 1.45	& 1.88	& 2.01	& --	 \\
-		\bottomrule
-	\end{tabular}
-	\end{center}
-	\caption{Comparison of median $\tilde{\chi}^2_\text{vtx}$ of the \lambdadecay vertex fit performed by the Vertex Fitter and the three $\sigma$-rescaled algorithms (see text for details). Performances are reported on common events reconstructed by all four algorithms, on exclusive events reconstructed only by a specific algorithm, and on events reconstructed pairwise by at least two algorithms.}
-	\label{tab:3:xyz_chi2_performances}
-\end{table}
-
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_common.pdf}
-		\caption{}
-		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/VF_vs_2DX_Lambda_endvertex_z_bias_exclusive.pdf}
-		\caption{}
-		\label{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}
-	\end{subfigure}
-	\caption{Normalized distributions of bias on the \lambdadecay vertex $z$ component reconstructed by the standard Vertex Fitter (\textit{horizontal hatching}) and $\sigma_x$-rescaled (\textit{diagonal hatching}) algorithms. The algorithms were individually run on the same simulated \demonstratorshort sample: \textit{(a)} shows distributions for events reconstructed by both algorithms, \textit{(b)} shows distributions for events only reconstructed by one or the other.}
-	\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}
-\end{figure}
 
 All $\sigma$-rescaled algorithms still appear to perform significantly worse than the standard VF on all the above fronts.
 To investigate this, I have individually run the $\sigma_x$-rescaled and standard VF algorithms on all available events and compared their results.

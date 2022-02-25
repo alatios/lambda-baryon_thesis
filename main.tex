@@ -92,13 +92,15 @@
 \newcommand{\lbz}{$\Lambda_b^0$\xspace}
 \newcommand{\jpsi}{$J/\psi$\xspace}
 \newcommand{\pim}{$\pi^-$\xspace}
-\newcommand{\kshort}{$\K^0_S$\xspace}
+\newcommand{\kshort}{$K^0_S$\xspace}
 \newcommand{\slab}{$\text{S}_\text{L}$\xspace}
 \newcommand{\shad}{$\text{S}_H$\xspace}
 \newcommand{\slambda}{$\text{S}_\Lambda$\xspace}
 \newcommand{\slambdal}{$\text{S}_{\Lambda\text{L}}$\xspace}
 \newcommand{\lambdadecay}{$\Lambda^0 \rightarrow p\pi^-$\xspace}
+\newcommand{\kshortdecay}{$K^0_S \rightarrow \pi^+\pi^-$\xspace}
 \newcommand{\pt}{$p_\text{T}$\xspace}
+\newcommand{\pl}{$p_\text{L}$\xspace}
 
 %% Math operators
 \DeclareMathOperator{\sign}{sign}
@@ -116,8 +118,6 @@
 \include{tex_files/0-cover-page}
 \restoregeometry		% Restore the page layout as earlier
 
-\include{tex_files/0b-introduction}
-
 %% Bring order to chaos. \chaptermark fixes uppercase letters in header
 \tableofcontents
 \chaptermark{Contents}
@@ -127,6 +127,8 @@
 %\chaptermark{List of Tables}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\include{tex_files/0b-introduction}
 
 \mainmatter
 \include{tex_files/01-standard_model}
@@ -143,7 +145,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \backmatter
-
 \bibliography{tex_files/0c-bibliography}
+%\include{tex_files/98-acknowledgements}
 
 \end{document}

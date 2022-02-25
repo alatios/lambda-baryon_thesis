@@ -3,7 +3,7 @@
 \label{cap:event_selection}
 This chapter outlines the three major steps in the selection of \demonstratorshort events for the study of long-lived $\Lambda^0$ baryons in LHCb.
 Section \ref{sec:prefilter} discusses the preliminary kinematic variable selections and includes an in-depth study of evidences of bias in the \lambdadecay vertex reconstruction, particularly its $z$ component;
-Section \ref{sec:4:phys_bkg} provides an overview of the veto approach used to account for the main source of physical background, the \demonstratorshort decay;
+Section \ref{sec:4:phys_bkg} provides an overview of the twin veto approaches used to account for the main source of physical background, the \physbkgshort decay;
 Section \ref{sec:HBDT} details my work towards the training, optimization and evaluation of a supervised learning multivariate classifier to perform signal-background discrimination;
 finally, Section \ref{sec:4:performance_data} brings together all three selection techniques to give proof of \demonstratorshort reconstructibility, fitting the filtered $J/\psi\,\Lambda^0$ invariant mass distributions from simulated signal and Run 2 data.
 
@@ -149,7 +149,7 @@ the $m(J/\psi~K_S^0)$ distributions are comparatively more separate (Figure \ref
 		\caption{}
 		\label{fig:4:phys_bkg_veto_eff_mass}
 	\end{subfigure}
-	\caption[Efficiency of the physical background veto as a function of the invariant mass discrepancy threshold and of $J/\psi\,\Lambda^0$ invariant mass bins.]{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, solid) and background (\physbkgshort with proton mass hypothesis, dashed) events. Chosen threshold marked by dotted line. \textit{(b)} Efficiency of the veto on different $m(J/\psi\,\Lambda^0)$ bins for \demonstratorshort signal events.}
+	\caption{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, \textit{solid}) and background (\physbkgshort with proton mass hypothesis, \textit{dashed}) events. Chosen threshold marked by \textit{dotted line}. \textit{(b)} Efficiency of the veto on different $m(J/\psi\,\Lambda^0)$ bins for \demonstratorshort signal events.}
 	\label{fig:4:phys_bkg_veto_eff}
 \end{figure}
 
@@ -158,7 +158,94 @@ The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal whil
 signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
 
 \subsection{Armenteros-Podolanski veto}
-@todo
+To supplement the invariant mass veto, I introduced a selection criterium on proton and pion momenta based on the Armenteros-Podolanski technique \cite{armenteros-podolanski}.
+This approach, first proposed in 1954, allows for momentum-based discrimination of \lambdadecay and \kshortdecay decays without the need for mass assumptions on the daughter particles.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.24\textheight]{graphics/04-event_selection/twobody_labframe.png}
+		\caption{}
+		\label{fig:4:twobody_labframe}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.24\textheight]{graphics/04-event_selection/twobody_cmframe.png}
+		\caption{}
+		\label{fig:4:twobody_cmframe}
+	\end{subfigure}
+	\caption{Two-body decay kinematics in the laboratory \textit{(a)} and center-of-mass \textit{(b)} reference frames \cite{armenteros_calibration}.}
+	\label{fig:4:twobody_frames_ap}
+\end{figure}
+
+\begin{equation}
+	\alpha \coloneqq
+	\frac
+	{p_\text{L}^{(1)} - p_\text{L}^{(2)}}
+	{p_\text{L}^{(1)} + p_\text{L}^{(2)}}
+	\label{eq:4:ap_alpha}
+\end{equation}
+
+%\begin{equation}
+%{p^\star} ^2 =
+%\frac{1}{4M^2}
+%\left(
+%	M^4 +m_1^4 + m_2^2 - 2m_1^2 M^2 - 2m_2^2 M^2 - 2m_1^2 m_2^2
+%\right)
+%\end{equation}
+
+\begin{subequations}
+\begin{align}
+	E_1^\star &=
+	\frac{1}{2M}
+	\left(M^2 + m_1^2 - m_2^2 \right), \\
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	E_2^\star &=
+	\frac{1}{2M}
+	\left(M^2 - m_1^2 + m_2^2 \right)
+\end{align}
+\end{subequations}
+
+\begin{subequations}
+\begin{align}
+	p_\text{L} &= \gamma \left( p_\text{L}^\star + \beta E^\star \right)
+	\label{eq:4:ap_pL_lorentz} \\
+	p_\text{T} &= p_\text{T}^\star
+	\label{eq:4:ap_pT_lorentz}
+\end{align}
+\end{subequations}
+
+\begin{subequations}
+\begin{align}
+	p_\text{L}^\star &= \pm p^\star \cos\theta,	\label{eq:4:ap_pL_theta} \\
+	p_\text{T}^\star &= p^\star \sin\theta		\label{eq:4:ap_pT_theta}
+\end{align}
+\end{subequations}
+
+\begin{equation}
+\alpha =
+\frac{2p^\star}{\beta M} \cos\theta
++
+\frac{m_1^2 - m_2^2}{M^2}
+\equiv
+\alpha_0 + \frac{r_\alpha}{\beta} \cos\theta
+\end{equation}
+
+\begin{equation}
+\alpha_0 \coloneqq \frac{m_1^2 - m_2^2}{M^2}
+\end{equation}
+
+\begin{equation}
+r_\alpha \coloneqq \frac{2p_\star}{M}
+\end{equation}
+
+\begin{equation}
+\frac
+{\left( \alpha - \alpha_0 \right)^2}
+{r_\alpha^2}
++
+\frac{p_\text{T}^2}{{p^\star}^2}
+= 1
+\end{equation}
 
 \begin{figure}[t]
 	\centering
@@ -172,7 +259,7 @@ signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is de
 		\caption{}
 		\label{fig:4:ap_plots_dtf}
 	\end{subfigure}
-	\caption{a}
+	\caption{Armenteros-Podolanski plots for simulated \demonstratorshort (\textit{black}) and \physbkgshort (\textit{grey}) events, using true momenta \textit{(a)} and Decay Tree Fitter momenta with \jpsi mass constraint \textit{(b)}. Longitudinal \pl and transverse \pt momenta are defined here with respect to the \lz/\kshort lines of flight, with \pl asymmetry $\alpha$ defined as in equation \eqref{eq:4:ap_alpha}.}
 	\label{fig:4:ap_plots_mc}
 \end{figure}
 
@@ -189,7 +276,7 @@ signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is de
 		\caption{}
 		\label{fig:4:ap_significance}
 	\end{subfigure}
-	\caption{a}
+	\caption{\textit{(a)} Efficiency of Armenteros-Podolanski veto as a function of the $|\alpha|$ threshold on simulated signal (\demonstratorshort, \textit{solid}) and background (\physbkgshort, \textit{dashed}) events. \textit{(b)} Signal significance as a function of the $|\alpha|$ threshold. The chosen threshold in both plots is marked by the \textit{dotted line}.}
 	\label{fig:4:ap_threshold_optimization}
 \end{figure}
 

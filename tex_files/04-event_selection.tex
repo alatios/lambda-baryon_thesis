@@ -122,10 +122,10 @@ due to technical issues in the implementation, RICH2 information for particle id
 	\label{fig:4:phys_bkg_distributions}
 \end{figure}
 
-[@todo: da rendere più chiaro e riordinare in ottica di AP]
+%To address this issue, events must pass a physical background selection based on the results of a Decay Tree Fitter refit with $p\rightarrow \pi^+$ mass hypothesis and kinematic constraints on the $J/\psi$ and $K_S^0$ invariant masses.
 
-To address this issue, events must pass a physical background selection based on the results of a Decay Tree Fitter refit with $p\rightarrow \pi^+$ mass hypothesis and kinematic constraints on the $J/\psi$ and $K_S^0$ invariant masses.
-The veto rejects an event if the DTF refit converges and $m(J/\psi~K_S^0)$ is too close in value to the $B^0$ PDG mass, i.e.
+For the first step in \bz background rejection, all events are refit with the Decay Tree Fitter algorithm using \jpsi and \kshort invariant mass constraints and a $p \rightarrow \pi^+$ mass hypothesis, i.e. assuming that the proton is a misclassified pion and fitting the entire decay tree as such.
+The veto rejects an event if the DTF refit converges and $m(J/\psi~K_S^0)$ is too close in value to the $B^0$ PDG mass, that is
 \begin{equation}
 	\lvert
 	m(J/\psi~K_S^0) - m_\text{PDG}(B^0)
@@ -177,14 +177,6 @@ This approach, first proposed in 1954, allows for momentum-based discrimination 
 	\label{fig:4:twobody_frames_ap}
 \end{figure}
 
-\begin{equation}
-	\alpha \coloneqq
-	\frac
-	{p_\text{L}^{(1)} - p_\text{L}^{(2)}}
-	{p_\text{L}^{(1)} + p_\text{L}^{(2)}}
-	\label{eq:4:ap_alpha}
-\end{equation}
-
 %\begin{equation}
 %{p^\star} ^2 =
 %\frac{1}{4M^2}
@@ -193,7 +185,21 @@ This approach, first proposed in 1954, allows for momentum-based discrimination 
 %\right)
 %\end{equation}
 
+Let $M \rightarrow m_1 m_2$ be a two-body decay, shown in the laboratory frame in Figure \ref{fig:4:twobody_labframe};
+given the mother particle line of flight, we define longitudinal momentum \pl and transverse momentum \pt for the two daughter particles, with $p_\text{T}^{(1)} = - p_\text{T}^{(2)} = p_\text{T}$.
+These quantities can be expressed in terms of their values in the center-of-mass frame of the decay (Figure \ref{fig:4:twobody_cmframe}) with a Lorentz $\beta$ boost along the $M$ momentum:
 \begin{subequations}
+\label{eq:4:ap_p_lorentz}
+\begin{align}
+	p_\text{L} &= \gamma \left( p_\text{L}^\star + \beta E^\star \right)
+	\label{eq:4:ap_pL_lorentz} \\
+	p_\text{T} &= p_\text{T}^\star.
+	\label{eq:4:ap_pT_lorentz}
+\end{align}
+\end{subequations}
+Energy $E^\star$ of the daughter particles in the center-of-mass frame are known for two-body decays to be
+\begin{subequations}
+\label{eq:4:ap_Estar}
 \begin{align}
 	E_1^\star &=
 	\frac{1}{2M}
@@ -204,47 +210,55 @@ This approach, first proposed in 1954, allows for momentum-based discrimination 
 	\left(M^2 - m_1^2 + m_2^2 \right)
 \end{align}
 \end{subequations}
-
+In turn, \plstar and \ptstar are related to the momentum modulus $p^\star \coloneqq \lvert \vec{p}^\star \rvert$ of the daughter particle via the angle $\theta$ between $\vec{p}^\star_{(1)}$ and $\vec{\beta}$:
 \begin{subequations}
-\begin{align}
-	p_\text{L} &= \gamma \left( p_\text{L}^\star + \beta E^\star \right)
-	\label{eq:4:ap_pL_lorentz} \\
-	p_\text{T} &= p_\text{T}^\star
-	\label{eq:4:ap_pT_lorentz}
-\end{align}
-\end{subequations}
-
-\begin{subequations}
+\label{eq:4:ap_p_theta}
 \begin{align}
 	p_\text{L}^\star &= \pm p^\star \cos\theta,	\label{eq:4:ap_pL_theta} \\
-	p_\text{T}^\star &= p^\star \sin\theta		\label{eq:4:ap_pT_theta}
+	p_\text{T}^\star &= p^\star \sin\theta.		\label{eq:4:ap_pT_theta}
 \end{align}
 \end{subequations}
 
+The Armenteros-Podolanski technique exploits two-body decay kinematics in the Armenteros-Podolanski space defined by the longitudinal momentum asymmetry
+\begin{equation}
+	\alpha \coloneqq
+	\frac
+	{p_\text{L}^{(1)} - p_\text{L}^{(2)}}
+	{p_\text{L}^{(1)} + p_\text{L}^{(2)}},
+	\label{eq:4:ap_alpha}
+\end{equation}
+and transverse momentum \pt of the decay.
+Substituting equations \eqref{eq:4:ap_pL_lorentz}, \eqref{eq:4:ap_p_theta} and \eqref{eq:4:ap_Estar} into \eqref{eq:4:ap_alpha} we obtain
 \begin{equation}
 \alpha =
-\frac{2p^\star}{\beta M} \cos\theta
-+
 \frac{m_1^2 - m_2^2}{M^2}
++
+\frac{2p^\star}{\beta M} \cos\theta
 \equiv
-\alpha_0 + \frac{r_\alpha}{\beta} \cos\theta
+\alpha_0 + \frac{r_\alpha}{\beta} \cos\theta,
+\label{eq:4:ap_alpha_theta}
 \end{equation}
-
+with
 \begin{equation}
 \alpha_0 \coloneqq \frac{m_1^2 - m_2^2}{M^2}
 \end{equation}
-
+and
 \begin{equation}
-r_\alpha \coloneqq \frac{2p_\star}{M}
+r_\alpha \coloneqq \frac{2p_\star}{M}.
 \end{equation}
-
+Result \eqref{eq:4:ap_alpha_theta} can further be combined with \eqref{eq:4:ap_pT_theta} through the Pythagorean trigonometric identity
+\begin{equation}
+\cos^2 \theta + \sin^2 \theta = 1,
+\end{equation}
+yielding
 \begin{equation}
 \frac
 {\left( \alpha - \alpha_0 \right)^2}
 {r_\alpha^2}
 +
 \frac{p_\text{T}^2}{{p^\star}^2}
-= 1
+= 1.
+\label{eq:4:ap_ellipse}
 \end{equation}
 
 \begin{figure}[t]
@@ -263,6 +277,13 @@ r_\alpha \coloneqq \frac{2p_\star}{M}
 	\label{fig:4:ap_plots_mc}
 \end{figure}
 
+We have thus shown that momenta of daughter particles from a two-body decay define an ellipse in the $\alpha$--\pt Armenteros-Podolanski space, with center and radii depending on particle masses and momentum distributions.
+This is verified in Figure \ref{fig:4:ap_plots_truth}, which shows the $\alpha$--\pt scatterplot of \lambdadecay (\kshortdecay) decays from simulated \demonstratorshort (\physbkgshort) events, computed with true momenta.
+In this case $\alpha$ is conventionally computed assigning the positive particle to $m_1$, which corresponds to $p$ in \lz decays and $\pi^+$ in $\bar{\Lambda}^0$ and \kshort decays, leading to the two symmetrical ellipses for the \demonstratorshort events.
+
+While a selection criterium based on the \kshort and \lz ellipses would appear trivial, momentum resolution needs to be taken into account.
+Figure \ref{fig:4:ap_plots_dtf} shows the Armenteros-Podolanski space for the same events using momenta reconstructed with the Decay Tree Fitter algorithm with \jpsi mass constraint\footnote{While the additional \lz mass constraint used so far drastically improves momentum resolution in \demonstratorshort events, applying it to \physbkgshort events is detrimental as it distorts the Armenteros-Podolanski phase space, making \kshortdecay events overlap with the \lambdadecay ellipses.}.
+The significant overlap of the two classes of events prevents selection criteria on the \pt axis, but still allows for a criterium on $\alpha$ relatively devoid of false positives.
 
 \begin{figure}[t]
 	\centering
@@ -279,6 +300,22 @@ r_\alpha \coloneqq \frac{2p_\star}{M}
 	\caption{\textit{(a)} Efficiency of Armenteros-Podolanski veto as a function of the $|\alpha|$ threshold on simulated signal (\demonstratorshort, \textit{solid}) and background (\physbkgshort, \textit{dashed}) events. \textit{(b)} Signal significance as a function of the $|\alpha|$ threshold. The chosen threshold in both plots is marked by the \textit{dotted line}.}
 	\label{fig:4:ap_threshold_optimization}
 \end{figure}
+
+Given the symmetrical nature of the Armenteros-Podolanski space, I implemented the veto in the form
+\begin{equation}
+|\alpha| \geq \alpha_\text{thres}.
+\end{equation}
+I optimized the $\alpha_\text{thres}$ threshold to maximize \demonstratorshort signal significance
+\begin{equation}
+\frac{s}{\sqrt{s+b}}.
+\label{eq:4:signal_significance}
+\end{equation}
+Usually $s$ and $b$ would be the signal and background event counts after the selection;
+since yields in Run 2 data are still unknown at this selection step, I instead used the fraction of total signal and physical background events after loose and invariant mass veto selections also passing the Armenteros-Podolanski veto with a specific threshold.
+
+Figure \ref{fig:4:ap_efficiency} shows the signal and background efficiencies of the veto as a function of $\alpha_\text{thres}$, while Figure \ref{fig:4:ap_significance} reports the corresponding signal significances.
+The chosen threshold of 0.5 retains 99\% of the \demonstratorshort signal while rejecting 23\% of \physbkgshort background surviving the \bz veto described in Section \ref{sec:B0_veto}.
+In addition, the Armenteros-Podolanski veto will also remove combinatorial \kshortdecay events which the \bz veto, being based on the $J/\psi\,K_S^0$ invariant mass, is not equipped to deal with.
 
 \section{HBDT classifier}
 \label{sec:HBDT}
@@ -459,12 +496,7 @@ in both cases the most discriminating features, causing the largest drops in AP,
 \subsection{Threshold optimization}
 \label{sec:4:threshold_optimization}
 
-The final step in the classifier tuning process was the optimization of the threshold to maximize signal significance
-\begin{equation}
-\frac{s}{\sqrt{s+b}},
-\label{eq:4:signal_significance}
-\end{equation}
-with $s$ and $b$ being the signal and background event counts after the HBDT filter.
+The final step in the classifier tuning process was the optimization of the threshold to maximize signal significance \eqref{eq:4:signal_significance} after the HBDT filter.
 A simple way to do it would be to fit the $J/\psi\,\Lambda^0$ invariant mass distribution of filtered data with signal and background functions and extract the corresponding rates via integration;
 however, this has the undesired side effect of heightening the risk of biasing the selection towards our specific data sample.
 %A different, more general approach was devised instead.
@@ -605,7 +637,7 @@ The best performing threshold was found to be $t_\text{thres} = 0.985$, with sig
 	\label{tab:4:fit_results}
 \end{table}
 
-Figures \ref{fig:4:mc_fit} and \ref{fig:4:data_fit} show the $m(J/\psi\,\Lambda^0)$ invariant mass distributions of Monte Carlo simulated signal and Run 2 data after applying prefilters, \physbkgshort veto and the optimized $t > 0.985$ selection on the HBDT classifier score.
+Figures \ref{fig:4:mc_fit} and \ref{fig:4:data_fit} show the $m(J/\psi\,\Lambda^0)$ invariant mass distributions of Monte Carlo simulated signal and Run 2 data after applying prefilters, \physbkgshort vetoes and the optimized $t > 0.985$ selection on the HBDT classifier score.
 To fit the distributions I adopted the same approach outlined in Section \ref{sec:4:threshold_optimization}:
 the simulated signal is described with the double-tailed asymmetric Crystal Ball \eqref{eq:4:crystal_ball};
 the best fit parameter values, except for $S$ and $\sigma$, are fixed for the signal function in the Run 2 data fit, while the exponential \eqref{eq:4:exponential} was used to model the combinatorial background.

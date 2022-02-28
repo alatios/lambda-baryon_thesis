@@ -3,6 +3,8 @@
 
 @todo: intro
 
+Unless otherwise specified, results and plots in this chapter are obtained with simulated \demonstratorshort events with all selection steps from Chapter \ref{cap:event_selection} applied (prefilters, \bz invariant mass veto, \kshort Armenteros-Podolanski veto and HBDT hard threshold cut) and selecting the $\mu \pm 3\sigma$ signal region, using $\mu$ and $\sigma$ best values from the Run 2 data $J/\psi\,\Lambda^0$ invariant mass fit (see Table \ref{tab:4:fit_results}).
+
 \section{Proton angular distributions}
 
 \begin{equation}
@@ -148,6 +150,169 @@
 	\label{fig:5:angular_migration_matrices}
 \end{figure}
 
+\subsection{\texorpdfstring{\lz}{Lambda} decay vertex bias and double-crossing tracks}
+\label{sec:lambda_endvertex_bias}
+
+The quality of the \lambdadecay vertex reconstruction affects many aspects of the $\Lambda^0$ electromagnetic dipole moments measurement:
+on top of being fundamental to evaluate how much magnetic field the particle traversed (and thus the extent of spin precession), even the best momentum resolution for protons and pions is worthless if the particles are extrapolated at the wrong point of production.
+Both $x_\text{vtx}^\Lambda$ and $y_\text{vtx}^\Lambda$ are fairly well reconstructed, with resolution $\lesssim \SI{1}{\centi\meter}$ and no discernible bias.
+This section will therefore focus on the reconstruction of $z_\text{vtx}^\Lambda$.
+
+%\begin{figure}[t]
+%	\centering
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_true.pdf}
+%		\caption{}
+%		\label{fig:4:lz_vertex_true}
+%	\end{subfigure}
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z.pdf}
+%		\caption{}
+%		\label{fig:4:lz_vertex_reco}
+%	\end{subfigure}
+%	\caption{Distribution of true \textit{(a)} and reconstructed \textit{(b)} $z_\text{vtx}^\Lambda$ in simulated \demonstratorshort signal events, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
+%	\label{fig:4:lz_vertex_distributions}
+%\end{figure}
+%
+%\begin{figure}[t]
+%	\centering
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x_true.pdf}
+%		\caption{}
+%		\label{fig:4:lz_vertex_peaks_true}
+%	\end{subfigure}
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x.pdf}
+%		\caption{}
+%		\label{fig:4:lz_vertex_peaks_reco}
+%	\end{subfigure}
+%	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+%	\label{fig:4:lz_vertex_peaks}
+%\end{figure}
+%
+%Figures \ref{fig:4:lz_vertex_true} and \ref{fig:4:lz_vertex_reco} show the distributions of true and reconstructed $z_\text{vtx}^\Lambda$ respectively for simulated signal events.
+%The most prominent difference between the two is the presence of three peaks in the $[\SI{7.5}{\meter},\SI{8.0}{\meter}]$ region of the reconstructed distribution, being found both with and without prefilter selections. 
+%The significance of these structures can be inferred by plotting the events as function of  $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$, corresponding to a bending plane perspective of the detector.
+%This is shown in Figure \ref{fig:4:lz_vertex_peaks_reco}, highlighting the fact that the peaks in $\Lambda^0$ decay vertices have a very precise geometrical location, absent when comparing the true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$ values for the same events (Figure \ref{fig:4:lz_vertex_peaks_true}).
+%The spatial distribution of the vertices bears a striking resemblance to the layout of a T tracking station (see Figure \ref{fig:2:t_station_top}) and $z$ coordinates are consistent with the nominal placement of IT and first OT plane of the T1 station \cite{Barbosa-Marinho:582793}.
+%While dedicated studies are required to gain more insight into the source of these structures, they are assumed to be of minor impact for the purposes of this thesis.
+
+%The differing shapes of true and reconstructed $z_\text{vtx}^\Lambda$ distributions from Figure  are also evidence of bias effects in the \lambdadecay vertex reconstruction.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/Lambda_endvertex_bias_z.pdf}
+		\caption{}
+		\label{fig:5:lz_endvertex_bias_linear}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/Lambda_endvertex_bias_z_log.pdf}
+		\caption{}
+		\label{fig:5:lz_endvertex_bias_log}
+	\end{subfigure}
+	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales.}
+	\label{fig:5:lz_endvertex_bias}
+\end{figure}
+
+The distribution of $z_\text{vtx}^\Lambda$ residuals for simulated signal events is shown in Figure \ref{fig:5:lz_endvertex_bias_linear}.
+Its shape is distinctly non-gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$\footnote{This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events mentioned in Chapter \ref{cap:vertex_reconstruction}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.}.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.7\textwidth]{graphics/04-event_selection/horizontality_illustration_bw.png}
+	\caption{Depiction of three \lambdadecay configurations and the associated horizontality values. The horizontal planes in the top and bottom diagrams are aligned to the LHCb $xz$ plane, the vertical plane in the middle diagram to the $yz$ plane.}
+	\label{fig:4:horizontality_explanation}
+\end{figure}
+
+The positive bias core can be interpreted as a mistake the vertexing algorithm commits when confronted with a specific decay geometry.
+When the \lambdadecay decay plane closely aligns with the $xz$ bending plane, the bending induced by the magnet can produce either \textit{opening} or \textit{closing} tracks (depicted in top and bottom diagrams respectively in Figure \ref{fig:4:horizontality_explanation}.
+In the latter case the tracks will cross again at $z>z_\text{vtx}^\Lambda$;
+if $y$ displacement is sufficiently small, the algorithms may converge on this <<ghost>> vertex instead of the real one.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/Lambda_horizontality_bias.pdf}
+		\caption{}
+		\label{fig:5:horizontality_bias}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/lambda_endvertex_z_bias_vs_horizontality_bias.pdf}
+		\caption{}
+		\label{fig:5:lz_endvertex_bias_vs_horizontality_bias}
+	\end{subfigure}
+	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events, comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
+\end{figure}
+
+To test out this hypothesis we define the \textit{horizontality} of a \lambdadecay event as follows:
+\begin{equation}
+h = \sign{\left(\Lambda^0_\text{PID}\right)} \sign{\left(B_y\right)}~\frac{a_y}{\lvert \vec{a} \rvert},
+\label{eq:4:horizontality}
+\end{equation}
+where
+\begin{equation}
+\vec{a} \coloneqq \vec{p}_p \times \vec{p}_\pi 
+\end{equation}
+is the cross product of proton and pion momenta at production vertex, $\sign{\left(B_y\right)}$ is the dipole magnet polarity\footnote{The LHCb dipole magnet polarity is reversed roughly twice per month to allow for studies on decay asymmetries \cite{Vesterinen:1642153}. The $B_y > 0$ configuration is conventionally known as \textit{magnet up} polarity, $B_y < 0$ as \textit{magnet down}.}
+and $\sign{\left(\Lambda^0_\text{PID}\right)}$ is the sign of the PDG Monte Carlo particle numbering scheme of the mother particle ($+1$ for $\Lambda^0$, $-1$ for $\bar{\Lambda}^0$) \cite{PDG}.
+
+Decays with $h=\pm1$ lie exactly on the $xz$ bending plane, $h=-1$ events having closing $p\pi^-$/$\bar{p}\pi^+$ tracks and $h=+1$ events having opening tracks, while $h=0$ events lie on the $yz$ plane (see Figure \ref{fig:4:horizontality_explanation}).
+A sufficiently small $y$ track distance is required for the Vertex Fitter to equivocate the ghost vertex for the real one, otherwise the event will not converge in the $yz$ plane.
+It follows that the signature for a ghost vertex event is a difference of $\approx 2$ between the reconstructed horizontality $h_\text{DTF}$ (using DTF momenta with \jpsi and \lz mass constraints) and true horizontality $h_\text{true}$, i.e. $h=-1 \rightarrow +1$.
+%A horizontality bias $\Delta h \coloneqq h_\text{reco} - h_\text{true} > 1$ thus becomes the signature of a ghost vertex \lambdadecay event.
+
+Figure \ref{fig:5:horizontality_bias} shows the $\Delta h \coloneqq  h_\text{DTF} - h_\text{true } > 1$ distribution for signal \lambdadecay events, highlighting a strong asymmetry between a large number of $\Delta h \approx 2$ events (closing to opening) and almost no $\Delta h \approx -2$ event (opening to closing).
+To isolate ghost vertex events I opted for a conservative $\Delta h > 1$ cut;
+this leaves out some events with double crossing in the $xz$ plane, such as those with $h_\text{true} = 0-\varepsilon_1 \rightarrow h_\text{DTF} = 0+\varepsilon_2$, but it's functional for a first look at the effect of ghost vertex reconstruction.
+
+%As per Figure , this issue affects $\approx 25\%$ of reconstructed \demonstratorshort events, most of those being $\Delta h \approx 2$ events (from $h=-1$ to $h=+1$), with almost no event with $\Delta h < -1$.
+
+The \lz decay vertex residual distributions shown in Figure \ref{fig:5:lz_endvertex_bias_vs_horizontality_bias} confirm that ghost vertex events are largely responsible for the high-bias core observed in Figure \ref{fig:5:lz_endvertex_bias_linear}.
+Some asymmetry effects are still visible in the $\Delta h < 1$ distribution, with a leftover median bias of $\approx \SI{6.4}{\centi\meter}$.
+This suggests that further distorsion effects may be in place either in track reconstruction or in the fitting process and further investigation is warranted.
+
+%%Isolating $\Delta h \geq 1$ events and studying their $z_\text{vtx}^\Lambda$ bias distributions (), it becomes clear that they 
+%Significant asymmetry effects are , which is still skewed towards positive bias.
+%While not ideal, this is somewhat expected given that the Vertex Fitter algorithm scans for candidate vertices starting from the first measurement position (i.e. the T1--T3 stations) and moving upstream.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/bump_Lambda_true_endvertex_z_vs_x.pdf}
+		\caption{}
+		\label{fig:5:bump_true}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
+		\caption{}
+		\label{fig:5:bump_reco}
+	\end{subfigure}
+	\caption{Distribution of simulated \demonstratorshort events (only prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+	\label{fig:5:bump}
+\end{figure}
+
+Most \demonstratorshort events, even those with ghost vertex reconstruction, still maintain a limited $\lesssim \SI{1.0}{\meter}$ bias on $z_\text{vtx}^\Lambda$.
+A smaller substructure with $\geq \SI{2.0}{\meter}$ bias (median bias $\approx \SI{6.0}{\meter}$) emerges when plotting the distribution in logarithmic scale, as seen in Figure \ref{fig:5:lz_endvertex_bias_log}.
+These events only amount to $\approx 0.5\%$ of the sample after the selection process, with the fraction raising to $\approx 1.7\%$ when only applying prefilters;
+most of them are thus already rejected by the other selection steps.
+
+Figure \ref{fig:5:bump_true} provides a top view of the $\Lambda^0$ decay vertices for this class of events, showing the distribution of true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$;
+to maximize statistics, only prefilters are used.
+Most $\Lambda^0$ in high bias events decay in the earlier sections of the detector ($z<\SI{3.0}{\meter}$);
+the high spatial concentration in specific regions of the $xz$ plane, such as the <<wings>> around $z\approx \SI{1.0}{\meter}$, as well as the consistency between the placement of these structures and the location of the different LHCb subdetectors (cf. Figure \ref{fig:2:lhcb_diagram}), suggest that they may be the result of interaction with the material.
+
+No dedicated veto on reconstructed variables is possible to filter this class of events:
+Figure \ref{fig:5:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
+Their impact on the overall performance on signal is nevertheless neglectable.
+
+\subsection{Impact of ghost vertex events on angular resolution}
+
+Resolutions reported in \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:5:lz_endvertex_bias_linear}.
+Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.
+Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest that ghost vertex convergence in double-crossing tracks can be prevented by tweaking the initial vertex seed, which acts as the starting point for the Vertex Fitter algorithm.
+
+
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -164,145 +329,18 @@
 	\label{fig:5:angular_resolution_vs_vertex_bias}
 \end{figure}
 
-\subsection{\texorpdfstring{\lz}{Lambda} decay vertex bias and double-crossing tracks}
-\label{sec:lambda_endvertex_bias}
-
-The quality of the \lambdadecay vertex reconstruction affects many aspects of the $\Lambda^0$ electromagnetic dipole moments measurement:
-on top of being fundamental to evaluate how much magnetic field the particle traversed (and thus the extent of spin precession), even the best momentum resolution for protons and pions is worthless if the particles are extrapolated at the wrong point of production.
-Both $x_\text{vtx}^\Lambda$ and $y_\text{vtx}^\Lambda$ are fairly well reconstructed in prefiltered events, with resolution $\lesssim \SI{1}{\centi\meter}$ and no discernible bias.
-This section will therefore focus on the reconstruction of $z_\text{vtx}^\Lambda$.
-
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_true.pdf}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/MCRECO_p_theta_resolution_nocross.pdf}
 		\caption{}
-		\label{fig:4:lz_vertex_true}
+		\label{fig:4:theta_resolution_nocross}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z.pdf}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/MCRECO_p_phi_resolution_nocross.pdf}
 		\caption{}
-		\label{fig:4:lz_vertex_reco}
+		\label{fig:5:phi_resolution_nocross}
 	\end{subfigure}
-	\caption{Distribution of true \textit{(a)} and reconstructed \textit{(b)} $z_\text{vtx}^\Lambda$ in simulated \demonstratorshort signal events, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
-	\label{fig:4:lz_vertex_distributions}
+	\caption{A.}
+	\label{fig:4:resolution_nocross}
 \end{figure}
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x_true.pdf}
-		\caption{}
-		\label{fig:4:lz_vertex_peaks_true}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[height=.2\textheight]{graphics/04-event_selection/Lambda_endvertex_z_vs_x.pdf}
-		\caption{}
-		\label{fig:4:lz_vertex_peaks_reco}
-	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort signal events (prefilters applied) with $z_\Lambda^\text{VF} \geq \SI{7.0}{\meter}$, as function of true (\textit{left}) and reconstructed (\textit{right}) $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
-	\label{fig:4:lz_vertex_peaks}
-\end{figure}
-
-Figures \ref{fig:4:lz_vertex_true} and \ref{fig:4:lz_vertex_reco} show the distributions of true and reconstructed $z_\text{vtx}^\Lambda$ respectively for simulated signal events.
-The most prominent difference between the two is the presence of three peaks in the $[\SI{7.5}{\meter},\SI{8.0}{\meter}]$ region of the reconstructed distribution, being found both with and without prefilter selections. 
-The significance of these structures can be inferred by plotting the events as function of  $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$, corresponding to a bending plane perspective of the detector.
-This is shown in Figure \ref{fig:4:lz_vertex_peaks_reco}, highlighting the fact that the peaks in $\Lambda^0$ decay vertices have a very precise geometrical location, absent when comparing the true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$ values for the same events (Figure \ref{fig:4:lz_vertex_peaks_true}).
-The spatial distribution of the vertices bears a striking resemblance to the layout of a T tracking station (see Figure \ref{fig:2:t_station_top}) and $z$ coordinates are consistent with the nominal placement of IT and first OT plane of the T1 station \cite{Barbosa-Marinho:582793}.
-While dedicated studies are required to gain more insight into the source of these structures, they are assumed to be of minor impact for the purposes of this thesis.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_bias_z.pdf}
-		\caption{}
-		\label{fig:4:lz_endvertex_bias_linear}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_endvertex_bias_z_log.pdf}
-		\caption{}
-		\label{fig:4:lz_endvertex_bias_log}
-	\end{subfigure}
-	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales, without (\textit{dark grey}) and with (\textit{light grey}) prefiltering.}
-	\label{fig:4:lz_endvertex_bias}
-\end{figure}
-
-The differing shapes of true and reconstructed $z_\text{vtx}^\Lambda$ distributions from Figure \ref{fig:4:lz_vertex_distributions} are also evidence of bias effects in the \lambdadecay vertex reconstruction.
-This is confirmed in Figure \ref{fig:4:lz_endvertex_bias_linear}, showing the distribution of $z_\text{vtx}^\Lambda$ bias for simulated signal events:
-the shape is distinctly non-gaussian, with a long tail towards the positive end of the axis counterbalancing the expected $\approx 0$ peak.
-The resulting median bias is $\approx \SI{44}{\centi\meter}$.
-
-\begin{figure}[t]
-	\centering
-	\includegraphics[width=.7\textwidth]{graphics/04-event_selection/horizontality_illustration_bw.png}
-	\caption{Depiction of three \lambdadecay configurations and the associated horizontality values. The horizontal planes in the top and bottom diagrams are aligned to the LHCb $xz$ plane, the vertical plane in the middle diagram to the $yz$ plane.}
-	\label{fig:4:horizontality_explanation}
-\end{figure}
-
-The positive bias tail can be interpreted as a mistake the vertexing algorithm commits when confronted with a specific decay geometry.
-When the \lambdadecay decay plane closely aligns with the $xz$ bending plane, the bending induced by the magnet can produce either \textit{opening} or \textit{closing} tracks (depicted in top and bottom diagrams respectively in Figure \ref{fig:4:horizontality_explanation}.
-In the latter case the tracks will cross again at $z>z_\text{vtx}^\Lambda$;
-if $y$ displacement is sufficiently small, the algorithms converges on this <<ghost>> vertex instead of the real one.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/Lambda_horizontality_bias.pdf}
-		\caption{}
-		\label{fig:4:horizontality_bias}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/lambda_endvertex_z_bias_vs_horizontality_bias.pdf}
-		\caption{}
-		\label{fig:4:lz_endvertex_bias_vs_horizontality_bias}
-	\end{subfigure}
-	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events (prefilters applied), comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
-\end{figure}
-
-To test out this hypothesis we define the \textit{horizontality} of a \lambdadecay event as follows:
-\begin{equation}
-h = \sign{\left(\Lambda^0_\text{PID}\right)} \sign{\left(B_y\right)}~\frac{a_y}{\lvert \vec{a} \rvert},
-\label{eq:4:horizontality}
-\end{equation}
-where
-\begin{equation}
-\vec{a} \coloneqq \vec{p}_p \times \vec{p}_\pi 
-\end{equation}
-is the cross product of proton and pion momenta at production vertex, $\sign{\left(B_y\right)}$ is the dipole magnet polarity\footnote{The LHCb dipole magnet polarity is reversed roughly twice per month to allow for studies on decay asymmetries \cite{Vesterinen:1642153}. The $B_y > 0$ configuration is conventionally known as \textit{magnet up} polarity, $B_y < 0$ as \textit{magnet down}.}
-and $\sign{\left(\Lambda^0_\text{PID}\right)}$ is the sign of the PDG Monte Carlo particle numbering scheme of the mother particle ($+1$ for $\Lambda^0$, $-1$ for $\bar{\Lambda}^0$) \cite{PDG}.
-
-Decays with $h=\pm1$ lie exactly on the $xz$ bending plane, $h=-1$ events having closing $p\pi^-$/$\bar{p}\pi^+$ tracks and $h=+1$ events having opening tracks, while $h=0$ events lie on the $yz$ plane (see Figure \ref{fig:4:horizontality_explanation}).
-A horizontality bias $\Delta h \coloneqq h_\text{reco} - h_\text{true} > 1$ thus becomes the signature of a <<ghost>> vertex \lambdadecay event.
-As per Figure \ref{fig:4:horizontality_bias}, this issue affects $\approx 25\%$ of reconstructed \demonstratorshort events, most of those being $\Delta h \approx 2$ events (from $h=-1$ to $h=+1$), with almost no event with $\Delta h < -1$.
-
-Isolating $\Delta h \geq 1$ events and studying their $z_\text{vtx}^\Lambda$ bias distributions (Figure \ref{fig:4:lz_endvertex_bias_vs_horizontality_bias}), it becomes clear that they are largely responsible for the high bias observed in Figure \ref{fig:4:lz_endvertex_bias_linear}.
-Significant asymmetry effects are still visible in the $\Delta h < 1$ distribution, which is still skewed towards positive bias.
-While not ideal, this is somewhat expected given that the Vertex Fitter algorithm scans for candidate vertices starting from the first measurement position (i.e. the T1--T3 stations) and moving upstream.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_Lambda_true_endvertex_z_vs_x.pdf}
-		\caption{}
-		\label{fig:4:bump_true}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/04-event_selection/bump_scatter_Lambda_endvertex_z_vs_x.pdf}
-		\caption{}
-		\label{fig:4:bump_reco}
-	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort events (prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
-	\label{fig:4:bump}
-\end{figure}
-
-Most \demonstratorshort events, even those with ghost vertex reconstruction, still maintain a limited $\lesssim \SI{1.0}{\meter}$ bias on $z_\text{vtx}^\Lambda$.
-A smaller substructure with $\geq \SI{2.0}{\meter}$ bias emerges when plotting the distribution in logarithmic scale, as in Figure \ref{fig:4:lz_endvertex_bias_log}.
-Figure \ref{fig:4:bump_true} provides a top view of the $\Lambda^0$ decay vertices of these evemts, showing the distribution of true $z_\text{vtx}^\Lambda$ and $x_\text{vtx}^\Lambda$.
-Most $\Lambda^0$ in high bias events decay in the earlier sections of the detector ($z<\SI{3.0}{\meter}$);
-the high spatial concentration in specific regions of the $xz$ plane, such as the <<wings>> around $z\approx \SI{1.0}{\meter}$, as well as the consistency between the placement of these structures and the location of the different LHCb subdetectors (cf. Figure \ref{fig:2:lhcb_diagram}), suggest that they may be the result of interaction with the material.
-
-No selection on reconstructed variables is possible to filter this class of events:
-Figure \ref{fig:4:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
-Their impact on the overall performance on signal is nevertheless neglectable, since this events amount to roughly 1.7\% of the prefiltered simulated sample.
-
-\subsection{Impact of double-crossing decays on angular resolution}

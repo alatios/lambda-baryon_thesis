@@ -90,7 +90,7 @@ Unless otherwise specified, results and plots in this chapter are obtained with 
 		\caption{}
 		\label{fig:5:MCRECO_theta_reco}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Distributions of $\cos\theta_p$, as defined in equation \eqref{eq:5:helicity_theta}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events and true momenta; \textit{(b)} using only reconstructed events and true momenta; \textit{(c)} using only reconstructed events and Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
 	\label{fig:5:theta_distributions}
 \end{figure}
 
@@ -112,11 +112,11 @@ Unless otherwise specified, results and plots in this chapter are obtained with 
 		\caption{}
 		\label{fig:5:MCRECO_phi_reco}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Distributions of $\phi_p$, as defined in equation \eqref{eq:5:helicity_phi}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events and true momenta; \textit{(b)} using only reconstructed events and true momenta; \textit{(c)} using only reconstructed events and Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
 	\label{fig:5:phi_distributions}
 \end{figure}
 
-\section{Angular distribution resolution}
+\section{Proton angular resolution}
 
 \begin{figure}[t]
 	\centering
@@ -130,7 +130,7 @@ Unless otherwise specified, results and plots in this chapter are obtained with 
 		\caption{}
 		\label{fig:5:MCRECO_p_phi_resolution}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values, computed on simulated \demonstratorshort events after all selection steps.}
 	\label{fig:5:angular_resolutions}
 \end{figure}
 
@@ -146,11 +146,11 @@ Unless otherwise specified, results and plots in this chapter are obtained with 
 		\caption{}
 		\label{fig:5:MCRECO_p_phi_migration}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Migration matrices of $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)}, computed on simulated \demonstratorshort events after all selection steps. Probabilities and chromatic scale are normalized on true bins.}
 	\label{fig:5:angular_migration_matrices}
 \end{figure}
 
-\subsection{\texorpdfstring{\lz}{Lambda} decay vertex bias and double-crossing tracks}
+\subsection{\texorpdfstring{\lz}{Lambda} decay vertex bias and ghost vertex events}
 \label{sec:lambda_endvertex_bias}
 
 The quality of the \lambdadecay vertex reconstruction affects many aspects of the $\Lambda^0$ electromagnetic dipole moments measurement:
@@ -211,7 +211,7 @@ This section will therefore focus on the reconstruction of $z_\text{vtx}^\Lambda
 		\caption{}
 		\label{fig:5:lz_endvertex_bias_log}
 	\end{subfigure}
-	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events in linear \textit{(a)} and logarithmic \textit{(b)} scales.}
+	\caption{Distribution of $z_\text{vtx}^\Lambda$ bias in linear \textit{(a)} and logarithmic \textit{(b)} scales for simulated \demonstratorshort events after all selection steps.}
 	\label{fig:5:lz_endvertex_bias}
 \end{figure}
 
@@ -242,7 +242,7 @@ if $y$ displacement is sufficiently small, the algorithms may converge on this <
 		\caption{}
 		\label{fig:5:lz_endvertex_bias_vs_horizontality_bias}
 	\end{subfigure}
-	\caption{\textit{(a)} Horizontality bias distribution for simulated \demonstratorshort events, comparing results from Decay Tree Fitter algorithm with \jpsi and \lz mass constraints with true values. \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
+	\caption{\textit{(a)} Bias in horizontality (as defined in \eqref{eq:4:horizontality}) of \lambdadecay decays from simulated \demonstratorshort events. Bias is obtained as the difference between $h_\text{DTF}$ (computed with Decay Tree Fitter momenta with \jpsi and \lz mass constraints) and $h_\text{true}$ (computed with true momenta). \textit{(b)} Distribution of $z_\text{vtx}^\Lambda$ bias for events with horizontality bias $<1$ (\textit{horizontal hatching}) and $\geq 1$ (\textit{diagonal hatching}).}
 \end{figure}
 
 To test out this hypothesis we define the \textit{horizontality} of a \lambdadecay event as follows:
@@ -288,7 +288,7 @@ This suggests that further distorsion effects may be in place either in track re
 		\caption{}
 		\label{fig:5:bump_reco}
 	\end{subfigure}
-	\caption{Distribution of simulated \demonstratorshort events (only prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x_\Lambda^\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
+	\caption{Distribution of simulated \demonstratorshort events (only prefilters applied) with $z_\Lambda^\text{VF} - z_\Lambda^\text{true} \geq \SI{2.0}{\meter}$ as function of true \textit{(a)} and reconstructed \textit{(b)} $x^\Lambda_\text{vtx}$ and $z_\text{vtx}^\Lambda$. This corresponds to a top view of true and reconstructed \lz decay vertices.}
 	\label{fig:5:bump}
 \end{figure}
 
@@ -306,9 +306,9 @@ No dedicated veto on reconstructed variables is possible to filter this class of
 Figure \ref{fig:5:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
 Their impact on the overall performance on signal is nevertheless neglectable.
 
-\subsection{Impact of ghost vertex events on angular resolution}
+\subsection{Impact of ghost vertex events on proton angular resolution}
 
-Resolutions reported in \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:5:lz_endvertex_bias_linear}.
+Resolutions reported in Figure \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:5:lz_endvertex_bias_linear}.
 Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.
 Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest that ghost vertex convergence in double-crossing tracks can be prevented by tweaking the initial vertex seed, which acts as the starting point for the Vertex Fitter algorithm.
 
@@ -325,7 +325,7 @@ Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest
 		\caption{}
 		\label{fig:5:phi_resolution_vs_vertex_bias}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of bias on reconstructed $z_\text{vtx}^\Lambda$, computed on simulated \demonstratorshort events after all selection steps.}
 	\label{fig:5:angular_resolution_vs_vertex_bias}
 \end{figure}
 
@@ -341,6 +341,6 @@ Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest
 		\caption{}
 		\label{fig:5:phi_resolution_nocross}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values. Resolutions are computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}) and removing (\textit{empty squares}) \lambdadecay ghost vertex events.}
 	\label{fig:4:resolution_nocross}
 \end{figure}

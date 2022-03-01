@@ -629,18 +629,19 @@ The polarization after the magnetic field can be probed by studying the angular 
 %(see Appendix \ref{chap:angular-distribution})
 The expected angular distribution for said decay \cite{EMDipoleSearch} \cite{Richman:153636} \cite{PhysRev.108.1645} is
 \begin{equation}
-\frac{dN}{d\Omega'} = 1+ \alpha \vec{s} \cdot \hat{k},
+\frac{dN}{d\Omega'} = 1+ \alpha \vec{s} \cdot \hat{k}',
 \label{eq:angular_distribution_cap1}
 \end{equation}
 where $\Omega' \coloneqq (\theta',\phi')$ is the solid angle in the $\Lambda^0$ helicity frame (see Figure \ref{fig:1:frames_of_reference_lambda}), corresponding to the momentum direction of the proton and pointing along the unit vector
 \begin{equation}
-\hat{k}
+\hat{k}'
 =
 \begin{pmatrix}
 	\sin \theta' \cos \phi' \\
 	\sin \theta' \sin \phi' \\
 	\cos \theta'
 \end{pmatrix},
+\label{eq:1:k_hat}
 \end{equation}
 whereas $\alpha \approx 0.732$ \cite{PDG} is the decay asymmetry parameter.
 The combined measurements of the initial polarization (from the momenta of $\Lambda^0$ produced via decays \eqref{eq:demonstrator_cap1} and \eqref{eq:antidemonstrator_cap1}) and the final polarization (from angular distribution \eqref{eq:angular_distribution_cap1}) allow for a study of $\Lambda^0$ electromagnetic dipole moments based on the single components of the precession \eqref{eq:final_polarization_cap1}.
@@ -678,6 +679,8 @@ The combined measurements of the initial polarization (from the momenta of $\Lam
 	while $\vec{n}_\Lambda$ and $\vec{n}_H$ are the normals to the \lz and \lbz production planes respectively.}
 	\label{fig:frames_of_reference}
 \end{figure}
+
+\label{info:wick}
 
 Deviations from this simplified treatment ought to be considered when taking into account the different relevant frames of reference, three of which are sketched in Figure \ref{fig:frames_of_reference}:
 \begin{itemize}

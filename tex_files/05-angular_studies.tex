@@ -6,71 +6,96 @@
 Unless otherwise specified, results and plots in this chapter are obtained with simulated \demonstratorshort events with all selection steps from Chapter \ref{cap:event_selection} applied (prefilters, \bz invariant mass veto, \kshort Armenteros-Podolanski veto and HBDT hard threshold cut) and selecting the $\mu \pm 3\sigma$ signal region, using $\mu$ and $\sigma$ best values from the Run 2 data $J/\psi\,\Lambda^0$ invariant mass fit (see Table \ref{tab:4:fit_results}).
 
 \section{Proton angular distributions}
+As described in Section \ref{sec:lambda}, \lz polarization $\vec{s}$ after the magnet can be computed by fitting the proton angular distribution
+\begin{equation*}
+	\frac{dN}{d\Omega'} = 1+ \alpha \vec{s} \cdot \hat{k}',
+	\tag{\ref{eq:angular_distribution_cap1} revisited}
+\end{equation*}
+with unit vector
+\begin{equation*}
+\hat{k}'
+=
+\begin{pmatrix}
+	\sin \theta' \cos \phi' \\
+	\sin \theta' \sin \phi' \\
+	\cos \theta'
+\end{pmatrix},
+\tag{\ref{eq:1:k_hat} revisited}
+\end{equation*}
+pointing in the flight direction $\Omega' \coloneqq (\theta',\phi')$ of the proton in the \lz rest frame.
+I compute the helicity angle in the \slambda frame, whereby the $z$ axis is defined by the \lz momentum direction $\hat{p}_\Lambda^H$ in the \lbz rest frame \shad (depicted in Figure \ref{fig:1:frames_of_reference_heavy}).
+This is the frame where initial \lz polarization is maximal, thus preventing the Wick dilution effect that arises when using the \slambdal frame (see Section \ref{info:wick}).
 
+We define the heavy hadron \lbz rest frame coordinate system $(x_0^H, y_0^H, z_0^H)$, with
+\begin{equation}
+	\hat{z}_0^H = \hat{p}_{\Lambda_b}^\text{L}
+\end{equation}
+pointing towards the \lbz momentum in the laboratory frame and $x_0^H, y_0^H$ lying on the \demonstratorshort decay plane.
+The \slambda rest frame can be reached from the \lbz rest frame via the rotation operator $R(\phi,\theta,0)$, with $\theta$ and $\phi$ being the \lz helicity angles shown in Figure \ref{fig:1:frames_of_reference_heavy}:
+a rotation of angle $\phi$ about the $z_0^H$ axis sends
+$(x_0^H, y_0^H, z_0^H) \rightarrow (x_1^H, y_1^H, z_1^H)$ and a $\theta$ rotation about  $y_1^H$ sends $(x_1^H, y_1^H, z_1^H) \rightarrow (x_2^H, y_2^H, z_2^H)$.
+The final rotation about $z_2^H$ is not needed and thus set to zero \cite{Richman:153636}.
+This twice-rotated frame defines the \slambda helicity frame coordinate system used to compute $\theta',\phi'$ for \eqref{eq:angular_distribution_cap1}:
 \begin{equation}
 	\begin{cases}
 		\hat{x}_0^\Lambda = \hat{x}_2^H, \\
 		\hat{y}_0^\Lambda = \hat{y}_2^H, \\
-		\hat{z}_0^\Lambda = \hat{z}_2^H
+		\hat{z}_0^\Lambda = \hat{z}_2^H.
 	\end{cases}
 \end{equation}
 
+In practice, the $z_0^\Lambda$ direction is the easiest to compute, as by definition of \slambda it's the \lbz momentum unit vector in the \shad frame:
 \begin{equation}
-	\hat{z}_0^H = \hat{p}_{\Lambda_b}^\text{lab}
+	\hat{z}_0^\Lambda = \hat{z}_2^H = \vec{p}_\Lambda^H.
 \end{equation}
-
+%\begin{equation}
+%	\vec{b}_{\Lambda \perp z_0}^H
+%	=
+%	\left(\vec{p}_\Lambda^H\right)_{\perp z_0^H}
+%	=
+%	\vec{p}_\Lambda^H - \left(\vec{p}_\Lambda^H\right)_{\parallel z_0^H}
+%\end{equation}
+%
+%\begin{equation}
+%	\hat{x}_1^H = \hat{b}^H_{\Lambda \perp z_0}
+%\end{equation}
+To determine $\hat{x}_0^\Lambda$, we compute the $\hat{z}_0^H$ component perpendicular to the \lz momentum in \shad frame by vector-subtracting its projection on $\vec{p}_\Lambda^H$ from $\hat{z}_0^H$ itself:
 \begin{equation}
-	\hat{z_0^\Lambda} = \hat{z}_2^H = \vec{p}_\Lambda^H
-\end{equation}
-
-\begin{equation}
-	\vec{b}_{\Lambda \perp z_0}^H
+	\vec{b}^H_{\hat{z}_0 \perp \Lambda}
+	\coloneqq
+	\left(\hat{z}_0^H\right)_{\perp \vec{p}_\Lambda^H}
 	=
-	\left(\vec{p}_\Lambda^H\right)_{\perp z_0^H}
-	=
-	\vec{p}_\Lambda^H - \left(\vec{p}_\Lambda^H\right)_{\parallel z_0^H}
+	\hat{z}_0^H - \left(\hat{z}_0^H\right)_{\parallel \vec{p}_\Lambda^H},
 \end{equation}
-
-\begin{equation}
-	\hat{x}_1^H = \hat{b}^H_{\Lambda \perp z_0}
-\end{equation}
-
-\begin{equation}
-	\vec{b}^H_{z_0 \perp \Lambda}
-	=
-	\left(z_0^H\right)_{\perp \vec{p}_\Lambda^H}
-	=
-	z_0^H - \left(z_0^H\right)_{\parallel \vec{p}_\Lambda^H}
-\end{equation}
-
 \begin{equation}
 	\hat{x}_0^\Lambda = \hat{x}_2^H
 	=
-	- \hat{b}^H_{z_0 \perp \Lambda}
+	- \hat{b}^H_{\hat{z}_0 \perp \Lambda}.
 \end{equation}
-
+The $y_0^\Lambda$ axis is fixed by the Cartesian coordinate convention:
 \begin{equation}
 	\hat{y}_0^\Lambda = \hat{z}_0^\Lambda \times \hat{x}_0^\Lambda
 \end{equation}
-
+Within this newfound coordinate system we can compute the proton $\theta$ and $\phi$ helicity angles
 \begin{subequations}
 	\label{eq:5:helicity_angles}
 	\begin{align}
-		&\cos\theta_p \coloneqq \cos\theta_p^\Lambda
+		&\cos\theta_p \coloneqq \cos\theta'
 		=
-		\hat{z}_0^\Lambda \cdot \hat{p}_p^\Lambda
+		\hat{z}_0^\Lambda \cdot \hat{p}_p^\Lambda,
 		\label{eq:5:helicity_theta} \\
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-		&\phi_p \coloneqq \phi_p^\Lambda
+		&\phi_p \coloneqq \phi'
 		=
 		\arctantwo
 		\left(
 			\hat{y}_0^\Lambda \cdot \hat{p}_p^\Lambda,
 			\hat{x}_0^\Lambda \cdot \hat{p}_p^\Lambda
-		\right)
+		\right),
 		\label{eq:5:helicity_phi}
 	\end{align}
 \end{subequations}
+with momenta computed in the \lz rest frame via a double Lorentz boost (laboratory into \lbz rest frame into \lz rest frame).
 
 \begin{figure}[t]
 	\centering

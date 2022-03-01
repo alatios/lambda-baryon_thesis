@@ -144,13 +144,25 @@ where the reference point inverse covariance matrix ${V_r}_k^{-1}$ has been upda
 %\end{equation}
 
 If $C_k^{-1}$ can successfully be inverted, the algorithm updates the current best estimate of the common origin vertex:
-
 \begin{equation}
 \vec{x}_k = C_k \left[
 	C_{k-1}^{-1} \vec{x}_{k-1}
 	+ {V_r}_k^{-1} \vec{r}_k
-\right].
+\right],
 \label{eq:VF_new_vertex_final}
+\end{equation}
+with $\vec{r}_k$ being the reference point from representation \eqref{eq:particle_representation}.
+This vertex doubles as reference point for the $k$-th particle until the next transportation, ergo track momentum is also updated to match it\footnote{In this equation, $\coloneqq$ stands for the assignment operator.}
+\begin{equation}
+	\vec{q}_k \coloneqq
+	\vec{q}_k
+	-
+	{V_{rq}}_k
+	{V_r}_k^{-1}
+	\left(
+		\vec{r}_k - \vec{x}_k
+	\right).
+	\label{eq:VF_momentum_final}
 \end{equation}
 
 To conclude the step, the vertex $\chi^2$ is updated to the account for the new position:
@@ -272,7 +284,7 @@ To conclude the step, the vertex $\chi^2$ is updated to the account for the new 
 
 \subsubsection{Seeding}
 
-As one can observe, the procedure described above requires, at each step, both a previous estimated vertex position $\vec{x}_{k-1}$ and an associated inverse covariance matrix $C_{k-1}^{-1}$. In particular, step $k=1$ demands the existence of $\vec{x}_0$ and $C_{0}^{-1}$.
+As one can observe, the recursive procedure described above requires, at each step, a previous estimated vertex position $\vec{x}_{k-1}$, an associated inverse covariance matrix $C_{k-1}^{-1}$ and a $\chi^2_{k-1}$. In particular, step $k=1$ demands the existence of $\vec{x}_0$, $C_{0}^{-1}$ and $\chi^2_{0}$.
 
 For iterations $i>1$, such roles are handily filled by the final vertex computed during the previous iteration.
 For the purpose of providing the first step of the first iteration with these values, at the beginning the algorithm tries to extract a \textit{vertex seed}, a first estimate of the decay vertex position, through a dedicated procedure depending on decay topology and properties of particles involved.
@@ -280,13 +292,24 @@ For the purpose of providing the first step of the first iteration with these va
 In the case of interest of the $\Lambda^0 \rightarrow p \pi^-$ two-body decay, said procedure is a simplified step of the Kalman filter:
 \begin{subequations}
 \begin{align}
-	&C^{-1}_0 = {V_r}_1^{-1}  + {V_r}_2^{-1} \\
+	&C^{-1}_0 = {V_r}_1^{-1}  + {V_r}_2^{-1}, \\
 	&\vec{x}_0 = C_0 \left(
 		{V_r}_1^{-1} \vec{r}_1 + {V_r}_2^{-1} \vec{r}_2
-	\right)
+	\right),
 \end{align}
 \end{subequations}
-Subscripts $1$ and $2$ as used above refer to the two daughter particles in the decay (i.e. proton and pion).
+with subscripts $1$ and $2$ referring to the two daughter particles in the decay (i.e. proton and pion).
+Update of momenta is handled in the same way as equation \eqref{eq:VF_momentum_final}.
+A new $\chi^2_0$ is computed for each particle:
+\begin{subequations}
+\begin{align}
+	{\chi^2_0}_{(1)} &= 
+	{\left(\vec{r}_{1} - \vec{x}_0\right)}^T  {V_r}_1^{-1} \left(\vec{r}_{1} - \vec{x}_0 \right), \\
+	{\chi^2_0}_{(1)} &= 
+	{\left(\vec{r}_{2} - \vec{x}_0\right)}^T  {V_r}_2^{-1} \left(\vec{r}_{2} - \vec{x}_0 \right),
+\end{align}
+\end{subequations}
+conventionally choosing $\chi^2_0 = {\chi^2_0}_{(1)}$.
 
 \subsubsection{Termination and smoothing}
 The two VF convergence conditions are both based on comparisons between the vertex position computed at the end of the current iteration with the one from the previous iteration, with convergence being called if either one of them is satisfied.
@@ -323,7 +346,7 @@ When convergence is reached, the algorithm applies a smoothing process: for each
 	{V_{rq}}_k
 	{V_r}_k^{-1}
 	\left(
-		\vec{r}_k - \vec{x}_k
+		\vec{r}_k - \vec{x}_n
 	\right)
 \end{equation}
 
@@ -488,7 +511,7 @@ In the following sections I'll thus focus on the \lambdadecay decay with the goa
 In order to narrow down the possible origin of the vertexing deficiency in \lambdadecay events, I conducted a series of comparative studies to characterize non-converged events and their differences to reconstructed ones.
 The full simulated \demonstratorshort dataset constructed for the measurement of the \lz electromagnetic dipole moments omits a lot of technical information on the decays, the retention of which would make storage and quick access impractical.
 Furthermore, a lot of the work in this and the next sections required direct changes to the vertexing algorithm for debugging and event recovery, which in turn required data to be reprocessed.
-For these reasons, the studies in the following sections were conducted on a smaller sample of [@todo:how\_many] \lbz decays in $\sign{B_y} = +1$ configuration, where $\vec{B}$ is the LHCb magnetic field.
+For these reasons, the studies in the following sections were conducted on a smaller sample of $\approx 110\,000$ \lbz decays (about 4600 of which are reconstructed) in $\sign{B_y} = +1$ configuration, where $\vec{B}$ is the LHCb magnetic field.
 
 \subsection{Behaviour through VF iterations}
 \label{sec:oscillation}
@@ -906,7 +929,7 @@ This process is also applied to ${V_r}_k^{-1}$ and replicated at each step of th
 Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize planes $xz$ and $xy$ respectively (their extension from \eqref{eq:3:sigma_x_rescaled} is trivial).
 For the remainder of this section, I'll refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}.
 
-As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on the sample of [@todo:how many] MC-generated \demonstratorshort events previously used in this chapter, and observed a $+26.4\%$ increase in reconstructed events.
+As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on the sample of 110\,000 MC-generated \demonstratorshort events previously used in this chapter, and observed a $+26.4\%$ increase in reconstructed events.
 Given a vertexing efficiency $\lesssim 50\%$, as reported in Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to roughly a quarter of all missing reconstructible decays.
 Within these recovered events, 57.1\% converge under the $\sigma_x$ algorithm, 38.1\% under the $\sigma_y$ algorithm and the remaining 4.8\% under the $\sigma_z$ algorithm.
 

@@ -34,7 +34,7 @@ pointing towards the \lbz momentum in the laboratory frame and $x_0^H, y_0^H$ ly
 The \slambda rest frame can be reached from the \lbz rest frame via the rotation operator $R(\phi,\theta,0)$, with $\theta$ and $\phi$ being the \lz helicity angles shown in Figure \ref{fig:1:frames_of_reference_heavy}:
 a rotation of angle $\phi$ about the $z_0^H$ axis sends
 $(x_0^H, y_0^H, z_0^H) \rightarrow (x_1^H, y_1^H, z_1^H)$ and a $\theta$ rotation about  $y_1^H$ sends $(x_1^H, y_1^H, z_1^H) \rightarrow (x_2^H, y_2^H, z_2^H)$.
-The final rotation about $z_2^H$ is not needed and thus set to zero \cite{Richman:153636}.
+The final rotation about $z_2^H$ is not necessary and conventionally set to zero \cite{Richman:153636} \cite{Jurik:2206806}.
 This twice-rotated frame defines the \slambda helicity frame coordinate system used to compute $\theta',\phi'$ for \eqref{eq:angular_distribution_cap1}:
 \begin{equation}
 	\begin{cases}
@@ -49,7 +49,7 @@ In practice, the $z_0^\Lambda$ direction is the easiest to compute, as by defini
 	\hat{z}_0^\Lambda = \hat{z}_2^H = \vec{p}_\Lambda^H.
 \end{equation}
 %\begin{equation}
-%	\vec{b}_{\Lambda \perp z_0}^H
+%	\vec{a}_{\Lambda \perp z_0}^H
 %	=
 %	\left(\vec{p}_\Lambda^H\right)_{\perp z_0^H}
 %	=
@@ -57,11 +57,16 @@ In practice, the $z_0^\Lambda$ direction is the easiest to compute, as by defini
 %\end{equation}
 %
 %\begin{equation}
-%	\hat{x}_1^H = \hat{b}^H_{\Lambda \perp z_0}
+%	\hat{x}_1^H = \hat{a}^H_{\Lambda \perp z_0}
 %\end{equation}
-To determine $\hat{x}_0^\Lambda$, we compute the $\hat{z}_0^H$ component perpendicular to the \lz momentum in \shad frame by vector-subtracting its projection on $\vec{p}_\Lambda^H$ from $\hat{z}_0^H$ itself:
+Axis $\hat{x}_0^\Lambda = \hat{x}_2^H$ is defined as the antiparallel unit vector to the component of $\hat{z}_1^H$ that is perpendicular to $\hat{z}_2^H = \vec{p}_\Lambda^H$.
+An extensive treatment of the first rotation is superfluous for our end goal:
+since said rotation is about $\hat{z}_0^H$, obviously $\hat{z}_1^H = \hat{z}_0^H$ and we can determine $\hat{x}_0^\Lambda$ by computing the $\hat{z}_0^H$ component perpendicular to
+%the \lz momentum in \shad frame.
+$\vec{p}_\Lambda^H$.
+This is done by vector-subtracting its projection on $\vec{p}_\Lambda^H$ from $\hat{z}_0^H$ itself:
 \begin{equation}
-	\vec{b}^H_{\hat{z}_0 \perp \Lambda}
+	\vec{a}^H_{\hat{z}_0 \perp \Lambda}
 	\coloneqq
 	\left(\hat{z}_0^H\right)_{\perp \vec{p}_\Lambda^H}
 	=
@@ -70,7 +75,7 @@ To determine $\hat{x}_0^\Lambda$, we compute the $\hat{z}_0^H$ component perpend
 \begin{equation}
 	\hat{x}_0^\Lambda = \hat{x}_2^H
 	=
-	- \hat{b}^H_{\hat{z}_0 \perp \Lambda}.
+	- \hat{a}^H_{\hat{z}_0 \perp \Lambda}.
 \end{equation}
 The $y_0^\Lambda$ axis is fixed by the Cartesian coordinate convention:
 \begin{equation}
@@ -196,7 +201,8 @@ The same considerations made for \cthetap are valid for \phip distributions, whi
 \section{Proton angular resolution}
 \label{sec:5:angular_resolution}
 
-Angular resolution in each truth bin is defined as the root mean square error (RMSE) between reconstructed and true angles:
+To assess the resolution on the proton angular distribution in reconstructed \demonstratorshort events, I defined 8 $\cos\theta_p^\text{true}$ bins and 12 $\phi_p^\text{true}$ bins and evaluated reconstructed angle dispersion in each truth bin. 
+Angular resolution within a bin is defined as the root mean square error (RMSE) between reconstructed and true angles:
 \begin{equation}
 	\text{RMSE}(\psi) = \sqrt{\frac{1}{N} \sum_{i=1}^N {\left(\psi_i^\text{DTF} - \psi_i^\text{true}\right)}^2},
 \end{equation}
@@ -217,6 +223,15 @@ with $\psi = \{\cos\theta_p, \phi_p$\}.
 	\caption{Resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values, computed on simulated \demonstratorshort events after all selection steps.}
 	\label{fig:5:angular_resolutions}
 \end{figure}
+
+Figure \ref{fig:5:MCRECO_p_theta_resolution} shows \cthetap resolution as a function of $\cos\theta_p^\text{true}$, demonstrating overall good resolution (in line \cthetap variability within each bin).
+The asymmetry in resolution at the opposite ends of the \cthetap spectrum, with a marked degradation of resolution around $\cos\theta_p^\text{true} \approx -1$, does not have a clear explanation;
+however, as will be seen in Section \ref{sec:5:resolution_after_ghost}, this behaviour becomes a lot less pronounced when the high-bias ghost vertex class of events is removed from the sample.
+
+Figure \ref{fig:5:MCRECO_p_phi_resolution} depicts the same plot for azimuthal helicity angle \phip.
+In this case the range of variability for resolution is even smaller, which is consistent with the expected azimuthal symmetry of the LHCb detector;
+nevertheless, resolution gets noticeably worse for $\phi_p \approx \pm \frac{\pi}{2}$.
+It bears mentioning that the shape of Figure \ref{fig:5:MCRECO_p_phi_resolution} shows remarkable correlation with the observed angular \phip acceptance in reconstructed events (see Figure \ref{fig:5:MCRECO_phi_reco}), suggesting that the two effects might share a common source.
 
 \begin{figure}[t]
 	\centering
@@ -391,6 +406,7 @@ Figure \ref{fig:5:bump_reco} shows that the $\Lambda^0$ vertices are reconstruct
 Their impact on the overall performance on signal is nevertheless neglectable.
 
 \subsection{Impact of ghost vertex events on proton angular resolution}
+\label{sec:5:resolution_after_ghost}
 
 Resolutions reported in Figure \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:5:lz_endvertex_bias_linear}.
 Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.

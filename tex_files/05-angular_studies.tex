@@ -95,7 +95,7 @@ Within this newfound coordinate system we can compute the proton $\theta$ and $\
 		\label{eq:5:helicity_phi}
 	\end{align}
 \end{subequations}
-with momenta computed in the \lz rest frame via a double Lorentz boost (laboratory into \lbz rest frame into \lz rest frame).
+with momenta computed in the \lz rest frame via a double Lorentz boost (laboratory frame into \lbz rest frame into \lz rest frame).
 
 \begin{figure}[t]
 	\centering
@@ -109,15 +109,55 @@ with momenta computed in the \lz rest frame via a double Lorentz boost (laborato
 		\caption{}
 		\label{fig:5:MCRECO_theta_true}
 	\end{subfigure}
-	\vskip .5\baselineskip
+	\caption{Distributions of true values of \cthetap, as defined in \eqref{eq:5:helicity_theta}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events; \textit{(b)} using only reconstructed events.}
+	\label{fig:5:theta_distributions_true}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/MCRECO_theta_reco.pdf}
 		\caption{}
 		\label{fig:5:MCRECO_theta_reco}
 	\end{subfigure}
-	\caption{Distributions of $\cos\theta_p$, as defined in equation \eqref{eq:5:helicity_theta}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events and true momenta; \textit{(b)} using only reconstructed events and true momenta; \textit{(c)} using only reconstructed events and Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
-	\label{fig:5:theta_distributions}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/RUN2_theta_reco.pdf}
+		\caption{}
+		\label{fig:5:RUN2_theta_reco}
+	\end{subfigure}
+	\caption{Distributions of reconstructed $\cos\theta_p$, as defined in \eqref{eq:5:helicity_theta}, for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Angle \thetap is computed using Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
+	\label{fig:5:theta_distributions_reco}
 \end{figure}
+
+Figure \ref{fig:5:MCTRUTH_theta_true} depicts the \cthetap distribution of all (including non-reconstructed) simulated \demonstratorshort events using true $p$ and \pim momenta;
+these events are generated without accounting for \lz polarization, hence the expected flatness of the distribution.
+Figure \ref{fig:5:MCRECO_theta_true} also shows true \cthetap distribution, this time only considering reconstructed events passing all selection steps. The comparison between these two figures highlights the acceptance effects that factor in the prospective \lz EDM/MDM measurement.
+
+Affinity of Figure \ref{fig:5:MCRECO_theta_true} with Figure \ref{fig:5:MCRECO_theta_reco}, which shows reconstructed \cthetap using DTF momenta with \jpsi and \lz mass constraints, foreshadows the great angular resolution I will delve into in Section \ref{sec:5:angular_resolution}.
+Finally, \cthetap in Run 2 data after all selection steps is shown in Figure \ref{fig:5:RUN2_theta_reco}:
+this distribution is the overlap of contributions from \demonstratorshort signal with polarized \lz and from combinatorial background in the $\mu \pm 3\sigma$ signal region.
+
+%\begin{figure}[t]
+%	\centering
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/MCTRUTH_phi_true.pdf}
+%		\caption{}
+%		\label{fig:5:MCTRUTH_phi_true}
+%	\end{subfigure}
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/MCRECO_phi_true.pdf}
+%		\caption{}
+%		\label{fig:5:MCRECO_phi_true}
+%	\end{subfigure}
+%	\vskip .5\baselineskip
+%	\begin{subfigure}{.45\textwidth}
+%		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/MCRECO_phi_reco.pdf}
+%		\caption{}
+%		\label{fig:5:MCRECO_phi_reco}
+%	\end{subfigure}
+%	\caption{Distributions of $\phi_p$, as defined in equation \eqref{eq:5:helicity_phi}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events and true momenta; \textit{(b)} using only reconstructed events and true momenta; \textit{(c)} using only reconstructed events and Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
+%	\label{fig:5:phi_distributions}
+%\end{figure}
 
 \begin{figure}[t]
 	\centering
@@ -131,17 +171,36 @@ with momenta computed in the \lz rest frame via a double Lorentz boost (laborato
 		\caption{}
 		\label{fig:5:MCRECO_phi_true}
 	\end{subfigure}
-	\vskip .5\baselineskip
+	\caption{Distributions of true values of \phip, as defined in \eqref{eq:5:helicity_phi}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events; \textit{(b)} using only reconstructed events.}
+	\label{fig:5:phi_distributions_true}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
 	\begin{subfigure}{.45\textwidth}
 		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/MCRECO_phi_reco.pdf}
 		\caption{}
 		\label{fig:5:MCRECO_phi_reco}
 	\end{subfigure}
-	\caption{Distributions of $\phi_p$, as defined in equation \eqref{eq:5:helicity_phi}, for simulated \demonstratorshort events after all selection steps: \textit{(a)} using all generated events and true momenta; \textit{(b)} using only reconstructed events and true momenta; \textit{(c)} using only reconstructed events and Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
-	\label{fig:5:phi_distributions}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[height=.2\textheight]{graphics/05-angular_distributions/RUN2_phi_reco.pdf}
+		\caption{}
+		\label{fig:5:RUN2_phi_reco}
+	\end{subfigure}
+	\caption{Distributions of reconstructed \phip, as defined in \eqref{eq:5:helicity_phi}, for simulated \demonstratorshort events \textit{(a)} and Run 2 data \textit{(b)} after all selection steps. Angle \phip is computed using Decay Tree Fitter momenta with \jpsi and \lz mass constraints.}
+	\label{fig:5:phi_distributions_reco}
 \end{figure}
 
+The same considerations made for \cthetap are valid for \phip distributions, which are reported in Figures \ref{fig:5:phi_distributions_true} and \ref{fig:5:phi_distributions_reco}.
+
 \section{Proton angular resolution}
+\label{sec:5:angular_resolution}
+
+Angular resolution in each truth bin is defined as the root mean square error (RMSE) between reconstructed and true angles:
+\begin{equation}
+	\text{RMSE}(\psi) = \sqrt{\frac{1}{N} \sum_{i=1}^N {\left(\psi_i^\text{DTF} - \psi_i^\text{true}\right)}^2},
+\end{equation}
+with $\psi = \{\cos\theta_p, \phi_p$\}.
 
 \begin{figure}[t]
 	\centering

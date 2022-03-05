@@ -283,6 +283,7 @@ To conclude the step, the vertex $\chi^2$ is updated to the account for the new 
 %\end{subequations}
 
 \subsubsection{Seeding}
+\label{sec:3:seeding}
 
 As one can observe, the recursive procedure described above requires, at each step, a previous estimated vertex position $\vec{x}_{k-1}$, an associated inverse covariance matrix $C_{k-1}^{-1}$ and a $\chi^2_{k-1}$. In particular, step $k=1$ demands the existence of $\vec{x}_0$, $C_{0}^{-1}$ and $\chi^2_{0}$.
 
@@ -1148,6 +1149,7 @@ The distribution of $z_\text{vtx}^\Lambda$ residuals for simulated signal events
 Its shape is distinctly non-gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$\footnote{This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events quoted in Table \ref{tab:3:xyz_VF_performances}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.}.
 
 \subsection{Ghost vertex events}
+\label{sec:3:ghost_vertex}
 
 The positive bias core can be interpreted as a mistake the vertexing algorithm commits when confronted with a specific decay geometry.
 When the \lambdadecay decay plane closely aligns with the $xz$ bending plane, the bending induced by the magnet can produce either \textit{opening} or \textit{closing} tracks (depicted in the top and bottom diagrams respectively in Figure \ref{fig:3:horizontality_explanation}).
@@ -1252,9 +1254,18 @@ Figure \ref{fig:3:hreco_vs_htrue} highlights the isolated events in the $h_\text
 
 \begin{figure}[t]
 	\centering
-	\includegraphics[width=.6\textwidth]{graphics/03-vertex_reconstruction/lambda_endvertex_z_bias_vs_ghost_vertex.pdf}
-	\caption{Normalized distribution of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events without (\textit{horizontal hatching}) and with (\textit{diagonal hatching}) \lz ghost vertex, as selected in Figure \ref{fig:3:psi_vs_htrue}. All selection steps are applied.}
-	\label{fig:3:bias_without_ghost_vertex}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/lambda_endvertex_z_bias_vs_ghost_vertex.pdf}
+		\caption{}
+		\label{fig:3:bias_without_ghost_vertex}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/lambda_endvertex_z_bias_vs_reco_horizontality.pdf}
+		\caption{}
+		\label{fig:3:bias_without_positive_hDTF}
+	\end{subfigure}
+	\caption{Normalized distributions of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events with all selection steps applied: \textit{(a)} without (\textit{horizontal hatching}) and with (\textit{diagonal hatching}) \lz ghost vertex, as selected in Figure \ref{fig:3:psi_vs_htrue}; \textit{(b)} with $h_\text{DTF} > 0$ (\textit{horizontal hatching}) and  $h_\text{DTF} \leq 0$ (\textit{diagonal hatching}), using DTF momenta with \jpsi and \lz mass constraints.}
+	\label{fig:3:bias_in_isolated_events}
 \end{figure}
 
 %A sufficiently small $y$ track distance is required for the Vertex Fitter to equivocate the ghost vertex for the real one, otherwise the event will not converge in the $yz$ plane.
@@ -1274,6 +1285,14 @@ This suggests that further distorsion effects may be in place either in track re
 %%Isolating $\Delta h \geq 1$ events and studying their $z_\text{vtx}^\Lambda$ bias distributions (), it becomes clear that they 
 %Significant asymmetry effects are , which is still skewed towards positive bias.
 %While not ideal, this is somewhat expected given that the Vertex Fitter algorithm scans for candidate vertices starting from the first measurement position (i.e. the T1--T3 stations) and moving upstream.
+
+Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest that ghost vertex convergence in double-crossing tracks can be tempered by tweaking the initial vertex seed.
+The choice of seed defines the starting point for the Vertex Fitter algorithm:
+early results show that overriding the seeding process (see Section \ref{sec:3:seeding}) to use the true \lambdadecay vertex as seed helps direct the VF towards the absolute $\chi^2$ minimum and reduces the ghost vertex core seen in Figure \ref{fig:3:bias_without_ghost_vertex}.
+A similar result could be achieved without access to Monte Carlo information by performing several vertex fits with seeds across the $z$ range and implementing selection criteria to choose the best vertex among the ones found.
+
+An alternative, more drastic approach would be to only retain \lambdadecay events with $h_\text{DTF} \leq 0$. As seen from Figure \ref{fig:3:hreco_vs_htrue}, this rejects virtually all ghost vertex events and yields an even lower median bias of $\approx \SI{2.5}{\centi\meter}$ with a single cut on reconstructed variables (see Figure \ref{fig:3:bias_without_positive_hDTF}).
+The ensuing 89\% loss in \demonstratorshort signal makes this solution impractical with Run 2 data, but viable as a last resort on the projected \SI{50}{\per\femto\barn} dataset at the and of Run 3.
 
 \subsection{Very high bias events}
 

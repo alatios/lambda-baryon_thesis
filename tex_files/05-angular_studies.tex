@@ -299,11 +299,6 @@ In Figure \ref{fig:5:MCRECO_p_phi_migration}, the top left and bottom right bins
 \subsection{Impact of ghost vertex events}
 \label{sec:5:resolution_after_ghost}
 
-Resolutions reported in Figure \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:3:lz_endvertex_bias_linear}.
-Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.
-Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest that ghost vertex convergence in double-crossing tracks can be prevented by tweaking the initial vertex seed, which acts as the starting point for the Vertex Fitter algorithm.
-
-
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -320,6 +315,17 @@ Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest
 	\label{fig:5:angular_resolution_vs_vertex_bias}
 \end{figure}
 
+As discussed in Section \ref{sec:lambda_endvertex_bias}, resolution in the $z_\text{vtx}^\Lambda$ component of the \lambdadecay decay vertex is affected by a significant $\approx \SI{14}{\centi\meter}$ positive bias, whose distribution is depicted in Figure \ref{fig:3:lz_endvertex_bias_linear}.
+The detrimental effect of this bias is seen in Figure \ref{fig:5:angular_resolution_vs_vertex_bias}, showing proton \cthetap and \phip resolutions as a function of $z_\text{vtx}^\Lambda$ bias:
+resolutions worsen by a factor of five or more when going from $z_\text{vtx}^\text{reco} - z_\text{vtx}^\text{true} \approx \SI{0}{\meter}$ to $\SI{1.2}{\meter}$.
+This is to be expected since poor \lz vertex reconstruction affects resolution on proton momenta.
+
+%Resolutions reported in Figure \ref{fig:5:angular_resolutions} are computed on a simulated sample with subpar resolution on the \lz decay vertex, as seen from Figure \ref{fig:3:lz_endvertex_bias_linear}.
+%Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.
+
+Studies detailed in Section \ref{sec:3:ghost_vertex} illustrate that most highly biased events can be traced back to the <<ghost vertex>> problem, whereby the bending of $p\pi^-$ tracks in the $xz$ plane due to the LHCb magnetic field creates a second crossing point which provides a local $\chi^2$ minimum for the Vertex Fitter algorithm to converge at.
+This issue only arises when working with T tracks (see Section \ref{sec:2:tracking}), as other track types come from particles produced upstream of the magnet, and is therefore under-researched due to the historical rare employment of T tracks in physics analyses.
+
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -335,3 +341,6 @@ Ongoing studies conducted by the Milan and Valencia LHCb research groups suggest
 	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values. Resolutions are computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}) and removing (\textit{empty squares}) \lambdadecay ghost vertex events.}
 	\label{fig:4:resolution_nocross}
 \end{figure}
+
+Work is currently underway in the Milan and Valencia LHCb research groups to solve or mitigate the ghost vertex issue.
+[@todo: qualora si riuscisse...]

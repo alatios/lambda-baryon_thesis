@@ -2,15 +2,16 @@
 \label{cap:vertex_reconstruction}
 This chapter details my work towards the improvement of the vertex reconstruction process for decays involving T tracks.
 Section \ref{sec:reco_algorithms} delves into a deep study of the vertexing process at LHCb and the two algorithms employed in this thesis;
-Section \ref{sec:reco_efficiency} introduces the problem of low vertexing efficiency for the decay of interest $\Lambda_b^0 \rightarrow J/\psi~\Lambda^0$;
+Section \ref{sec:reco_efficiency} introduces the problem of low vertexing efficiency for the decay of interest \demonstratorshort;
 Section \ref{sec:characterization_non_converged} presents my efforts in the characterization of the non-converged events in search for the root cause of the vertexing falure;
-finally, Section \ref{sec:recovery_general} proposes my solution to improve the signal yield through partial recovery of non-reconstructed events.
+Section \ref{sec:recovery_general} proposes my solution to improve the signal yield through partial recovery of non-reconstructed events;
+finally, Section \ref{sec:lambda_endvertex_bias} features an analysis of \lambdadecay decay vertex resolution in the simulated signal dataset and a description of the main known sources of bias.
 
 \section{Vertex reconstruction algorithms at LHCb}
 \label{sec:reco_algorithms}
 
 \subsection{Vertex Fitter algorithm}
-The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the $\Lambda_b^0$ decay.
+The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the \lbz decay.
 
 Under VF formalism, each daughter particle is represented by a 7-dimensional vector\footnote{This chapter assumes the standard right-handed LHCb coordinate system, see Section \ref{info:LHCb_system}.}
 \begin{equation}

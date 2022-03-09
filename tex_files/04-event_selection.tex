@@ -95,12 +95,12 @@ The main source of physical background for the \demonstratorfull decay is the si
 	B^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~K_S^0~(\rightarrow \pi^+ \pi^-).
 \end{equation}
 The final states of the two decays only differ for a $p \leftrightarrow \pi^+$ change.
-The $K_S^0$ meson also has a similar mean lifetime to the $\Lambda^0$, thus we expect a sizeable number of $K_S^0$ decaying after the dipole magnet.
-To top it off, the $B^0$ mass (\SI{5279.65}{\mev\per c\squared}) is fairly close to that of $\Lambda_b^0$ (\SI{5619.60}{\mev\per c\squared}) \cite{PDG}, muddying the waters in invariant mass fits.
+The \kshort meson also has comparable mean lifetime to the \lz, thus we expect a sizeable number of \kshort decaying after the dipole magnet.
+To top it off, the \bz mass (\SI{5279.65}{\mev\per c\squared}) is fairly close to that of \lbz (\SI{5619.60}{\mev\per c\squared}) \cite{PDG}, muddying the waters in invariant mass fits.
 
 As discussed in Section \ref{sec:2:pid}, the LHCb detector employs the two RICH systems to identify and distinguish between protons, pions and kaons;
 in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions is impossible, but information from RICH2 would still be available for the vast majority of the decays at hand.
-However, this is where the experimental nature of physics analyses with T tracks becomes relevant once again:
+Unfortunately, this is where the experimental nature of physics analyses with T tracks becomes relevant once again:
 due to technical issues in the implementation, RICH2 information for particle identification is unavailable for T tracks recorded during LHC Runs 1 and 2\footnote{A large effort by the Milan and Valencia LHCb research groups is underway at the time of writing to implement RICH2 information in T track trigger lines for Run 3.}, making \physbkgshort discrimination much more difficult.
 
 \subsection{Invariant mass veto with pion mass hypothesis}
@@ -186,7 +186,7 @@ This approach, first proposed in 1954, allows for momentum-based discrimination 
 %\end{equation}
 
 Let $M \rightarrow m_1 m_2$ be a two-body decay, shown in the laboratory frame in Figure \ref{fig:4:twobody_labframe};
-given the mother particle line of flight, we define longitudinal momentum \pl and transverse momentum \pt for the two daughter particles, with $p_\text{T}^{(1)} = - p_\text{T}^{(2)} = p_\text{T}$.
+given the mother particle line of flight, we define longitudinal momentum \pl and transverse momentum \pt for the two daughter particles, with $p_\text{T}^{(1)} = - p_\text{T}^{(2)} \equiv p_\text{T}$.
 These quantities can be expressed in terms of their values in the center-of-mass frame of the decay (Figure \ref{fig:4:twobody_cmframe}) with a Lorentz $\beta$ boost along the $M$ momentum:
 \begin{subequations}
 \label{eq:4:ap_p_lorentz}
@@ -210,7 +210,7 @@ Energy $E^\star$ of the daughter particles in the center-of-mass frame are known
 	\left(M^2 - m_1^2 + m_2^2 \right)
 \end{align}
 \end{subequations}
-In turn, \plstar and \ptstar are related to the momentum modulus $p^\star \coloneqq \lvert \vec{p}^\star \rvert$ of the daughter particle via the angle $\theta$ between $\vec{p}^\star_{(1)}$ and $\vec{\beta}$:
+In turn, \plstar and \ptstar are related to the momentum modulus $p^\star \coloneqq \lvert \vec{p}^\star \rvert$ of the daughter particle, which is fixed by two-body decay kinematics, via the angle $\theta$ between $\vec{p}^\star_{(1)}$ and $\vec{\beta}$:
 \begin{subequations}
 \label{eq:4:ap_p_theta}
 \begin{align}
@@ -219,7 +219,7 @@ In turn, \plstar and \ptstar are related to the momentum modulus $p^\star \colon
 \end{align}
 \end{subequations}
 
-The Armenteros-Podolanski technique exploits two-body decay kinematics in the Armenteros-Podolanski space defined by the longitudinal momentum asymmetry
+The Armenteros-Podolanski technique exploits the predictable physics of a two-body decay in the Armenteros-Podolanski space defined by the longitudinal momentum asymmetry
 \begin{equation}
 	\alpha \coloneqq
 	\frac
@@ -335,7 +335,7 @@ The basic layout of a binary decision tree classifier is sketched in Figure \ref
 a sequence of decision nodes applies binary conditions according to available information on the individual event and eventually reaches a leaf node associated to the \textit{event score} $t$, in this case the probability that the event is a \demonstratorshort decay.
 Performance of the decision tree can be enhanced with \textit{boosting} \cite{Yann:2013}, whereby the ultimate classifier is built as a weighted average of a large number of weaker trees;
 the result is known as a boosted decision tree (BDT).
-In the adaptive boosting (AdaBoost) implementation used in this thesis, each tree $T_k$ is trained on a reweighted data sample that prioritizes events misclassified by the $T_{k-1}$ tree.
+In the adaptive boosting (AdaBoost) implementation used in this thesis, each tree $T_k$ is trained on a reweighted data sample that prioritizes events misclassified by tree $T_{k-1}$.
 The usage of a histogram-based BDT, arranging input samples into integer-valued bins, allows for much faster estimators when working with large data samples ($n \gtrsim {10}^4$).
 
 %(gradient tree boosting with logistic loss function for binary classification)
@@ -353,7 +353,7 @@ The usage of a histogram-based BDT, arranging input samples into integer-valued 
 \end{figure}
 
 Supervised training of a classifier requires signal and background datasets as input to learn to distinguish between the two classes.
-For signal I used simulated \demonstratorshort events, while for the background I sampled side bands on the left ($\left[\SI{4870.2}{\mev \per c^2}, \SI{5020.2}{\mev \per c^2}\right]$) and right ($\left[\SI{6220.2}{\mev \per c^2}, \SI{6520.2}{\mev \per c^2}\right]$) of the expected $\Lambda_b^0$ peak  in the Run 2 data $m(J/\psi~\Lambda)$ distribution (see Figure \ref{fig:4:HBDT_training_data}).
+For signal I used simulated \demonstratorshort events, while for the background I sampled side bands on the left ($\left[\SI{4870.2}{\mev \per c^2}, \SI{5020.2}{\mev \per c^2}\right]$) and right ($\left[\SI{6220.2}{\mev \per c^2}, \SI{6520.2}{\mev \per c^2}\right]$) of the expected \lbz peak  in the Run 2 data $m(J/\psi\,\Lambda)$ distribution (see Figure \ref{fig:4:HBDT_training_data}).
 
 I considered two options for the signal-to-background ratio:
 \begin{itemize}
@@ -367,12 +367,12 @@ since no reason surfaced to favour either approach, I opted to follow the more c
 Testing data for performance evaluation was sampled from the same pool as training data in a 1:9 ratio.
 
 The following kinematic variables (also known as \textit{features}) were used for signal discrimination:
-transverse and longitudinal momenta of $p$, $\pi^-$ and $J/\psi$;
+transverse and longitudinal momenta of $p$, \pim and \jpsi;
 coordinates of the \lambdadecay vertex position;
-$\Lambda_b^0$ and $\Lambda^0$  pointing angles $\xi_p$, i.e. the angle between the particle line of flight and its momentum;
+\lbz and \lz pointing angles $\xi_p$, i.e. the angle between the particle line of flight and its momentum;
 $\tilde{\chi}^2_\text{vtx}$ of the \demonstratorshort and \lambdadecay vertices;
-the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a particle is included in the fit, for $\Lambda_b^0$ and $\Lambda^0$;
-the distances $\chi^2_\text{dist}$ between $\Lambda_b^0$ and $\Lambda^0$ decay vertices and the primary vertex in $\chi^2$ units.
+the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a particle is included in the fit, for \lbz and \lz;
+the distances $\chi^2_\text{dist}$ between \lbz and \lz decay vertices and the primary vertex in $\chi^2$ units.
 
 The momenta for proton and pion are computed with $J/\psi$ mass constraints.
 While the usage of $p,\pi^-$ momenta from the Decay Tree Fitter with the additional $\Lambda^0$ mass constraint was considered, preliminary tests on classifiers showed a slight degradation of their performance when the double mass constraint was adopted.
@@ -381,19 +381,19 @@ The standard Vertex Fitter momenta were used for the $J/\psi$ on account of the 
 \subsection{Hyperparameter optimization}
 \label{sec:4:hyperoptimization}
 
-The supervised training process for a classifiers tunes a set of parameters to minimize a given loss function; in the HBDT case, for instance, decision node and tree weights are trained according to the output of a logistic loss function.
+The supervised training process for a classifiers tunes a set of parameters to minimize a given loss function; in the HBDT case, decision node and tree weights are trained according to the output of a logistic loss function.
 In contrast, \textit{hyperparameters} are parameters governing the learning process itself and thus require separate optimization.
 
-I selected three hyperparamters for optimization:
+I selected three hyperparameters for optimization:
 \begin{itemize}
 	\item learning rate $L \in [0.003, 0.006, 0.010, 0.015]$, the shrinkage factor for the contribution of each tree in the boosting process.
 	\item maximum number of boosting iterations $n_\text{max}^\text{iter} \in [1500, 2500, 5000]$;
 	\item maximum number of leaves for each tree $n_\text{max}^\text{leaves} \in [100, 200, 400, 800]$.
 \end{itemize}
-Other hyperparameters, such as the maximum number of bins and the minimum number of samples per leaf, were left with the default values of the Scikit-learn implementation.
+Other hyperparameters, such as the maximum number of bins and the minimum number of samples per leaf, were left as the default values of the Scikit-learn implementation.
 
 I performed an exhaustive grid scan of the aforementioned hyperparameter values.
-Each classifier was evaluated on training data using a stratified k-folds cross validation technique: the training sample is split in $k=5$ subsamples, the classifier is trained in rotation on $k-1$ samples and tested with the $k$-th, and the $k$ results are averaged together.
+Each classifier was evaluated on training data using a stratified $k$-folds cross validation technique: the training sample is split in $k=5$ subsamples, the classifier is trained in rotation on $k-1$ samples and tested with the $k$-th, and the $k$ results are averaged together.
 For a given score threshold $i$, we define \textit{precision} $P_i$ and \textit{recall} $R_i$ in terms of the true/false positive/negative rates: precision 
 \begin{equation}
 	P_i = \frac{n_\text{TP}}{n_\text{TP} + n_\text{FP}}
@@ -451,7 +451,7 @@ The matrices summarize the true/false positive/negative rates for the classifier
 	\label{fig:4:train_vs_test}
 \end{figure}
 
-Comparing the signal and background score distributions (Figures \ref{fig:4:sig_train_vs_test} and \ref{fig:4:bkg_train_vs_test} respectively) for training and test data samples, we observe a light discrepancy at the end tails.
+Comparing the signal and background score distributions (Figures \ref{fig:4:sig_train_vs_test} and \ref{fig:4:bkg_train_vs_test} respectively) for training and test data samples, I observed a light discrepancy at the end tails.
 Such a split in favour of performance on training data is usually an early indicator of ovetraining.
 I investigated this possibility by conducting a two-sample Kolmogorov-Smirnov (K-S) test \cite{10.2307/2280095}, which computes the probability $p$ that two samples are drawn from the same probability distribution.
 Conventionally, the K-S is considered passed if $p>0.05$;
@@ -502,8 +502,8 @@ however, this has the undesired side effect of heightening the risk of biasing t
 %A different, more general approach was devised instead.
 
 A different, more general approach was devised to prevent this.
-I first identified a <<soft>> score threshold $t_\text{thres} = 0.7$, just high enough for the filtered Run 2 data $m(J/\psi\,\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) to show the $\Lambda_b^0$ resonance peak.
-I fit the simulated signal $m(J/\psi\,\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both particles) with a double-tailed asymmetric Crystal Ball function.
+I first identified a <<soft>> score threshold $t_\text{thres} = 0.7$, just high enough for the filtered Run 2 data $m(J/\psi\,\Lambda^0)$ distribution (using values from Decay Tree Fitter with mass constraints on both \lbz daughters) to show the \lbz resonance peak.
+I fit the simulated signal $m(J/\psi\,\Lambda^0)$ distribution with a double-tailed asymmetric Crystal Ball function.
 The standard, single-tailed Crystal Ball probability density function is parameterized as
 \begin{equation}
 	f_\text{CB}(m; \mu, \sigma, \alpha, n) =
@@ -549,11 +549,11 @@ itself depending on
 \end{equation}
 and
 \begin{equation}
-	D = \sqrt{2\pi} \left(G_\text{cum} (\alpha_2) - G_\text{cum} (- \alpha_1)\right),
+	D = \sqrt{2\pi} \left(G_\text{c} (\alpha_2) - G_\text{c} (- \alpha_1)\right),
 \end{equation}
 where
 \begin{equation}
-G_\text{cum}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt e^{-\frac{t^2}{2}}
+G_\text{c}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt\,e^{-\frac{t^2}{2}}
 \end{equation}
 is the Gaussian cumulative distribution function evaluated at $x$.
 

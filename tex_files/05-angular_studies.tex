@@ -277,7 +277,8 @@ and choosing as distance the lesser value between $d$ and $2\pi-d$.
 
 The range of variability for \phip resolution is even smaller compared to \cthetap, which is consistent with the expected azimuthal symmetry of the LHCb detector;
 nevertheless, resolution gets noticeably worse for $\phi_p \approx \pm \frac{\pi}{2}$.
-It bears mentioning that the shape of Figure \ref{fig:5:MCRECO_p_phi_resolution} shows remarkable correlation with the observed angular \phip acceptance in reconstructed events (see Figure \ref{fig:5:MCRECO_phi_reco}), suggesting that the two effects might share a common source.
+The shape of Figure \ref{fig:5:MCRECO_p_phi_resolution} shows remarkable correlation with the observed angular \phip acceptance in reconstructed events (see Figure \ref{fig:5:MCRECO_phi_reco}), suggesting that the two effects might share a common source;
+moreso than in the \cthetap case, this effect is all but removed when excluding ghost vertex events.
 
 \begin{figure}[t]
 	\centering
@@ -346,12 +347,12 @@ Only arising when working with T tracks, as other track types come from particle
 		\caption{}
 		\label{fig:5:phi_resolution_nocross}
 	\end{subfigure}
-	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values. Resolutions are computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}) and removing (\textit{empty squares}) \lambdadecay ghost vertex events.}
+	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values. Resolutions are computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}), removing (\textit{empty squares}), and only keeping (\textit{filled triangles}) \lambdadecay ghost vertex events.}
 	\label{fig:5:resolution_nocross}
 \end{figure}
 
 Work is currently underway in the Milan and Valencia LHCb research groups to solve or mitigate the ghost vertex issue, with the goal of standardizing \lz vertex resolution to the non-ghost-vertex baseline of $\approx \SI{5.2}{\centi\meter}$.
 Should such an endeavour be successful, Figure \ref{fig:5:angular_resolution_vs_vertex_bias} proves it would have a significant effect on the proton angular resolution and thus on the prospective measurement of \lz electromagnetic dipole moments.
 As a proof of concept study, I computed angular resolutions for \cthetap and \phip excluding ghost vertex events, the latter being defined with the locus of points from \eqref{eq:3:psih_banana}.
-Results are shown in Figures \ref{fig:5:theta_resolution_nocross} and \ref{fig:5:phi_distributions_reco}:
+Results are shown in Figures \ref{fig:5:theta_resolution_nocross} and \ref{fig:5:phi_resolution_nocross}:
 in both cases resolution improves by a factor 2--3 in all truth bins.

@@ -3,12 +3,24 @@
 \markboth{Conclusions}{}
 
 Electric and magnetic dipole moments of particles are sensitive to physics within and beyond the Standard Model.
-In this thesis I worked on various aspects of the \demonstratorshort decay analysis in preparation of a first measurement of the \lz electromagnetic dipole moments at LHCb.
-
-%% @todo: riscrivi in prima persona.
+In this thesis, I worked on various aspects of the \demonstratorshort decay analysis in preparation of a first measurement of the \lz electromagnetic dipole moments using the LHCb Run 2 dataset.
 
 Less than half of candidate \lambdadecay events reach convergence in the vertex reconstruction process.
-Topological studies on a sample fo simulated events show that this is a result of a conflict of information in $xz$ (bending) and $yz$ (non-bending) track propagation planes.
+I conducted topological studies on a sample of simulated events to show that this is a result of a conflict of information in $xz$ (bending) and $yz$ (non-bending) track propagation planes.
 Through further investigation in the measured kinematic variables and comparison with the Monte-Carlo-generated values, I exposed a systematic underestimation of $p_z$ in pion tracks reconstructed from hits in the T1--T3 downstream tracking stations.
+Said bias is only observed in non-converging \lambdadecay events and is understood to play a role in the $xz$-$yz$ discrepancy at the origin of the vertexing failure.
+Additional research is currently underway to locate and fix the source of $p_z$ bias, starting with the track momentum fit process at T station level.
 
-%% @todo: torna al fit e scrivi sig e bkg con errori.
+For the time being, I demonstrated that recovery of a significant percentage of failed events in possible by modifying the main vertex fitting algorithm to increase the weight of track propagation in a specific plane.
+A threefold refit approach, attributing more importance to $yz$, $xz$ and $xy$ planes sequentally, results in a $+26.4\%$ increase in signal statistics.
+Comparisons to Monte Carlo truth reveal that recovered events have suboptimal reconstruction, with a median bias on the $z$ component of the \lambdadecay vertex \SI{20}{\centi\meter} greater than standard reconstructed events.
+Studies confirm that this is due to poor track information available in these events;
+the impact of lower vertex resolution on the \lz electromagnetic dipole moment measurement will have to be evaluated in future analyses.
+
+Working on \demonstratorshort signal selection, I finalized the three main steps of the process:
+loose preliminary selections, including requirement of Decay Tree Fitter convergence with \jpsi and \lz mass constraints;
+rejection of \physbkgshort physical background with an invariant mass veto and a cut in the Armenteros-Podolanski $\alpha$--\pt space;
+the final selection of signal with a histogram-based gradient boosting classification tree, trained with simulated signal and LHCb combinatorial background and optimized to maximize \demonstratorshort signal significance.
+The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$).
+
+%% lz bias after selection

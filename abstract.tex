@@ -1,0 +1,204 @@
+\documentclass[12pt,a4paper]{book}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}		% Companion symbols (useful to have)
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lmodern}		% Uses the superior font
+
+\usepackage{pdfx}			% Let's PDF/A it from the start
+\usepackage{graphicx}		% For (you guessed it) including graphics
+
+%% Cover-page-related
+\usepackage[vcentering,dvips,left=4.0cm,right=3.0cm,top=3.5cm,bottom=3.0cm,includeheadfoot]{geometry}
+%\geometry{textwidth=390pt}
+
+%% Bibliography-related
+\bibliographystyle{unsrt}
+\usepackage{tocbibind}		% Adds bibliography (as well as figure and table lists)
+							% to table of contents.
+
+%% For better captions
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{subcaption}
+
+%% For SI units
+\usepackage{siunitx}
+
+%% Math related
+\usepackage{amsmath}	% Matrix environments
+\usepackage{amssymb} % \lesssim
+\usepackage{mathtools} % Coloneqq, xrightarrow
+\usepackage{braket} % Take a guess
+\usepackage{dsfont} % For identity operator
+\usepackage{bm}		% For bold math
+
+%% For better tables (see https://people.inf.ethz.ch/markusp/teaching/guides/guide-tables.pdf)
+\usepackage{booktabs}
+\renewcommand{\arraystretch}{1.2}
+
+%% This avoids page breaks in footnotes
+\interfootnotelinepenalty=10000
+%% This makes footnote numbering continue instead of resetting at each chapter
+\counterwithout{footnote}{chapter}
+
+%% To change the header
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%% These change the display of \leftmark and \rightmark, for some reason
+%% No, I have no idea what they do atm. Truly shameful
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection~~#1}}
+
+\fancyhf{}
+
+\setlength{\headheight}{15pt} %% Changes header height to accomodate text
+
+%% E/O = even/odd pages
+%% L/C/R = left/center/right alignment
+%% H/F = header/footer
+%% \thepage is page number
+%% \leftmark is the chapter title
+%% \rightmark is the section number and title
+%% \nouppercase because otherwise bibliography comes up as BIBLIOGRAPHY in the header
+\fancyhead[ELH]{\thepage}
+\fancyhead[ORH]{\thepage}
+%\fancyhead[ERH]{\leftmark}
+\fancyhead[ERH]{\nouppercase{\leftmark}}
+%\fancyhead[OLH]{\rightmark}
+\fancyhead[OLH]{\nouppercase{\rightmark}}
+
+%% This automatically makes math mode bold in chapter titles, I believe
+\makeatletter
+\g@addto@macro\bfseries{\boldmath}
+\makeatother
+
+%% Barn has been deprecated :( Fuck you Fermi
+\DeclareSIUnit\barn{b}
+\DeclareSIUnit\mev{\mega\electronvolt}
+\DeclareSIUnit\gev{\giga\electronvolt}
+\DeclareSIUnit\tev{\tera\electronvolt}
+\DeclareSIUnit\rad{rad}
+\DeclareSIUnit\mrad{\milli\rad}
+
+%% For trailing space after shortcuts (otherwise it sticks to the next word)
+\usepackage{xspace}
+%% More shortcuts
+\newcommand{\demonstratorfull}{$\Lambda_b^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~\Lambda^0~(\rightarrow p\pi^-)$\xspace}
+\newcommand{\demonstratorshort}{$\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$\xspace}
+\newcommand{\physbkgfull}{$B^0 \rightarrow J/\psi~(\rightarrow \mu^+ \mu^-)~K^0_S~(\rightarrow \pi^+\pi^-)$\xspace}
+\newcommand{\physbkgshort}{$B^0 \rightarrow J/\psi\,K^0_S$\xspace}
+\newcommand{\lz}{$\Lambda^0$\xspace}
+\newcommand{\lbz}{$\Lambda_b^0$\xspace}
+\newcommand{\jpsi}{$J/\psi$\xspace}
+\newcommand{\pim}{$\pi^-$\xspace}
+\newcommand{\bz}{$B^0$\xspace}
+\newcommand{\kshort}{$K^0_S$\xspace}
+\newcommand{\slab}{$\text{S}_\text{L}$\xspace}
+\newcommand{\shad}{$\text{S}_H$\xspace}
+\newcommand{\slambda}{$\text{S}_\Lambda$\xspace}
+\newcommand{\slambdal}{$\text{S}_{\Lambda\text{L}}$\xspace}
+\newcommand{\lambdadecay}{$\Lambda^0 \rightarrow p\pi^-$\xspace}
+\newcommand{\kshortdecay}{$K^0_S \rightarrow \pi^+\pi^-$\xspace}
+\newcommand{\pt}{$p_\text{T}$\xspace}
+\newcommand{\pl}{$p_\text{L}$\xspace}
+\newcommand{\ptstar}{$p_\text{T}^\star$\xspace}
+\newcommand{\plstar}{$p_\text{L}^\star$\xspace}
+\newcommand{\thetap}{$\theta_p$\xspace}
+\newcommand{\cthetap}{$\cos\theta_p$\xspace}
+\newcommand{\phip}{$\phi_p$\xspace}
+
+%% Math operators
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\arctantwo}{arctan2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\frontmatter
+
+%% Cover page
+%\newgeometry{centering}	% Make the page centered on paper
+%%\include{tex_files/0-cover-page}
+%\restoregeometry		% Restore the page layout as earlier
+
+%% Bring order to chaos. \chaptermark fixes uppercase letters in header
+%\tableofcontents
+%\chaptermark{Contents}
+%\listoffigures
+%\chaptermark{List of Figures}
+%\listoftables 
+%\chaptermark{List of Tables}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\mainmatter
+
+\chapter*{Abstract}
+
+Electric and magnetic dipole moments (EDMs and MDMs) of elementary and composite particles are a powerful tool to probe physics beyond the Standard Model:
+permament EDMs are a potential signature of new sources of CP symmetry violation, while MDMs can be used to test the validity of the CPT theorem.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%From the discovery of dark matter in spiral galaxies to the confirmation of neutrino oscillation as solution to the solar neutrino problem, evidence has piled up in favour of the incompleteness of the Standard Model of Particle Physics, currently the best description of particles at the subatomic level.
+%The subject of the violation of C and P discrete symmetries has gained traction in recent years due to the ${10}^{-10}$ disparity between the known Standard Model sources of violation and the extent required to explain the present matter-antimatter asymmetry in the Universe. 
+
+%One promising pathway to new physics is the study of electromagnetic dipole moments of elementary and composite particles.
+%Permanent electric dipole moments (EDMs) introduce a CP-violating term in the system's Hamiltonian;
+%given that expected Standard Model contributions are orders of magnitude smaller than current experiment sensitivities, EDM upper limits place strict constraints on the existence of new physics.
+%Magnetic dipole moments (MDMs) can further be used to probe violation of the CPT theorem, which predicts MDMs to be the same for particles and matching antiparticles.
+
+Electromagnetic dipole moments of long-lived particles can be measured from the precession of their spin-polarization vector in a strong magnetic field, which depends on the particle's gyroelectric and gyromagnetic factors.
+In this thesis, I present my work in preparation of a measurement of the electromagnetic dipole moments of the \lz baryon with the LHCb experiment.
+Long-lived \lz baryons from the exclusive \demonstratorfull decay are selected with the requirement that the \lz decay after the LHCb dipole magnet, allowing for the comparison of initial and final polarization states.
+Theoretical background for the EDM/MDM measurement approach and specifics on the LHCb detecting apparatus are reported in Chapters \ref{cap:flavour_physics} and \ref{cap:LHCb} respectively.
+
+%Electric and magnetic dipole moments of particles are sensitive to physics within and beyond the Standard Model. In this thesis, sensitivity studies for the measurement of the Lambda baryon electromagnetic dipole moments based on pseudo experiments will be performed. In addition, the possibility of a first measurement using data collected with the LHCb detector will be explored. 
+
+For the first part of my thesis, detailed in Chapter \ref{cap:vertex_reconstruction}, I report on my work in understanding and improving the vertex reconstruction process in LHCb, with the main goal of mitigating the low efficiency of \lambdadecay reconstruction in \demonstratorshort events.
+I also analyze the $z$ resolution of the reconstructed \lz vertex to gauge possible sources of bias.
+
+In the second part of my thesis, I focus on the development and finalization of the three major steps in the signal selection process: preliminary filters, rejection of \physbkgshort physical background (including a newly-introduced \kshort veto based on the Armenteros-Podolanski technique), and discrimination of signal through the training and testing of a supervised learning multivariate classifier.
+Results on this front are collected in Chapter \ref{cap:event_selection}.
+
+Finally, in Chapter \ref{cap:angular_distribution} I capitalize on my earlier work to perform a first analysis of the angular distribution of \lambdadecay decay products, a key stepping stone in the prospective measurement of the \lz electromagnetic dipole moments.
+
+Electric and magnetic dipole moments of particles are sensitive to physics within and beyond the Standard Model.
+In this thesis, I worked on various aspects of the \demonstratorfull decay analysis in preparation of a first measurement of the \lz electromagnetic dipole moments using the LHCb Run 2 dataset.
+
+Less than half of candidate \lambdadecay events reach convergence in the vertex reconstruction process.
+I conducted topological studies on a sample of simulated events to show that this is a result of a conflict of information in $xz$ (bending) and $yz$ (non-bending) track propagation planes.
+Through further investigation of the measured kinematic variables and comparison with the Monte Carlo generated values, I exposed a systematic underestimation of $p_z$ in pion tracks reconstructed from hits in the T1--T3 downstream tracking stations.
+Said bias is only observed in non-converging \lambdadecay events and is understood to play a role in the $xz$-$yz$ discrepancy at the origin of the vertexing failure.
+Additional research is under way to locate and fix the source of $p_z$ bias, starting with the track momentum fit process at T station level.
+
+For the time being, I demonstrated that recovery of a significant percentage of failed events in possible by modifying the main vertex fitting algorithm to increase the weight of track propagation in a specific plane.
+A threefold refit approach, attributing more importance to $yz$, $xz$ and $xy$ planes sequentally, results in a $+26.4\%$ increase in signal statistics.
+Comparisons to Monte Carlo truth reveal that recovered events have suboptimal reconstruction, with a median bias on the $z$ component of the \lambdadecay vertex \SI{20}{\centi\meter} greater than standard reconstructed events.
+Studies confirm that this is due to poor track information available in these events;
+the impact of lower vertex resolution on the \lz electromagnetic dipole moment measurement will have to be evaluated in future analyses.
+
+Working on \demonstratorshort signal selection, I finalized the three main steps of the process:
+loose preliminary selections for long-lived \lz events, including requirement of Decay Tree Fitter convergence with \jpsi and \lz mass constraints;
+rejection of \physbkgshort physical background with an invariant mass veto and a cut in the Armenteros-Podolanski $\alpha$--\pt space;
+the final selection of signal with a histogram-based gradient boosting classification tree, trained with simulated signal and LHCb combinatorial background and optimized to maximize \demonstratorshort signal significance.
+The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$).
+
+As first step of the future \lz dipole moment measurement, I computed angular distribution $(\theta_p, \phi_p)$ of proton momentum in the \lz helicity frame, which probes the final polarization state of decaying \lz required for the spin precession technique.
+Angular reconstruction is unbiased net of acceptance effects;
+resolutions of 0.2--0.3 (1.0--1.2) for \cthetap (\phip) are reasonably low, amounting to less than one third of the allowed angular ranges.
+
+Simulated \demonstratorshort events passing the full selection process retain a median \SI{14}{\centi\meter} bias in the $z$ component of the reconstructed \lambdadecay vertex, which has a detrimental effect on \cthetap and \phip resolutions.
+This can mostly be attributed to proton and pion tracks being bent by the magnetic field into a second downstream crossing point, acting as local $\chi^2$ minimum during the vertexing process and being erroneously selected as the \lz decay vertex.
+Removing this class of events (31.6\% of the simulated sample) improves proton angular resolutions by a factor 2--3 across the full range of values.
+Changing the vertex fitting algorithm to account for multiple $\chi^2$ minima would therefore significantly affect the dipole moment measurement and must be considered a high priority for the analysis.
+
+None of the issues I have identified during my work on this analysis compromise the prospective first measurement of the \lz electromagnetic dipole moments.
+On the contrary, the achieved signal yield and absence of bias in the observed angular distributions are a resounding confirmation that physics results with long-lived \lz baryons are possible at LHCb with just Run 2 data.
+Given the upcoming statistics surge projected for Run 3 and the significant resolution boost an improved vertexing algorithm would provide, the outlook is promising for a competitive measurement of \lz gyroelectric and gyromagnetic ratios.
+
+\end{document}

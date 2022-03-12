@@ -144,65 +144,38 @@ permament EDMs are a potential signature of new sources of CP symmetry violation
 
 One approach to study EDMs and MDMs is to exploit the precession of the particle's spin they trigger when flying through a magnetic field;
 this is achieved by comparing initial and final polarization states of a sample of particles through a fit of the angular distribution of their decay products.
-This technique is ripe for study at LHCb, a single-arm spectrometer designed to study heavy-flavour physics using proton-proton collisions at the Large Hadron Collider.
+This technique is ripe for application at LHCb, a single-arm spectrometer designed to study heavy-flavour physics using proton-proton collisions at the Large Hadron Collider.
+In this thesis, I analyzed long-lived \lz baryon decays from the exclusive \demonstratorfull channel in preparation of the first measurement of \lz electromagnetic dipole moments with the \SI{6}{\per\femto\barn} LHCb Run 2 dataset.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The first part of my thesis was dedicated to the vertex reconstruction of \lbz and \lz decays:
+vertexing efficiency falls consistently below 50\% for long-lived \lz decaying after the LHCb dipole magnet, halving the potential signal yield.
+Through topological studies of the events, I found this to be a result of a conflict of track information in $xz$ (with track bending due to the magnet) and $yz$ (without bending) planes, with the leading explanation being a systematic underestimation of $p_z$ in pion tracks.
+To mitigate the problem, I built and deployed an alternative vertex fitting algorithm that increases the weight of specific track propagation planes.
+Refitting \lambdadecay decays with the new algorithm results in a $+26.4\%$ increase in signal statistics, recovering a quarter of the previously non-converging events.
 
-%From the discovery of dark matter in spiral galaxies to the confirmation of neutrino oscillation as solution to the solar neutrino problem, evidence has piled up in favour of the incompleteness of the Standard Model of Particle Physics, currently the best description of particles at the subatomic level.
-%The subject of the violation of C and P discrete symmetries has gained traction in recent years due to the ${10}^{-10}$ disparity between the known Standard Model sources of violation and the extent required to explain the present matter-antimatter asymmetry in the Universe. 
+In the second part of my thesis, I developed and finalized a three-step signal selection process based on loose preliminary filters, rejection of \physbkgfull physical background, and discrimination of \demonstratorshort events with a histogram-based gradient boosting classification tree.
+The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$) in the $\pm3\sigma$ region around the resonance peak.
 
-%One promising pathway to new physics is the study of electromagnetic dipole moments of elementary and composite particles.
-%Permanent electric dipole moments (EDMs) introduce a CP-violating term in the system's Hamiltonian;
-%given that expected Standard Model contributions are orders of magnitude smaller than current experiment sensitivities, EDM upper limits place strict constraints on the existence of new physics.
-%Magnetic dipole moments (MDMs) can further be used to probe violation of the CPT theorem, which predicts MDMs to be the same for particles and matching antiparticles.
+Finally, I performed a first analysis of the angular distribution of \lz decay products from \demonstratorshort events.
+Angular reconstruction of polar and azimuthal proton production angles in the \lz helicity frame is unbiased net of acceptance effects.
+Absolute resolutions span 0.2--0.3 for \cthetap and 1.0--1.2 for \phip, both roughly one sixth of the allowed variable ranges.
+Resolutions heavily worsen as function of the bias on the $z$ component of the \lambdadecay vertex.
+The observed median \SI{14}{\centi\meter} bias in reconstructed decays is mostly attributable to <<ghost vertex>> events,
+%where the algorithm converges on a second crossing point of $p\pi^-$ tracks created by magnet bending.
+where $p\pi^-$ tracks are bent by the magnet into a second crossing point misidentified as an apparent production vertex by the algorithm.
+Removal of this class of events, motivated by encouraging early results with changes to the vertex seeding process, improves proton angular resolutions by a factor 2--3 across the full range of values.
 
-%Electromagnetic dipole moments of long-lived particles can be measured from the precession of their spin-polarization vector in a strong magnetic field, which depends on the particle's gyroelectric and gyromagnetic factors.
-In this thesis, I present my work in preparation of a measurement of the electromagnetic dipole moments of the \lz baryon with the LHCb experiment.
-Long-lived \lz baryons from the exclusive \demonstratorfull decay are selected with the requirement that the \lz decay after the LHCb dipole magnet, allowing for the comparison of initial and final polarization states.
-%Theoretical background for the EDM/MDM measurement approach and specifics on the LHCb detecting apparatus are reported in Chapters \ref{cap:flavour_physics} and \ref{cap:LHCb} respectively.
+Identified issues in this analysis do not compromise the prospective measurement of \lz electromagnetic dipole moments.
+On the contrary, the achieved signal yield and absence of bias in proton angular distributions confirm that competitive results with long-lived \lz baryons are possible with Run 2 data.
+Given the upcoming statistics surge projected for Run 3 and the boost in yield and resolution an improved vertexing algorithm would provide, the outlook is promising for a first measurement of \lz EDMs and MDMs at LHCb.
 
-%Electric and magnetic dipole moments of particles are sensitive to physics within and beyond the Standard Model. In this thesis, sensitivity studies for the measurement of the Lambda baryon electromagnetic dipole moments based on pseudo experiments will be performed. In addition, the possibility of a first measurement using data collected with the LHCb detector will be explored. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\noindent\rule{\textwidth}{0.4pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-For the first part of my thesis, detailed in Chapter \ref{cap:vertex_reconstruction}, I report on my work in understanding and improving the vertex reconstruction process in LHCb, with the main goal of mitigating the low efficiency of \lambdadecay reconstruction in \demonstratorshort events.
-I also analyze the $z$ resolution of the reconstructed \lz vertex to gauge possible sources of bias.
-
-In the second part of my thesis, I focus on the development and finalization of the three major steps in the signal selection process: preliminary filters, rejection of \physbkgshort physical background (including a newly-introduced \kshort veto based on the Armenteros-Podolanski technique), and discrimination of signal through the training and testing of a supervised learning multivariate classifier.
-Results on this front are collected in Chapter \ref{cap:event_selection}.
-
-Finally, in Chapter \ref{cap:angular_distribution} I capitalize on my earlier work to perform a first analysis of the angular distribution of \lambdadecay decay products, a key stepping stone in the prospective measurement of the \lz electromagnetic dipole moments.
-
-Electric and magnetic dipole moments of particles are sensitive to physics within and beyond the Standard Model.
-In this thesis, I worked on various aspects of the \demonstratorfull decay analysis in preparation of a first measurement of the \lz electromagnetic dipole moments using the LHCb Run 2 dataset.
-
-Less than half of candidate \lambdadecay events reach convergence in the vertex reconstruction process.
-I conducted topological studies on a sample of simulated events to show that this is a result of a conflict of information in $xz$ (bending) and $yz$ (non-bending) track propagation planes.
-Through further investigation of the measured kinematic variables and comparison with the Monte Carlo generated values, I exposed a systematic underestimation of $p_z$ in pion tracks reconstructed from hits in the T1--T3 downstream tracking stations.
-Said bias is only observed in non-converging \lambdadecay events and is understood to play a role in the $xz$-$yz$ discrepancy at the origin of the vertexing failure.
-Additional research is under way to locate and fix the source of $p_z$ bias, starting with the track momentum fit process at T station level.
-
-For the time being, I demonstrated that recovery of a significant percentage of failed events in possible by modifying the main vertex fitting algorithm to increase the weight of track propagation in a specific plane.
-A threefold refit approach, attributing more importance to $yz$, $xz$ and $xy$ planes sequentally, results in a $+26.4\%$ increase in signal statistics.
-Comparisons to Monte Carlo truth reveal that recovered events have suboptimal reconstruction, with a median bias on the $z$ component of the \lambdadecay vertex \SI{20}{\centi\meter} greater than standard reconstructed events.
-Studies confirm that this is due to poor track information available in these events;
-the impact of lower vertex resolution on the \lz electromagnetic dipole moment measurement will have to be evaluated in future analyses.
-
-Working on \demonstratorshort signal selection, I finalized the three main steps of the process:
-loose preliminary selections for long-lived \lz events, including requirement of Decay Tree Fitter convergence with \jpsi and \lz mass constraints;
-rejection of \physbkgshort physical background with an invariant mass veto and a cut in the Armenteros-Podolanski $\alpha$--\pt space;
-the final selection of signal with a histogram-based gradient boosting classification tree, trained with simulated signal and LHCb combinatorial background and optimized to maximize \demonstratorshort signal significance.
-The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$).
-
-As first step of the future \lz dipole moment measurement, I computed angular distribution $(\theta_p, \phi_p)$ of proton momentum in the \lz helicity frame, which probes the final polarization state of decaying \lz required for the spin precession technique.
-Angular reconstruction is unbiased net of acceptance effects;
-resolutions of 0.2--0.3 (1.0--1.2) for \cthetap (\phip) are reasonably low, amounting to less than one third of the allowed angular ranges.
-
-Simulated \demonstratorshort events passing the full selection process retain a median \SI{14}{\centi\meter} bias in the $z$ component of the reconstructed \lambdadecay vertex, which has a detrimental effect on \cthetap and \phip resolutions.
-This can mostly be attributed to proton and pion tracks being bent by the magnetic field into a second downstream crossing point, acting as local $\chi^2$ minimum during the vertexing process and being erroneously selected as the \lz decay vertex.
-Removing this class of events (31.6\% of the simulated sample) improves proton angular resolutions by a factor 2--3 across the full range of values.
-Changing the vertex fitting algorithm to account for multiple $\chi^2$ minima would therefore significantly affect the dipole moment measurement and must be considered a high priority for the analysis.
-
-None of the issues I have identified during my work on this analysis compromise the prospective first measurement of the \lz electromagnetic dipole moments.
-On the contrary, the achieved signal yield and absence of bias in the observed angular distributions are a resounding confirmation that physics results with long-lived \lz baryons are possible at LHCb with just Run 2 data.
-Given the upcoming statistics surge projected for Run 3 and the significant resolution boost an improved vertexing algorithm would provide, the outlook is promising for a competitive measurement of \lz gyroelectric and gyromagnetic ratios.
+%Simulated \demonstratorshort events passing the full selection process retain a median \SI{14}{\centi\meter} bias in the $z$ component of the reconstructed \lambdadecay vertex, which has a detrimental effect on \cthetap and \phip resolutions.
+%This can mostly be attributed to proton and pion tracks being bent by the magnetic field into a second downstream crossing point, acting as local $\chi^2$ minimum during the vertexing process and being erroneously selected as the \lz decay vertex.
+%Removing this class of events (31.6\% of the simulated sample) improves proton angular resolutions by a factor 2--3 across the full range of values.
+%Changing the vertex fitting algorithm to account for multiple $\chi^2$ minima would therefore significantly affect the dipole moment measurement and must be considered a high priority for the analysis.
 
 \end{document}

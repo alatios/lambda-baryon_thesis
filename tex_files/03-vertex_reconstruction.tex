@@ -65,7 +65,25 @@ The algorithm then performs a \textit{proper transportation}, a dedicated routin
 
 As mentioned in Section \ref{sec:2:tracking}, extrapolation using T tracks is a sensitive affair:
 unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
-For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Bos:1070314} \cite{Hairer1993}.
+For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Hairer1993}.
+In the RK formalism, the track state at a given $z$ is parameterized with a five-dimensional representation
+\begin{equation}
+\vec{x} = \begin{pmatrix}
+	x \\ y \\ t_x \\ t_y \\ \frac{Q}{P}
+\end{pmatrix},
+\end{equation}
+with $t_{x} \coloneqq \frac{dx}{dz}$ (the same holds for $t_y$) and $\frac{Q}{P}$ is the charge-to-momentum ratio.
+When extrapolating the track for a distance $\Delta z$, the new track state is computed with a fifth-order RK expansion
+\begin{equation}
+\vec{x}(\Delta z) = \vec{x}_0 + \sum_{m=1}^6 c_m \frac{d\vec{x}^m}{dz} \Delta z,
+\end{equation}
+with
+\begin{equation}
+\vec{x}^m = \sum_{n=1}^{m-1} b_{mn} \frac{d\vec{x}^n}{dz} \Delta z
+\end{equation}
+and Cash-Karp parameters $c_m$ and $b_{mn}$ chosen to obtain a precision of $(\Delta z)^6$ \cite{Bos:1070314}.
+
+
 
 % @todo: explain Runge-Kutta, a che ordine?
 
@@ -1299,7 +1317,7 @@ Figure \ref{fig:3:hreco_vs_htrue} highlights the isolated events in the $h_\text
 		\label{fig:3:bias_without_positive_hDTF}
 	\end{subfigure}
 	\caption{Normalized distributions of $z_\text{vtx}^\Lambda$ bias for simulated \demonstratorshort events with all selection steps applied: \textit{(a)} without (\textit{horizontal hatching}) and with (\textit{diagonal hatching}) \lz ghost vertex, as selected in Figure \ref{fig:3:psi_vs_htrue}; \textit{(b)} with $h_\text{DTF} > 0$ (\textit{horizontal hatching}) and  $h_\text{DTF} \leq 0$ (\textit{diagonal hatching}), using DTF momenta with \jpsi and \lz mass constraints.}
-	\label{fig:3:bias_in_isolated_events}
+%	\label{fig:3:bias_in_isolated_events}
 \end{figure}
 
 %A sufficiently small $y$ track distance is required for the Vertex Fitter to equivocate the ghost vertex for the real one, otherwise the event will not converge in the $yz$ plane.
@@ -1326,7 +1344,7 @@ early results show that overriding the seeding process (see Section \ref{sec:3:s
 A similar result could be achieved without access to Monte Carlo information by performing several vertex fits with seeds across the $z$ range and implementing selection criteria to choose the best vertex among the ones found.
 
 An alternative, more drastic approach would be to only retain \lambdadecay events with $h_\text{DTF} \leq 0$. As seen from Figure \ref{fig:3:hreco_vs_htrue}, this rejects virtually all ghost vertex events and yields an even lower median bias of $\approx \SI{2.5}{\centi\meter}$ with a single cut on reconstructed variables (see Figure \ref{fig:3:bias_without_positive_hDTF}).
-The ensuing 89\% loss in \demonstratorshort signal makes this solution impractical with Run 2 data, but viable as a last resort on the projected \SI{50}{\per\femto\barn} dataset at the end of Run 3.
+The ensuing 89\% loss in \demonstratorshort signal makes this solution impractical with Run 2 data, but viable as a last resort on the projected \SI{50}{\per\femto\barn} dataset at the end of Run 4.
 
 For the purposes of this thesis, no cut on ghost vertex events is applied.
 Their impact on the resolutions for the proton angular distribution in \lambdadecay decays is studied in Section \ref{sec:5:resolution_after_ghost}.

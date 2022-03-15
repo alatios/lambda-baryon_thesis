@@ -21,7 +21,7 @@ LHC is located at the CERN laboratory near Geneva, Switzerland, housed in the un
 Its structure, sketched in Figure \ref{fig:2:lhc_diagram}, consists of two counterrotating rings hosting beams for particle-particle collisions (mainly protons, but LHC is also used for ion collisions).
 
 Four main experiments are stationed at the LHC ring intersection points:
-ATLAS and CMS are high-luminosity experiments focused on general purpose proton-proton collisions; ALICE is optimized for lead-on-lead collisions with lower center-of-mass energy and luminosity compared to the former two; finally, LHCb is dedicated on the study of $b$ hadrons and will be the focus of the rest of this chapter.
+ATLAS and CMS are high-luminosity\footnote{See Section \ref{info:LHCb_system} for a formal definition of luminosity and its role in particle colliders.} experiments focused on general purpose proton-proton collisions; ALICE is optimized for lead-on-lead collisions with lower center-of-mass energy and luminosity compared to the former two; finally, LHCb is dedicated on the study of $b$ hadrons and will be the focus of the rest of this chapter.
 Beyond the above four, a number of small-scale, more specialized experiments also work with LHC, such as TOTEM, MilliQan and MoEDAL.
 
 %Broadly speaking,
@@ -52,6 +52,42 @@ A more in-depth look at the tracking and particle identification systems will be
 \label{info:LHCb_system}
 The standard LHCb coordinate system, used as reference for the rest of this thesis, is a right-handed system centered on the beam interaction point, with the $z$ axis along the the beam pipe and $y$ axis directed vertically upwards.
 
+\begin{table}[t]
+	\begin{center}
+	\begin{tabular}{@{}lllllll@{}}
+		\toprule
+		 & Run 1 & Run 2 & Run 3 & Run 4 & Run 5 & Run 6 \\
+		\midrule
+		Years & 2011--12 & 2015--18 & 2022--24 & 2027--30 & 2032--34 & 2036--40 \\
+		Collider & \multicolumn{3}{l}{LHC} & \multicolumn{3}{l}{HiLumi-LHC} \\
+		Detector & \multicolumn{2}{l}{Current} & Upgrade I & Upgrade Ib & \multicolumn{2}{l}{Upgrade II} \\
+		$\mathcal{L}$ & \multicolumn{2}{l}{\SI{2e32}{\per\centi\meter\squared\per\second}}
+		& \multicolumn{2}{l}{\SI{2e33}{\per\centi\meter\squared\per\second}}
+		& \multicolumn{2}{l}{\SI{2e34}{\per\centi\meter\squared\per\second}} \\
+		$\int\mathcal{L}\,dt$
+		& \SI{3}{\per\femto\barn}
+		& \SI{6}{\per\femto\barn}
+		& \SI{25}{\per\femto\barn}
+		& \SI{50}{\per\femto\barn}
+		& \multicolumn{2}{l}{\SI{300}{\per\femto\barn}} \\
+		\bottomrule
+	\end{tabular}
+	\end{center}
+	\caption{Key detector and collider parameters for planned LHCb Runs until 2040. Values for Run 3 and beyond are based on projections.}
+	\label{tab:2:luminosity}
+\end{table}
+
+An important parameter for detectors is \textit{istantaneous luminosity}, also often cited as simply \textit{luminosity}. At a beam collider such as LHC, luminosity $\mathcal{L}$ is defined as
+\begin{equation}
+\mathcal{L} = \frac{f_\text{BC} N_1 N_2 F}{4\pi\sigma_x\sigma_y},
+\end{equation}
+with $f_\text{BC}$ being the collision frequency of proton bunches, $N_{1,2}$ the number of protons in each beam and $\sigma_{x} \sigma_y$ the beam cross-section in the transverse plane;
+geometrical factor $F$ parameterizes the crossing angle between the two beams.
+\textit{Integrated luminosity} $\int\mathcal{L}\,dt$ is used to quantify the magnitude of data collected in a definite timespan.
+Table \ref{tab:2:luminosity} reports instantaneous and integrated luminosities for the foreseen LHCb schedule up until 2040.
+In Runs 1 and 2, LHCb has operated at a luminosity two orders of magnitude below the peak achievable LHC luminosity used by ATLAS and CMS;
+this decision was taken to reduce the particle flux in the acceptance region, which would otherwise create occupancy problems and shorten the detector lifespan due to radiation damage.
+
 By all accounts, LHCb has been an incredibly successful experiment, reaching its 600th publication by the end of 2021 and leading to state-of-the-art results both within and outside of its intended research framework.
 Among the main results achieved by the LHCb Collaboration in the field of CP symmetry violation are world-class precision measurements of heavy quark mixing \cite{B0MeasurementPrecise2016} \cite{B0MeasurementPrecise2013}, the first observation of CP violation in the charm sector \cite{PhysRevLett.122.211803} and competitive measurements of the CKM unitarity triangle parameters \cite{LHCb-CONF-2020-003}.
 LHCb has also been active in the study of rare $b$-hadron decays \cite{PhysRevLett.118.191801}, as well as in conventional and exotic hadron spectroscopy \cite{DMesonSpectroscopy}, particularly concerning evidences of new pentaquark states \cite{LHCbPentaquark}.
@@ -78,15 +114,16 @@ Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$
 \subsubsection{VELO}
 As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504321} is designed to provide precision measurements of charged tracks near the beam interaction point, in order to correctly reconstruct detached secondary vertices typical of $b$- and $c$-hadron decays.
 
+The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of half discs measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex\footnote{In LHCb, the \textit{primary vertex} (PV) is the proton-proton interaction point.} reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
+Primary vertex resolution on the primary vertex is 10--40~\si{\micro\meter} in $x$ and $y$ and 50--250~\si{\micro\meter} in $z$, while impact parameter\footnote{The \textit{impact parameter} of a track is defined as its closest distance to the event primary vertex.} resolution is in the 10--90~\si{\micro\meter} range.
+In all cases, resolutions improve when PV track multiplicity (number of tracks originating from the primary vertex) of the event increases \cite{VELOPerformance}.
+
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/02-lhcb/VELO_xy.png}
 	\caption[Front view diagram of the VELO detector.]{Front view diagram of the VELO detector in fully closed (\textit{left}) and fully open (\textit{right}) configurations \cite{Barbosa-Marinho:504321}.}
 	\label{fig:2:VELO_xy}
 \end{figure}
-
-The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of half discs measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex\footnote{In LHCb, the \textit{primary vertex} is the proton-proton interaction point.} reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
-Due to high risk of radiation damage during beam injection from the Super Proton Synchrotron (SPS) into LHC, these modules can be retracted by \SI{3}{\centi\meter} in so-called \textit{fully open} configuration, whereas during collision phase the VELO operates in \textit{fully closed} configuration (see Figure \ref{fig:2:VELO_xy}).
 
 \begin{figure}[t]
 	\centering
@@ -95,10 +132,10 @@ Due to high risk of radiation damage during beam injection from the Super Proton
 	\label{fig:2:VELO_xz}
 \end{figure}
 
+Due to high risk of radiation damage during beam injection from the Super Proton Synchrotron (SPS) into LHC, these modules can be retracted by \SI{3}{\centi\meter} in so-called \textit{fully open} configuration, whereas during collision phase the VELO operates in \textit{fully closed} configuration (see Figure \ref{fig:2:VELO_xy}).
+
 Figure \ref{fig:2:VELO_xz} shows the $xz$ plane cross-section of the VELO modules; the two halves of the detector are $z$-shifted by \SI{1.5}{\centi\meter} to ensure full azimuthal acceptance, resulting in the partial overlap seen in fully closed configuration.
 Four radial-only \textit{pile-up sensors}, part of the Level-0 hardware trigger system (see Section \ref{sec:2:data_flow}), are placed upstream to help veto multiple-interaction events.
-
-
 
 \subsubsection{Tracker Turicensis}
 The Tracker Turicensis (TT) \cite{Gassner:728548}, formerly known as Trigger Tracker, is a $\SI{150}{\centi\meter} \times \SI{130}{\centi\meter}$ tracking station located just upstream of the dipole magnet.
@@ -158,7 +195,17 @@ Within a single T station, said modules are arranged in four layers in $x$-$u$-$
 The OT covers the entire 300/250 \si{\milli\rad} LHCb detector acceptance.
 
 \subsubsection{Track classification and the problems with T tracks}
-Overall, the LHCb tracking system has very high efficiency, besting $96\%$ in the momentum range $|\vec{p}|=5$--$200$ \si{\gev\per c} for tracks crossing all three detector stations (VELO, TT and T1--T3) \cite{HistoryLHCb}. 
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/02-lhcb/tstation_p_resolution.png}
+	\caption{Relative momentum resolution for Long tracks as a function of $p\coloneqq |\vec{p}|$ \cite{LHCbDetectorPerformance}.}
+	\label{fig:2:tstation_p_resolution}
+\end{figure}
+
+As seen in Figure \ref{fig:2:tstation_p_resolution}, charged particles crossing all three detector stations (VELO, TT and T1--T3) are excellently measured at LHCb, with momentum relative resolution going from 0.5\% for low energy tracks to 1\% for high energy tracks  (up to \SI{200}{\gev\per c}) \cite{LHCbDetectorPerformance}.
+These tracks also have very high reconstruction efficiency, besting 96\% in the 5--200~\si{\gev\per c} momentum range \cite{HistoryLHCb}.
+
 However, not all particles enjoy this luxury:
 low momentum particles ($|\vec{p}| \lesssim \SI{1.5}{\gev\per c}$) are unable to reach the T stations due to the sharp magnet bending curve, while daughters of longer-lived particles with $c\tau \gtrsim \SI{30}{\centi\meter}$ will miss the VELO and possibly even the TT detector.
 
@@ -367,9 +414,9 @@ This allows simulated data to be processed with the same software as the real on
 \section{LHCb detector upgrade for Run 3}
 \label{sec:2:upgrade}
 
-During LHC Runs 1 and 2, the LHCb experiment has collected $\approx \SI{8}{\per\femto\barn}$ of data.
+During LHC Runs 1 and 2, the LHCb experiment has collected $\approx \SI{9}{\per\femto\barn}$ of data.
 As much as this has allowed the LHCb Collaboration to achieve impressive results in the heavy-flavour sector and beyond, as touched upon in Section \ref{sec:2:lhcb_detector}, many ongoing analyses are still limited by low statistics.
-For this reason, during the LS2, work has been carried out to upgrade the detector in software and hardware with the goal of reaching a \SI{50}{\per\femto\barn} integrated luminosity by the end of Run 3 \cite{Piucci_2017}.
+For this reason, during the LS2, work has been carried out to upgrade the detector in software and hardware with the goal of reaching a \SI{25}{\per\femto\barn} integrated luminosity by the end of Run 3 \cite{Piucci_2017}.
 
 The main feature of this upgrade will be the removal of the L0 hardware trigger in favour of a fully software trigger \cite{CERN-LHCC-2014-016}.
 After the performance match between HLT2 and Brunel achieved in Run 2, the high level trigger will see an even more central stage in Run 3, being tasked with full reconstruction of all events of interest in the context of a five-fold increase in operational luminosity (up to \SI{2e33}{\per\centi\meter\squared\per\second}).
@@ -383,7 +430,7 @@ To prevent trigger yield saturation with such an increase in luminosity, the LHC
 \end{figure}
 
 Many parts of the LHCb detector will concurrently be upgraded or partially rebuilt, as seen in Figure \ref{fig:2:lhcb_diagram_run3}, with the most significant changes concerning the tracking system.
-The upgraded VELO, also known as VELO Pixel, will replace the silicon microstrip technology with hybrid pixel modules with integrated CO$_2$ cooling, ensuring better radiation hardness, impact parameter\footnote{The \textit{impact parameter} of a track is defined as its closest distance to the event primary vertex.} resolution and tracking times \cite{Collaboration:1624070}.
+The upgraded VELO, also known as VELO Pixel, will replace the silicon microstrip technology with hybrid pixel modules with integrated CO$_2$ cooling, ensuring better radiation hardness, impact parameter resolution and tracking times \cite{Collaboration:1624070}.
 Upstream of the magnet, the Upstream Tracker (UT) will take over from the TT, featuring four high granularity silicon microstrip layers with improved coverage of the LHCb angular acceptance. Finally, both inner and outer trackers of the T1--T3 stations will be replaced by the Scintillating Fiber Tracker (SFT or SciFi), based on \SI{2.4}{\meter} plastic scintillating fibers read out by silicon photo-multipliers \cite{Collaboration:1647400}.
 This global upgrade is projected to reduce reconstructed fake tracks by as much as $70\%$, drastically shortening trigger timing \cite{Piucci_2017}.
 

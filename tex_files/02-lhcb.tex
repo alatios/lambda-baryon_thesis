@@ -11,7 +11,8 @@
 	\label{fig:2:lhc_diagram}
 \end{figure}
 
-At the moment of writing, the Large Hadron Collider (LHC for short) is the largest and most powerful particle collider in the world.
+%At the moment of writing, 
+The Large Hadron Collider (LHC for short) is the largest and most powerful particle collider in the world.
 When the LHC was first approved by the European Organization for Nuclear Research (CERN) in 1994, it was originally going to be built with an initial center-of-mass collision energy $\sqrt{s} = \SI{10}{\tev}$, with the plan to upgrade it to \SI{14}{\tev} at a later stage;
 however, after negotiations with nonmember states, in 1996 the CERN council approved the construction at \SI{14}{\tev} energy in one stage \cite{doi:10.1146/annurev-nucl-102010-130438}.
 %First collisions were obtained in 2010 at center-of-mass energy of \SI{7}{\tev}, with the current world record of \SI{13}{\tev} being achieved in 2015 after the first Long Shutdown.
@@ -84,7 +85,7 @@ As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504
 	\label{fig:2:VELO_xy}
 \end{figure}
 
-The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of half discs measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
+The VELO detector comprises 42 silicon modules along the beam direction, each consisting of a pair of half discs measuring the radial and azimuthal track coordinates respectively. These modules cover the $1.6 < \eta < 4.9$ positive pseudorapidity range, as well as some negative pseudorapidity portion to improve primary vertex\footnote{In LHCb, the \textit{primary vertex} is the proton-proton interaction point.} reconstruction, and are able to detect particles emerging from primary vertices with $|z| < \SI{10.6}{\centi\meter}$.
 Due to high risk of radiation damage during beam injection from the Super Proton Synchrotron (SPS) into LHC, these modules can be retracted by \SI{3}{\centi\meter} in so-called \textit{fully open} configuration, whereas during collision phase the VELO operates in \textit{fully closed} configuration (see Figure \ref{fig:2:VELO_xy}).
 
 \begin{figure}[t]
@@ -344,7 +345,9 @@ The resulting DST files, also referred to as \textit{full} DSTs to distinguish f
 
 During Run 1, the full stream path was the only one available, because HLT2 performed a significantly worse reconstruction than Brunel even on the implemented decays.
 This changed in Run 2 with the introduction of the parallel \textit{Turbo stream} \cite{Benson_2015}, i.e. the storage of HLT2 output for direct usage by analysts through DaVinci.
-The EFF upgrade conducted during the LS1 increased the HLT2 allotted computation time enough to match HLT2 and Brunel performances;
+The EFF upgrade conducted during the LS1 increased the HLT2 allotted computation time enough to match
+%HLT2 and
+Brunel performances;
 the key difference between the full and turbo streams is that the latter only saves information on the decay of interest for the related HLT2 trigger line to save storage space, preventing future offline reconstruction of the full decay tree by Brunel.
 
 This change was motivated by the increase in center-of-mass collision energy from \SI{8}{\tev} to \SI{13}{\tev}: the higher $b$- and $c$-production cross-sections mean that more events of interest for LHCb are produced in Run 2 despite the same bunch-crossing frequency.
@@ -380,7 +383,7 @@ To prevent trigger yield saturation with such an increase in luminosity, the LHC
 \end{figure}
 
 Many parts of the LHCb detector will concurrently be upgraded or partially rebuilt, as seen in Figure \ref{fig:2:lhcb_diagram_run3}, with the most significant changes concerning the tracking system.
-The upgraded VELO, also known as VELO Pixel, will replace the silicon microstrip technology with hybrid pixel modules with integrated CO$_2$ cooling, ensuring better radiation hardness, impact parameter resolution and tracking times \cite{Collaboration:1624070}.
+The upgraded VELO, also known as VELO Pixel, will replace the silicon microstrip technology with hybrid pixel modules with integrated CO$_2$ cooling, ensuring better radiation hardness, impact parameter\footnote{The \textit{impact parameter} of a track is defined as its closest distance to the event primary vertex.} resolution and tracking times \cite{Collaboration:1624070}.
 Upstream of the magnet, the Upstream Tracker (UT) will take over from the TT, featuring four high granularity silicon microstrip layers with improved coverage of the LHCb angular acceptance. Finally, both inner and outer trackers of the T1--T3 stations will be replaced by the Scintillating Fiber Tracker (SFT or SciFi), based on \SI{2.4}{\meter} plastic scintillating fibers read out by silicon photo-multipliers \cite{Collaboration:1647400}.
 This global upgrade is projected to reduce reconstructed fake tracks by as much as $70\%$, drastically shortening trigger timing \cite{Piucci_2017}.
 
@@ -401,7 +404,9 @@ This comparatively rare channel ($\text{BR} \approx {10}^{-5}$) is selected at H
 The need to measure spin precession in the magnetic field restricts the available \lz to those decaying after the LHCb dipole magnet, implicitly requiring its decay products $p\pi^-$ to be T tracks.
 
 The $\tau \approx \SI{1.5e-12}{\second}$ mean life of the \lbz \cite{PDG} places its decay vertex well inside the VELO detector; in conjunction with the high efficiency reconstruction of muons in LHCb, this justifies a Long track requirement in their case.
-The \lbz vertex accuracy afforded by the \jpsi half of the decay chain enables us to impose kinematic constraints on the \lz half, partially offsetting some of the problems with T tracks I have pointed out in Section \ref{sec:2:tracking}.
+The \lbz vertex accuracy afforded by the \jpsi half of the decay chain enables us to impose kinematic constraints on the \lz,
+%half,
+partially offsetting some of the problems with T tracks I have pointed out in Section \ref{sec:2:tracking}.
 
 Along with Run 2 data, simultated samples of \eqref{eq:demonstrator_cap1} events are used to study the effect of the different steps of signal selection requirements.
 These have been generated with \textsc{Pythia} \cite{Pythia2015} using the LHCb-specific configuration implemented in Gauss \cite{Belyaev_2011}, and have been digitized following the procedure detailed in Section \ref{sec:2:monte_carlo}.

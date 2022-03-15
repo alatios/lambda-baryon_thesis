@@ -11,7 +11,7 @@ finally, Section \ref{sec:lambda_endvertex_bias} features an analysis of \lambda
 \label{sec:reco_algorithms}
 
 \subsection{Vertex Fitter algorithm}
-The Vertex Fitter (VF), implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the \lbz decay.
+The Vertex Fitter (VF) \cite{twiki_vf}, implemented as part of the LoKi analysis toolkit, is the main vertexing algorithm used for the reconstruction of the \lbz decay.
 
 Under VF formalism, each daughter particle is represented by a 7-dimensional vector\footnote{This chapter assumes the standard right-handed LHCb coordinate system, see Section \ref{info:LHCb_system}.}
 \begin{equation}
@@ -149,15 +149,15 @@ where the reference point inverse covariance matrix ${(G_k^i)}_r = {(V_k^i)}_r^{
 %F_k = W_k B_k^T G_k A_k.
 %\end{equation}
 
-If ${(C^i_k)}^{-1}$ can successfully be inverted, the algorithm updates the current best estimate of the common origin vertex:
+If ${(C^i_k)}^{-1}$ can successfully be inverted, the algorithm updates the current best estimate of the common origin vertex by combining information from the previous step ($\vec{x}_{k-1}^i$) with information from the properly transported current particle (reference point $\vec{r}_k^i$ from representation \eqref{eq:particle_representation}) through the associate inverse covariance matrices:
 \begin{equation}
 \vec{x}_k^i = C_k^i \left[
 	{(C^i_{k-1})}^{-1} \vec{x}_{k-1}^i
 	+ {(G_k^i)}_r \vec{r}_k^i
-\right],
+\right].
 \label{eq:VF_new_vertex_final}
 \end{equation}
-with $\vec{r}_k^i$ being the reference point from representation \eqref{eq:particle_representation}.
+%with $\vec{r}_k^i$ being the reference point from representation \eqref{eq:particle_representation}.
 New vertex $\vec{x}_k^i$ doubles as reference point for the $k$-th particle until the next transportation, ergo track momentum is also updated to match it\footnote{In this equation, $\coloneqq$ stands for the assignment operator.}
 \begin{equation}
 	\vec{q}_k^i \coloneqq
@@ -297,7 +297,7 @@ For iterations $i>1$, such roles are filled by the final vertex computed during 
 This leaves out the crucial $i=1,k=1$ step;
 to make up for it, at the beginning the algorithm extracts a \textit{vertex seed}, a first estimate of the decay vertex position, through a dedicated procedure depending on decay topology and properties of particles involved.
 
-In the case of interest of the \lambdadecay two-body decay, said procedure is a simplified step of the Kalman filter that uses the initial $\vec{p}$ track measurement performed by the T stations:
+In the case of interest of the \lambdadecay two-body decay, said procedure is a single simplified iteration that uses the initial $\vec{p}$ track measurement performed by the T stations:
 \begin{subequations}
 \begin{align}
 	&{(C_{0}^{1})}^{-1} = \sum_{j=p,\pi} {G_r}_j, \\
@@ -457,7 +457,7 @@ Even in the relatively more traditional case of the $\Lambda_b^0 \rightarrow J/\
 In particular, it prevents the placing of \textit{mass constraints} on mother particles, where the fit fixes the invariant mass of daughter pair to the PDG value for mother particle mass.
 
 To compensate for this, all reconstructed events in this analysis undergo a refit process based on the Decay Tree Fitter (DTF) algorithm \cite{Hulsbergen:2005pu} first developed in BaBar.
-This algorithm fits the entire decay chain simultaneously and allows to place mass constraints on $p\pi^-$ and $\mu^+\mu^-$ invariant masses to match $m(\Lambda^0)$ and $m(J/\psi)$ respectively.
+This algorithm fits the entire decay chain simultaneously, fixing the decay vertices to the values found by the Vertex Fitter, and allows to place mass constraints on $p\pi^-$ and $\mu^+\mu^-$ invariant masses to match $m(\Lambda^0)$ and $m(J/\psi)$ respectively.
 
 %% @todo: Ci starebbe un bel test in cui confronti la distribuzione dei vertici VF e DTF per mostrare che sono uguali (lo sono, vero??). Devi estrarli via Kinematic, immagino, perché nel rootfile non ci sono.
 
@@ -497,7 +497,11 @@ A track is said to be reconstructible as VELO track with hits in $\geq 3$ VELO m
 If these conditions are satisfied simultaneously, the track qualifies for reconstructibility as Long track \cite{Li:2752971}.
 
 At Monte Carlo level, a track is deemed to be \textit{reconstructed} if it can be successfully matched to at least one MC particle;
-for T and Long tracks, this is true if at least $70\%$ of the hits from the respective relevant detectors for reconstructibility are shared between reconstructed and true track. For \demonstratorshort events with a true $z_\text{vtx}^\Lambda \in [\SI{6.0}{\meter}, \SI{7.6}{\meter}]$, this results in a track reconstruction efficiency in the 60\% to 80\% range.
+for T and Long tracks, this is true if at least $70\%$ of the hits from the respective relevant detectors for reconstructibility are shared between reconstructed and true track. For \demonstratorshort events with a true $z_\text{vtx}^\Lambda \in [\SI{6.0}{\meter}, \SI{7.6}{\meter}]$, this results in a track reconstruction efficiency
+\begin{equation}
+	\varepsilon_\text{reconstruction} \coloneqq \frac{n_\text{reconstructed}}{n_\text{reconstructible}}
+\end{equation}
+in the 60\% to 80\% range.
 
 \begin{figure}[t!]
 	\centering
@@ -506,7 +510,11 @@ for T and Long tracks, this is true if at least $70\%$ of the hits from the resp
 	\label{fig:lambda_lambdab_reco_efficiency}
 \end{figure}
 
-When considering how many of these reconstructed charged particles pass the vertex reconstruction (\textit{vertexing}) process, efficiency is much lower.
+When considering how many of these reconstructed charged particles pass the vertex reconstruction (\textit{vertexing}) process, efficiency
+\begin{equation}
+	\varepsilon_\text{vertexing} \coloneqq \frac{n_\text{vertexed}}{n_\text{reconstructed}}
+\end{equation}
+is much lower.
 Figure \ref{fig:lambda_lambdab_reco_efficiency} plots \lbz and \lz vertexing efficiency through the whole true $z_\text{vtx}^\Lambda$ spectrum, showing it never manages to get past the 50\% threshold.
 This means that over half of candidate signal events are lost during the second step of the five-step selection process.
 
@@ -802,9 +810,9 @@ Moreover, Figure \ref{fig:pim_momentum_residual_2Dv3D_z_rel} highlights the fact
 
 Transverse momenta of proton and pions after transport show no similar biases when both $\Lambda^0 \rightarrow p\pi^-$ and $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ events are considered.
 A significant bias in the extrapolated $p_x$ of both particles instead becomes visible when including only the former or latter class of events.
-The situation for \lz decays is shown in Figure \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_matter}:
+The situation for \lz decays is shown in Figure \ref{fig:pim_momentum_residual_2Dv3D_x_rel_matter}:
 converged events bear a $leq 1\sigma$ positive $p_x$ bias for pions, while failed events are negatively biased with a much larger dispersion; the signs of both biases are reversed 
-in $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ decays, as seen in Figure \ref{fig:pim_refpoint_residual_2Dv3D_x_rel_antimatter}.
+in $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ decays, as seen in Figure \ref{fig:pim_momentum_residual_2Dv3D_x_rel_antimatter}.
 
 \begin{figure}[t]
 	\centering
@@ -860,7 +868,10 @@ This interpretation, illustrated in Figure \ref{fig:3:pion_biases_diagram} with 
 Finally, the underestimation of pion $p_z$ is relevant to the problem of low vertex reconstruction efficiency.
 The $xz$ and $yz$ propagation planes are affected differently by $p_z$ underestimation on account of the magnet bending in the former.
 This can potentially result in the conflict between $xz$ and $yz$ topologies observed in non-converged events, the current leading hypothesis to explain the oscillatory behaviour of the VF algorithm which prevents decay convergence.
-Considering the information gathered so far, the two most plausible causes of this $p_z$ bias appear to be wrong extrapolation by the Runge-Kutta algorithm, perhaps triggered by lower protoparticle $p_x$ observed in Section \ref{sec:3:kinematics_at_first_meas}, and/or poor measurement from T stations resulting in $p_z$ underestimation of protons and pions.
+Considering the information gathered so far,
+the most plausible cause of this $p_z$ bias appears to be poor momentum measurement at T station level.
+%While wrong extrapolation by the Runge-Kutta algorithm was considered as a possible source of bias...
+%the two most plausible causes of this $p_z$ bias appear to be wrong extrapolation by the Runge-Kutta algorithm, perhaps triggered by lower protoparticle $p_x$ observed in Section \ref{sec:3:kinematics_at_first_meas}, and/or poor measurement from T stations resulting in $p_z$ underestimation of protons and pions.
 
 
 %\section{Recovery of non-converged events}
@@ -971,10 +982,15 @@ Within these recovered events, 57.1\% converge under the $\sigma_x$ algorithm, 3
 
 I have also run each individual $\sigma$-rescaled algorithm in isolation (without the Vertex Fitter) on the simulated signal to evaluate their performances on all events, including standard-converging ones.
 Before proceeding, a digression is in order to better understand the meaning of \textit{performance} when comparing the algorithms.
-Table \ref{tab:3:xyz_chi2_performances} shows the median $\chi^2_\text{vtx}$ of the reconstructed vertices on specific subsamples of events.
-First I considered \textit{common} events, i.e. events converging under Vertex Fitter and all three $\sigma$-rescaled algorithms;
-for this subsample algorithm performances show very little variation, with a marginal performance hierarchy of $\text{VF} > \sigma_x > \sigma_y > \sigma_z$.
-The aforementioned hierarchy also holds when doing a pairwise comparison between two algorithms on events converging under both:
+Table \ref{tab:3:xyz_chi2_performances} shows the median $\chi^2_\text{vtx}$ of the reconstructed vertices on specific subsamples of events:
+\begin{itemize}
+	\item \textit{common} events converging under Vertex Fitter and all three $\sigma$-rescaled algorithms;
+	\item \textit{pairwise shared} events converging under (at least) two algorithms (e.g. VF and $\sigma_x$-rescaled, including events that may also converge under $\sigma_y$-rescaled);
+	 \item \textit{exclusive} events only reconstructed by one particular algorithm.
+\end{itemize}
+%First I considered \textit{common} events, i.e. events converging under Vertex Fitter and all three $\sigma$-rescaled algorithms;
+For common events, algorithm performances show very little variation, with a marginal performance hierarchy of $\text{VF} > \sigma_x > \sigma_y > \sigma_z$.
+The aforementioned hierarchy also holds in pairwise shared events:
 for instance, VF-$\sigma_x$ events have VF vertices with median $\tilde{\chi}^2_\text{vtx}$ of 1.06, slightly lower than the 1.09 of $\sigma_x$ vertices.
 
 \begin{figure}[t]
@@ -993,13 +1009,14 @@ for instance, VF-$\sigma_x$ events have VF vertices with median $\tilde{\chi}^2_
 	\label{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}
 \end{figure}
 
-Where algorithm performances truly diverge is in \textit{exclusive} events, i.e. events only reconstructed by one particular algorithm.
-Events exclusive to the VF have a median $\tilde{\chi}^2_\text{vtx}$ of 0.32, while both $\sigma_x$ and $\sigma_y$ hover around a subpar $\approx 3$ and the $\sigma_z$ algorithm reaches an off-scale value of 51.
+Where algorithm performances truly diverge is in exclusive events.
+Events only converging under VF have a median $\tilde{\chi}^2_\text{vtx}$ of 0.32, while both $\sigma_x$ and $\sigma_y$ hover around a subpar $\approx 3$ and the $\sigma_z$ algorithm reaches an off-scale value of 51.
 This discrepancy is also seen from a different perspective in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}: the $z_\text{vtx}^\Lambda$ residual distributions for VF and $\sigma_x$-rescaled algorithms on shared events are indistinguishable (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common}), while $\sigma_x$-exclusive events have a significant positive bias compared to the unbiased VF-exclusive ones (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}).
 This means that, while a minor hierarchy in fit quality does exist in the $\sigma$-rescaled algorithms, justifying the selected $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order, large discrepancies in performances are due to the specific events reaching convergence under a specific algorithm.
 %The reason for the high median $\tilde{\chi}^2_\text{vtx}$ in $\sigma_z$-exclusive \lambdadecay decays is to be searched in poor track information in $xz$ and $yz$ planes, preventing convergence with $\sigma_x$/$\sigma_y$ algorithms and resulting in mediocre fits, rather than in a fault of the $\sigma_z$-rescaled implementation.
 The most likely explanation for the diminishing fit quality in $\sigma$-rescaled algorithms is poor track information in the relevant propagation planes:
-for instance, an event that only converges with the $\sigma_z$-rescaled algorithm must have subpar information for the $xz$ and $yz$ planes (preventing convergence with VF, $\sigma_x$- and $\sigma_y$-rescaled algorithms) %@todo
+for instance, an event only converging with the $\sigma_z$-rescaled algorithm must have subpar information in the $xz$ and $yz$ planes (preventing convergence with VF, $\sigma_x$- and $\sigma_y$-rescaled algorithms), and favouring information in the $xy$ plane when deciding the best vertex will lead to poor resolution in $z_\text{vtx}^\Lambda$.
+This interpretation also explains the large fit quality gap between exclusive $\sigma_x$- and $\sigma_y$-converging events ($\tilde{\chi}^2_\text{vtx} (\Lambda^0) \approx 3$) and exclusive $\sigma_z$-converging events ($\tilde{\chi}^2_\text{vtx} (\Lambda^0) \approx 51$), as the latter algorithm forgoes most information for the crucial $z$ axis.
 
 \begin{table}[t]
 	\begin{center}
@@ -1036,7 +1053,10 @@ for instance, an event that only converges with the $\sigma_z$-rescaled algorith
 With this in mind, Table \ref{tab:3:xyz_VF_performances} reports the performance of the three $\sigma$-rescaled algorithms and the full $\sigma$-rescaled refit process on recovered events, compared to the VF performance on standard reconstructed events.
 The overall $\tilde{\chi}^2_\text{vtx}$ of the \lambdadecay vertex for recovered events is significantly worse than the expected 1.0 value obtained by the VF;
 likewise, the median $\approx \SI{40}{\centi\meter}$ $z_\text{vtx}^\Lambda$ bias in VF events (discussed more in detail in Section \ref{sec:lambda_endvertex_bias}) is still \SI{20}{\centi\meter} lower than in recovered events (also shown in terms of pulls in Figure \ref{fig:3:xyz_L_ENDVERTEX_residual_2Dv3D_z_rel}).
-This increased bias is a consequence of the systematic T track $p_z$ underestimation discussed in Section \ref{sec:3:true_vtx_kinematics}, which also reflects in the negative $p_z$ bias computed by the Decay Tree Fitter algorithm with \jpsi and \lz mass constraints on recovered events.
+As discussed in Section \ref{sec:3:true_vtx_kinematics}, non-converging events show a systematic $p_z$ underestimation in pion T tracks, which also reflects on recovered events in the negative $p_z$ bias computed with the Decay Tree Fitter algorithm using \jpsi and \lz mass constraints (Table \ref{tab:3:xyz_VF_performances}).
+This phenomenon explains the increased $z_\text{vtx}^\Lambda$ bias, as a lower $p_z$ at T station position translates in an apparent crossing point downstream of the actual vertex (this is exemplified in Figure \ref{fig:3:pion_biases_diagram}).
+
+%This increased bias is an anticipated consequence of the systematic T track $p_z$ underestimation discussed in , which also reflects in the negative $p_z$ bias computed by the Decay Tree Fitter algorithm with \jpsi and \lz mass constraints on recovered events.
 
 Tables \ref{tab:3:xyz_chi2_performances} and \ref{tab:3:xyz_VF_performances} confirm that the $\sigma_z$-rescaled algorithm is by far the worse performing of the three.
 This is a somewhat expected consequence of partially forgoing $xz$ and $yz$ information in the fit, and placing this algorithm last in the process ensures that it only affects events which would not converge under other circumstances.
@@ -1160,7 +1180,7 @@ The following results are obtained from the complete simulated \demonstratorshor
 \end{figure}
 
 The distribution of $z_\text{vtx}^\Lambda$ residuals for simulated signal events is shown in Figure \ref{fig:3:lz_endvertex_bias_linear}.
-Its shape is distinctly non-gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$\footnote{This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events quoted in Table \ref{tab:3:xyz_VF_performances}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.}.
+Its shape is distinctly non-gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$. This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events quoted in Table \ref{tab:3:xyz_VF_performances}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.
 
 \subsection{Ghost vertex events}
 \label{sec:3:ghost_vertex}
@@ -1252,7 +1272,7 @@ To study the impact of ghost vertex events, I have isolated the above structure 
 	\big\},
 	\label{eq:3:psih_banana}
 \end{equation}
-with
+within the ad hoc horizontality region
 \begin{subequations}
 \begin{align}
 	f_\text{top}(\psi) &= \frac{1}{20} - \sin\frac{\psi \left[\text{rad}\right]}{2}, \\
@@ -1308,6 +1328,9 @@ A similar result could be achieved without access to Monte Carlo information by 
 An alternative, more drastic approach would be to only retain \lambdadecay events with $h_\text{DTF} \leq 0$. As seen from Figure \ref{fig:3:hreco_vs_htrue}, this rejects virtually all ghost vertex events and yields an even lower median bias of $\approx \SI{2.5}{\centi\meter}$ with a single cut on reconstructed variables (see Figure \ref{fig:3:bias_without_positive_hDTF}).
 The ensuing 89\% loss in \demonstratorshort signal makes this solution impractical with Run 2 data, but viable as a last resort on the projected \SI{50}{\per\femto\barn} dataset at the end of Run 3.
 
+For the purposes of this thesis, no cut on ghost vertex events is applied.
+Their impact on the resolutions for the proton angular distribution in \lambdadecay decays is studied in Section \ref{sec:5:resolution_after_ghost}.
+
 \subsection{Very high bias events}
 
 \begin{figure}[t]
@@ -1339,3 +1362,7 @@ the high spatial concentration in specific regions of the $xz$ plane, such as th
 No dedicated veto on reconstructed variables is possible to filter this class of events:
 Figure \ref{fig:3:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
 Their impact on the overall performance on signal is nevertheless neglectable.
+
+\section{Closing remarks}
+
+@todo

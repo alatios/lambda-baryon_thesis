@@ -197,7 +197,7 @@ Since by definition $\hat{P}^2 = \mathds{1}$, where $\mathds{1}$ is the identity
 
 A similarly dichotomous behaviour is observed on both scalar and vector quantities commonly used in classical physics, such as momenta and electromagnetic fields.
 Parity-even scalar quantities are called \textit{true scalars} or just \textit{scalars} (e.g. energy), whereas parity-odd ones are called \textit{pseudoscalars} (e.g. helicity).
-Likewise, vector quantities are either \textit{polar vectors} (e.g. angular momentum) or \textit{axial vectors} (e.g. linear momentum).
+Likewise, vector quantities are either \textit{axial vectors} (parity-even, e.g. angular momentum) or \textit{polar vectors} (parity-odd, e.g. linear momentum).
 
 As far as is currently known, gravity, electromagnetic and strong nuclear interactions conserve parity.
 The same cannot be said for the weak interaction, the P-violating properties of which were first proven in the 1956 Wu experiment on the $^{60}\text{Co}$ $\beta^-$ decay \cite{wu}. 
@@ -317,8 +317,8 @@ hence of the spin-related EDM $\vec{\delta}$, can easily be shown to be
 %\end{equation}
 %As previously explained, parity inversion operator $\hat{P}$ flips the sign of spatial coordinates.
 %From the above formula it should thus be immediately apparent that $\vec{L}$, $\vec{S}$, $\vec{s}$ and $\vec{\delta}$
-that of polar vectors, i.e. parity-even.
-By contrast, the electric field $\vec{E}$ is an axial vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
+that of axial vectors, i.e. parity-even.
+By contrast, the electric field $\vec{E}$ is a polar vector, i.e. parity-odd, which makes $H_\text{EDM}$ a parity-odd pseudoscalar:
 \begin{equation}
 H_\text{EDM} \xrightarrow{\hat{P}} - H_\text{EDM}.
 \label{eq:EDM-hamiltonian-under-P}
@@ -362,7 +362,7 @@ Similary to EDMs, MDMs also induce a spin rotation when subjected to a magnetic 
 H_\text{MDM} = - \vec{\mu} \cdot \vec{B} .
 \label{eq:MDM-hamiltonian}
 \end{equation}
-Under parity and time reversal transformations, the MDM $\vec{\mu}$ behaves in the same way as the EDM $\vec{\delta}$, both being dependent on the particle's spin $\vec{S}$ (odd under $\hat{P}$, even under $\hat{T}$).
+Under parity and time reversal transformations, the MDM $\vec{\mu}$ behaves in the same way as the EDM $\vec{\delta}$, both being dependent on the particle's spin $\vec{S}$ (even under $\hat{P}$, odd under $\hat{T}$).
 In contrast with $\vec{E}$, however, the magnetic field $\vec{B}$ behaves in the \textit{same} way as $\vec{\mu}$, effectively cancelling out their signs when the Hamiltonian \eqref{eq:MDM-hamiltonian} is acted upon:
 \begin{align}
 H_\text{MDM} &\xrightarrow{\hat{P}} H_\text{MDM},
@@ -484,7 +484,7 @@ The equation describing the spin precession as a function of $l$ has a very simi
 	\right \rvert,
 \label{eq:spin-precession-l_cap1}
 \end{equation}
-with
+with precession angle vector
 \begin{equation}
 \vec{\Phi} = \frac{\mu_B}{|\vec{\beta}|\hbar c}
 \left[
@@ -569,10 +569,15 @@ while the EDM measurement \cite{PhysRevD.23.814} was
 \delta_\Lambda = \left( -3.0 \pm 7.4 \right)\times {10}^{-17}~e~\si{\centi\meter},
 \end{equation}
 setting the upper limit to $\delta_\Lambda < 1.5\times{10}^{-16}~e~\si{\centi\meter}$ \cite{PDG}.
-At the time of writing, this is the current best limit on the $\Lambda^0$ electric dipole moment.
+At the time of writing, this is the current best limit on the \lz electric dipole moment.
+This is still orders of magnitudes removed from the SM upper limit of
+\begin{equation}
+\delta_\Lambda < 4.4\times{10}^{-26}~e~\si{\centi\meter},
+\end{equation}
+computed from the experimental upper limit on the neutron EDM \cite{PhysRevD.61.114017}.
 
 \subsection{Proposal overview}
-My work in this thesis is directed towards the prospective measurement of the $\Lambda^0$ baryon electromagnetic dipole moments with the LHCb experiment at the Large Hadron Collider (see Chapter \ref{cap:LHCb}), exploiting the spin precession technique outlined in Section \ref{sec:emdm-measurement}.
+My work in this thesis is directed towards the prospective measurement of the $\Lambda^0$ baryon electromagnetic dipole moments with the LHCb experiment at the Large Hadron Collider (see Chapter \ref{cap:LHCb}), exploiting the spin precession technique outlined in Section \ref{sec:emdm-measurement} \cite{EMDipoleSearch}.
 The unique features of the LHCb experimental setup and a careful selection of the $\Lambda^0$ production channel will allow for significant simplifications of the general equation \eqref{eq:spin-precession-l_cap1} for neutral unstable particles.
 
 The LHCb detector is equipped with a magnetic field directed along the laboratory frame $y$ axis\footnote{The remainder of this chapter assumes the standard right-handed LHCb coordinate system, see Section \ref{info:LHCb_system}.} used for tracking purposes. Gradient field effects for the $\vec{B}$ field within the detector acceptance are negligible, being estimated at \cite{EMDipoleSearch}
@@ -724,7 +729,12 @@ Since $\theta$ determines the magnitude of Wick angle $\alpha$, this relation ca
 
 The LHCb tracking dipole magnet provides an integrated field $D_y \approx \pm 4 \,\si{\tesla\meter}$ \cite{LHCbDetectorPerformance}, allowing for a maximum precession angle of $\Phi_\text{max} \approx \pm \frac{\pi}{4}$ for \lz baryons traversing the entire region and reaching about 70\% of the maximum $s_y$ component in equation \eqref{eq:final_polarization_cap1}.
 
-With the $8~\si{\per\femto\barn}$ integrated luminosity provided by the LHC Run\footnote{\textit{Run} is the conventional term for data-taking periods at LHC, see Section \ref{sec:2:lhc}.} 1 and 2 data collected with the LHCb detector and a global event reconstruction efficiency of $\varepsilon = 0.2\%$, the attainable sensitivity on the $\Lambda^0$ gyroelectric factor $d$ has been estimated at $\sigma_d \approx 1.5\times {10}^3$, to be compared with the current best limit of $1.7 \times {10}^{-2}$.
+
+Dedicated sensitivity studies \cite{EMDipoleSearch} show that the projected sensitivity on the \lz gyroelectric factor scales with the number $N_\Lambda^\text{reco}$ of reconstructed \demonstratorshort events and initial polarization $s_0$ as
+\begin{equation}
+\sigma_d \propto \frac{1}{s_0 \sqrt{N_\Lambda^\text{reco}}}.
+\end{equation}
+With the $8~\si{\per\femto\barn}$ integrated luminosity provided by the LHC Run\footnote{\textit{Run} is the conventional term for data-taking periods at LHC, see Section \ref{sec:2:lhc}.} 1 and 2 data collected with the LHCb detector and a global event reconstruction efficiency of $\varepsilon = 0.2\%$, the attainable sensitivity on the $\Lambda^0$ gyroelectric factor $d$ has been estimated at $\sigma_d \approx 1.5\times {10}^{-3}$, to be compared with the current best limit of $1.7 \times {10}^{-2}$ \cite{PhysRevD.23.814}.
 With the Run 3 projected luminosity of $\SI{50}{\per\femto\barn}$ and an efficiency of $\varepsilon = 1\%$ achievable with the upgraded LHCb trigger system (see Section \ref{sec:2:upgrade}), this limit can further be improved to $\approx 3\times {10}^{-4}$ \cite{EMDipoleSearch}.
 A precision measurement of the gyromagnetic factor $g$ for $\Lambda^0$ and $\bar{\Lambda}^0$ baryons could also serve as a further precision test of the CPT theorem.
 

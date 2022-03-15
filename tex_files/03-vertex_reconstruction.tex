@@ -24,7 +24,7 @@ Under VF formalism, each daughter particle is represented by a 7-dimensional vec
 	\end{pmatrix},
 	\label{eq:particle_representation}
 \end{equation}
-containing its 4-momentum $\vec{q}$ computed at reference point $\vec{r}$.
+containing its 4-momentum $\vec{q}$ computed at a certain reference point $\vec{r}$.
 Parameter vector $\vec{p}$ has an associated covariance matrix $V$, which can be written in block structure as
 \begin{equation}
 	\begin{pmatrix}
@@ -46,7 +46,7 @@ It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which
 	\end{pmatrix}^{-1}
 \end{equation}
 
-Taking the daughter particles as inputs, the Vertex Fitter returns the best fit value $\vec{x}$ for the common origin vertex, along with its covariance matrix $C$ and the $\chi^2$ to evaluate the goodness of fit.
+Taking the daughter particles as inputs, the Vertex Fitter returns the best fit value $\vec{x}$ for the common origin vertex, along with its covariance matrix $C$ and the $\chi^2$ which can be used to evaluate the goodness of fit.
 
 The algorithm builds the decay tree from the bottom up via a <<leaf-by-leaf>> approach, fitting one vertex at a time (e.g. $J/\psi \rightarrow \mu^+ \mu^-$, $\Lambda^0 \rightarrow p \pi^-$) and then moving upwards (e.g. $\Lambda_b^0 \rightarrow J/\psi\,\Lambda^0$).
 The process is blind to the downstream leaves and only considers kinematic information of the immediate daughter particles, without accounting for momenta and mass constraints throughout the decay tree.
@@ -66,6 +66,8 @@ The algorithm then performs a \textit{proper transportation}, a dedicated routin
 As mentioned in Section \ref{sec:2:tracking}, extrapolation using T tracks is a sensitive affair:
 unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
 For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Bos:1070314} \cite{Hairer1993}.
+
+% @todo: explain Runge-Kutta, a che ordine?
 
 %---
 %
@@ -313,7 +315,7 @@ A new $\chi^2_0$ is computed for each particle:
 	{\left(\vec{r}_{\pi} - \vec{x}_0^1\right)}^T  {G_r}_\pi \left(\vec{r}_{\pi} - \vec{x}_0^1 \right),
 \end{align}
 \end{subequations}
-conventionally choosing ${(\chi^2)}_0^1 coloneqq {{(\chi^2)}_0^1}_{(p)}$.
+conventionally choosing ${(\chi^2)}_0^1 \coloneqq {{(\chi^2)}_0^1}_{(p)}$.
 
 \subsubsection{Termination and smoothing}
 The two VF convergence conditions are both based on comparisons between the vertex position computed at the end of the current iteration with the one from the previous iteration, with convergence being called if either one of them is satisfied.
@@ -326,7 +328,7 @@ The first condition is placed on the absolute distance between the vertices:
 	\label{eq:cond_conv_1}
 \end{equation}
 where $d_1 = \SI{1}{\micro\meter}$ by default.
-The second condition, by far the one more commonly satisfied when reaching convergence, concerns vertex distance <<in $\chi^2$ units>>:
+The second condition, by far the one more commonly satisfied when reaching convergence using T tracks\footnote{This doesn't happen using Long tracks, suggesting that the $d_1 = \SI{1}{\micro\meter}$ threshold is too strict given the scale of uncertainties in T station measurements. Nevertheless, increasing $d_1$ does not improve the vertex reconstruction efficiency discussed in Section \ref{sec:reco_efficiency}.}, concerns vertex distance <<in $\chi^2$ units>>:
 \begin{equation}
 	{\left(
 	\vec{x}_n^{i} - \vec{x}_n^{i-1}
@@ -520,6 +522,67 @@ The full simulated \demonstratorshort dataset constructed for the measurement of
 Furthermore, a lot of the work in this and the next sections required direct changes to the vertexing algorithm for debugging and event recovery, which in turn required data to be reprocessed.
 For these reasons, the studies in the following sections were conducted on a smaller sample of $\approx 110\,000$ \lbz decays (about 4600 of which are reconstructed) in $\sign{B_y} = +1$ configuration, where $\vec{B}$ is the LHCb magnetic field.
 
+\subsection{Decay kinematics before and after interaction with the detector}
+\label{sec:3:kinematics_at_first_meas}
+%To gather information on the possible sources of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I investigated the collective properties of a sample of \demonstratorshort decays in search of significant discrepancies between converged and failed events.
+No difference between converged and failed \demonstratorshort events emerges at Monte Carlo level when considering the true values of basic kinematic variables such as daughter particle momenta and decay vertices locations of the three unstable particles \lbz, \lz and \jpsi.
+Moreover, there doesn't seem to be a critical decay geometry associated to the drop in vertexing efficiency;
+for instance, there is no evidence that \lambdadecay decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), have any disproportionate representation amongst non-converged events.
+This rules out the hypothesis that the failure of vertex fit convergence be caused by particle characteristics at production, such as protons and pions with unusually low transverse momentum \pt.
+
+I also considered the possibility that kinematic asymmetries between converged and failed events may arise after interaction with the LHCb detector;
+one example of this would be the case where failed events correlate with hits in a specific sections of the IT or OT trackers.
+To this end I studied the event \textit{protoparticles}, data structures created during the LHCb event reconstruction process to encapsulate relevant information for the associated particle:
+particle identification from the RICH and muon detectors, results from calorimeter hits and track information.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_x.pdf}
+		\caption{}
+		\label{fig:3:p_momentum_x}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_y.pdf}
+		\caption{}
+		\label{fig:3:p_momentum_y}
+	\end{subfigure}
+	\caption{Normalized distributions of proton protoparticles $p_x$ \textit{(a)} and $p_y$ \textit{(b)} components in simulated \lambdadecay events. Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
+	\label{fig:3:p_protoparticle_momenta}
+\end{figure}
+
+Charged protoparticles in particular store momentum and energy evaluated in a certain reference point which, for stable particles, corresponds to the position of first measurement of the track.
+Figure \ref{fig:3:p_momentum_x} depicts the only major discrepancy between converged and failed events I found in the protoparticle analysis:
+non-converged \lbz decays have a proton protoparticle $p_x$ distribution concentrated in $p_x \approx 0$, while converged decays show even dispersion of the central peak in the $[-\SI{1}{\gev},\SI{1}{\gev}]$ region.
+This contrasts with $p_y$, the other component of the protoparticle transverse momentum, whose two distributions are almost overlapping (Figure \ref{fig:3:p_momentum_y}).
+%While statistics in the reduced samples are too low to say for sure,
+Pions do not appear to show similar discrepancies in their protoparticles.
+Given the significant overlap between the distributions in Figure \ref{fig:3:p_momentum_x}, however, the overabundance of low $p_x$ of proton protoparticles in non-converged events does not appear to be a deciding factor for the Vertex Fitter failure.
+
+%Assuming $p_x$ measurement at detector level is not biased, this result suggests that protons from failed events have generally lower $p_x$ when they reach the T stations;
+%this would not be apparent from \pt distributions at the point of production, since the final $p_x$ value depends on the bending radius imprinted by the magnet (which in turn depends on momentum and distance traveled).
+%Such low values of $p_x$ are potentially more susceptible to poor measurement by the T stations, which in turn affects the overall momentum resolution based on the particle bending radius in the $xz$ plane.
+
+%Low values of $p_x$ imply roughly perpendicular incidence in the $xz$ bending plane used for momentum measurement by the T stations, which would affect the already poor momentum resolution 
+%
+%The correlation between low proton protoparticle $p_x$ and vertexing failure contains a valuable hint:
+%converged and failed events may not differ in \pt of protons and pions at the point of productions, but it's possible that they do at the point of first measurement, after the particles are bent by the magnet.
+%
+%Poor measurement of $p_x$
+%
+%A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation:
+%even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
+%Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
+%As such, \lambdadecay events with low $p_x (p)$ when the proton reaches the T stations would be more suscetible to poor momentum measurement and 
+%
+%The link between 
+%
+%
+%As such, one possible interpretation of the correlation between proton protoparticle $p_x$ and failure in vertexing is that 
+%One possible interpretation is thus that
+%
+%As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
+
 \subsection{Behaviour through VF iterations}
 \label{sec:oscillation}
 The VF process reaches convergence if either condition \eqref{eq:cond_conv_1} or \eqref{eq:cond_conv_2} is satisfied, i.e. if the vertex position estimated at iteration $i$ and the one from iteration $i-1$ are <<close enough>> either in absolute distance or $\chi^2$ distance, up until $i_\text{max} = 10$.
@@ -622,7 +685,9 @@ On the other hand, in the $yz$ plane (Figure \ref{fig:3:failed_zy}) the two trac
 
 Failed convergence in this event cannot be attributed to the comparatively larger gap between proton and pion tracks at their point of closest distance in the bending plane.
 The VF algorithm has shown to be capable of bridging an imperfect track extrapolation: the converged event shown in Figure \ref{fig:3:converged_detached_event_topology} has a closest track distance of some \SI{40}{\centi\meter}, an order of magnitude greater than the track distance seen in Figure \ref{fig:3:failed_event_topology}.
-Despite the large gap, the VF is able to recognize $z \approx \SI{3}{\meter}$ as the best candidate for the vertex, even if said point is far removed from the actual \lambdadecay decay vertex.
+Despite the large gap, the VF is able to recognize $z \approx \SI{3}{\meter}$ as the best candidate for the vertex.
+This happens despite the large distance between this point and the true \lambdadecay vertex:
+the discrepancy is due to poor initial momentum measurement for the tracks and demonstrates the flexibility of the VF algorithm, converging even in circumstances that are far from ideal.
 
 %While it may be tempting to attribute the failed convergence to the comparatively larger gap between proton and pion tracks at their point of closest distance, some observations are in order:
 %first, the deceivingly different $x$ scales in Figures \ref{fig:zx_iter_conv} and \ref{fig:zx_iter_failed} mean that in the latter tracks are closer than they may seem;
@@ -679,66 +744,6 @@ While it would be reckless to conclude that every \lambdadecay vertexing failure
 %Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
 %As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
-
-\subsection{Decay kinematics before and after interaction with the detector}
-\label{sec:3:kinematics_at_first_meas}
-%To gather information on the possible sources of the oscillating behaviour outlined in Section \ref{sec:oscillation}, I investigated the collective properties of a sample of \demonstratorshort decays in search of significant discrepancies between converged and failed events.
-No difference between converged and failed \demonstratorshort events emerges at Monte Carlo level when considering the true values of basic kinematic variables such as daughter particle momenta and decay vertices locations of the three unstable particles \lbz, \lz and \jpsi.
-Moreover, there doesn't seem to be a critical decay geometry that triggers the vertexing issues;
-for instance, there is no evidence that \lambdadecay decays lying largely in the $xz$ plane, a setup quite unfriendly to the VF algorithm (see Section \ref{sec:lambda_endvertex_bias}), have any disproportionate representation amongst non-converged events.
-This rules out the hypothesis that the failure of vertex fit convergence be caused by particle characteristics at production, such as protons and pions with unusually low transverse momentum \pt.
-
-I also considered the possibility that kinematic asymmetries between converged and failed events may arise after interaction with the LHCb detector;
-one example of this would be the case where failed events correlate with hits in a specific sections of the IT or OT trackers.
-To this end I studied the event \textit{protoparticles}, data structures created during the LHCb event reconstruction process to encapsulate relevant information for the associated particle:
-particle identification from the RICH and muon detectors, results from calorimeter hits and track information.
-
-\begin{figure}[t]
-	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_x.pdf}
-		\caption{}
-		\label{fig:3:p_momentum_x}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/03-vertex_reconstruction/p_momentum_y.pdf}
-		\caption{}
-		\label{fig:3:p_momentum_y}
-	\end{subfigure}
-	\caption{Normalized distributions of proton protoparticles $p_x$ \textit{(a)} and $p_y$ \textit{(b)} components in simulated \lambdadecay events. Distributions of events with converging vertex fit are depicted with \textit{horizontal hatching}, non-converging fit with \textit{diagonal hatching}.}
-	\label{fig:3:p_protoparticle_momenta}
-\end{figure}
-
-Charged protoparticles in particular store momentum and energy evaluated in a certain reference point which, for stable particles, corresponds to the position of first measurement of the track.
-Figure \ref{fig:3:p_momentum_x} depicts the only major discrepancy between converged and failed events I found in the protoparticle analysis:
-non-converged \lbz decays have a proton protoparticle $p_x$ distribution concentrated in $p_x \approx 0$, while converged decays show even dispersion of the central peak in the $[-\SI{1}{\gev},\SI{1}{\gev}]$ region.
-This contrasts with $p_y$, the other component of the protoparticle transverse momentum, whose two distributions are almost overlapping (Figure \ref{fig:3:p_momentum_y}).
-%While statistics in the reduced samples are too low to say for sure,
-Pions do not appear to show similar discrepancies in their protoparticles.
-
-Assuming $p_x$ measurement at detector level is not biased, this result suggests that protons from failed events have generally lower $p_x$ when they reach the T stations;
-this would not be apparent from \pt distributions at the point of production, since the final $p_x$ value depends on the bending radius imprinted by the magnet (which in turn depends on momentum and distance traveled).
-Such low values of $p_x$ are potentially more susceptible to poor measurement by the T stations, which in turn affects the overall momentum resolution based on the particle bending radius in the $xz$ plane.
-
-%Low values of $p_x$ imply roughly perpendicular incidence in the $xz$ bending plane used for momentum measurement by the T stations, which would affect the already poor momentum resolution 
-%
-%The correlation between low proton protoparticle $p_x$ and vertexing failure contains a valuable hint:
-%converged and failed events may not differ in \pt of protons and pions at the point of productions, but it's possible that they do at the point of first measurement, after the particles are bent by the magnet.
-%
-%Poor measurement of $p_x$
-%
-%A precise estimate of $p_x$ is of paramount importance for correct track measurement and extrapolation:
-%even slight mistakes in angle assessment are magnified during particle transportation through long distances, especially since the T track requirement leaves no upstream constraints.
-%Moreover, momentum itself is computed through evaluation of the particle bending curve in the $xz$ plane induced by the magnet.
-%As such, \lambdadecay events with low $p_x (p)$ when the proton reaches the T stations would be more suscetible to poor momentum measurement and 
-%
-%The link between 
-%
-%
-%As such, one possible interpretation of the correlation between proton protoparticle $p_x$ and failure in vertexing is that 
-%One possible interpretation is thus that
-%
-%As such, it stands to reason that poor measurement of the low proton $p_x$ can have enough of an effect to throw off the vertexing algorithm.
 
 \subsection{Decay kinematics after extrapolation}
 \label{sec:3:true_vtx_kinematics}
@@ -876,7 +881,7 @@ Considering the information gathered so far, the two most plausible causes of th
 As outlined in Section \ref{sec:oscillation}, vertexing failures in the $\Lambda^0 \rightarrow p\pi^-$ decay can be attributed to candidate vertices in different planes providing conflicting information.
 To circumvent this phenomenon, my proposal for the recovery of these failed events involves performing an additional fit of the vertex (also referred to as \textit{refit} in the following pages) with a slightly altered version of the standard Vertex Fitter algorithm designed to attribute greater importance to a specific propagation plane.
 
-The reasonable choice for said plane would be the $yz$ plane, since extrapolation of tracks does not need to be concerned with magnet bending and is therefore expected to be less prone to error.
+The reasonable choice for this plane would be the $yz$ plane, since extrapolation of tracks does not need to be concerned with magnet bending and is therefore expected to be less prone to error.
 However, this would penalize events with poor $yz$ protoparticle reconstruction, for instance events with parallel or diverging tracks in said plane.
 To maximize the recovery efficiency of my solution, I have elected to perform three separate refits on non-converging events, prioritizing $yz \rightarrow xz \rightarrow xy$ planes in this order.
 In a worst-case scenario, this would quadruple the time complexity of the vertexing process; in practice, half of all events converge with the standard VF, and about $\approx 15\%$ more converge after the first refit attempt ($yz$ plane).
@@ -969,7 +974,7 @@ Before proceeding, a digression is in order to better understand the meaning of 
 Table \ref{tab:3:xyz_chi2_performances} shows the median $\chi^2_\text{vtx}$ of the reconstructed vertices on specific subsamples of events.
 First I considered \textit{common} events, i.e. events converging under Vertex Fitter and all three $\sigma$-rescaled algorithms;
 for this subsample algorithm performances show very little variation, with a marginal performance hierarchy of $\text{VF} > \sigma_x > \sigma_y > \sigma_z$.
-Said hierarchy also holds when doing a pairwise comparison between two algorithms on events converging under both:
+The aforementioned hierarchy also holds when doing a pairwise comparison between two algorithms on events converging under both:
 for instance, VF-$\sigma_x$ events have VF vertices with median $\tilde{\chi}^2_\text{vtx}$ of 1.06, slightly lower than the 1.09 of $\sigma_x$ vertices.
 
 \begin{figure}[t]
@@ -992,7 +997,9 @@ Where algorithm performances truly diverge is in \textit{exclusive} events, i.e.
 Events exclusive to the VF have a median $\tilde{\chi}^2_\text{vtx}$ of 0.32, while both $\sigma_x$ and $\sigma_y$ hover around a subpar $\approx 3$ and the $\sigma_z$ algorithm reaches an off-scale value of 51.
 This discrepancy is also seen from a different perspective in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}: the $z_\text{vtx}^\Lambda$ residual distributions for VF and $\sigma_x$-rescaled algorithms on shared events are indistinguishable (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common}), while $\sigma_x$-exclusive events have a significant positive bias compared to the unbiased VF-exclusive ones (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}).
 This means that, while a minor hierarchy in fit quality does exist in the $\sigma$-rescaled algorithms, justifying the selected $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order, large discrepancies in performances are due to the specific events reaching convergence under a specific algorithm.
-The reason for the high median $\tilde{\chi}^2_\text{vtx}$ in $\sigma_z$-exclusive \lambdadecay decays is to be searched in poor track information in $xz$ and $yz$ planes, preventing convergence with $\sigma_x$/$\sigma_y$ algorithms and resulting in mediocre fits, rather than in a fault of the $\sigma_z$-rescaled implementation.
+%The reason for the high median $\tilde{\chi}^2_\text{vtx}$ in $\sigma_z$-exclusive \lambdadecay decays is to be searched in poor track information in $xz$ and $yz$ planes, preventing convergence with $\sigma_x$/$\sigma_y$ algorithms and resulting in mediocre fits, rather than in a fault of the $\sigma_z$-rescaled implementation.
+The most likely explanation for the diminishing fit quality in $\sigma$-rescaled algorithms is poor track information in the relevant propagation planes:
+for instance, an event that only converges with the $\sigma_z$-rescaled algorithm must have subpar information for the $xz$ and $yz$ planes (preventing convergence with VF, $\sigma_x$- and $\sigma_y$-rescaled algorithms) %@todo
 
 \begin{table}[t]
 	\begin{center}

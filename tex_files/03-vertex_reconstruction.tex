@@ -1381,6 +1381,31 @@ No dedicated veto on reconstructed variables is possible to filter this class of
 Figure \ref{fig:3:bump_reco} shows that the $\Lambda^0$ vertices are reconstructed in seemingly arbitrary positions.
 Their impact on the overall performance on signal is nevertheless neglectable.
 
-\section{Closing remarks}
+\section{Summary and closing remarks}
 
-@todo
+Vertex reconstruction involving T tracks has never been the subject of in-depth scrutiny due to the rare usage of said class of tracks in physics analyses.
+Given the number of different topics tackled in the present chapter, in this section I offer a more succint recount of the main findings and outline the solutions I have adopted for the remainder of this thesis.
+
+One major challenge to a competitive measurement of \lz electromagnetic dipole moments using the exclusive \demonstratorfull decay is the $\lesssim 50\%$ efficiency of the \lz and \lbz vertex reconstruction process, effectively halving the potential signal yield.
+Topological studies on reconstruction of the \lambdadecay decay in non-converged events expose that the failure of the Vertex Fitter algorithm is caused by the oscillation of the \lz candidate vertex throughout the iterating process, preventing fulfilment of either of convergence conditions \eqref{eq:cond_conv_1} and \eqref{eq:cond_conv_2}.
+
+Another widespread characteristic of non-converged events is the discrepancy in $z$ coordinate between the point of closest track distance in the $xz$ plane (where tracks are curved due to the magnetic field) and the crossing track point in the $yz$ plane (where tracks are approximately straight lines).
+The distance between the two, sometimes exceeding \SI{1}{\meter}, is consistent with the scale of candidate vertex oscillation in the VF iterating process.
+This suggests that, at least for a portion of non-converged events, the Vertex Fitter locates two irreconcilable vertex candidates in the $xz$ and $yz$ track propagation planes and is unequipped to choose one over the other.
+
+
+The reason for the $xz$-$yz$ discrepancy, and thus of the oscillation at the heart of vertexing failure, is currently unknown.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+-----------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Through further investigation of the measured kinematic variables and comparison with the Monte Carlo generated values, I exposed a systematic underestimation of $p_z$ in pion tracks reconstructed from hits in the T1--T3 downstream tracking stations.
+Said bias is only observed in non-converging \lambdadecay events and is understood to play a role in the $xz$-$yz$ discrepancy at the origin of the vertexing failure.
+Additional research is under way to locate and fix the source of $p_z$ bias, starting with the track momentum fit process at T station level.
+
+For the time being, I demonstrated that recovery of a significant percentage of failed events in possible by modifying the main vertex fitting algorithm to increase the weight of track propagation in a specific plane.
+A threefold refit approach, attributing more importance to $yz$, $xz$ and $xy$ planes sequentally, results in a $+26.4\%$ increase in signal statistics.
+Comparisons to Monte Carlo truth reveal that recovered events have suboptimal reconstruction, with a median bias on the $z$ component of the \lambdadecay vertex \SI{20}{\centi\meter} greater than standard reconstructed events.
+Studies confirm that this is due to poor track information available in these events;
+the impact of lower vertex resolution on the \lz electromagnetic dipole moment measurement will have to be evaluated in future analyses.

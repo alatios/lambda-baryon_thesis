@@ -971,7 +971,8 @@ This process is also applied to ${(G_k^i)}_r$ and replicated at each step of the
 Similarly, the $\sigma_y$-rescaled and $\sigma_z$-rescaled algorithms prioritize planes $xz$ and $xy$ respectively (their extension from \eqref{eq:3:sigma_x_rescaled} is trivial).
 For the remainder of this section, I'll refer to their sequential application $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ as the \textit{$\sigma$-rescaled refit process}.
 
-As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach with $s_i=0.98, i\in\{x,y,z\}$ (corresponding to $\approx 2\%$ increase in vertex uncertainties) on the sample of 110\,000 MC-generated \demonstratorshort events previously used in this chapter, and observed a $+26.4\%$ increase in reconstructed events.
+As proof of concept, I have analyzed the performance of the $\sigma$-rescaled refit approach on the sample of 110\,000 MC-generated \demonstratorshort events previously used in this chapter.
+Choosing $s_i=0.98, i\in\{x,y,z\}$, which maximizes the number of events recovered by the refit and corresponds to a $\approx 2\%$ increase in vertex uncertainties, I observed a $+26.4\%$ increase in reconstructed signal.
 Given a vertexing efficiency $\lesssim 50\%$, as reported in Figure \ref{fig:lambda_lambdab_reco_efficiency}, this amounts to roughly a quarter of all missing reconstructible decays.
 Within these recovered events, 57.1\% converge under the $\sigma_x$ algorithm, 38.1\% under the $\sigma_y$ algorithm and the remaining 4.8\% under the $\sigma_z$ algorithm.
 
@@ -1078,11 +1079,14 @@ This phenomenon explains the increased $z_\text{vtx}^\Lambda$ bias, as a lower $
 
 Tables \ref{tab:3:xyz_chi2_performances} and \ref{tab:3:xyz_VF_performances} confirm that the $\sigma_z$-rescaled algorithm is by far the worse performing of the three.
 This is a somewhat expected consequence of partially forgoing $xz$ and $yz$ information in the fit, and placing this algorithm last in the process ensures that it only affects events which would not converge under other circumstances.
-Were these events to be considered too poorly reconstructed for the \lz analysis, the $\sigma_z$ algorithm could feasibly be omitted from the refit process, as it only contributes a negligible $+1.3\%$ of additional signal.
+In the context of the proof-of-concept study, I elected to include the $\sigma_z$-rescaled algorithm in the refit process to gain a more complete view of its capabilities.
+However, were the ensuing events to be considered too poorly reconstructed for the \lz analysis, the algorithm could feasibly be omitted ss it only contributes a negligible $+1.3\%$ of additional signal.
 
 In conclusion, my $\sigma$-rescaled refit process allows for a $+26.4\%$ increase in reconstructed signal events.
 While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\text{vtx}^\Lambda$ are higher compared to events reconstructed via Vertex Fitter, there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
-The impact of increased bias on the prospective \lz EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
+Because of the timing requirements to perform a re-reconstruction of the full data sample (described in Section \ref{sec:2:used_data}), I didn't employ recovered events for the remainder of the analysis.
+The impact of their increased bias on the prospective \lz EDM/MDM measurement will have to be evaluated in dedicated sensitivity studies and possibly incorporated as a source of systematic uncertainty to be accounted for.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Questa parte è da riscrivere, my boy. Devi mettere in chiaro che non è "poor performance", è che fanno schifo gli eventi.
 %In terms of recovery power, the $\sigma_z$-rescaled algorithm favouring $xy$ plane information is the best one, providing a $+20.7\%$ increase in statistics when run in isolation.
@@ -1393,19 +1397,16 @@ Another widespread characteristic of non-converged events is the discrepancy in 
 The distance between the two, sometimes exceeding \SI{1}{\meter}, is consistent with the scale of candidate vertex oscillation in the VF iterating process.
 This suggests that, at least for a portion of non-converged events, the Vertex Fitter locates two irreconcilable vertex candidates in the $xz$ and $yz$ track propagation planes and is unequipped to choose one over the other.
 
+To address this problem, I developed and implemented a threefold refit process that sequentially favours $yz$, $xz$ and $xy$ propagation planes by increasing the complementary uncertainty ($\sigma_x$, $\sigma_y$ and $\sigma_z$ respectively) in the vertex covariance matrix.
+This results in a a $+26.4\%$ increase in signal statistics compared to only using the standard Vertex Fitter, recovery roughly one quarter of all non-converged \demonstratorshort events.
 
 The reason for the $xz$-$yz$ discrepancy, and thus of the oscillation at the heart of vertexing failure, is currently unknown.
+However, an observed systematic underestimation of $p_z$ for pion tracks in non-converged events suggests it could be linked to poor momentum measurement at T station level.
+The negative $p_z$ bias affects recovered events as well, imprinting a median bias on $z_\text{vtx}^\Lambda$ roughly \SI{20}{\centi\meter} greater than standard converged events.
+Recovered events also have generally worse $\tilde{\chi}^2_\text{vtx}$; dedicated studies on algorithm performances point to this being a problem with the event themselves being difficult to fit, rather than to issues with the algorithms.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
------------------------------
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Through further investigation of the measured kinematic variables and comparison with the Monte Carlo generated values, I exposed a systematic underestimation of $p_z$ in pion tracks reconstructed from hits in the T1--T3 downstream tracking stations.
-Said bias is only observed in non-converging \lambdadecay events and is understood to play a role in the $xz$-$yz$ discrepancy at the origin of the vertexing failure.
-Additional research is under way to locate and fix the source of $p_z$ bias, starting with the track momentum fit process at T station level.
-
-For the time being, I demonstrated that recovery of a significant percentage of failed events in possible by modifying the main vertex fitting algorithm to increase the weight of track propagation in a specific plane.
-A threefold refit approach, attributing more importance to $yz$, $xz$ and $xy$ planes sequentally, results in a $+26.4\%$ increase in signal statistics.
-Comparisons to Monte Carlo truth reveal that recovered events have suboptimal reconstruction, with a median bias on the $z$ component of the \lambdadecay vertex \SI{20}{\centi\meter} greater than standard reconstructed events.
-Studies confirm that this is due to poor track information available in these events;
-the impact of lower vertex resolution on the \lz electromagnetic dipole moment measurement will have to be evaluated in future analyses.
+Given the importance of \lambdadecay vertex bias for the measurement of the \lz dipole moments, I also investigated the reconstruction of the aforementioned decay and identified two main classes of biased events.
+<<Ghost vertex>> events are a byproduct of the action of the dipole magnet, which bends proton and pion tracks into a second crossing point mistakenly chosen as the $p\pi^-$ production vertex.
+These events comprise almost one third of the full dataset and contribute a median \SI{70}{\centi\meter} bias in $z_\text{vtx}^\Lambda$;
+their effect on proton angular resolution is the focus of a study in Section \ref{sec:5:resolution_after_ghost}.
+<<Very high bias>> events contribute a much larger median bias of \SI{6}{\meter}, but their impact on the \demonstratorshort analysis is considered to be neglectable, as they only amount to 0.5\% of the simulated sample after the full selection process.

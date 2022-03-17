@@ -115,20 +115,28 @@ the $m(J/\psi~K_S^0)$ distributions are comparatively more separate (Figure \ref
 		\label{fig:4:phys_bkg_veto_eff_thres}
 	\end{subfigure}
 	\begin{subfigure}{.45\textwidth}
-		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_sig_efficiencies_per_bin.pdf}
+		\includegraphics[height=.2\textheight]{graphics/04-event_selection/phys_veto_significances.pdf}
 		\caption{}
-		\label{fig:4:phys_bkg_veto_eff_mass}
+		\label{fig:4:phys_veto_significances}
 	\end{subfigure}
-	\caption{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, \textit{solid}) and background (\physbkgshort with proton mass hypothesis, \textit{dashed}) events. Chosen threshold marked by \textit{dotted line}. \textit{(b)} Efficiency of the veto on different $m(J/\psi\,\Lambda^0)$ bins for \demonstratorshort signal events.}
+	\caption{\textit{(a)} Efficiency of physical background veto as a function of the invariant mass discrepancy threshold on simulated signal (\demonstratorshort, \textit{solid}) and background (\physbkgshort with proton mass hypothesis, \textit{dashed}) events.
+	\textit{(b)} Signal significance as a function of the $m(J/\psi\,\Lambda^0)$ threshold. The chosen threshold in both plots is marked by the \textit{dotted line}.}
 	\label{fig:4:phys_bkg_veto_eff}
 \end{figure}
 
 Figure \ref{fig:4:phys_bkg_veto_eff_thres} shows the veto efficiency on \demonstratorshort signal and \physbkgshort physical background as function of the threshold $m_\text{thres}$.
-The chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal while rejecting 64\% of background;
-signal efficiency as function of the $m(J/\psi\,\Lambda^0)$ invariant mass is depicted in Figure \ref{fig:4:phys_bkg_veto_eff_mass}.
+I optimized $m_\text{thres}$ to maximize signal significance
+\begin{equation}
+\frac{s}{\sqrt{s+b}}.
+\label{eq:4:signal_significance}
+\end{equation}
+Usually $s$ and $b$ would be the signal and background event counts after the selection;
+since yields in Run 2 data are still unknown at this selection step, I instead used the fraction of total signal and physical background events after prefilter selections also passing the invariant mass veto with a specific threshold.
+Signal significance as function of the threshold is depicted in Figure \ref{fig:4:phys_veto_significances};
+the chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal while rejecting 64\% of background.
 
 \subsection{Armenteros-Podolanski veto}
-To supplement the invariant mass veto, I introduced a selection criterium on proton and pion momenta based on the Armenteros-Podolanski technique \cite{armenteros-podolanski}.
+To supplement the invariant mass veto, I introduced a selection criterium on proton and pion momenta based on the Armenteros-Podolanski technique \cite{armenteros-podolanski} to be applied in conjunction, as part of the global strategy to filter out \physbkgshort events.
 This approach, first proposed in 1954, allows for momentum-based discrimination of \lambdadecay and \kshortdecay decays without the need for mass assumptions on the daughter particles.
 
 \begin{figure}[t]
@@ -275,16 +283,9 @@ Given the symmetrical nature of the Armenteros-Podolanski space, I implemented t
 \begin{equation}
 |\alpha| \geq \alpha_\text{thres}.
 \end{equation}
-I optimized the $\alpha_\text{thres}$ threshold to maximize \demonstratorshort signal significance
-\begin{equation}
-\frac{s}{\sqrt{s+b}}.
-\label{eq:4:signal_significance}
-\end{equation}
-Usually $s$ and $b$ would be the signal and background event counts after the selection;
-since yields in Run 2 data are still unknown at this selection step, I instead used the fraction of total signal and physical background events after loose and invariant mass veto selections also passing the Armenteros-Podolanski veto with a specific threshold.
-
+Similary to the $B^0$ veto, I optimized the $\alpha_\text{thres}$ threshold to maximize \demonstratorshort signal significance defined in \eqref{eq:4:signal_significance}, considering baseline signal and background events passing prefilters and the $B^0$ veto selection.
 Figure \ref{fig:4:ap_efficiency} shows the signal and background efficiencies of the veto as a function of $\alpha_\text{thres}$, while Figure \ref{fig:4:ap_significance} reports the corresponding signal significances.
-The chosen threshold of 0.5 retains 99\% of the \demonstratorshort signal while rejecting 23\% of \physbkgshort background surviving the \bz veto described in Section \ref{sec:B0_veto}.
+The chosen threshold of 0.5 retains 99\% of the \demonstratorshort signal while rejecting 23\% of \physbkgshort background surviving the \bz veto.
 In addition, the Armenteros-Podolanski veto will also remove combinatorial \kshortdecay events which the \bz veto, being based on the $J/\psi\,K_S^0$ invariant mass, is not equipped to deal with.
 
 \section{HBDT classifier}
@@ -382,8 +383,17 @@ Performance of cross-validated classifiers on training and testing sub-samples\f
 \end{equation}
 for a set of $n$ thresholds.
 
-When considering the choice of the best classifier, I aimed to strike a balance between the AP score on testing data, acting as a raw performance grading of the classifier, and the difference in AP score between training and testing samples, which was necessary to prevent overtraining.
-The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\text{max}^\text{iter}=2500$, and $n_\text{max}^\text{leaves}=100$, is the result of this selection process.
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{graphics/04-event_selection/meantest_vs_diffscore.pdf}
+	\caption{Trained HBDT classifiers as a function of the average precision score $\text{AP}_\text{test}$ on test sample and diference $\text{AP}_\text{train} - \text{AP}_\text{test}$ in average precision on training and test samples. The hyperparameter-optimized model used for this thesis is marked with a \textit{cross}.}
+	\label{fig:4:meantest_vs_diffscore}
+\end{figure}
+
+To select the best classifier, I applied a hard cut on the average precision score on the test sample ($\text{AP}_\text{test} > 0.99$) and chose the model with the least difference in AP score between training and test samples ($\text{AP}_\text{train} - \text{AP}_\text{test} \approx 0.005$).
+The aim was to strike a balance between the raw performance of the classifier, graded with $\text{AP}_\text{test}$, and the prevention of significant overtraining, which reflects on $\text{AP}_\text{train} - \text{AP}_\text{test}$.
+The high $\text{AP}_\text{test}$ constraint 
+The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\text{max}^\text{iter}=2500$, and $n_\text{max}^\text{leaves}=100$, is the result of this selection process and highlighted in Figure \ref{fig:4:meantest_vs_diffscore}.
 
 \subsection{Performance test}
 
@@ -528,7 +538,7 @@ G_\text{c}(x) \coloneqq \frac{1}{\sqrt{2\pi}} \int_{-\infty}^x dt\,e^{-\frac{t^2
 is the Gaussian cumulative distribution function evaluated at $x$.
 
 When fitting $m(J/\psi\,\Lambda^0)$ in Run 2 data, the function is the sum of two contributions:
-signal is modeled with the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters bar $S$ and $\sigma$ fixed to their Monte Carlo fit best values;
+signal is modeled with the same double-tailed Crystal Ball from \eqref{eq:4:crystal_ball}, with all parameters barring $S$ and $\sigma$ fixed to their Monte Carlo fit best values;
 the combinatorial background is fit with a conventional exponential function
 \begin{equation}
 	f_\text{bkg} (m;C,a) = C e^{-a m}.
@@ -567,7 +577,7 @@ The best performing threshold was found to be $t_\text{thres} = 0.985$, with sig
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\textwidth]{graphics/04-event_selection/selection_efficiencies.pdf}
-	\caption{Efficiencies of the different steps of the \demonstratorshort signal selection process, computed on reconstructed simulated events, as a function of the $z$ component of the true \lambdadecay decay vertex.}
+	\caption{Efficiencies of the different steps of the \demonstratorshort signal selection process, computed on reconstructed simulated events, as a function of the $z$ component of the true \lambdadecay decay vertex. The steps are presented sequentially (top to bottom) in the legend; the efficiency of each step is computed on the baseline of events passing all previous steps.}
 	\label{fig:4:selection_efficiencies}
 \end{figure}
 

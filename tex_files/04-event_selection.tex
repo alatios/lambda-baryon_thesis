@@ -12,46 +12,6 @@ finally, Section \ref{sec:4:performance_data} brings together all three selectio
 \textit{Prefilters}, also refered to as \textit{preliminary selections} or simply \textit{pre-selections}, are the foundation of the signal selection process.
 The main objective of this step is to improve the signal-to-background ratio and reduce the computational workload to analyze data with cuts on kinematic variables.
 
-\begin{table}[t]
-	\begin{center}
-	\begin{tabular}{@{}llll@{}}
-		\toprule
-		Variable & Unit & Minimum & Maximum \\
-		\midrule
-		$p(p)$ 						& MeV/$c$ 	& 2\,000	& 500\,000 \\
-		$p_T(p)$ 					& MeV/$c$ 	& 400		& -- \\
-		$p(\pi^-)$ 					& MeV/$c$ 	& 10\,000	& 500\,000 \\
-		$z_\Lambda^\text{vtx}$		& mm		& 5\,500	& 8\,500 \\
-		$p_T(\Lambda^0)$ 			& MeV/$c$ 	& 450		& -- \\
-		$m(p\pi^-)$	(Vertex Fitter)	& MeV/$c^2$	& 600		& 1\,500 \\
-		$m(p\pi^-)$	(combined)		& MeV/$c^2$	& --		& 2\,000 \\
-		$m(p\pi^-)$	(measured)		& MeV/$c^2$	& --		& 1\,500 \\
-		$\cos\xi_p (\Lambda^0)$		& --		& 0.9999	& -- \\
-		$\Delta \chi^2_\text{PV} (\Lambda^0)$
-									& -- 		& --		& 200 \\
-		$\chi^2_\text{dist} (\Lambda^0)$
-									& --		& --		& $2\times{10}^{7}$ \\
-		$\chi^2_\text{vtx} (\Lambda^0)$
-									& --		& --		& 750 \\
-		$\lvert m(\mu^+ \mu^-) - m_\text{PDG} (J/\psi) \rvert$
-									& MeV/$c^2$ & --		& 90 \\
-		$m(J/\psi\,\Lambda^0)$ (combined)
-									& MeV/$c^2$	& 4\,700		& -- \\
-		$m(J/\psi\,\Lambda^0)$ (Vertex Fitter)
-									& MeV/$c^2$	& --		& 8\,500 \\
-		$\lvert \cos\xi_p (\Lambda^0_b) \rvert$
-									& --		& 0.99		& -- \\
-		$\Delta \chi^2_\text{PV} (\Lambda^0_b)$
-									& -- 		& --		& 1\,750 \\
-		$\chi^2_\text{vtx} (\Lambda^0_b)$
-									& --		& --		& 150 \\
-		\bottomrule
-	\end{tabular}
-	\end{center}
-	\caption{Prefilter selection criteria applied to simulated \demonstratorshort signal and Run 2 data. The Vertex Fitter invariant mass is computed by the homonymous algorithm; the \textit{combined} invariant mass is computed from the 4-momenta of the daughter particles at the first measurement position, without track extrapolation; the \textit{measured} invariant mass is computed in the same way as the combined mass, but after extrapolation at the reconstructed decay vertex of the mother particle. Angle $\xi_p$ for a particle is computed between the line connecting its origin and decay vertices and the direction of its momentum. $\Delta \chi^2_\text{PV}$ is the increase of the primary vertex $\chi^2$ when the particle is included in the fit. $\chi^2_\text{dist}$ is the geometrical distance between the primary vertex and the particle decay vertex in $\chi^2$ units.}
-	\label{tab:4:prefilters}
-\end{table}
-
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -66,12 +26,22 @@ The main objective of this step is to improve the signal-to-background ratio and
 	\label{fig:4:z_lambda_cuts}
 \end{figure}
 
-The applied prefilter criteria are listed in Table \ref{tab:4:prefilters}.
-Efficiencies on signal have been estimated with studies on simulated \demonstratorshort events.
-The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
-the efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts}.
-Since I require $\Lambda^0$ to decay after the dipole magnet in order to observe spin precession, the $\approx 32\%$ efficiency of the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided.
-Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of $\approx 26\%$.
+The most impactful selection at this step is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex, which is required to be in the $[\SI{5.5}{\meter}, \SI{8.5}{\meter}]$ range.
+The efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts};
+despite the significant $\approx 68\%$ loss of reconstructed \demonstratorshort events, the $z_\text{vtx}^\Lambda \geq \SI{5.5}{\meter}$ cut cannot be avoided as it is required that \lz decay after the dipole magnet in order to observe spin precession.
+
+Other prefilter criteria have a much lower impact on signal, with efficiencies $\gtrsim 80\%$.
+These include cuts on:
+transverse momenta of proton and \lz, designed to weed out contributions from low-\pt secondary collisions;
+invariant masses of $p\pi^-$, $\mu^+ \mu^-$ and $J/\psi\,\Lambda^0$, roughly selecting the regions of interest surrounding the mother particle resonances;
+the cosine of pointing angle $\xi_p$ of \lz and \lbz, defined as the angle between the line connecting a particle's origin and decay vertices and the direction of its momentum computed from the decay products (this helps to recognize real decays);
+$\Delta \chi^2_\text{PV}$ and $\tilde{\chi}^2_\text{vtx}$ for \lbz and \lz, with $\Delta \chi^2_\text{PV}$ being the increase of the primary vertex $\chi^2$ when the particle is included in the fit (helping to weed out particles from secondary interactions) and $\tilde{\chi}^2_\text{vtx}$ being the $\chi^2$ of the reconstructed particle decay vertex;
+the gometrical distance $\chi^2_\text{dist}(\Lambda^0)$ between the primary vertex and the \lz decay vertex, expressed in $\chi^2$ units.
+Details on the applied prefilter criteria are listed in Appendix \ref{app:prefilter_selection}.
+Factoring in the $z_\text{vtx}^\Lambda$ cuts, the prefilter has an estimated $\approx 26\%$ efficiency on \demonstratorshort signal.
+%The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
+%the efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts}.
+%Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of .
 
 As detailed in Section \ref{sec:2:tracking}, a key aspect of my analysis is the employment of T tracks for the reconstruction of the \lz.
 The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20$--$30\%$.

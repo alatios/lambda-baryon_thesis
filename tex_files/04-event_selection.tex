@@ -36,7 +36,7 @@ transverse momenta of proton and \lz, designed to weed out contributions from lo
 invariant masses of $p\pi^-$, $\mu^+ \mu^-$ and $J/\psi\,\Lambda^0$, roughly selecting the regions of interest surrounding the mother particle resonances;
 the cosine of pointing angle $\xi_p$ of \lz and \lbz, defined as the angle between the line connecting a particle's origin and decay vertices and the direction of its momentum computed from the decay products (this helps to recognize real decays);
 $\Delta \chi^2_\text{PV}$ and $\tilde{\chi}^2_\text{vtx}$ for \lbz and \lz, with $\Delta \chi^2_\text{PV}$ being the increase of the primary vertex $\chi^2$ when the particle is included in the fit (helping to weed out particles from secondary interactions) and $\tilde{\chi}^2_\text{vtx}$ being the $\chi^2$ of the reconstructed particle decay vertex;
-the gometrical distance $\chi^2_\text{dist}(\Lambda^0)$ between the primary vertex and the \lz decay vertex, expressed in $\chi^2$ units.
+the geometrical distance $\chi^2_\text{dist}(\Lambda^0)$ between the primary vertex and the \lz decay vertex, expressed in $\chi^2$ units.
 Details on the applied prefilter criteria are listed in Appendix \ref{app:prefilter_selection}.
 Factoring in the $z_\text{vtx}^\Lambda$ cuts, the prefilter has an estimated $\approx 26\%$ efficiency on \demonstratorshort signal.
 %The most impactful selection is the one applied to $z_\text{vtx}^\Lambda$, the $z$ component of the \lambdadecay decay vertex;
@@ -344,6 +344,7 @@ coordinates of the \lambdadecay vertex position;
 $\tilde{\chi}^2_\text{vtx}$ of the \demonstratorshort and \lambdadecay vertices;
 the increase $\Delta \chi^2_\text{PV}$ of the primary vertex $\chi^2$ when a particle is included in the fit, for \lbz and \lz;
 the distances $\chi^2_\text{dist}$ between \lbz and \lz decay vertices and the primary vertex in $\chi^2$ units.
+Distributions of the above variables for signal and background in training data are reported in Appendix \ref{app:bdt_features}.
 
 The momenta for proton and pion are computed with $J/\psi$ mass constraints.
 While the usage of $p,\pi^-$ momenta from the Decay Tree Fitter with the additional $\Lambda^0$ mass constraint was considered, preliminary tests on classifiers showed a slight degradation of their performance when the double mass constraint was adopted.
@@ -392,7 +393,6 @@ for a set of $n$ thresholds.
 
 To select the best classifier, I applied a hard cut on the average precision score on the test sample ($\text{AP}_\text{test} > 0.99$) and chose the model with the least difference in AP score between training and test samples ($\text{AP}_\text{train} - \text{AP}_\text{test} \approx 0.005$).
 The aim was to strike a balance between the raw performance of the classifier, graded with $\text{AP}_\text{test}$, and the prevention of significant overtraining, which reflects on $\text{AP}_\text{train} - \text{AP}_\text{test}$.
-The high $\text{AP}_\text{test}$ constraint 
 The HBDT classifier used for the remainder of this thesis, with $L=0.003$, $n_\text{max}^\text{iter}=2500$, and $n_\text{max}^\text{leaves}=100$, is the result of this selection process and highlighted in Figure \ref{fig:4:meantest_vs_diffscore}.
 
 \subsection{Performance test}

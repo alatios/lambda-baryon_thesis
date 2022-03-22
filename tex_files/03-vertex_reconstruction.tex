@@ -65,7 +65,7 @@ The algorithm then performs a \textit{proper transportation}, a dedicated routin
 %Such transportation is also performed at the end of the vertexing procedure to ensure an optimal computation of final particle momenta.
 
 As mentioned in Section \ref{sec:2:tracking}, extrapolation using T tracks is a sensitive affair:
-unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field.
+unlike the case for other track types, no constraints are available besides the downstream measurement performed by the T tracking stations, meaning the tracks have to be propagated through several meters while accounting for the intense and non-homogeneous LHCb magnetic field $\vec{B}$.
 For this analysis, said extrapolation was performed via numerical solution of the track propagation equations using an approach based on the Runge-Kutta (RK) method \cite{Hairer1993}.
 In the RK formalism, the track state at a given $z$ is parameterized with a five-dimensional representation
 \begin{equation}
@@ -83,7 +83,7 @@ with
 \vec{x}^m = \sum_{n=1}^{m-1} b_{mn} \frac{d\vec{x}^n}{dz} \Delta z
 \end{equation}
 and Cash-Karp parameters $c_m$ and $b_{mn}$ chosen to obtain a precision of $(\Delta z)^6$ \cite{Bos:1070314}.
-
+The higher $\Delta z$ accuracy makes this technique more suitable for T track propagation in the high-$\vec{B}$ region with respect to the parabolic extrapolation commonly used in LHCb.
 
 
 % @todo: explain Runge-Kutta, a che ordine?
@@ -774,7 +774,7 @@ While it would be reckless to conclude that every \lambdadecay vertexing failure
 
 \subsection{Decay kinematics after extrapolation}
 \label{sec:3:true_vtx_kinematics}
-As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the \lz vertex is affected by a significant positive bias of median value $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{40}{\centi\meter}$.
+As will be later discussed in Sections \ref{sec:blowup_matrix} and \ref{sec:lambda_endvertex_bias}, reconstruction of the \lz vertex is affected by a significant positive bias of median value\footnote{Throughout the thesis, the \textit{median value} of a distribution is defined as the value separating the lower and upper halves of the distribution, i.e. the $\mu_\frac{1}{2}$ operator. Since even a small number of outliers can skew the arithmetic mean, this gives a better representation of the average value for many variables used in this analysis.} $\mu_\frac{1}{2} \left(z_\Lambda^\text{reco} - z_\Lambda^\text{true}\right) \approx \SI{40}{\centi\meter}$.
 In spite of such a discrepancy, the standard modus operandi for kine\-matics-at-vertex analyses usually compares true momenta (evaluated at the true vertex) with reconstructed momenta (evaluated at the reconstructed vertex), ignoring the discrepancy.
 
 For this section I have followed a different approach, opting to transport via Runge-Kutta extrapolator the reconstructed $p$ and $\pi^-$ at the true $\Lambda^0 \rightarrow p\pi^-$ vertex position, injected from Monte Carlo information.
@@ -830,7 +830,7 @@ Moreover, Figure \ref{fig:pim_momentum_residual_2Dv3D_z_rel} highlights the fact
 Transverse momenta of proton and pions after transport show no similar biases when both $\Lambda^0 \rightarrow p\pi^-$ and $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ events are considered.
 A significant bias in the extrapolated $p_x$ of both particles instead becomes visible when including only the former or latter class of events.
 The situation for \lz decays is shown in Figure \ref{fig:pim_momentum_residual_2Dv3D_x_rel_matter}:
-converged events bear a $leq 1\sigma$ positive $p_x$ bias for pions, while failed events are negatively biased with a much larger dispersion; the signs of both biases are reversed 
+converged events bear a $\leq 1\sigma$ positive $p_x$ bias for pions, while failed events are negatively biased with a much larger dispersion; the signs of both biases are reversed 
 in $\bar{\Lambda}^0 \rightarrow \bar{p}\pi^+$ decays, as seen in Figure \ref{fig:pim_momentum_residual_2Dv3D_x_rel_antimatter}.
 
 \begin{figure}[t]
@@ -1032,7 +1032,8 @@ for instance, VF-$\sigma_x$ events have VF vertices with median $\tilde{\chi}^2_
 Where algorithm performances truly diverge is in exclusive events.
 Events only converging under VF have a median $\tilde{\chi}^2_\text{vtx}$ of 0.32, while both $\sigma_x$ and $\sigma_y$ hover around a subpar $\approx 3$ and the $\sigma_z$ algorithm reaches an off-scale value of 51.
 This discrepancy is also seen from a different perspective in Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common_vs_exclusive}: the $z_\text{vtx}^\Lambda$ residual distributions for VF and $\sigma_x$-rescaled algorithms on shared events are indistinguishable (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_common}), while $\sigma_x$-exclusive events have a significant positive bias compared to the unbiased VF-exclusive ones (Figure \ref{fig:3:3D_vs_2D_lambda_endvertex_bias_exclusive}).
-This means that, while a minor hierarchy in fit quality does exist in the $\sigma$-rescaled algorithms, justifying the selected $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order, large discrepancies in performances are due to the specific events reaching convergence under a specific algorithm.
+This means that, while a minor hierarchy in fit quality does exist in the $\sigma$-rescaled algorithms, justifying the selected $\sigma_x \rightarrow \sigma_y \rightarrow \sigma_z$ refit order, large discrepancies in performances are due to differences in the converging events themselves.
+%type of events reaching convergence under a specific algorithm.
 %The reason for the high median $\tilde{\chi}^2_\text{vtx}$ in $\sigma_z$-exclusive \lambdadecay decays is to be searched in poor track information in $xz$ and $yz$ planes, preventing convergence with $\sigma_x$/$\sigma_y$ algorithms and resulting in mediocre fits, rather than in a fault of the $\sigma_z$-rescaled implementation.
 The most likely explanation for the diminishing fit quality in $\sigma$-rescaled algorithms is poor track information in the relevant propagation planes:
 for instance, an event only converging with the $\sigma_z$-rescaled algorithm must have subpar information in the $xz$ and $yz$ planes (preventing convergence with VF, $\sigma_x$- and $\sigma_y$-rescaled algorithms), and favouring information in the $xy$ plane when deciding the best vertex will lead to poor resolution in $z_\text{vtx}^\Lambda$.
@@ -1400,7 +1401,7 @@ The distance between the two, sometimes exceeding \SI{1}{\meter}, is consistent 
 This suggests that, at least for a portion of non-converged events, the Vertex Fitter locates two irreconcilable vertex candidates in the $xz$ and $yz$ track propagation planes and is unequipped to choose one over the other.
 
 To address this problem, I developed and implemented a threefold refit process that sequentially favours $yz$, $xz$ and $xy$ propagation planes by increasing the complementary uncertainty ($\sigma_x$, $\sigma_y$ and $\sigma_z$ respectively) in the vertex covariance matrix.
-This results in a a $+26.4\%$ increase in signal statistics compared to only using the standard Vertex Fitter, recovery roughly one quarter of all non-converged \demonstratorshort events.
+This results in a $+26.4\%$ increase in signal statistics compared to only using the standard Vertex Fitter, recovery roughly one quarter of all non-converged \demonstratorshort events.
 
 The reason for the $xz$-$yz$ discrepancy, and thus of the oscillation at the heart of vertexing failure, is currently unknown.
 However, an observed systematic underestimation of $p_z$ for pion tracks in non-converged events suggests it could be linked to poor momentum measurement at T station level.

@@ -372,10 +372,14 @@ These data are then sent to the event filter farm (EFF), where the software-base
 the first stage (HLT1) gets the rate down to \SI{100}{\kilo\hertz}, while the second (HLT2) outputs at roughly \SI{12.5}{\kilo\hertz}.
 Both HLTs are divided in independently operating \textit{trigger lines}, each line consisting of specific selection instructions for a determined class of events.
 
-HLT1 reconstructs Long charged particles with $p_\text{T} > \SI{500}{\mev}$. First it combines VELO hits to form straight line tracks, then it looks for $\geq 3$ TT hits in a region around the straight line extrapolation of the VELO tracks. The small upstream portion of magnetic field allows for momentum determination with a $20\%$ resolution used to reject low-$p_\text{T}$ tracks.
+HLT1 reconstructs charged particles with $p_\text{T} > \SI{500}{\mev}$, starting with Long tracks.
+%HLT1 reconstructs Long charged particles with $p_\text{T} > \SI{500}{\mev}$.
+First it combines VELO hits to form straight line tracks, then it looks for $\geq 3$ TT hits in a region around the straight line extrapolation of the VELO tracks. The small upstream portion of magnetic field allows for momentum determination with a $20\%$ resolution used to reject low-$p_\text{T}$ tracks.
 After that, the tracks are extrapolated at the T stations, looking for hits in IT and OT on one side of the straight line VELO-TT extrapolation (depending on the charge estimate).
-Finally, all tracks are fit with a Kalman filter with a simplified detector geometry.
-At this stage, particle identification is only possible for muons on account of the tight timing constraints.
+Other track types are fit with the same general approach:
+Downstream tracks start with T1--T3 segments and look for matching hits in the TT, Upstream tracks follow the Long track process but require incompatibility with T station hits, and T tracks are reconstructed last using T1--T3 segments that didn't match any previous track types.
+All tracks are fit with a Kalman filter with a simplified detector geometry;
+at this stage, particle identification is only possible for muons on account of the tight timing constraints.
 
 Owing to the rate reduction performed by HLT1, HLT2 is able to reconstruct the entire event:
 reconstruction of charged tracks with $p_\text{T} > \SI{80}{\mev}$ is performed using all tracking sub-detectors (see Section \ref{sec:2:tracking}), along with reconstruction of neutral clusters and implementation of the full particle identification system (Section \ref{sec:2:pid}).

@@ -143,31 +143,35 @@ Electric and magnetic dipole moments (EDMs and MDMs) of elementary and composite
 permament EDMs are a potential signature of new sources of CP symmetry violation, while MDMs can be used to test the validity of the CPT theorem.
 
 One approach to study EDMs and MDMs is to exploit the precession of the particle's spin they trigger when flying through a magnetic field;
-this is achieved by comparing initial and final polarization states of a sample of particles through a fit of the angular distribution of their decay products.
+this is achieved by comparing initial and final polarization states of a sample of particles through a fit to the angular distribution of their decay products.
 This technique is ripe for application at LHCb, a single-arm spectrometer designed to study heavy-flavour physics using proton-proton collisions at the Large Hadron Collider.
 In this thesis, I analyzed long-lived \lz baryon decays from the exclusive \demonstratorfull channel in preparation of the first measurement of \lz electromagnetic dipole moments with the \SI{6}{\per\femto\barn} LHCb Run 2 dataset.
 
-The first part of my thesis was dedicated to the vertex reconstruction of \lbz and \lz decays:
-vertexing efficiency falls consistently below 50\% for long-lived \lz decaying after the LHCb dipole magnet, halving the potential signal yield.
-Through topological studies of the events, I found this to be a result of a conflict of track information in $xz$ (with track bending due to the magnet) and $yz$ (without bending) planes, with the leading explanation being a systematic underestimation of $p_z$ in pion tracks.
+The first part of my thesis was dedicated to the vertex reconstruction of \lbz and \lz decays.
+Vertexing efficiency falls consistently below 50\% for long-lived \lz decaying after the LHCb dipole magnet, halving the potential signal yield.
+%Through topological studies of the events, I found this to be a result of a conflict of track information in $xz$ (bending plane) and $yz$ (no bending) planes, with the leading explanation being a systematic underestimation of $p_z$ in pion tracks.
+Through topological studies of the events, I found this to be a result of the discrepancy in $z$ coordinate between the point of closest $p\pi^-$ track distance in the $xz$ (bending) plane and the crossing track point in the $yz$ (non-bending) plane.
 To mitigate the problem, I built and deployed an alternative vertex fitting algorithm that increases the weight of specific track propagation planes.
 Refitting \lambdadecay decays with the new algorithm results in a $+26.4\%$ increase in signal statistics, recovering a quarter of the previously non-converging events.
+The reason for the $xz$-$yz$ inconsistency is currently unknown;
+however, an observed systematic underestimation of $p_z$ for pion tracks in non-converged events suggests it could be linked to poor momentum measurement at the T tracking stations.
 
-In the second part of my thesis, I developed and finalized a three-step signal selection process based on loose preliminary filters, rejection of \physbkgfull physical background, and discrimination of \demonstratorshort events with a histogram-based gradient boosting classification tree.
-The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$) in the $\pm3\sigma$ region around the resonance peak.
+In the second part of my thesis, I finalized a three-step signal selection process based on loose preliminary filters, rejection of \physbkgfull physical background, and discrimination of \demonstratorshort events with a histogram-based gradient boosting classification tree.
+The $m(J/\psi\,\Lambda^0)$ invariant mass fit after all steps shows excellent agreement with data, estimating a signal (background) yield of $3590 \pm 60$ ($2420 \pm 50$) in the $\pm3\sigma$ region around the \lbz resonance peak.
 
 Finally, I performed a first analysis of the angular distribution of \lz decay products from \demonstratorshort events.
 Angular reconstruction of polar and azimuthal proton production angles in the \lz helicity frame is unbiased net of acceptance effects.
 Absolute resolutions span 0.2--0.3 for \cthetap and 1.0--1.2 for \phip, both roughly one sixth of the allowed variable ranges.
-Resolutions heavily worsen as function of the bias on the $z$ component of the \lambdadecay vertex.
-The observed median \SI{14}{\centi\meter} bias in reconstructed decays is mostly attributable to <<ghost vertex>> events,
-%where the algorithm converges on a second crossing point of $p\pi^-$ tracks created by magnet bending.
-where $p\pi^-$ tracks are bent by the magnet into a second crossing point misidentified as an apparent production vertex by the algorithm.
-Removal of this class of events, motivated by encouraging early results with changes to the vertex seeding process, improves proton angular resolutions by a factor 2--3 across the full range of values.
+Reconstructed signal events have a median \SI{14}{\centi\meter} positive bias on the $z$ component of the \lambdadecay vertex, which negatively affects proton angular resolutions.
+%Resolutions heavily worsen as function of the bias on the $z$ component of the \lambdadecay vertex.
+This bias is mostly attributable to <<ghost vertex>> events, where $p\pi^-$ tracks are bent by the magnet into a second crossing point misidentified as the apparent production vertex by the algorithm.
+%Removal of this class of events, motivated by encouraging early results with changes to the vertex reconstruction algorithm, improves proton angular resolutions by a factor 2--3 across the full range of values.
+Ongoing tests with a modified vertex reconstruction algorithm show encouraging results in reducing the number of ghost vertex events;
+the complete solution of this problem would improve proton angular resolutions by a factor 2--3 across the full range of values.
 
 Identified issues in this analysis do not compromise the prospective measurement of \lz electromagnetic dipole moments.
 On the contrary, the achieved signal yield and absence of bias in proton angular distributions confirm that competitive results with long-lived \lz baryons are possible with Run 2 data.
-Given the upcoming statistics surge projected for Run 3 and the boost in yield and resolution an improved vertexing algorithm would provide, the outlook is promising for a first measurement of \lz EDMs and MDMs at LHCb.
+Given the upcoming statistics increase expected for Run 3 and the boost in yield and resolution an improved vertexing algorithm would provide, the outlook is promising for a first measurement of \lz EDMs and MDMs at LHCb.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\noindent\rule{\textwidth}{0.4pt}

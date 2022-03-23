@@ -28,7 +28,7 @@ Intuitively, a particle is said to be \textit{elementary} when no substructure c
 A century of efforts in the fields of nuclear, quantum, and high energy physics has whittled down the spectrum of matter to just seventeen unique fundamental particles, colloquially known as the \textit{particle zoo} and depicted in Figure \ref{fig:particle_zoo}.
 
 Each particle is joined by an \textit{antimatter particle} (\textit{antiparticle} for short), a companion of opposite charge identified by the prefix \textit{anti-}, e.g. antimuon for the muon; the only exception to this naming convention is the electron, whose antiparticle, for historical reasons, is known as positron.
-While often omitted for the sake of brevity, antiparticles are elementary particles in every respect, distinct from their partners (bar neutral gauge bosons and the Higgs boson, which are their own antiparticles) and related to them through the transformation of charge conjugation (see Section \ref{sec:C-symmetry}).
+While often omitted for the sake of brevity, antiparticles are elementary particles in every respect, distinct from their partners (barring neutral gauge bosons and the Higgs boson, which are their own antiparticles) and related to them through the transformation of charge conjugation (see Section \ref{sec:C-symmetry}).
 
 \subsubsection{Leptons}
 Leptons are fermions (half-integer spin particles) not sensitive to the strong nuclear interaction.
@@ -62,7 +62,7 @@ Quantum chromodynamics (QCD), the theory of the strong nuclear force, is based o
 
 There are no gauge bosons nor gauge theories associated to the fourth known fundamental force, gravity.
 Since every attempt to reconcile the general theory of relativity with quantum mechanics has failed so far, gravity is presently excluded from the Standard Model.
-This doesn't affect SM predictions at the subatomic level on account of the remarkably low intensity of said force, over 30 orders of magnitude lower than the weak interaction.
+This doesn't affect SM predictions at the subatomic level on account of the remarkably low intensity of this force, over 30 orders of magnitude lower than the weak interaction.
 
 \subsubsection{The Higgs boson} 
 The Higgs boson is one of the latest additions to the Standard Model, being proposed in 1964 \cite{higgs1964} and observed in 2012 by the ATLAS \cite{atlasHiggs} and CMS \cite{cmsHiggs} collaborations.
@@ -83,7 +83,8 @@ n(\ell^-) - n(\ell^+)
 +
 n(\nu_\ell) - n(\bar{\nu}_\ell).
 \end{equation}
-For all three generations, $L_\ell$ is conserved in every interaction except neutrino oscillations.
+For all three generations, $L_\ell$ is conserved in every interaction except neutrino oscillations;
+an example is the dominant muon decay channel $\mu^- \rightarrow e^- \nu_\mu \bar{\nu}_e$, which maintains $L_\mu=1, L_e=0$.
 
 Quarks are not as straightforward.
 A similarly defined quark flavour number, such as the so-called \textit{topness} (or \textit{truth})
@@ -157,7 +158,39 @@ Defining $s_{ik} \coloneqq \sin\theta_{ik}$ and $c_{ik} \coloneqq \cos\theta_{ik
 	\end{pmatrix}	
 	\label{eq:CKM-matrix-parameterization}
 \end{equation}
-
+The measured hierarchy of $s_{13} \ll s_{23} \ll s_{12} \ll 1$ is often emphasized by using the Wolfenstein parameterization of $V_\text{CKM}$:
+\begin{equation}
+	V_\text{CKM}
+	=
+	\begin{pmatrix}
+		1 - \frac{\lambda^2}{2}
+		&
+		\lambda
+		&
+		A \lambda^3 (\rho-i\eta)
+		\\
+		-\lambda
+		&
+		1 - \frac{\lambda^2}{2}
+		&
+		A \lambda^2
+		\\
+		A \lambda^3 (1-\rho-i\eta)
+		&
+		-A\lambda^2
+		&
+		1
+	\end{pmatrix} + \mathcal{O}(\lambda^4),
+	\label{eq:1:CKM_matrix_wolfenstein}
+\end{equation}
+depending on the four parameters $A,\lambda,\rho,\eta$ via
+\begin{subequations}
+\begin{align}
+&\lambda \coloneqq s_{12}, \\
+&A\lambda^2 \coloneqq s_{23}, \\
+&A\lambda^2(\rho+i\eta) \coloneqq s_{13} e^{i\delta_{13}}.
+\end{align}
+\end{subequations}
 The phase $\delta_{13}$ is known as the CP-violating phase. To fully understand what it means and its role in particle physics, however, a digression into discrete symmetries is needed.
 
 \section{Discrete symmetries and CP violation}
@@ -209,7 +242,7 @@ The transformation of \textit{charge conjugation} $\hat{C}$ changes the sign of 
 	\hat{C} : q \rightarrow -q.
 \end{equation}
 It should be readily apparent that $\hat{C}$ has close ties with the concept of antimatter.
-The action of charge conjugation turns a quantum state into its antimatter partner, inverting the sign of all flavour quantum numbers in the process:
+The action of charge conjugation turns a quantum state into its antimatter partner, inverting the sign of its quantum numbers in the process:
 \begin{equation}
 	\hat{C} \ket{\psi} = \ket{\bar{\psi}}.
 \end{equation}
@@ -230,15 +263,15 @@ The action of time reversal on a quantum state is represented by an \textit{anti
 \end{equation}
 There are a number of arguments for the antiunitarity of $\hat{T}$, the most straightforward being that it prevents final states with negative energy.
 
-Once more, gravity, strong and electromagnetic forces are T-symmetric, whereas the weak nuclear force isn't.
-However, as will be explained shortly, this knowledge isn't the result of a direct experiment, instead exploiting a side effect of the CPT theorem.
+Direct evidence of T violation in weak nuclear forces has surfaced in recent years starting with analyses at BaBar \cite{PhysRevLett.109.211801}, whereas gravity, strong and electromagnetic forces are T-symmetric.
+However, as will be explained shortly, most experiments probing T violation do so indirectly by exploiting a side effect of the CPT theorem.
 
 \subsection{CP symmetry and violation}
 \label{sec:CP-symmetry-violation}
 The sequential combination of C, P and T transformations, commonly designated as CPT symmetry, plays a key role in the foundations of quantum physics.
 As well as being the only combination of said transformations still observed to be a symmetry of physical laws, the \textit{CPT theorem} states that any Lorentz-invariant local quantum field theory must be CPT-symmetric.
 Because a violation of the CPT symmetry would imply the collapse of the modern quantum physics framework, it is generally accepted that a T-violating process must also be a CP-violating process.
-This bears an important consequence on the study of discrete symmetry violations: because of the self-evident hindrances in building a time-reversed experimental setup outside of trivial cases, every test of T violation becomes by necessity a test of CP violation.
+This bears an important consequence on the study of discrete symmetry violations: because of the self-evident hindrances in building a time-reversed experimental setup outside of trivial cases, most tests of T violation are by necessity tests of CP violation.
 
 CP symmetry is also an interesting field of study in and of itself \cite{cpvws}.
 While C and P symmetries are maximally violated by the weak interaction, CP isn't;
@@ -253,7 +286,8 @@ Experiments conducted over the last 50 years have found that, despite CP still b
 
 The first indirect discovery came in 1964 by Christenson et al. \cite{kaoncpv}, who observed the long-lived neutral kaon two-pion decay $K_L^0 \rightarrow \pi^+ \pi^-$ with a branching ratio of $\approx {10}^{-3}$ over all charged modes.
 This result could only be explained by assuming that the $K_L^0$ weak eigenstate is a mixture of both $\eta_{CP}=\pm1$ eigenstates, with the ability to oscillate between the two.
-A more direct evidence was found in 1999 by the KTeV collaboration at Fermilab \cite{ktevcpv} via the observation of differing decay rates in $K_{L/S}^0 \rightarrow \pi^+ \pi^-$ against $K_{L/S}^0 \rightarrow \pi^0 \pi^0$ channels, and CP violation in weak processes was definitely established in the early 2000s via studies on $B$ mesons decays conducted in so-called <<$B$-factories>> such as BaBar at SLAC \cite{babarcpv} and Belle at KEK \cite{bellecpv}.
+%A more direct 
+Another evidence was found in 1999 by the KTeV collaboration at Fermilab \cite{ktevcpv} via the observation of differing decay rates in $K_{L/S}^0 \rightarrow \pi^+ \pi^-$ against $K_{L/S}^0 \rightarrow \pi^0 \pi^0$ channels, and CP violation in weak processes was definitely established in the early 2000s via studies on $B$ mesons decays conducted in so-called <<$B$-factories>> such as BaBar at SLAC \cite{babarcpv} and Belle at KEK \cite{bellecpv}.
 
 Despite the significant number of experimental evidences collected ever since, the extent of known CP-violating processes is several orders of magnitude below what is expected from cosmological estimates.
 The matter-antimatter imbalance at the time when the Universe cooled below the pair production threshold temperature can be quantified through the \textit{baryon asymmetry parameter} \cite{Canetti2012}, computed as the difference between the densities of baryons and antibaryons divided by their sum:
@@ -353,7 +387,7 @@ A classical rotating body with charge $q$, mass $m$ and angular momentum $\vec{L
 assuming charge and mass are identically distributed.
 A very similar relation holds for a non-classical, point-like spin-$\frac{1}{2}$ particle \cite{searchNewPhysics}:
 \begin{equation}
-	\vec{\mu} = g \frac{\mu_B}{2} \vec{s} 
+	\vec{\mu} = g \frac{\mu_B}{2} \vec{s}.
 \end{equation}
 Here $g$ is the dimensionless \textit{gyromagnetic factor} accounting for the transition from classical to quantum physics, whereas $\mu_B$ and $\vec{s}$ are the same particle magneton and spin polarization vector defined in equations \eqref{eq:magneton} and \eqref{eq:spin-polarization-vector} respectively.
 
@@ -372,7 +406,7 @@ H_\text{MDM} &\xrightarrow{\hat{T}} H_\text{MDM}.
 \end{align}
 
 Factoring in the CPT theorem, this result entails that a non-zero intrinsic MDM for fundamental particles does not imply CP violation.
-For this reason, measurements of MDMs are instead used as precision tests of the CPT theorem, since their values should not change between a particle and its antimatter partner.
+For this reason, measurements of MDMs are instead used as precision tests of the CPT theorem, since their values should have same magnitude and opposite sign for a particle and its antimatter partner.
 
 \subsection{Measurement of EDMs and MDMs}
 \label{sec:emdm-measurement}
@@ -534,7 +568,9 @@ The experimental layout is sketched in Figure \ref{fig:1:1971_cern_emdm_setup}: 
 	\pi^- + p \rightarrow \Lambda^0 + K^0,
 \end{equation}
 running a \SI{1.05}{\gev\per c} $\pi^-$ beam from the CERN Proton Synchrotron accelerator into a fixed polyethylene target.
-The production cross section peaks at \SI{0.8}{\milli\barn} and the resulting $\Lambda^0$ have $\approx 100\%$ transverse polarization over a large angular production region in the reaction reference frame.
+The production cross section
+%peaks at
+has a maximum value of \SI{0.8}{\milli\barn} and the resulting $\Lambda^0$ have $\approx 100\%$ transverse polarization over a large angular production region in the reaction reference frame.
 The $\Lambda^0$ angular acceptance was restricted to $18^\circ$--$22^\circ$, near the maximum production angle of $21^\circ$, to amplify the signal-to-background ratio;
 this corresponds to $\Lambda^0$ with $|\vec{p}| \in \left[ \SI{500}{\mev\per c},\SI{800}{\mev\per c} \right]$.
 Traversing a \SI{20}{\tesla} transverse pulsed magnetic field, $\Lambda^0$ baryons become spin-polarized as described in Section \ref{sec:emdm-measurement} before decaying into a $p\pi^-$ pair.
@@ -607,7 +643,7 @@ as well as its charge-conjugate\footnote{For the sake of brevity, charge-conjuga
 \end{equation}
 Parity violation in this decay produces $\Lambda^0$ with almost $100\%$ longitudinal polarization \cite{ATLASLambdaPolarization}, meaning that the original polarization is aligned to the $\Lambda^0$ momentum in the $\Lambda_b^0$ helicity frame (see Figure \ref{fig:1:heavy-baryon-production} and related discussion).
 
-The nature of LHCb as a forward detector implies that $\Lambda^0$ baryons will mostly fly along the laboratory frame $z$ axis, and therefore the initial polarization can be written as $\vec{s_0} = (0,0,s_0)$. Equation \eqref{eq:spin-precession-l_cap1} for the $\Lambda^0$ spin precession after the magnetic field region can thus be simplified assuming a field $\vec{B} = (0,B_y,0)$:
+The forward nature of the LHCb detector implies that \lz baryons will mostly fly along the laboratory frame $z$ axis, and therefore the initial polarization can be written as $\vec{s_0} = (0,0,s_0)$. Equation \eqref{eq:spin-precession-l_cap1} for the $\Lambda^0$ spin precession after the magnetic field region can thus be simplified assuming a field $\vec{B} = (0,B_y,0)$:
 \begin{equation}
 \vec{s} =
 \begin{cases}
@@ -692,9 +728,9 @@ The combined measurements of the initial polarization (from the momenta of $\Lam
 
 Deviations from this simplified treatment ought to be considered when taking into account the different relevant frames of reference, three of which are sketched in Figure \ref{fig:frames_of_reference}:
 \begin{itemize}
-	\item the laboratory frame \slab (Figure \ref{fig:1:frames_of_reference_lab}), with the $z$ axis along the proton beam and the $y$ axis along the vertical coordinate;
+	\item the two $\Lambda^0$ helicity frames  \slambdal (Figure \ref{fig:1:frames_of_reference_lambda}) and \slambda. These are functionally the same frame of reference, the difference being that the $z$ axis is defined in the direction of the \lz momentum in \slab and \shad respectively;
 	\item the heavy hadron $\Lambda_b^0$ helicity frame \shad (Figure \ref{fig:1:frames_of_reference_heavy}), with the $z$ axis given by the $\Lambda_b^0$ momentum in \slab and the $x$ axis parallel to the normal to its production plane;
-	\item the two $\Lambda^0$ helicity frames  \slambdal (Figure \ref{fig:1:frames_of_reference_lambda}) and \slambda. These are functionally the same frame of reference, the difference being that the $z$ axis is defined in the direction of the \lz momentum in \slab and \shad respectively.
+	\item the laboratory frame \slab (Figure \ref{fig:1:frames_of_reference_lab}), with the $z$ axis along the proton beam and the $y$ axis along the vertical coordinate.
 \end{itemize}
 
 The polarization given by the equation of motion derived in Section \ref{sec:emdm-measurement} refers to the comoving rest frame of the \lz (also known as the \textit{canonical frame)}, related to the $\text{S}_\text{L}$ frame by a Lorentz boost.
@@ -714,7 +750,7 @@ This effect arises in the case of \lz not directed along the $\text{S}_\text{L}$
 	\label{fig:1:heavy-baryon-production}
 \end{figure}
 
-More significant is the Wick rotation (see Figure \ref{fig:1:heavy-baryon-production}), owing to the orientation discrepancy between $\text{S}_\Lambda$ frame (where the \lz has the maximal longitudinal polarization)  and $\text{S}_{\Lambda \text{L}}$ (where the angular distribution of \lz decay products is measured).
+More significant is the Wick rotation (see Figure \ref{fig:1:heavy-baryon-production}), owing to the orientation discrepancy between \slambda frame (where the \lz has the maximal longitudinal polarization) and \slambdal (where the angular distribution of \lz decay products is measured).
 This phenomenon introduces a dilution effect to the precession measurement: a \lz with polarization $\vec{s_0} = s_0 \hat{z}_\Lambda$ in the \slambda frame gains in the \slambdal frame a transverse component of magnitude $s_0 \sin\alpha$, where
 \begin{equation}
 \sin\alpha =
@@ -726,6 +762,7 @@ This phenomenon introduces a dilution effect to the precession measurement: a \l
 and $\theta$ is the \lz helicity angle, i.e. the angle formed by the \lz momentum in \shad with respect to the frame $z_H$ axis \cite{spinInParticlePhysics}.
 As seen from Figure \ref{fig:1:heavy-baryon-production}, the helicity angle $\theta$ is related to the impact parameter with respect to the primary vertex in the \slab frame \cite{GROSNICK1990269}.
 Since $\theta$ determines the magnitude of Wick angle $\alpha$, this relation can be exploited to select ensembles of $\Lambda^0$ with similar initial polarization, so that the Wick effect on the particles within a specific ensemble can be neglected.
+The dilution can also be circumvented by computing the angular distribution directly in the \slambda frame, which is the solution I adopted in Chapter \ref{cap:angular_distribution}.
 
 \subsection{Closing remarks}
 

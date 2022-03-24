@@ -3,7 +3,7 @@
 This chapter details my work towards the improvement of the vertex reconstruction process for decays involving T tracks.
 Section \ref{sec:reco_algorithms} delves into a deep study of the vertexing process at LHCb and the two algorithms employed in this thesis;
 Section \ref{sec:reco_efficiency} introduces the problem of low vertexing efficiency for the decay of interest \demonstratorshort;
-Section \ref{sec:characterization_non_converged} presents my efforts in the characterization of the non-converged events in search for the root cause of the vertexing falure;
+Section \ref{sec:characterization_non_converged} presents my efforts in the characterization of decays with failed vertex fit in search for the root cause of the non-convergence;
 Section \ref{sec:recovery_general} proposes my solution to improve the signal yield through partial recovery of non-reconstructed events;
 finally, Section \ref{sec:lambda_endvertex_bias} features an analysis of \lambdadecay decay vertex resolution in the simulated signal dataset and a description of the main known sources of bias.
 Section \ref{sec:3:cap3_conclusions} provides a short summary of the main results obtained in the chapter.
@@ -28,7 +28,7 @@ Under VF formalism, each daughter particle is represented by a 7-dimensional vec
 containing its 4-momentum $\vec{q}$ computed at a certain reference point $\vec{r}$.
 Parameter vector $\vec{p}$ has an associated covariance matrix $V$, which can be written in block structure as
 \begin{equation}
-	\begin{pmatrix}
+	V = \begin{pmatrix}
 		V_r      & V_{rq} \\
 		V_{rq}^T & V_q
 	\end{pmatrix}.
@@ -44,7 +44,7 @@ It is also convenient to identify its formal inverse matrix $G := V^{-1}$, which
 	\begin{pmatrix}
 		V_r      & V_{rq} \\
 		V_{rq}^T & V_q
-	\end{pmatrix}^{-1}
+	\end{pmatrix}^{-1}.
 \end{equation}
 
 Taking the daughter particles as inputs, the Vertex Fitter returns the best fit value $\vec{x}$ for the common origin vertex, along with its covariance matrix $C$ and the $\chi^2$ which can be used to evaluate the goodness of fit.
@@ -57,7 +57,7 @@ The basic unit of recursion of the Vertex Fitter is the \textit{iteration}:
 the algorithm is set to repeat the vertexing process until either a convergence condition is satisfied (see later) or the fit reaches the set number of allowed iterations, 10 by default.
 In the latter case, a non-convergence error is thrown and the candidate event is discarded.
 
-At the beginning of each iteration, the final vertex covariance matrix $C^{i-1}_n$ from the previous iteration\footnote{The subscript $n$ identifies the final step number, see later.} is scaled down by a factor $s^2 = {10}^{-4}$:
+At the beginning of each iteration, the final vertex covariance matrix $C^{i-1}_n$ from the previous iteration\footnote{The subscript $n$ identifies the final step number, see later.} is shrinked by a factor $s^2 = {10}^{-4}$ to decrease its relative importance in further vertex computations:
 \begin{equation}
 	C^{i}_0 = C^{i-1}_n \times s^2.
 \end{equation}
@@ -201,6 +201,7 @@ To conclude the step, the vertex $\chi^2$ is updated to the account for the new 
 \end{aligned}.
 \label{eq:VF_vertex_chi2_final}
 \end{equation}
+The two new terms quantify the $\chi^2$ increase due to the displacement of the current vertex with respect to the two previous positions it was computed from, as seen in \eqref{eq:VF_new_vertex_final}.
 
 %Finally the step concludes with the computation of a new estimated vertex position
 %\begin{equation}
@@ -487,9 +488,12 @@ This algorithm fits the entire decay chain simultaneously, fixing the decay vert
 %	\label{fig:paper_momentum_resolutions}
 %\end{figure}
 
-While this step introduces another filtering process and related efficiency to account for\footnote{DTF convergence efficiency with the double mass constraint is relatively uneven across the $z_\Lambda^\textbf{vtx}$ spectrum, starting at $\approx 50\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{6}{\meter}$ and growing up to $\approx 85\%$ for $z_\Lambda^\textbf{vtx} \approx \SI{7.5}{\meter}$.
-Comparatively, vertex reconstruction is still the primary cause of event loss in this analysis.}, it proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution:
+This process unfortunately introduces another filtering step to account for, further reducing the prospective signal yield.
+DTF convergence efficiency with the double mass constraint is relatively uneven across the $z_\Lambda^\text{vtx}$ spectrum, starting at $\approx 50\%$ for $z_\Lambda^\text{vtx} \approx \SI{6}{\meter}$ and growing up to $\approx 85\%$ for $z_\Lambda^\text{vtx} \approx \SI{7.5}{\meter}$ (see Figure \ref{fig:4:selection_efficiencies}).
+%; vertex reconstruction thus remains the primary cause of event loss in this analysis.
+Despite the significant event loss, DTF proves invaluable for our physics motivations as it mitigates the most problematic drawback of T track usage, momentum resolution:
 using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20$--$30\%$ to $\approx 10\%$ for protons and pions alike.
+
 %As shown in Figure \ref{fig:paper_momentum_resolutions},
 %Using both \jpsi and \lz mass constraints improves $\vec{p}$ resolution from $20$--$30\%$\footnote{Pion momentum resolution is higher because the pion receives a smaller fraction of the \lz momentum, thereby having a larger bending curve than the proton and allowing for better momentum measurement at the T stations.} to $\approx 10\%$.
 
@@ -578,7 +582,7 @@ particle identification from the RICH and muon detectors, results from calorimet
 	\label{fig:3:p_protoparticle_momenta}
 \end{figure}
 
-Charged protoparticles in particular store momentum and energy evaluated in a certain reference point which, for stable particles, corresponds to the position of first measurement of the track.
+Protoparticles associated to charged tracks store momentum and energy evaluated in a certain reference point which, for stable particles, corresponds to the position of first measurement of the track.
 Figure \ref{fig:3:p_momentum_x} depicts the only major discrepancy between converged and failed events I found in the protoparticle analysis:
 non-converged \lbz decays have a proton protoparticle $p_x$ distribution concentrated in $p_x \approx 0$, while converged decays show even dispersion of the central peak in the $[-\SI{1}{\gev},\SI{1}{\gev}]$ region.
 This contrasts with $p_y$, the other component of the protoparticle transverse momentum, whose two distributions are almost overlapping (Figure \ref{fig:3:p_momentum_y}).
@@ -613,7 +617,7 @@ Given the significant overlap between the distributions in Figure \ref{fig:3:p_m
 \subsection{Behaviour through VF iterations}
 \label{sec:oscillation}
 The VF process reaches convergence if either condition \eqref{eq:cond_conv_1} or \eqref{eq:cond_conv_2} is satisfied, i.e. if the vertex position estimated at iteration $i$ and the one from iteration $i-1$ are <<close enough>> either in absolute distance or $\chi^2$ distance, up until $i_\text{max} = 10$.
-This is predicated on the principle that the algorithm refines its vertex estimate after each iteration, homing in on the candidate vertex with the lowest $\tilde{\chi}^2_\text{vtx}$.
+This is predicated on the principle that the algorithm refines its vertex estimate after each iteration, homing in on the candidate vertex with the lowest $\tilde{\chi}^2_\text{vtx}$\footnote{$\tilde{\chi}^2_\text{vtx}$ is the reduced $\chi^2_\text{vtx}$, i.e. $\chi^2_\text{vtx}$ divided by the number $n_d$ of degrees of freedom.}.
 
 Such a behaviour is not found in non-converging (henceforth also known as \textit{failed}) events.
 This can be seen by increasing $i_\text{max}=100$, which causes a negligible $\approx 2\%$ increase in converged events.
@@ -805,7 +809,7 @@ Assuming correct estimation of such uncertainties, we expect the pulls to follow
 \end{figure}
 
 Figure \ref{fig:p_pim_momentum_residual_2Dv3D_z_rel} shows $p_z$ pulls for proton and pions extrapolated at the \lz true decay vertex, juxtaposing converged and non-converged event distributions.
-The first takeaway is that VF-reconstructed events have remarkably non-gaussian distributions, with slightly positive means and asymmetric tails. 
+The first takeaway is that VF-reconstructed events have remarkably non-Gaussian distributions, with slightly positive means and asymmetric tails. 
 %This is particularly apparent in the case of the proton, where for $p_z^\text{RK} < p_z^\text{true}$ the RK algorithm systematically underestimates the error.
 %More relevant for this chapter is
 Moreover, Figure \ref{fig:pim_momentum_residual_2Dv3D_z_rel} highlights the fact that pion tracks from non-converged events generally sport a strong negative bias on $p_z$.
@@ -927,7 +931,7 @@ Uncertainties enter the computation through three terms:
 \end{enumerate}
 Ergo, the best approach to increase $\sigma_x$ while minimizing additional computation time is to act on the individual components of ${(C_{k-1}^i)}^{-1}$ and ${(G_k^i)}_r$ just before the \eqref{eq:3:VF_new_inv_covmatrix} sum.
 
-Assuming gaussian uncertainties, a standard three-dimensional covariance matrix will have the form
+Assuming Gaussian uncertainties, a standard three-dimensional covariance matrix will have the form
 \begin{equation}
 C = \begin{pmatrix}
 	\sigma_x^2 & \rho_{xy} \sigma_x \sigma_y & \rho_{xz} \sigma_x \sigma_z \\
@@ -1082,7 +1086,7 @@ This phenomenon explains the increased $z_\text{vtx}^\Lambda$ bias, as a lower $
 Tables \ref{tab:3:xyz_chi2_performances} and \ref{tab:3:xyz_VF_performances} confirm that the $\sigma_z$-rescaled algorithm is by far the worse performing of the three.
 This is a somewhat expected consequence of partially forgoing $xz$ and $yz$ information in the fit, and placing this algorithm last in the process ensures that it only affects events which would not converge under other circumstances.
 In the context of the proof-of-concept study, I elected to include the $\sigma_z$-rescaled algorithm in the refit process to gain a more complete view of its capabilities.
-However, were the ensuing events to be considered too poorly reconstructed for the \lz analysis, the algorithm could feasibly be omitted ss it only contributes a negligible $+1.3\%$ of additional signal.
+However, were the ensuing events to be considered too poorly reconstructed for the \lz analysis, the algorithm could feasibly be omitted as it only contributes a negligible $+1.3\%$ of additional signal.
 
 In conclusion, my $\sigma$-rescaled refit process allows for a $+26.4\%$ increase in reconstructed signal events.
 While $\tilde{\chi}^2_\text{vtx}$ and bias on $z_\text{vtx}^\Lambda$ are higher compared to events reconstructed via Vertex Fitter, there is sufficient evidence pointing towards this being a problem intrinsic to the non-converged events themselves.
@@ -1204,7 +1208,7 @@ The following results are obtained from the complete simulated \demonstratorshor
 \end{figure}
 
 The distribution of $z_\text{vtx}^\Lambda$ residuals for simulated signal events is shown in Figure \ref{fig:3:lz_endvertex_bias_linear}.
-Its shape is distinctly non-gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$. This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events quoted in Table \ref{tab:3:xyz_VF_performances}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.
+Its shape is distinctly non-Gaussian, with a second core towards the positive end of the axis counterbalancing the expected $\approx 0$ peak, confirming the presence of a median bias of $\approx \SI{14}{\centi\meter}$. This number is of course much lower than the $\approx \SI{40}{\centi\meter}$ median bias of Vertex-Fitter-converging events quoted in Table \ref{tab:3:xyz_VF_performances}. Here not only am I directly selecting $z_\text{vtx}^\Lambda > \SI{5}{\meter}$, which reduces the extent of possible vertex bias given the position of the T stations around \SI{8}{\meter}, but many selection steps are also in place to skim out most badly reconstructed events.
 
 \subsection{Ghost vertex events}
 \label{sec:3:ghost_vertex}
@@ -1276,7 +1280,7 @@ Decays with $h=\pm1$ lie exactly on the $xz$ bending plane, $h=-1$ events having
 		\caption{}
 		\label{fig:3:hreco_vs_htrue}
 	\end{subfigure}
-	\caption{\textit{(a)} Distribution of simulated \demonstratorshort events as function of angle $psi$ defined as \eqref{eq:3:psi} and true horizontality $h$ defined as \eqref{eq:3:horizontality}. The \textit{dashed lines} demarcates the ghost vertex locus of points defined in \eqref{eq:3:psih_banana}: events inside the region are marked in \textit{black}. All selection steps are applied. \textit{(b)} Distribution of the same events as function of true and reconstructed horizontality (the latter computed using momenta from the Decay Tree Fitter with \jpsi and \lz mass constraints).}
+	\caption{\textit{(a)} Distribution of simulated \demonstratorshort events as function of angle $\psi$ defined as \eqref{eq:3:psi} and true horizontality $h$ defined as \eqref{eq:3:horizontality}. The \textit{dashed lines} demarcates the ghost vertex locus of points defined in \eqref{eq:3:psih_banana}: events inside the region are marked in \textit{black}. All selection steps are applied. \textit{(b)} Distribution of the same events as function of true and reconstructed horizontality (the latter computed using momenta from the Decay Tree Fitter with \jpsi and \lz mass constraints).}
 \end{figure}
 
 The simplest case resulting in a ghost vertex is an opening-track \lambdadecay event fully lying on the $xz$ plane, whereby $y$ track distance is $\approx 0$ throughout the particle lines of flight and the second crossing of the tracks is chosen as the reconstructed vertex;
@@ -1390,7 +1394,8 @@ Their impact on the overall performance on signal is nevertheless neglectable.
 \section{Summary and closing remarks}
 \label{sec:3:cap3_conclusions}
 
-Vertex reconstruction involving T tracks has never been the subject of in-depth scrutiny due to the rare usage of said class of tracks in physics analyses.
+Since T tracks have seen no usage so far in in physics analyses at LHCb, vertex reconstruction involving this class of tracks has never been the subject of in-depth scrutiny.
+%Vertex reconstruction involving T tracks has never been the subject of in-depth scrutiny due to the lack of usage of said class of tracks in physics analyses to date.
 Given the number of different topics tackled in the present chapter, in this section I offer a more succint recount of the main findings and outline the solutions I have adopted for the remainder of this thesis.
 
 One major challenge to a competitive measurement of \lz electromagnetic dipole moments using the exclusive \demonstratorfull decay is the $\lesssim 50\%$ efficiency of the \lz and \lbz vertex reconstruction process, effectively halving the potential signal yield.
@@ -1412,4 +1417,4 @@ Given the importance of \lambdadecay vertex bias for the measurement of the \lz 
 <<Ghost vertex>> events are a byproduct of the action of the dipole magnet, which bends proton and pion tracks into a second crossing point mistakenly chosen as the $p\pi^-$ production vertex.
 These events comprise almost one third of the full dataset and contribute a median \SI{70}{\centi\meter} bias in $z_\text{vtx}^\Lambda$;
 their effect on proton angular resolution is the focus of a study in Section \ref{sec:5:resolution_after_ghost}.
-<<Very high bias>> events contribute a much larger median bias of \SI{6}{\meter}, but their impact on the \demonstratorshort analysis is considered to be neglectable, as they only amount to 0.5\% of the simulated sample after the full selection process.
+<<Very high bias>> events contribute a much larger median bias of \SI{6}{\meter} and cannot be singled out using only reconstructed variables, but their impact on the \demonstratorshort analysis is considered to be neglectable, as they only amount to 0.5\% of the simulated sample after the full selection process.

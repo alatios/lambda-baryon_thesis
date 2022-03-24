@@ -97,7 +97,9 @@ ever since 2015, the adoption of noble gas targets has allowed the Collaboration
 
 \subsection{Tracking}
 \label{sec:2:tracking}
-In order to measure the momenta of charged particles through their bending curve, LHCb employs a dipole magnet \cite{Amato:424338} consisting of two trapezoidal coils bent at $45^\circ$ on the two transverse sides, seen in Figure \ref{fig:2:lhcb_diagram} around $z\approx \SI{5}{\meter}$ (the magnet is placed so that the line connecting the centers of the pole faces crosses $z=\SI{5.3}{\meter}$).
+
+\subsubsection{LHCb dipole magnet}
+In order to measure the momenta of charged particles through their bending curve, LHCb employs a warm dipole magnet \cite{Amato:424338} consisting of two trapezoidal coils bent at $45^\circ$ on the two transverse sides, seen in Figure \ref{fig:2:lhcb_diagram} around $z\approx \SI{5}{\meter}$ (the magnet is placed so that the line connecting the centers of the pole faces crosses $z=\SI{5.3}{\meter}$).
 
 \begin{figure}[t]
 	\centering
@@ -106,10 +108,16 @@ In order to measure the momenta of charged particles through their bending curve
 	\label{fig:2:b_field_map_z}
 \end{figure}
 
-This magnet provides an integrated field of $\int B dl \approx \pm \SI{4}{\tesla\meter}$ for \SI{10}{\meter} tracks\footnote{The $\pm$ sign is due to the fact that the magnet operates alternatively in up and down polarities, inverting the sign of the magnetic field.}.
-Most of this field is contained in the $z\in[2.5,7.95]$ \si{\meter} region, with 
-a small fraction ($\int B dl \approx \SI{0.12}{\tesla\meter}$) upstream of $z=\SI{2.5}{\meter}$. The field map along $z$, measured with a precision of $4 \times {10}^{-4}$, is shown in Figure \ref{fig:2:b_field_map_z} for $x=y=0$.
+The LHCb magnet provides an integrated field of $\int B dl \approx \pm \SI{4}{\tesla\meter}$ for \SI{10}{\meter} tracks\footnote{The $\pm$ sign is due to the fact that the magnet operates alternatively in up and down polarities, inverting the sign of the magnetic field.}.
+Most of this field is contained in the $z\in[2.5,7.95]$ \si{\meter} region, with a small fraction ($\int B dl \approx \SI{0.12}{\tesla\meter}$) upstream of $z=\SI{2.5}{\meter}$.
+This design was the result of a compromise between a $\leq \SI{2}{\milli\tesla}$ field requirement inside the RICH envelopes (see Section \ref{sec:2:pid}) and the desire for the highest intensitity possible in the tracking regions between the VELO and T1--T3 stations (see later in this section).
+
+Intensity of the magnetic field along the three cartesian directions was measured using an array of 60 sensor cards covering a $\SI{80}{\milli\meter}\times\SI{80}{\milli\meter}$ grid and compared to simulations with TOSCA\footnote{Analysis package for the solution of non-linear magnetostatic field problems, part of the OPERA-3d environment developed by Vector Field.}.
+The sensor cards each contained three Hall effect probes and were calibrated up to a ${10}^{-4}$ precision.
+Measurements were conducted in all tracking station regions, as well as inside the magnetic shielding of the two RICH detectors.
+The field map along $z$, measured with a precision of $4 \times {10}^{-4}$, is shown in Figure \ref{fig:2:b_field_map_z} for $x=y=0$.
 Dishomogeneities in the $xy$ plane for fixed $z$ are estimated at $\lesssim 6\%$ within the LHCb detector acceptance.
+Measurements are in $\leq 1\%$ agreement with the TOSCA model, except in the VELO and RICH1 regions of the detector, where a larger $\approx 3.5\%$ discrepancy was attributed to the vicinity of the iron reinforcements in the concrete of the hall housing the LHCb detector.
 
 \subsubsection{VELO}
 As the name suggests, the VErtex LOcator (VELO) system \cite{Barbosa-Marinho:504321} is designed to provide precision measurements of charged tracks near the beam interaction point, in order to correctly reconstruct detached secondary vertices typical of $b$- and $c$-hadron decays.

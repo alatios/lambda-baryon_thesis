@@ -43,7 +43,7 @@ Factoring in the $z_\text{vtx}^\Lambda$ cuts, the prefilter has an estimated $\a
 %the efficiencies for the left and right cuts as a function of the threshold are shown in Figure \ref{fig:4:z_lambda_cuts}.
 %Other selections have a much lower impact on signal, with efficiencies $\gtrsim 80\%$, resulting in a total prefilter efficiency of .
 
-As detailed in Section \ref{sec:2:tracking}, a key aspect of my analysis is the employment of T tracks for the reconstruction of the \lz.
+As detailed in Section \ref{sec:2:tracking}, a key aspect of this analysis is the employment of T tracks for the reconstruction of the \lz.
 The low residual magnetic field for protons and pions produced far from the dipole magnet lowers momentum resolution for the associated tracks down to $20$--$30\%$.
 Resolution can be improved up to $\approx 10\%$ by placing kinematic constraints on $p\pi^-$ and $\mu^+ \mu^-$ invariant masses, fixing them to the PDG values of $m(\Lambda^0)$ and $m(J/\psi)$ respectively (these will be henceforth referred to as \textit{mass constraints}).
 This approach cannot be implemented in the leaf-by-leaf framework of the default Vertex Fitter algorithm for vertex reconstruction;
@@ -71,7 +71,7 @@ To top it off, the \bz mass (\SI{5279.65}{\mev\per c\squared}) is fairly close t
 As discussed in Section \ref{sec:2:pid}, the LHCb detector employs the two RICH systems to identify and distinguish between protons, pions and kaons;
 in the case of $\Lambda^0$ decaying after the dipole magnet RICH1 contributions is impossible, but information from RICH2 would still be available for the vast majority of the decays at hand.
 Unfortunately, this is where the experimental nature of physics analyses with T tracks becomes relevant once again:
-due to technical issues in the implementation, RICH2 information for particle identification is unavailable for T tracks recorded during LHC Runs 1 and 2\footnote{A large effort by the Milan and Valencia LHCb research groups is underway at the time of writing to implement RICH2 information in T track trigger lines for Run 3.}, making \physbkgshort discrimination much more difficult.
+due to technical issues in the implementation, RICH2 information for particle identification is currently unavailable for T tracks recorded during LHC Runs 1 and 2\footnote{A large effort by the Milan and Valencia LHCb research groups is underway at the time of writing to implement RICH2 information in T track trigger lines for Run 3.}, making \physbkgshort discrimination much more difficult.
 
 \subsection{Invariant mass veto with pion mass hypothesis}
 \label{sec:B0_veto}
@@ -127,10 +127,10 @@ the $m(J/\psi~K_S^0)$ distributions are comparatively more separate (Figure \ref
 Figure \ref{fig:4:phys_bkg_veto_eff_thres} shows the veto efficiency on \demonstratorshort signal and \physbkgshort physical background as function of the threshold $m_\text{thres}$.
 I optimized $m_\text{thres}$ to maximize signal significance
 \begin{equation}
-\frac{s}{\sqrt{s+b}}.
+\frac{S}{\sqrt{S+B}}.
 \label{eq:4:signal_significance}
 \end{equation}
-Usually $s$ and $b$ would be the signal and background event counts after the selection;
+Usually $S$ and $B$ would be the signal and background event counts after the selection;
 since yields in Run 2 data are still unknown at this selection step, I instead used the fraction of total signal and physical background events after prefilter selections also passing the invariant mass veto with a specific threshold.
 Signal significance as function of the threshold is depicted in Figure \ref{fig:4:phys_veto_significances};
 the chosen value of $m_\text{thres} = \SI{70}{\mev}$ retains 87\% of signal while rejecting 64\% of background.
@@ -348,7 +348,7 @@ Distributions of the above variables for signal and background in training data 
 
 The momenta for proton and pion are computed with $J/\psi$ mass constraints.
 While the usage of $p,\pi^-$ momenta from the Decay Tree Fitter with the additional $\Lambda^0$ mass constraint was considered, preliminary tests on classifiers showed a slight degradation of their performance when the double mass constraint was adopted.
-The standard Vertex Fitter momenta were used for the $J/\psi$ on account of the already great resolution provided by using Long muons.
+The standard Vertex Fitter momenta were used for the $J/\psi$ on account of the already great resolution provided by using muons reconstructed as Long tracks.
 
 \subsection{Hyperparameter optimization}
 \label{sec:4:hyperoptimization}
@@ -464,7 +464,7 @@ In both instances, the classifier shows great performance and high consistency b
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{graphics/04-event_selection/importances.pdf}
-	\caption{Decrease in the HBDT AP score when permutating the values of individual features in training (\textit{vertical hatching}) and testing (\textit{diagonal hatching}) data samples. See the legend of Table \ref{tab:4:prefilters} for details on the feature labels.}
+	\caption{Decrease in the HBDT AP score when permutating the values of individual features in training (\textit{vertical hatching}) and testing (\textit{diagonal hatching}) data samples. See Section \ref{sec:prefilter} for details on the feature labels.}
 	\label{fig:4:hbdt_importances}
 \end{figure}
 
@@ -504,7 +504,7 @@ and
 	B = \frac{n}{|\alpha|} - |\alpha|.
 \end{equation}
 Its shape is thus a Gaussian core with a power-law tail on the lower end when $m$ outdistances $\mu$ by $\alpha\sigma$.
-The double-tailed Crystal Ball expands on this concepts by having a Gaussian core with two asymmetric long tails, governed by different power laws:
+The double-tailed Crystal Ball expands on this concept by having a Gaussian core with two asymmetric long tails, governed by different power laws:
 \begin{equation}
 	f_\text{sig}
 	\left(m; S, \mu, \sigma, \alpha_1, n_1, \alpha_2, n_2 \right) =
@@ -546,15 +546,15 @@ the combinatorial background is fit with a conventional exponential function
 \end{equation}
 As will be shown in Section \ref{sec:4:performance_data}, the outlined combination of $f_\text{sig}$ and $f_\text{bkg}$ provides an excellent description of Run 2 data, as long as sufficient filtering is applied for the $\Lambda_b^0$ peak to emerge.
 
-This data fit provides preliminary $s_0$ and $b_0$ values, obtained by integrating signal and background fit functions in the $\pm 3\sigma$ region around $\mu$.
-I used these values to estimate the signal (background) rate $s_i$ ($b_i$) for events passing a score threshold $t_i$ with associated efficiency $\varepsilon_i^s$ ($\varepsilon_i^b$):
+This data fit provides preliminary $S_0$ and $B_0$ values, obtained by integrating signal and background fit functions in the $\pm 3\sigma$ region around $\mu$.
+I used these values to estimate the signal (background) rate $S_i$ ($B_i$) for events passing a score threshold $t_i$ with associated efficiency $\varepsilon_i^S$ ($\varepsilon_i^B$):
 \begin{subequations}
 \begin{align}
-	s_i &= s_0 \frac{\varepsilon_i^s}{\varepsilon_0^s}, \\
-	b_i &= b_0 \frac{\varepsilon_i^b}{\varepsilon_0^b}.
+	S_i &= S_0 \frac{\varepsilon_i^S}{\varepsilon_0^S}, \\
+	B_i &= B_0 \frac{\varepsilon_i^B}{\varepsilon_0^B}.
 \end{align}
 \end{subequations}
-Here $\varepsilon_0^s$ and $\varepsilon_0^b$ are the signal and background efficiencies associated to the soft threshold with $s_0$ and $b_0$ rates.
+Here $\varepsilon_0^S$ and $\varepsilon_0^B$ are the signal and background efficiencies associated to the soft threshold with $S_0$ and $B_0$ rates.
 Efficiencies were computed on the test sample and correspond to true/false positive rates evaluated for the ROC curve (Figure \ref{fig:4:hbdt_roc_curve}).
 
 \begin{figure}
@@ -564,11 +564,11 @@ Efficiencies were computed on the test sample and correspond to true/false posit
 	\label{fig:4:signal_significance}
 \end{figure}
 
-Using the estimated $s_i$ and $b_i$, I calculated the predicted signal significance \eqref{eq:4:signal_significance} for each threshold $t_i$.
+Using the estimated $S_i$ and $B_i$, I calculated the predicted signal significance \eqref{eq:4:signal_significance} for each threshold $t_i$.
 Figure \ref{fig:4:signal_significance} shows the results as a function of the score threshold.
 The best performing threshold was found to be $t_\text{thres} = 0.985$, with signal significance $\approx 46$ and signal purity
 \begin{equation}
-	\frac{s}{s+b} \approx 0.6.
+	\frac{S}{S+B} \approx 0.6.
 \end{equation}
 
 \section{Signal yield in invariant mass fits}

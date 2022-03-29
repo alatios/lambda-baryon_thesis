@@ -5,7 +5,7 @@ In this final chapter, I present the results of a preliminary look into the angu
 Section \ref{sec:5:angular_distribution} outlines the technique used to compute \thetap and \phip angles in the \lz helicity frame, as well as showcasing the main features of the angular distributions in the reconstructed \demonstratorshort simulated sample.
 Section \ref{sec:5:angular_resolution} focuses on the resolution on the two proton angles and explores the achievable improvements in view of the prospective resolution of the ghost vertex problem.
 
-Unless otherwise specified, results and plots in this chapter are obtained with simulated \demonstratorshort events with all selection steps from Chapter \ref{cap:event_selection} applied (prefilters, \bz invariant mass veto, \kshort Armenteros-Podolanski veto and HBDT hard threshold cut) and selecting the $\mu \pm 3\sigma$ signal region, using $\mu$ and $\sigma$ best values from the Run 2 data $J/\psi\,\Lambda^0$ invariant mass fit (see Table \ref{tab:4:fit_results}).
+Unless otherwise specified, results and plots in this chapter are obtained with simulated \demonstratorshort events with all selection steps from Chapter \ref{cap:event_selection} applied (prefilters, \bz invariant mass veto, \kshort Armenteros-Podolanski veto and HBDT $t>0.985$ cut) and selecting the $\mu \pm 3\sigma$ signal region, using best values $\mu=\SI{5620.2}{\mev \per c^2}$ and $\sigma=\SI{41.6}{\mev \per c^2}$ from the Run 2 data $J/\psi\,\Lambda^0$ invariant mass fit.
 
 \section{Proton angular distribution}
 \label{sec:5:angular_distribution}
@@ -33,7 +33,7 @@ We define the heavy hadron \lbz rest frame coordinate system $(x_0^H, y_0^H, z_0
 \begin{equation}
 	\hat{z}_0^H = \hat{p}_{\Lambda_b}^\text{L}
 \end{equation}
-pointing towards the \lbz momentum in the laboratory frame and $x_0^H, y_0^H$ lying on the \demonstratorshort decay plane.
+pointing towards the \lbz momentum in the laboratory frame, $x_0^H$ parallel to the normal to the \lbz production plane and $\hat{y}_0^H = \hat{z}_0^H \times \hat{x}_0^H$.
 The \slambda rest frame can be reached from the \lbz rest frame via the rotation operator $R(\phi,\theta,0)$, with $\theta$ and $\phi$ being the \lz helicity angles shown in Figure \ref{fig:1:frames_of_reference_heavy}:
 a rotation of angle $\phi$ about the $z_0^H$ axis sends
 $(x_0^H, y_0^H, z_0^H) \rightarrow (x_1^H, y_1^H, z_1^H)$ and a $\theta$ rotation about  $y_1^H$ sends $(x_1^H, y_1^H, z_1^H) \rightarrow (x_2^H, y_2^H, z_2^H)$.
@@ -49,7 +49,7 @@ This twice-rotated frame defines the \slambda helicity frame coordinate system u
 
 In practice, the $z_0^\Lambda$ direction is the easiest to compute, as by definition of \slambda it's the \lbz momentum unit vector in the \shad frame:
 \begin{equation}
-	\hat{z}_0^\Lambda = \hat{z}_2^H = \vec{p}_\Lambda^H.
+	\hat{z}_0^\Lambda = \hat{z}_2^H = \hat{p}_\Lambda^H.
 \end{equation}
 %\begin{equation}
 %	\vec{a}_{\Lambda \perp z_0}^H
@@ -229,36 +229,28 @@ with $\psi = \{\cos\theta_p, \phi_p$\}.
 
 Figure \ref{fig:5:MCRECO_p_theta_resolution} shows \cthetap resolution as a function of $\cos\theta_p^\text{true}$, demonstrating overall good resolution (in line with \cthetap variability within each bin).
 The asymmetry in resolution at the opposite ends of the \cthetap spectrum, with a marked degradation of resolution around $\cos\theta_p^\text{true} \approx -1$, does not have a clear explanation;
-however, as will be seen in Section \ref{sec:5:resolution_after_ghost}, this behaviour becomes somewhat less pronounced when the high-bias ghost vertex class of events is removed from the sample.
+however, as will be seen in Section \ref{sec:5:resolution_after_ghost}, this behaviour becomes noticeably less pronounced when the high-bias ghost vertex class of events is removed from the sample.
 
 Figure \ref{fig:5:MCRECO_p_phi_resolution} depicts the same plot for azimuthal helicity angle \phip.
 The only change from the \cthetap computation is that \phip resolution needs to account for the fact that $\phi=-\pi$ and $\phi=\pi$ are physically the same angle.
 This has non-intuitive ripercussions when computing the residuals between $\phi_p^\text{true}$ and $\phi_p^\text{reco}$.
-For instance, the nominal difference between $\phi_p^\text{reco}=\frac{3}{4}\pi$ and $\phi_p^\text{true}=-\frac{3}{4}\pi$ is $\frac{3}{2}\pi$, but from a physical point of view the reconstructed angle is only off by $\frac{\pi}{2}$:
+For instance, the nominal difference between $\phi_p^\text{reco}=\pi - \varepsilon$ and $\phi_p^\text{true}=-\pi + \varepsilon$ is $2\pi - 2\varepsilon$, but from a physical point of view the reconstructed angle is only off by $2\varepsilon$:
 \begin{equation}
-\begin{aligned}
 \lvert
 \phi_p^\text{reco} - \phi_p^\text{true}
 \rvert
-&=
-\bigg|
-\left( \frac{3}{4}\pi \right)
--
-\left(- \frac{3}{4}\pi \right)
-\bigg|
 =
-\bigg|
-\left(\pi - \frac{1}{4}\pi \right)
+|
+\left( \pi - \varepsilon \right)
 -
-\left(-\pi + \frac{1}{4}\pi \right)
-\bigg| \\
-&=
-\bigg|
+\left(- \pi + \varepsilon \right)
+|
+=
+|
 \underbrace{\pi - \left( -\pi \right)}_{\substack{=\,0 \\ \text{same angles}}}
-- \frac{\pi}{2}
-\bigg|
-= \frac{\pi}{2}
-\end{aligned}
+- 2\varepsilon
+|
+= 2\varepsilon
 \end{equation}
 Given $\phi_1, \phi_2 \in [-\pi, \pi]$, this problem is easily solved by computing 
 \begin{equation}
@@ -301,7 +293,7 @@ each $(i,j)$ bin is color-coded according to the probability $P(i \rightarrow j)
 \begin{equation}
 	\sum_{j \in \{ \text{reco bins} \}} P(i\rightarrow j) = 1.
 \end{equation}
-The matrices are both diagonal net of dispersion effects, demonstrating the lack of bias in reconstruction of \cthetap and \phip.
+The matrices are both diagonal net of dispersion effects, demonstrating the lack of meaningful bias in reconstruction of \cthetap and \phip.
 In Figure \ref{fig:5:MCRECO_p_phi_migration}, the top left and bottom right bins are evidence of the looping effect of the $[-\pi,\pi]$ range of values for \phip, both harboring events from the physically adjacent bottom left and top right bins.
 
 \subsection{Impact of ghost vertex events}
@@ -332,23 +324,21 @@ This is to be expected since poor \lz vertex reconstruction affects resolution o
 %Roughly $\approx 26\%$ of the data pass the $\Delta h > 1$ criterium, which I have shown to be a good indicator of the fraction of ghost vertex events.
 
 Studies detailed in Section \ref{sec:3:ghost_vertex} illustrate that most highly biased events can be traced back to the <<ghost vertex>> problem, whereby the bending of $p\pi^-$ tracks in the $xz$ plane due to the LHCb magnetic field creates a second crossing point which provides a local $\chi^2$ minimum for the Vertex Fitter algorithm to converge at.
-This issue affects almost one third of \demonstratorshort simulated events.
-Only arising when working with T tracks, as other track types come from particles produced upstream of the magnet, this problem is under-researched due to the historical rare employment of T tracks in physics analyses at LHCb.
+This issue affects almost one third of \demonstratorshort simulated events and is only found in T tracks, since other track types come from particles produced upstream of the magnet.
+%Only arising when working with T tracks, as other track types come from particles produced upstream of the magnet, this problem is under-researched due to the historical rare employment of T tracks in physics analyses at LHCb.
 
 \begin{figure}[t]
 	\centering
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/MCRECO_p_theta_resolution_nocross.pdf}
-		\caption{}
-		\label{fig:5:theta_resolution_nocross}
-	\end{subfigure}
-	\begin{subfigure}{.45\textwidth}
-		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/MCRECO_p_phi_resolution_nocross.pdf}
-		\caption{}
-		\label{fig:5:phi_resolution_nocross}
-	\end{subfigure}
-	\caption{Angular resolutions on $\cos\theta_p$ \textit{(a)} and $\phi_p$ \textit{(b)} as a function of the respective true values. Resolutions are computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}), removing (\textit{empty squares}), and only keeping (\textit{filled triangles}) \lambdadecay ghost vertex events.}
-	\label{fig:5:resolution_nocross}
+	\includegraphics[width=.7\textwidth]{graphics/05-angular_distributions/MCRECO_p_theta_resolution_nocross.pdf}
+	\caption{Angular resolution on \cthetap as a function of its true values. Resolution is computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}), removing (\textit{empty squares}), and only keeping (\textit{filled triangles}) \lambdadecay ghost vertex events.}
+	\label{fig:5:theta_resolution_nocross}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=.7\textwidth]{graphics/05-angular_distributions/MCRECO_p_phi_resolution_nocross.pdf}
+	\caption{Angular resolution on \phip \textit{(a)} as a function of true values. Resolution is computed on simulated \demonstratorshort events after all selection steps, including (\textit{filled circles}), removing (\textit{empty squares}), and only keeping (\textit{filled triangles}) \lambdadecay ghost vertex events.}
+	\label{fig:5:phi_resolution_nocross}
 \end{figure}
 
 Work is currently underway in the Milan and Valencia LHCb research groups to solve or mitigate the ghost vertex issue, with the goal of standardizing \lz vertex resolution to the non-ghost-vertex baseline of $\approx \SI{5.2}{\centi\meter}$.

@@ -346,3 +346,71 @@ Should such an endeavour be successful, Figure \ref{fig:5:angular_resolution_vs_
 As a proof of concept study, I computed angular resolutions for \cthetap and \phip excluding ghost vertex events, the latter being defined with the locus of points from \eqref{eq:3:psih_banana}.
 Results are shown in Figures \ref{fig:5:theta_resolution_nocross} and \ref{fig:5:phi_resolution_nocross}:
 in both cases resolution improves by a factor 2--3 in all truth bins.
+Furthermore, the deviation from flat resolutions seen in Figure \ref{fig:5:MCRECO_p_theta_resolution} and \ref{fig:5:MCRECO_p_phi_resolution} are significantly suppressed when removing ghost vertex events, identifying them as the primary culprits.
+%A soft slope is still present in \cthetap resolution without ghost vertices:
+%this can partially be attributed to the correlation between \cthetap and proton $p_z$, as protons with $\cos\theta_p < 0$ are produced with smaller $p_z$ and lower momentum negatively affects angular reconstruction.
+
+\section{Resolution effects on expected proton angular distributions}
+As seen in the previous section, resolution on proton \cthetap and \phip production angles can be significantly improved with the removal of ghost vertex events.
+As a first test of the impact of this enhancement on the prospective measurement of \lz electromagnetic dipole moments, I  generated samples of $n={10}^6$ \demonstratorshort events under the following simplifying assumptions:
+\begin{itemize}
+	\item \lz are produced with $\vec{p} = p \hat{z}$, $\beta=1$ and maximal longitudinal polarization;
+	\item all \lz traverse the full $D_y = \SI{4}{\tesla\meter}$ LHCb magnetic field before decaying;
+	\item no experimental resolutions are considered outside of the ones on \cthetap and \phip;
+	\item all acceptance effects are neglected;
+	\item the \lz gyroelectric and gyromagnetic factors are $d=0$ and $g=1.226$ \cite{PDG} respectively.
+\end{itemize}
+Proton production angles were extracted with a standard Monte Carlo rejection sampling algorithm (commonly also known as \textit{accept-reject} algorithm) using angular distribution \eqref{eq:angular_distribution_cap1}.
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/ctheta_bw.pdf}
+		\caption{}
+		\label{fig:5:ctheta_bw}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/phi_bw.pdf}
+		\caption{}
+		\label{fig:5:phi_bw}
+	\end{subfigure}
+	\caption{A.}
+	\label{fig:5:ctheta_phi_bw}
+\end{figure}
+
+The effect of angular resolutions on the measurement of \cthetap and \phip was implemented with a per-event Gaussian smearing:
+the generated angles are used as mean value $\mu$ of a Gaussian distribution $\mathcal{N}(\mu,\sigma^2)$, with $\sigma$ being the average desired resolution, and new \cthetap and \phip are chosen according to $\mathcal{N}$.
+I produced three data samples: a <<perfect>> sample without any smearing, a sample matching resolution with the removal of ghost vertex events, and a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events).
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/ctheta_bw_left.pdf}
+		\caption{}
+		\label{fig:5:ctheta_bw_left}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/ctheta_bw_right.pdf}
+		\caption{}
+		\label{fig:5:ctheta_bw_right}
+	\end{subfigure}
+	\caption{A.}
+	\label{fig:5:ctheta_bw_details}
+\end{figure}
+
+\begin{figure}[t]
+	\centering
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/ctheta_bw_residuals.pdf}
+		\caption{}
+		\label{fig:5:ctheta_bw_residuals}
+	\end{subfigure}
+	\begin{subfigure}{.45\textwidth}
+		\includegraphics[width=\textwidth]{graphics/05-angular_distributions/phi_residuals.pdf}
+		\caption{}
+		\label{fig:5:phi_bw_residuals}
+	\end{subfigure}
+	\caption{A.}
+	\label{fig:5:bw_residuals}
+\end{figure}
+

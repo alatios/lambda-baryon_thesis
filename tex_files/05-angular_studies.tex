@@ -351,16 +351,52 @@ Furthermore, the deviation from flat resolutions seen in Figure \ref{fig:5:MCREC
 %this can partially be attributed to the correlation between \cthetap and proton $p_z$, as protons with $\cos\theta_p < 0$ are produced with smaller $p_z$ and lower momentum negatively affects angular reconstruction.
 
 \section{Resolution effects on expected proton angular distributions}
-As seen in the previous section, resolution on proton \cthetap and \phip production angles can be significantly improved with the removal of ghost vertex events.
-As a first test of the impact of this enhancement on the prospective measurement of \lz electromagnetic dipole moments, I  generated samples of $n={10}^6$ \demonstratorshort events under the following simplifying assumptions:
+As seen in the previous section, resolution on proton production angles \thetap and \phip can be significantly improved with the removal of ghost vertex events.
+As a first test of the impact of this enhancement on the prospective measurement of \lz electromagnetic dipole moments, I generated samples of $n={10}^6$ \demonstratorshort events under the following simplifying assumptions:
 \begin{itemize}
-	\item \lz are produced with $\vec{p} = p \hat{z}$, $\beta=1$ and maximal longitudinal polarization;
+	\item \lz are produced with $\vec{p} = p \hat{z}$, $\beta=1$ and maximal longitudinal polarization $\vec{s}_0 = (0, 0, 1)$;
 	\item all \lz traverse the full $D_y = \SI{4}{\tesla\meter}$ LHCb magnetic field before decaying;
 	\item no experimental resolutions are considered outside of the ones on \cthetap and \phip;
 	\item all acceptance effects are neglected;
 	\item the \lz gyroelectric and gyromagnetic factors are $d=0$ and $g=1.226$ \cite{PDG} respectively.
 \end{itemize}
-Proton production angles were extracted with a standard Monte Carlo rejection sampling algorithm (commonly also known as \textit{accept-reject} algorithm) using angular distribution \eqref{eq:angular_distribution_cap1}.
+For each event, values of \cthetap and \phip were generated following the probability density function
+\begin{equation}
+f(\cos\theta_p, \phi_p) \coloneqq
+1 +  \alpha \vec{s} \cdot \hat{k},
+\label{eq:5:pdf_costheta_phi}
+\end{equation}
+with precessed polarization vector
+\begin{equation}
+\vec{s} =
+\begin{cases}
+	s_x = \sin\Phi\\
+	s_y = 0 \\
+	s_z = \cos\Phi
+\end{cases},
+\label{eq:5:final_polarization}
+\end{equation}
+proton production direction in the \slambda frame
+\begin{equation}
+\hat{k}
+=
+\begin{pmatrix}
+	\sqrt{1-\cos^2 \theta_p} \cos \phi_p \\
+	\sqrt{1-\cos^2 \theta_p} \sin \phi_p \\
+	\cos\theta_p
+\end{pmatrix},
+\label{eq:5:k_hat}
+\end{equation}
+and precession angle vector
+\begin{equation}
+\Phi
+=
+\frac{g D_y \mu_B}{\hbar c}
+.
+\end{equation}
+To extract angles according to \eqref{eq:5:pdf_costheta_phi}, I employed a standard Monte Carlo rejection sampling algorithm: I uniformly generate $\cos\theta_p \in [-1,1]$, $\phi_p \in [-\pi,\pi]$ and $\varepsilon \in [0,2]$; the generated angles are accepted if $\varepsilon < f(\cos\theta_p, \phi_p)$, otherwise the process is repeated with new values.
+The effect of angular resolutions on the measurement of \cthetap and \phip was implemented with a per-event Gaussian smearing:
+the generated angles are used as mean value $\mu$ of a Gaussian distribution $\mathcal{N}(\mu,\sigma^2)$, with $\sigma$ being the average desired resolution, and new \cthetap and \phip are chosen according to $\mathcal{N}$.
 
 \begin{figure}[t]
 	\centering
@@ -378,10 +414,6 @@ Proton production angles were extracted with a standard Monte Carlo rejection sa
 	\label{fig:5:ctheta_phi_bw}
 \end{figure}
 
-The effect of angular resolutions on the measurement of \cthetap and \phip was implemented with a per-event Gaussian smearing:
-the generated angles are used as mean value $\mu$ of a Gaussian distribution $\mathcal{N}(\mu,\sigma^2)$, with $\sigma$ being the average desired resolution, and new \cthetap and \phip are chosen according to $\mathcal{N}$.
-I produced three data samples: a <<perfect>> sample without any smearing, a sample matching resolution with the removal of ghost vertex events, and a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events).
-
 \begin{figure}[t]
 	\centering
 	\begin{subfigure}{.45\textwidth}
@@ -397,6 +429,16 @@ I produced three data samples: a <<perfect>> sample without any smearing, a samp
 	\caption{A.}
 	\label{fig:5:ctheta_bw_details}
 \end{figure}
+
+I produced three data samples: a <<perfect>> sample without any smearing, a sample matching resolution with the removal of ghost vertex events, and a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events).
+Figure \ref{fig:5:ctheta_phi_bw} shows the distributions of generated \cthetap and \phip with the different angular resolutions.
+Effects on \cthetap are comparatively softer, primarily consisting in a depletion of $\cos\theta_p \approx \pm 1$ regions (shown in greater detail in Figure \ref{fig:5:ctheta_bw_details}).
+
+In contrast, azimuthal angle \phip distributions (Figure \ref{fig:5:phi_bw}) highlight the significant difference between the current resolution and the one attainable if the ghost vertex issue were to be completely solved:
+in the latter case the shape is much flatter, whereas the former sports a distribution that is basially indistinguishable to the one without smearing.
+It bears mentioning that the effect of a worse resolution in the \phip case is highly correlated with the value of $g$:
+in the extreme instance of $g=0$ no spin precession would take place, causing a final polarization vector $\vec{s_x} = 0$ and a flat distribution in \phip.
+Since the Gaussian smearing also tends to flatten the the distribution, a fit to the measured angular distribution will result in a systematic underestimation of $g$ unless resolution is taken into account in the fit function, e.g. via convolution with a Gaussian distribution.
 
 \begin{figure}[t]
 	\centering
@@ -414,3 +456,4 @@ I produced three data samples: a <<perfect>> sample without any smearing, a samp
 	\label{fig:5:bw_residuals}
 \end{figure}
 
+Figure \ref{fig:5:bw_residuals} tackles the same comparison with a more numerical approach, plotting the binwise percentage difference between smeared and non-smeared angular distributions. [@todo]

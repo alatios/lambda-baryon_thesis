@@ -358,9 +358,9 @@ As a first test of the impact of this enhancement on the prospective measurement
 	\item all \lz traverse the full $D_y = \SI{4}{\tesla\meter}$ LHCb magnetic field before decaying;
 	\item no experimental resolutions are considered outside of the ones on \cthetap and \phip;
 	\item all acceptance effects are neglected;
-	\item the \lz gyroelectric and gyromagnetic factors are $d=0$ and $g=1.226$ \cite{PDG} respectively.
+	\item the \lz gyroelectric and gyromagnetic factors are fixed to $d=0$ and $g=1.226$ \cite{mdm_g_value} respectively.
 \end{itemize}
-For each event, values of \cthetap and \phip were generated following the probability density function
+For each event, values of \cthetap and \phip were generated following the probability distribution
 \begin{equation}
 f(\cos\theta_p, \phi_p) \coloneqq
 1 +  \alpha \vec{s} \cdot \hat{k},
@@ -394,9 +394,9 @@ and precession angle vector
 \frac{g D_y \mu_B}{\hbar c}
 .
 \end{equation}
-To extract angles according to \eqref{eq:5:pdf_costheta_phi}, I employed a standard Monte Carlo rejection sampling algorithm: I uniformly generate $\cos\theta_p \in [-1,1]$, $\phi_p \in [-\pi,\pi]$ and $\varepsilon \in [0,2]$; the generated angles are accepted if $\varepsilon < f(\cos\theta_p, \phi_p)$, otherwise the process is repeated with new values.
+To extract angles according to \eqref{eq:5:pdf_costheta_phi}, I employed a standard Monte Carlo rejection sampling algorithm: $\cos\theta_p \in [-1,1]$, $\phi_p \in [-\pi,\pi]$ and $\varepsilon \in [0,2]$ are generated uniformly in the respective intervals with a Mersenne Twister pseudorandom number engine; the chosen \cthetap and \phip are accepted if $\varepsilon < f(\cos\theta_p, \phi_p)$, otherwise the process is repeated with a new set of values.
 The effect of angular resolutions on the measurement of \cthetap and \phip was implemented with a per-event Gaussian smearing:
-the generated angles are used as mean value $\mu$ of a Gaussian distribution $\mathcal{N}(\mu,\sigma^2)$, with $\sigma$ being the average desired resolution, and new \cthetap and \phip are chosen according to $\mathcal{N}$.
+the generated angles are used as mean value $\mu$ of a Gaussian distribution $\mathcal{N}(\mu,\sigma^2)$, with $\sigma$ being the average desired resolution, and new \cthetap and \phip are chosen according to $\mathcal{N}$ with the aforementioned rejection sampling approach.
 
 \begin{figure}[t]
 	\centering
@@ -410,7 +410,7 @@ the generated angles are used as mean value $\mu$ of a Gaussian distribution $\m
 		\caption{}
 		\label{fig:5:phi_bw}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Simplified distributions of \cthetap \textit{(a)} and \phip \textit{(b)} assuming perfect angular resolution (\textit{dotted line}), resolution with all reconstructed \demonstratorshort events (\textit{dashed line}) and resolution after the removal of ghost vertex events (\textit{solid line}).}
 	\label{fig:5:ctheta_phi_bw}
 \end{figure}
 
@@ -426,19 +426,19 @@ the generated angles are used as mean value $\mu$ of a Gaussian distribution $\m
 		\caption{}
 		\label{fig:5:ctheta_bw_right}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Details on the leftmost \textit{(a)} and rightmost \textit{(b)} regions of \cthetap distributions from Figure \ref{fig:5:ctheta_bw}.}
 	\label{fig:5:ctheta_bw_details}
 \end{figure}
 
-I produced three data samples: a <<perfect>> sample without any smearing, a sample matching resolution with the removal of ghost vertex events, and a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events).
+I produced three data samples:
+a <<perfect>> sample without any smearing, a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events), and a sample matching resolution with the removal of ghost vertex events.
 Figure \ref{fig:5:ctheta_phi_bw} shows the distributions of generated \cthetap and \phip with the different angular resolutions.
 Effects on \cthetap are comparatively softer, primarily consisting in a depletion of $\cos\theta_p \approx \pm 1$ regions (shown in greater detail in Figure \ref{fig:5:ctheta_bw_details}).
-
 In contrast, azimuthal angle \phip distributions (Figure \ref{fig:5:phi_bw}) highlight the significant difference between the current resolution and the one attainable if the ghost vertex issue were to be completely solved:
-in the latter case the shape is much flatter, whereas the former sports a distribution that is basially indistinguishable to the one without smearing.
+in the latter case the shape is much flatter, whereas the former sports a distribution almost indistinguishable from the one without smearing.
 It bears mentioning that the effect of a worse resolution in the \phip case is highly correlated with the value of $g$:
-in the extreme instance of $g=0$ no spin precession would take place, causing a final polarization vector $\vec{s_x} = 0$ and a flat distribution in \phip.
-Since the Gaussian smearing also tends to flatten the the distribution, a fit to the measured angular distribution will result in a systematic underestimation of $g$ unless resolution is taken into account in the fit function, e.g. via convolution with a Gaussian distribution.
+in the extreme instance of $g=0$ no spin precession takes place, resulting in a final polarization vector $\vec{s}_x = 0$ and a flat distribution in \phip.
+Since the Gaussian smearing also tends to flatten the the \phip distribution, a fit to the measured proton angular distribution will result in a systematic underestimation of $g$ unless the fit function takes due account of the resolution, e.g. via convolution with a Gaussian distribution.
 
 \begin{figure}[t]
 	\centering
@@ -452,8 +452,11 @@ Since the Gaussian smearing also tends to flatten the the distribution, a fit to
 		\caption{}
 		\label{fig:5:phi_bw_residuals}
 	\end{subfigure}
-	\caption{A.}
+	\caption{Binwise difference (in percentage of events) between smeared and non-smeared distributions of \cthetap \textit{(a)} and \phip \textit{(b)} from Figure \ref{fig:5:ctheta_phi_bw}: \textit{empty circles} are computed with smearing matching resolution with all reconstructed \demonstratorshort events, \textit{filled circles} with smearing matching resolution after the removal of ghost vertex events.}
 	\label{fig:5:bw_residuals}
 \end{figure}
 
-Figure \ref{fig:5:bw_residuals} tackles the same comparison with a more numerical approach, plotting the binwise percentage difference between smeared and non-smeared angular distributions. [@todo]
+Figure \ref{fig:5:bw_residuals} tackles the same resolution comparison with a more numerical approach, plotting the binwise percentage difference between smeared and non-smeared angular distributions.
+For \cthetap variation is contained within $\pm 10\%$ across the board, with worse resolution resulting in more spread out bumps from the depletion of the $\cos\theta_p \approx \pm 1$ regions.
+The difference is again far more noticeable for \phip: the current resolution causes a $+20\%$ increase in events around $\phi_p \approx 0$, compensated with $-10\%$ decreases in the $\phi_p \approx \pm \pi$ portions of the distribution;
+the resolution after ghost vertex events removal imprints much more moderate $\leq \pm 5\%$ deviations from the non-smeared distribution and preserves its overall shape.

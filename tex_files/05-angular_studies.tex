@@ -431,14 +431,14 @@ the generated angles are used as mean value $\mu$ of a Gaussian distribution $\m
 \end{figure}
 
 I produced three data samples:
-a <<perfect>> sample without any smearing, a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events), and a sample matching resolution with the removal of ghost vertex events.
+a <<perfect>> sample without any smearing, a sample matching the current resolution (i.e. with all reconstructed \demonstratorshort events), and a sample matching resolution after the removal of ghost vertex events.
 Figure \ref{fig:5:ctheta_phi_bw} shows the distributions of generated \cthetap and \phip with the different angular resolutions.
 Effects on \cthetap are comparatively softer, primarily consisting in a depletion of $\cos\theta_p \approx \pm 1$ regions (shown in greater detail in Figure \ref{fig:5:ctheta_bw_details}).
 In contrast, azimuthal angle \phip distributions (Figure \ref{fig:5:phi_bw}) highlight the significant difference between the current resolution and the one attainable if the ghost vertex issue were to be completely solved:
 in the latter case the shape is much flatter, whereas the former sports a distribution almost indistinguishable from the one without smearing.
 It bears mentioning that the effect of a worse resolution in the \phip case is highly correlated with the value of $g$:
-in the extreme instance of $g=0$ no spin precession takes place, resulting in a final polarization vector $\vec{s}_x = 0$ and a flat distribution in \phip.
-Since the Gaussian smearing also tends to flatten the the \phip distribution, a fit to the measured proton angular distribution will result in a systematic underestimation of $g$ unless the fit function takes due account of the resolution, e.g. via convolution with a Gaussian distribution.
+in the extreme instance of $g=0$ no spin precession takes place, resulting in a final polarization $s_x = 0$ and a flat distribution in \phip.
+Since the Gaussian smearing also tends to flatten the \phip distribution, a fit to the measured proton angular distribution will result in a systematic underestimation of $g$ unless the fit function takes due account of the resolution, e.g. via convolution with a Gaussian distribution.
 
 \begin{figure}[t]
 	\centering
@@ -457,6 +457,6 @@ Since the Gaussian smearing also tends to flatten the the \phip distribution, a 
 \end{figure}
 
 Figure \ref{fig:5:bw_residuals} tackles the same resolution comparison with a more numerical approach, plotting the binwise percentage difference between smeared and non-smeared angular distributions.
-For \cthetap variation is contained within $\pm 10\%$ across the board, with worse resolution resulting in more spread out bumps from the depletion of the $\cos\theta_p \approx \pm 1$ regions.
+Variations for \cthetap are contained within $\pm 10\%$ across the board except for the highly depleted  $\cos\theta_p \approx \pm 1$ edges, reaching a $-30\%$ dip in the rightmost bin when retaining ghost vertex events.
 The difference is again far more noticeable for \phip: the current resolution causes a $+20\%$ increase in events around $\phi_p \approx 0$, compensated with $-10\%$ decreases in the $\phi_p \approx \pm \pi$ portions of the distribution;
 the resolution after ghost vertex events removal imprints much more moderate $\leq \pm 5\%$ deviations from the non-smeared distribution and preserves its overall shape.

@@ -356,7 +356,7 @@ As a first test of the impact of this enhancement on the prospective measurement
 \begin{itemize}
 	\item \lz are produced with $\vec{p} = p \hat{z}$, $\beta=1$ and maximal longitudinal polarization $\vec{s}_0 = (0, 0, 1)$;
 	\item all \lz traverse the full $D_y = \SI{4}{\tesla\meter}$ LHCb magnetic field before decaying;
-	\item no experimental resolutions are considered outside of the ones on \cthetap and \phip;
+	\item experimental resolutions on \cthetap and \phip are averaged over the respective variable ranges;
 	\item all acceptance effects are neglected;
 	\item the \lz gyroelectric and gyromagnetic factors are fixed to $d=0$ and $g=1.226$ \cite{mdm_g_value} respectively.
 \end{itemize}
@@ -387,7 +387,7 @@ proton production direction in the \slambda frame
 \end{pmatrix},
 \label{eq:5:k_hat}
 \end{equation}
-and precession angle vector
+and precession angle
 \begin{equation}
 \Phi
 =
@@ -438,7 +438,7 @@ In contrast, azimuthal angle \phip distributions (Figure \ref{fig:5:phi_bw}) hig
 in the latter case the shape is much flatter, whereas the former sports a distribution almost indistinguishable from the one without smearing.
 It bears mentioning that the effect of a worse resolution in the \phip case is highly correlated with the value of $g$:
 in the extreme instance of $g=0$ no spin precession takes place, resulting in a final polarization $s_x = 0$ and a flat distribution in \phip.
-Since the Gaussian smearing also tends to flatten the \phip distribution, a fit to the measured proton angular distribution will result in a systematic underestimation of $g$ unless the fit function takes due account of the resolution, e.g. via convolution with a Gaussian distribution.
+Since the Gaussian smearing also tends to flatten the \phip distribution, a fit to the measured proton angular distribution will result in a systematic underestimation of $g$ unless the fit function takes due account of the resolution, e.g. via \phip-convolution with a Gaussian distribution.
 
 \begin{figure}[t]
 	\centering
